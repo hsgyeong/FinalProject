@@ -7,7 +7,7 @@
 
 	<!-- 형식만 보고 지워서 다시 해주세요!!!! -->
 	
-	<definition name="layou1" template="/WEB-INF/layout/layout1.jsp">
+	<definition name="layout1" template="/WEB-INF/layout/layout1.jsp">
 		<put-attribute name="title" value="/WEB-INF/layout/title.jsp"/>
 		<put-attribute name="menu" value="/WEB-INF/layout/menu.jsp"/>
 		<put-attribute name="main" value="/WEB-INF/layout/main.jsp"/>
