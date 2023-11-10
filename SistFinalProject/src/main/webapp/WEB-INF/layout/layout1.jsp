@@ -1,17 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+		 pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gaegu:wght@300&family=Nanum+Pen+Script&family=Sunflower:wght@300&display=swap" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+	<title>Insert title here</title>
 </head>
+<style>
+	div.layout{
+
+	}
+
+	div.title{
+		top: 0;
+		position: fixed;
+		width: 100%;
+		height: 72px;
+		background-color: #f7323f;
+	}
+
+	div.menu{
+	}
+
+	div.main{
+		margin-top: 72px;
+
+		/* margin-top: -2.3vh; */
+	}
+
+	div.footer{
+
+	}
+
+</style>
 <body>
-	<h1>레이아웃입니다</h1>
+<%--<div class="layout">--%>
+	<div class="title">
+		<tiles:insertAttribute name="title"/>
+	</div>
+
+	<div class="menu">
+		<tiles:insertAttribute name="menu"/>
+	</div>
+
+	<div class="main">
+		<tiles:insertAttribute name="main"/>
+	</div>
+
+	<div class="footer">
+		<tiles:insertAttribute name="footer"/>
+	</div>
+<%--</div>--%>
 </body>
 </html>
