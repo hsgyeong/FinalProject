@@ -14,6 +14,13 @@
 	<title>Insert title here</title>
 </head>
 <style>
+	body {
+		display: flex;
+		flex-direction: column;
+		bottom: 0;margin: 0;
+		padding: 0;
+		min-height: 100vh;
+	}
 	footer{
 		padding-top: 50px;
 		padding-bottom: 30px;
@@ -33,6 +40,18 @@
 		text-decoration: none;
 		color: #777879;
 		font-size: 13px;
+		margin-left: 1%;
+		margin-right: 1%;
+	}
+	li.linklist{
+		color: #777879;
+		font-size: 13px;
+
+	}
+	li a i{
+		color: #777879;
+		font-size: 30px;
+		margin-left: 1%;
 	}
 
 </style>
@@ -42,22 +61,22 @@
 		<div class="footercontent">
 			<ul>
 				<li class="linklist">
-					<a href="#">회사소개</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-					<a href="#">이용약관</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-					<a href="#">개인정보처리방침</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-					<a href="#">소비자 분쟁해결 기준</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-					<a href="#">사업자 정보확인</a>
+					<a href="#">회사소개</a><span>|</span>
+					<a href="#">이용약관</a><span>|</span>
+					<a href="#">개인정보처리방침</a><span>|</span>
+					<a href="#">소비자 분쟁해결 기준</a><span>|</span>
+					<a href="#">사업자 정보확인</a><span>|</span>
 				</li>
 				<li class="linklist">
-					<a href="#">TREVIEW 마케팅센터</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-					<a href="#">액티비니 호스트센터</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+					<a href="#">TREVIEW 마케팅센터</a><span>|</span>
+					<a href="#">액티비니 호스트센터</a><span>|</span>
 					<a href="#">콘텐츠산업진흥법에 의한 표시</a>
 				</li>
 				<br>
-				<li>
+				<li style="margin-left: 1%">
 					<p><b>고객행복센터 1234-5678</b>&nbsp; 오전 9시 ~ 오후 6시</p>
 				</li>
-				<li>
+				<li style="margin-left: 1%">
 					<span>TREVIEW</span><br>
 					주소 : 서울특별시 강남구 테헤란로 132(역삼동) 한독약품빌딩 8층 쌍용교육센터<br>
 					TREVIEW는 통신판매중개자로서 통신판매의 당사자가 아니며, 상품의 예약, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다.
