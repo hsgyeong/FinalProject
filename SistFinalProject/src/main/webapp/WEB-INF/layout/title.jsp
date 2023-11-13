@@ -83,8 +83,8 @@
                     <a href="#"><i class="bi bi-search"></i></a>
                     <a href="#">내주변</a>
                     <a href="#">예약내역</a>
-                    <a href="#">더보기</a>
-                    <a href="#">로그인</a>
+                    <a href="/accom/accominsert">더보기</a>
+                    <a href="/room/roominsert">로그인</a>
                 </li>
             </ul>
         </div>
