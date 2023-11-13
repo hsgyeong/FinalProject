@@ -28,8 +28,8 @@
 		width: 100%;
 		height: 72px;
 		background-color: #f7323f;
-		border-bottom: 1px solid #777879;
-
+		/*border-bottom: 1px solid #777879;*/
+		box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
 	}
 
 	div.menu{
@@ -48,7 +48,7 @@
 
 	div.footer{
 		position: absolute;
-		bottom: 0;
+		bottom: 0%;
 		width: 100%;
 		/*height: 300px;*/
 		border-top: 1px solid rgba(0,0,0,0.08);

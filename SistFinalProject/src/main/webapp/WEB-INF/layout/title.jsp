@@ -40,42 +40,24 @@
         vertical-align: middle;
         font-size: 18px;
     }
-
-    /*    margin-right: 30px;*/
-    /*    color: white;*/
-    /*    text-decoration: none;*/
-    /*    display: inline-block;*/
-    /*    vertical-align: middle;*/
-    /*    !*float: right;*!*/
-    /*    margin-right: 30px;*/
-
-    /*}*/
-
-    /*section{*/
-    /*    font-family: 'Jalnan';*/
-    /*    width: 80%;*/
-    /*    color: white;*/
-    /*    display: flex;*/
-    /*    align-items: center;*/
-    /*    justify-content: center;*/
-    /*    margin-right: auto;*/
-    /*    margin-left: auto;*/
-    /*}*/
-
-    /*div.select_option{*/
-    /*    !*width: 60%;*!*/
-    /*    !*float: right;*!*/
-    /*    !*margin-right: auto;*!*/
-    /*}*/
+    .bi-search{
+        color: white;
+    }
+    .titlebox a{
+        color: white;
+        text-decoration: none;
+        /*text-align: center;*/
+        /*vertical-align: middle;*/
+    }
 
 </style>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 <body>
 
 <header>
-<%--    <section class="d-inline-flex">--%>
         <div class="titlebox">
-            <img src="${root}/triview.png" style="height: 70px;">
+<%--            <a href="/"><img src="${root}/TRIVIEW.png" style="height: 100px;"></a>--%>
+            <a href="/"><h2>TRIVIEW</h2></a>
         </div>
         <div class="select_option">
             <ul>
@@ -88,7 +70,6 @@
                 </li>
             </ul>
         </div>
-<%--    </section>--%>
 </header>
 </body>
 </html>
