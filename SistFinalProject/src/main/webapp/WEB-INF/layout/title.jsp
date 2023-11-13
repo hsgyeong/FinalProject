@@ -14,34 +14,81 @@
 </head>
 <style>
     header{
-
-
-    }
-    section{
-        width: 80%;
-        text-align: center;
         font-family: 'Jalnan';
-        line-height: 72px;
+        width: 70%;
         color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: auto;
+        margin-left: auto;
+        /*border: 1px solid ;*/
     }
-    section.d-inline-flex{
-        text-align: center;
+    div.titlebox{
+        /*position: absolute;*/
+        margin-left: 0px;
     }
-    section a{
-
+    div.select_option{
+        /*float: right;*/
+        margin-right: 0;
+    }
+    div ul li a{
+        margin-right: 40px;
+        color: white;
         text-decoration: none;
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 18px;
     }
+
+    /*    margin-right: 30px;*/
+    /*    color: white;*/
+    /*    text-decoration: none;*/
+    /*    display: inline-block;*/
+    /*    vertical-align: middle;*/
+    /*    !*float: right;*!*/
+    /*    margin-right: 30px;*/
+
+    /*}*/
+
+    /*section{*/
+    /*    font-family: 'Jalnan';*/
+    /*    width: 80%;*/
+    /*    color: white;*/
+    /*    display: flex;*/
+    /*    align-items: center;*/
+    /*    justify-content: center;*/
+    /*    margin-right: auto;*/
+    /*    margin-left: auto;*/
+    /*}*/
+
+    /*div.select_option{*/
+    /*    !*width: 60%;*!*/
+    /*    !*float: right;*!*/
+    /*    !*margin-right: auto;*!*/
+    /*}*/
+
 </style>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 <body>
 
 <header>
-    <section class="d-inline-flex">
-        <h2 style="line-height: 72px;">TREVIEW</h2>
+<%--    <section class="d-inline-flex">--%>
         <div class="titlebox">
-            hoihoi
+            <img src="${root}/triview.png" style="height: 70px;">
         </div>
-    </section>
+        <div class="select_option">
+            <ul>
+                <li>
+                    <a href="#"><i class="bi bi-search"></i></a>
+                    <a href="#">내주변</a>
+                    <a href="#">예약내역</a>
+                    <a href="#">더보기</a>
+                    <a href="#">로그인</a>
+                </li>
+            </ul>
+        </div>
+<%--    </section>--%>
 </header>
 </body>
 </html>

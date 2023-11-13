@@ -14,6 +14,11 @@
 </head>
 <style>
 	div.layout{
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
 
 	}
 
@@ -23,24 +28,36 @@
 		width: 100%;
 		height: 72px;
 		background-color: #f7323f;
+		border-bottom: 1px solid #777879;
+
 	}
 
 	div.menu{
 	}
 
 	div.main{
-		margin-top: 72px;
+
+		margin-top: 120px;
+		margin-bottom: 400px;
+		/*align-items: center;*/
+		width: 65%;
+		
 
 		/* margin-top: -2.3vh; */
 	}
 
 	div.footer{
-
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		/*height: 300px;*/
+		border-top: 1px solid rgba(0,0,0,0.08);
+		background: #F5F5F5;
 	}
 
 </style>
 <body>
-<%--<div class="layout">--%>
+<div class="layout">
 	<div class="title">
 		<tiles:insertAttribute name="title"/>
 	</div>
@@ -52,10 +69,10 @@
 	<div class="main">
 		<tiles:insertAttribute name="main"/>
 	</div>
-
+	<br>
 	<div class="footer">
 		<tiles:insertAttribute name="footer"/>
 	</div>
-<%--</div>--%>
+</div>
 </body>
 </html>
