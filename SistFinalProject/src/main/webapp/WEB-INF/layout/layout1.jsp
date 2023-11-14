@@ -32,9 +32,6 @@
 		box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
 	}
 
-	div.menu{
-	}
-
 	div.main{
 
 		margin-top: 120px;
@@ -61,11 +58,6 @@
 	<div class="title">
 		<tiles:insertAttribute name="title"/>
 	</div>
-
-	<div class="menu">
-		<tiles:insertAttribute name="menu"/>
-	</div>
-
 	<div class="main">
 		<tiles:insertAttribute name="main"/>
 	</div>
