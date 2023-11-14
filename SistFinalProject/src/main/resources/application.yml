@@ -16,8 +16,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/coffee?serverTimezone=Asia/Seoul
-    username: tjdgus
-    password: 1234
+    username: ssung2sin
+    password: a1234
 
     
 #mybatis setting
