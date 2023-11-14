@@ -128,7 +128,7 @@
     </div>
 
     <div class="maincategory d-inline-flex">
-        <a href="test"><figure><img src="${root}/hotel.png"><figcaption>호텔</figcaption></figure></a>
+        <a href="#"><figure><img src="${root}/hotel.png"><figcaption>호텔</figcaption></figure></a>
         <a href="#"><figure><img src="${root}/bed.png"><figcaption>모텔</figcaption></figure></a>
         <a href="#"><figure><img src="${root}/pension.png"><figcaption>펜션</figcaption></figure></a>
     </div>

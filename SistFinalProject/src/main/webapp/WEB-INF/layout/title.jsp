@@ -41,6 +41,7 @@
         align-items: center;
         justify-content: right;
         width: 80%;
+        height: 100%;
     }
     div.select-option>a{
         width: 30px;
@@ -53,23 +54,33 @@
     }
 
 
-    div ul {
+    div ul.select-ul {
         list-style: none;
         margin: 0;
         padding: 0;
+        position: relative;
+        /*display: flex;*/
+        /*justify-content: center;*/
+        align-items: center;
     }
 
     div.select-option ul li.select-li {
         display: flex;
         align-items: center;
+        justify-content: center;
+        /*width: 100px;*/
+        height: 72px;
+
     }
 
-    div ul li.select-li a {
+    div ul li.select-li>a {
         margin-right: 30px;
         color: white;
         text-decoration: none;
         font-size: 18px;
         white-space: nowrap;
+        height: 100%;
+        padding-top: 20px;
     }
     .titlebox a {
         color: white;
@@ -97,16 +108,16 @@
         cursor: pointer;
     }
 
-    div.sub-title{
-        position: relative;
-        background: white;
-        top: -20px;
+    div.sub-title {
+        position: absolute;
+        background: #fff;
+        top: 72px;
         width: 150px;
-        margin-left: 50%;
-        border: 3px solid green;
+        /*border: 3px solid green;*/
         border-radius: 10px;
-        box-shadow: 2px 2px 2px 2px #777879;
-        padding: 10px 10px 10px 10px;
+        box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.2);
+        padding: 10px 5px 0px 5px;
+        margin-right: 60px;
     }
     div.sub-title a{
         color: black;
@@ -122,12 +133,19 @@
         $("div.sub-title").hide();
         $("div.search-input-box").hide();
 
-        $("#see_more").mouseover(function (){
+
+        $(".select-li:eq(2)").mouseover(function (){
             $("div.sub-title").show();
         });
+        $("div.sub-title").mouseover(function (){
+            $(this).show();
+        });
 
-        $("#see_more").mouseout(function (){
-            $("div.sub-title").hide();
+        $(".select-li").mouseout(function (){
+           $("div.sub-title").hide();
+        });
+        $("div.sub-title").mouseout(function (){
+            $(this).hide();
         });
 
         $(".bi-search").click(function (){
@@ -154,37 +172,37 @@
 <body>
 
 <header>
-
     <div class="titlebox">
         <a href="/"><h2>TRIVIEW</h2></a>
     </div>
     <div class="select-option">
         <a><i class="bi bi-search"></i></a>
-        <ul class="select-ul">
-            <li class="select-li">
-                <a href="#">내주변</a>
-                <a href="#">예약내역</a>
-                <a href="/accom/Accom-Insert" id="see_more">더보기</a>
-                <a href="/room/Room-Insert">로그인</a>
-            </li>
+        <ul class="select-ul d-inline-flex">
+            <li class="select-li"><a href="#">내주변</a></li>
+            <li class="select-li"><a href="#">예약내역</a></li>
+            <li class="select-li"><a href="/accom/Accom-Insert" id="see_more">더보기</a></li>
+            <li class="select-li"><a href="/room/Room-Insert">로그인</a></li>
+
         </ul>
         <div class="search-input-box">
             <input type="text" class="search-input" placeholder="지역,숙소명">
             <i class="bi bi-x"></i>
 
         </div>
+        <div class="sub-title">
+            <ul>
+                <li><a href="#">공지사항</a></li>
+                <li><a href="#">이벤트</a></li>
+                <li><a href="#">1:1문의</a></li>
+                <li><a href="#">약관 및 정책</a></li>
+                <li><a href="#">공지사항</a></li>
+            </ul>
+        </div>
     </div>
+
 </header>
 
-<div class="sub-title">
-    <ul>
-        <li><a href="#">공지사항</a></li>
-        <li><a href="#">이벤트</a></li>
-        <li><a href="#">1:1문의</a></li>
-        <li><a href="#">약관 및 정책</a></li>
-        <li><a href="#">공지사항</a></li>
-    </ul>
-</div>
+
 
 </body>
 </html>
