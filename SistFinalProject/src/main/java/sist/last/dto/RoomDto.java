@@ -12,8 +12,8 @@ public class RoomDto {
 	private int accom_num;
 	private String room_name;
 	private int room_price;
-	private int room_maxpeople;
 	private int room_minpeople;
+	private int room_maxpeople;
 	private String room_location;
 	private String room_photo;
 	private String room_info;
