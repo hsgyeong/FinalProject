@@ -42,10 +42,10 @@
 .room_insert_btn2{
 	width: 11vh;
 	height: 6vh;
-	border: 0.5px solid silver;
+	border: 1px solid silver;
 	color: black;
 	font-weight: bold;
-	background-color: #e9e9e9;
+	background-color: white;
 	border-radius: 1vh;
 	margin-left: 1vh;
 }
