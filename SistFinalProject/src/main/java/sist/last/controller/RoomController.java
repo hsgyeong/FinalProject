@@ -1,14 +1,60 @@
 package sist.last.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import sist.last.dto.RoomDto;
+import sist.last.mapper.RoomMapperInter;
 
 @Controller
 public class RoomController {
 
-	@GetMapping("/room/roominsert")
+	@Autowired
+	RoomMapperInter mapper;
+	
+	@GetMapping("/room/Room-Insert")
 	public String roominsertform()
 	{
-		return "/room/roominsert";
+		return "/room/RoomInsert";
+	}
+	
+	@PostMapping("/room/Insert")
+	public String insert(@ModelAttribute RoomDto dto, MultipartFile photo, HttpSession session) {
+		// save 위치
+		String path = session.getServletContext().getRealPath("/roomsave");
+
+		
+			// 업로드한 파일 dto 얻기
+			String originalFilename = photo.getOriginalFilename();
+			// 파일 이름에 날짜 및 시간 추가
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			String timestamp = sdf.format(new Date());
+			String newFilename = timestamp + "_" + originalFilename;
+			dto.setRoom_photo(newFilename);
+
+			try {
+				photo.transferTo(new File(path + "/" + newFilename));
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		mapper.insert_Room(dto);
+
+		return "redirect:/room/Room-Insert";
 	}
 }
