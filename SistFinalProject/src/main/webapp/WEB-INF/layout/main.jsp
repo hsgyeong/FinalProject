@@ -30,18 +30,25 @@
             width: 100%;
             /*height: 20vh;*/
             /*border: 3px solid blue;*/
-            padding: 10px 10px 10px 10px;
+            padding: 10px 15% 10px 15%;
             font-family: 'Jalnan';
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             margin-bottom: 50px;
         }
         div.maincategory img{
             width: 100px;
-            margin: 0px 70px 0px 70px;
+            /*margin: 0 20% 0 20%;*/
             /*margin-right: 20%;*/
             /*margin-left: 20%;*/
         }
+        div.maincategory a{
+            text-decoration: none;
+            color: black;
+            display: flex;
+            justify-content: space-between;
+        }
+
         div.newsmain{
             font-family: Jalnan;
             width: 100%;
@@ -88,6 +95,7 @@
             color: black;
             display: flex;
             align-items: center;
+            text-decoration: none;
         }
         .newsbox img{
             height: 150px;
@@ -120,7 +128,7 @@
     </div>
 
     <div class="maincategory d-inline-flex">
-        <a href="test"><figure><img src="${root}/hotel.png"><figcaption>호텔</figcaption></figure></a>
+        <a href="#"><figure><img src="${root}/hotel.png"><figcaption>호텔</figcaption></figure></a>
         <a href="#"><figure><img src="${root}/bed.png"><figcaption>모텔</figcaption></figure></a>
         <a href="#"><figure><img src="${root}/pension.png"><figcaption>펜션</figcaption></figure></a>
     </div>
