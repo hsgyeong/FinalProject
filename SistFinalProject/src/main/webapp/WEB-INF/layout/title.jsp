@@ -148,10 +148,10 @@
             $(this).hide();
         });
 
-        $(".bi-search").click(function (){
+        $("i.bi-search").click(function (){
             // $(this).animate({"marginLeft":"100%"},500);
-            $(".select-ul").hide();
             $("div.search-input-box").show();
+            $("div.select-box").hide();
         });
 
         $(".search-input-box").click(function (){
@@ -159,7 +159,7 @@
         });
 
         $("i.bi-x").click(function (){
-            $(".select-ul").show();
+            $("div.select-box").show();
             $("div.search-input-box").hide();
         });
 
@@ -177,13 +177,14 @@
     </div>
     <div class="select-option">
         <a><i class="bi bi-search"></i></a>
-        <ul class="select-ul d-inline-flex">
-            <li class="select-li"><a href="#">내주변</a></li>
-            <li class="select-li"><a href="#">예약내역</a></li>
-            <li class="select-li"><a href="/accom/Accom-Insert" id="see_more">더보기</a></li>
-            <li class="select-li"><a href="/room/Room-Insert">로그인</a></li>
-
-        </ul>
+        <div class="select-box">
+            <ul class="select-ul d-inline-flex">
+                <li class="select-li"><a href="#">내주변</a></li>
+                <li class="select-li"><a href="#">예약내역</a></li>
+                <li class="select-li"><a href="/accom/Accom-Insert" id="see_more">더보기</a></li>
+                <li class="select-li"><a href="/room/Room-Insert">로그인</a></li>
+            </ul>
+        </div>
         <div class="search-input-box">
             <input type="text" class="search-input" placeholder="지역,숙소명">
             <i class="bi bi-x"></i>
