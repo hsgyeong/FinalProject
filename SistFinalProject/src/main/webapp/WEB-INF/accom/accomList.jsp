@@ -35,39 +35,74 @@
     }
 }
 
-.accom_list_box {
-    
+.accom_list_box img {
+    max-width: 10vh;
+    max-height: 10vh;
 }
 
 .accom_list_box table {
     width: 100%;
 }
+
+.accom_list_btn1 {
+	width: 8vh;
+	height: 5vh;
+	border: 1px solid silver;
+	color: black;
+	font-weight: bold;
+	background-color: white;
+	border-radius: 1vh;
+	font-size: 0.8em;
+}
+
+.accom_list_btn2 {
+	width: 8vh;
+	height: 5vh;
+	border: 1px solid silver;
+	color: black;
+	font-weight: bold;
+	background-color: white;
+	border-radius: 1vh;
+	font-size: 0.8em;
+}
+
+.accom_list_btn1:hover,
+.accom_list_btn2:hover {
+	background-color: rgb(228, 231, 235);
+}
 </style>
 </head>
 <body>
 <div class="scrolling-text-container">
-    <div class="scrolling-text">총 ${totalCount }개의 숙소가 등록되어 있어요!</div>
+    <div class="scrolling-text">숙소가 ${totalCount }개 등록되어 있어요!</div>
 </div>
 
 <div class="accom_list_box" align="center">
     <table class="table table-bordered">
         <c:if test="${totalCount > 0 }">
             <tr>
-                <td align="center" style="width: 10%; height: 5vh;">카운트</td>
+                <td align="center" style="width: 10%; height: 5vh;">No</td>
                 <td align="center" style="width: 20%; height: 5vh;">숙소이름</td>
-                <td align="center" style="width: 15%; height: 5vh;">숙소종류</td>
-                <td align="center" style="width: 25%; height: 5vh;">숙소사진</td>
-                <td align="center" style="width: 30%; height: 5vh;">숙소위치</td>
+                <td align="center" style="width: 10%; height: 5vh;">숙소종류</td>
+                <td align="center" style="width: 20%; height: 5vh;">숙소사진</td>
+                <td align="center" style="width: 20%; height: 5vh;">숙소위치</td>
+                <td align="center" style="width: 20%; height: 5vh;">수정 & 삭제</td>
             </tr>
             <c:forEach var="dto" items="${list}" varStatus="i">
                 <tr>
                     <td align="center" valign="middle" style="width: 10%; height: 15vh;">${i.count }</td>
-                    <td align="center" valign="middle" style="width: 20%; height: 15vh;"></td>
-                    <td align="center" valign="middle" style="width: 15%; height: 15vh;"></td>
-                    <td align="center" valign="middle" style="width: 25%; height: 15vh;">
-                        <img src="${dto.accom_photo}" alt="">
+                    <td align="center" valign="middle" style="width: 20%; height: 15vh;">${dto.accom_name }</td>
+                    <td align="center" valign="middle" style="width: 10%; height: 15vh;">${dto.accom_category }</td>
+                    <td align="center" valign="middle" style="width: 20%; height: 15vh;">
+                        <img src="../accomsave/${dto.accom_photo}" alt="">
                     </td>
-                    <td align="center" valign="middle" style="width: 30%; height: 15vh;"></td>
+                    <td align="center" valign="middle" style="width: 20%; height: 15vh;">${dto.accom_location }</td>
+                    <td align="center" valign="middle" style="width: 20%; height: 15vh;">
+                    <button type="button" class="accom_list_btn1"
+                    onclick="location.href='updateForm?num=${dto.accom_num}'">수정</button>
+                    <button type="button" class="accom_list_btn2"
+                    onclick="location.href='delete?num=${dto.accom_num}'">삭제</button>
+                    </td>
                 </tr>
             </c:forEach>
         </c:if>
