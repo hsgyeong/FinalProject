@@ -66,7 +66,7 @@
                     <a href="#">내주변</a>
                     <a href="#">예약내역</a>
                     <a href="/accom/accominsert">더보기</a>
-                    <a href="/login/loginform">로그인</a>
+                    <a href="/room/roominsert">로그인</a>
                 </li>
             </ul>
         </div>
