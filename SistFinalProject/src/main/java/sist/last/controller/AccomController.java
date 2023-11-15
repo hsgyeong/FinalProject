@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import sist.last.dto.AccomDto;
 import sist.last.mapper.AccomMapperInter;
@@ -23,10 +25,26 @@ public class AccomController {
 	@Autowired
 	AccomMapperInter mapper;
 	
+	@GetMapping("/accom/Accom-List")
+	public ModelAndView list() {
+		
+		ModelAndView model=new ModelAndView();
+		
+		int totalCount=mapper.getTotalCount();
+		List<AccomDto> list=mapper.getAllData();
+		
+		model.addObject("totalCount", totalCount);
+		model.addObject("list", list);
+		
+		model.setViewName("/accom/accomList");
+		
+		return model;
+	}
+	
 	@GetMapping("/accom/Accom-Insert")
 	public String accominsertfrom()
 	{
-		return "/accom/AccomInsert";
+		return "/accom/accomInsert";
 	}
 	
 	
@@ -54,7 +72,7 @@ public class AccomController {
 				e.printStackTrace();
 			}
 		
-		mapper.insert_Accom(dto);
+		mapper.insertAccom(dto);
 
 		return "redirect:/accom/Accom-Insert";
 	}

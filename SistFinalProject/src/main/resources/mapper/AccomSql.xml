@@ -5,8 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="sist.last.mapper.AccomMapperInter">
 
-    <insert id="insert_Accom" parameterType="AccomDto">
-        insert into finalproject.accom(business_id,accom_name,accom_category,accom_photo,accom_location) values (#{business_id},#{accom_name},#{accom_category},#{accom_photo},#{accom_location})
+    <insert id="insertAccom" parameterType="AccomDto">
+        insert into accom(business_id,accom_name,accom_category,accom_photo,accom_location) values (#{business_id},#{accom_name},#{accom_category},#{accom_photo},#{accom_location})
     </insert>
     
+    <select id="getAllData" resultType="AccomDto">
+    	select * from accom order by accom_num
+    </select>
+    
+    <select id="getTotalCount" resultType="int">
+        select count(*) from accom
+    </select>
 </mapper>
