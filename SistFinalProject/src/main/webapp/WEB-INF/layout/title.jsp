@@ -169,7 +169,12 @@
 
         $("i.search-active").click(function (){
             const searchText = $("input.search-input").val();
+            if(searchText.trim().length==0){
+                alert("검색하고 싶은 내용을 입력해주세요.")
+                return false;
+            }
             searchActive(searchText);
+            $("input.search-input").val("");
         })
 
         $("input.search-input").keydown(function(key){
