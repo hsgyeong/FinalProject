@@ -62,11 +62,12 @@
         <div class="select_option">
             <ul>
                 <li>
-                    <a href="#"><i class="bi bi-search"></i></a>
+                    <a href="/product/search-main"><i class="bi bi-search"></i></a>
                     <a href="#">내주변</a>
                     <a href="#">예약내역</a>
                     <a href="/accom/accominsert">더보기</a>
                     <a href="/room/roominsert">로그인</a>
+                    <a href="/login/loginpage">로그인페이지로</a>
                 </li>
             </ul>
         </div>
