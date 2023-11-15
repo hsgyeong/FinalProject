@@ -134,9 +134,9 @@
 
                         function updateCalendar() {
                             //alert(count);
+                            alert(firstMonth + "," + currentMonth);
                             if (count == 0) {
                                 lastClickDay = null;
-                                firstMonth = currentMonth;
                             }
 
                             if (count == 1) {
@@ -146,6 +146,7 @@
                                         alert("7일까지 예약 가능합니다.")
                                         lastClickDay = null;
                                         count--;
+                                        return;
                                     }
                                 }
                                 if (lastClickDay < firstClickDay) {
@@ -153,6 +154,7 @@
                                         alert("7일까지 예약 가능합니다.")
                                         lastClickDay = null;
                                         count--;
+                                        return;
                                     }
                                 }
                             }
@@ -173,16 +175,12 @@
                             const currentMonthContainer = document.querySelector('.current-month');
                             $(".current-month").html(currentYear + "년 " + (currentMonth + 1) + "월");
                             daysContainer.innerHTML = '';
+                            //alert(currentMonth + "," + firstMonth);
 
                             for (let i = 1; i <= lastDay.getDate(); i++) {
                                 const dayElement = document.createElement('div');
                                 dayElement.textContent = i;
                                 dayElement.classList.add('day');
-
-                                if (i === firstClickDay && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
-                                    dayElement.classList.add('selected');
-                                    firstClickDay = i;
-                                }
 
                                 if (i < today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
                                     dayElement.classList.add('disabled');
@@ -195,15 +193,21 @@
                                     dayElement.style.pointerEvents = 'none'; // Disable click event
                                     dayElement.style.opacity = '0.5'; // Apply visual effect for disabled date
                                 }
-                                if (lastClickDay != null) {
-                                    if (firstClickDay < lastClickDay) {
-                                        if (i >= firstClickDay && i <= lastClickDay) {
-                                            dayElement.classList.add('selected');
-                                        }
+                                if (currentMonth == firstMonth) {
+                                    if (i === firstClickDay && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+                                        dayElement.classList.add('selected');
+                                        firstClickDay = i;
                                     }
-                                    if (firstClickDay > lastClickDay) {
-                                        if (i >= lastClickDay && i <= firstClickDay) {
-                                            dayElement.classList.add('selected');
+                                    if (lastClickDay != null) {
+                                        if (firstClickDay < lastClickDay) {
+                                            if (i >= firstClickDay && i <= lastClickDay) {
+                                                dayElement.classList.add('selected');
+                                            }
+                                        }
+                                        if (firstClickDay > lastClickDay) {
+                                            if (i >= lastClickDay && i <= firstClickDay) {
+                                                dayElement.classList.add('selected');
+                                            }
                                         }
                                     }
                                 }
@@ -243,6 +247,8 @@
                             count++;
                             if (count == 2) {
                                 firstClickDay = day;
+                                firstMonth = currentMonth;
+
                                 count = 0;
                             }
                             if (count == 1) {
