@@ -172,21 +172,6 @@
 <body>
 
 <header>
-<<<<<<< HEAD
-        <div class="titlebox">
-<%--            <a href="/"><img src="${root}/TRIVIEW.png" style="height: 100px;"></a>--%>
-            <a href="/"><h2>TRIVIEW</h2></a>
-        </div>
-        <div class="select_option">
-            <ul>
-                <li>
-                    <a href="#"><i class="bi bi-search"></i></a>
-                    <a href="#">내주변</a>
-                    <a href="#">예약내역</a>
-                    <a href="/accom/accominsert">더보기</a>
-                    <a href="/login/loginform">로그인</a>
-                </li>
-=======
     <div class="titlebox">
         <a href="/"><h2>TRIVIEW</h2></a>
     </div>
@@ -198,7 +183,6 @@
                 <li class="select-li"><a href="#">예약내역</a></li>
                 <li class="select-li"><a href="/accom/Accom-Insert" id="see_more">더보기</a></li>
                 <li class="select-li"><a href="/room/Room-Insert">로그인</a></li>
->>>>>>> 1241a4f87044cd81e3ced8b177fb8a2606c304da
             </ul>
         </div>
         <div class="search-input-box">
