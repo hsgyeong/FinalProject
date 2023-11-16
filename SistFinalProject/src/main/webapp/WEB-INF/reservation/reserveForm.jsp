@@ -9,6 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 <link href="https://webfontworld.github.io/goodchoice/Jalnan.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
@@ -47,6 +48,7 @@
 	
 	div.left-side{
 		float: left;
+		width: 65%;
 	}
 	
 	div.left-side input::placeholder {
@@ -73,13 +75,35 @@
 		border: 1px solid lightgray;
 		padding: 10px 10px 10px 10px;
 		color: #707070;
-		width: 150px;
+		width: 18.75vh;
 	}
 	
 	.agreement-chkbox a{
 		color: #707070;
 	}
+	
+	.modal-title{
+		position: absolute;
+		left: 40%;
+	}
+	
+	.mention{
+		text-align: center;
+		padding: 50px 30px 50px 30px;
+		color: #BDBDBD;
+	}
 </style>
+<script type="text/javascript">
+	$(function(){
+		
+		$(".btn-discount, .btn-point, .btn-giftcard").click(function(){
+			
+			var pay=$(".buypay").text();
+			
+			$(".totalpay").text(pay);
+		});
+	});
+</script>
 </head>
 <body>
 	<form action="#" method="post">
@@ -90,66 +114,61 @@
 			<br>
 
 			<div class="left-category">예약자 이름</div>
-			<input type="text" class="form-control" placeholder="체크인시 필요한 정보입니다" style="width: 500px; height: 50px;">
-			<br><br>
-			
+			<input type="text" class="form-control" placeholder="체크인시 필요한 정보입니다"
+				style="height: 50px;"> <br>
+			<br>
+
 			<div class="left-category">
 				휴대폰 번호<br>
 				<div style="font-size: 0.8em;">개인 정보 보호를 위해 안심번호로 숙소에 전송됩니다.</div>
 			</div>
-			<br>
-			
-			<input type="text" class="form-control" value="010-9773-7503">
-			<br>
+			<br> <input type="text" class="form-control" style="height: 50px;"
+				value="01097737503"> <br>
 			<hr>
+			<br> <b>할인 수단 선택</b> <br>
 			<br>
-			
-			<b>할인 수단 선택</b>
-			<br><br>
-			
+
 			<div>
-				<span class="left-category">구매 총액</span>
-				<span style="float: right;"><b>199,100원</b></span>
+				<span class="left-category">구매 총액</span> <span style="float: right;"><b
+					class="buypay">199,100원</b></span>
 			</div>
 			<br>
-			
+
 			<div>
-				<button type="button" class="btn-discount">사용 가능 쿠폰<span class="count">0장</span></button>
+				<button type="button" class="btn-discount" data-bs-toggle="modal" data-bs-target="#coupon-modal">
+					사용 가능 쿠폰<span class="count">0장</span>
+				</button>
 				<span style="float: right;"><b>-</b></span>
 			</div>
 			<br>
-			
+
 			<div class="left-category">
-				<span style="font-size: 15px;">일반쿠폰</span>
-				<span style="float: right;">-</span>
+				<span style="font-size: 15px;">일반쿠폰</span> <span
+					style="float: right;">-</span>
 			</div>
 			<br>
-			
+
 			<div class="left-category">
-				<span style="font-size: 15px;">더하기 쿠폰</span>
-				<span style="float: right;">-</span>
+				<span style="font-size: 15px;">더하기 쿠폰</span> <span
+					style="float: right;">-</span>
 			</div>
 			<br>
-			
+
 			<div>
-				<button type="button" class="btn-point">포인트 사용<span class="count">0장</span></button>
-				<span style="float: right;">
-					<input type="text" value="0" style="text-align: right;" class="point">&nbsp;<b>P</b>
+				<button type="button" class="btn-point">
+					포인트 사용<span class="count">0장</span>
+				</button>
+				<span style="float: right;"> <input type="text" value="0"
+					style="text-align: right;" class="point">&nbsp;<b>P</b>
 				</span>
 			</div>
 			<br>
-			
-			<div>
-				<button type="button" class="btn-giftcard">상품권 사용</button>
-				<span style="float: right;"><b>-</b></span>
-			</div>
+
 			<br>
 			<hr>
+			<br> <b>결제수단 선택</b> <br>
 			<br>
-			
-			<b>결제수단 선택</b>
-			<br><br>
-			
+
 			<div>
 				<select class="payment">
 					<option value="kakaopay">카카오페이</option>
@@ -162,12 +181,15 @@
 				</select>
 			</div>
 			<br>
-			
+
 			<div class="agreement-chkbox">
-				<input type="checkbox">&nbsp;<b>전체동의</b> <br><br>
-				<input type="checkbox">&nbsp;<a href="#">숙소이용규칙 및 취소/환불규정 동의</a> <span style="color: #EE0057;">(필수)</span><br><br>
-				<input type="checkbox">&nbsp;<a href="#">개인정보 수집 및 이용 동의</a> <span style="color: #EE0057;">(필수)</span><br><br>
-				<input type="checkbox">&nbsp;<a href="#">개인정보 제 3자 제공 동의</a> <span style="color: #EE0057;">(필수)</span>
+				<input type="checkbox">&nbsp;<b>전체동의</b> <br>
+				<br> <input type="checkbox">&nbsp;<a href="#">숙소이용규칙
+					및 취소/환불규정 동의</a> <span style="color: #EE0057;">(필수)</span><br>
+				<br> <input type="checkbox">&nbsp;<a href="#">개인정보
+					수집 및 이용 동의</a> <span style="color: #EE0057;">(필수)</span><br>
+				<br> <input type="checkbox">&nbsp;<a href="#">개인정보
+					제 3자 제공 동의</a> <span style="color: #EE0057;">(필수)</span>
 			</div>
 		</div>
 
@@ -191,11 +213,11 @@
 
 				<hr style="width: 95%; margin-left: 5px;">
 				<br> <b>총 결제 금액</b><span class="vat">(VAT포함)</span> <br> <b
-					class="totalpay">198,000원</b> <br> <br>
+					class="totalpay"><b>원</b></b> <br> <br>
 
 				<p class="explain">
-					• 해당 객실가는 세금, 봉사료가 포함된 금액입니다 <br> • 결제완료 후 예약자 이름으로 바로 체크인 하시면
-					됩니다
+					• 해당 객실가는 세금, 봉사료가 포함된 금액입니다 <br>
+					• 결제완료 후 예약자 이름으로 바로 체크인 하시면 됩니다
 				</p>
 				<br>
 			</div>
@@ -203,5 +225,63 @@
 			<button type="submit" class="btnpay">결제하기</button>
 		</div>
 	</form>
+
+
+
+	<!-- 쿠폰 Modal -->
+	<div class="modal" id="coupon-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title" style="align-items: center;">쿠폰 적용</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<h5><b>일반쿠폰 <span>0</span>장</b></h5>
+					<div class="mention">
+						사용 가능한 쿠폰이 없습니다.
+					</div>
+					
+					<h5><b>더하기 쿠폰 <span>0</span>장</b></h5>
+					<div class="mention">
+						사용 가능한 쿠폰이 없습니다.
+					</div>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary"
+						data-bs-dismiss="modal" style="width: 100%; height: 50px; font-size: 20px;"><span>0</span>원 적용하기</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 숙소이용규칙 및 취소/환불규정 동의 Modal -->
+	<div class="modal" tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Modal title</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>Modal body text goes here.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
