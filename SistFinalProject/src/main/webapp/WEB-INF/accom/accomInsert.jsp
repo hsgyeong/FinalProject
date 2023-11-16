@@ -11,7 +11,7 @@
 <style type="text/css">
 .accom_insert_box {
 	width: 100%;
-	height: 62vh;
+	height: 71vh;
 	margin-top: 3.5vh;
 }
 
@@ -36,6 +36,7 @@
 	font-weight: bold;
 	background-color: rgb(23, 93, 238);
 	border-radius: 1vh;
+	margin-right: 1vh; 
 }
 
 .accom_insert_btn2 {
@@ -46,7 +47,6 @@
 	font-weight: bold;
 	background-color: white;
 	border-radius: 1vh;
-	margin-left: 1vh;
 }
 
 .accom_search_btn1 {
@@ -125,6 +125,23 @@
 	border-radius: 1vh;
 	margin-left: 1vh;
 }
+
+.hashtag_result{
+	margin-bottom: 1vh;
+	font-size: 0.8em;
+}
+
+.hashtagremovebtn{
+	width: 0.6vh;
+	height: 0.8vh;
+	border: none;
+	background-color: white;
+	align-items: center;
+}
+
+.hashtagremovebtn:hover{
+	color: red;
+}
 </style>
 <title>Insert title here</title>
 </head>
@@ -191,7 +208,7 @@
 					                        searchResultDiv.style.height = '5vh';
 					                        searchResultDiv.style.marginBottom = '0.5vh';
 					                        searchResultDiv.style.marginLeft = '0.6vh';
-					                        accomInsertBox.style.height = '68vh';
+					                        accomInsertBox.style.height = '77vh';
 					                        
 					                    }
 					                }
@@ -200,21 +217,21 @@
 					    }
 						</script>
 						
-						<!-- 도로명 주소 출력 -->
+						<!-- 도로명주소 출력 -->
 						<div id="search_result"></div>
-						<!-- 상세 주소 출력 -->
+						<!-- 상세주소 출력 -->
 						<div id="search_detailresult"></div>
 
 						<!-- 도로명 주소와 상세 주소 값을 넘겨주기 위해 -->
 						<input type="hidden" name="accom_location" id="accom_location">
 						
-						<button type="button" class="accom_search_btn1" id="address_kakao">도로명 주소 검색</button>
-						<button type="button" class="accom_search_btn2" id="address_detail">상세 주소 입력</button>
+						<button type="button" class="accom_search_btn1" id="address_kakao">도로명주소 검색</button>
+						<button type="button" class="accom_search_btn2" id="address_detail">상세주소 입력</button>
 						
 						<!-- 모달창 -->
 						<div class="modal" id="myModal">
 						    <div class="modal-content">
-						        <h5>상세 주소 입력</h5>
+						        <h5>상세주소 입력</h5>
 						        <div class="modal-inputbox">
 							        <input type="text" id="detailAddressInput" class="form-control">
 							        <button type="button" class="detailAddressInputbtn" onclick="saveDetailAddress()">확인</button>
@@ -222,7 +239,7 @@
 						    </div>
 						</div>
 						<!-- 모달창 끝 -->
-
+						
 						<script>
 						    // 모달창 보이기
 						    $("#address_detail").click(function () {
@@ -267,17 +284,93 @@
 						        }
 
 						        closeModal(); // 모달창 닫기
-						        accomInsertBox.style.height = '74vh'; //닫고 나서 동적으로 크기 증가
+						        accomInsertBox.style.height = '83vh'; //닫고 나서 동적으로 크기 증가
 						    }
 						</script>
 
 					</td>
 				</tr>
+				
+				<tr>
+					<td align="center" valign="middle"><b>해쉬태그</b></td>
+					<td>
+					<!-- 해쉬태그 출력 -->
+					<div id="hashtag_result"></div>
+					<input type="hidden" name="accom_hashtag" id="accom_hashtag">
+					<input type="text" class="form-control" id="hashtag_input" placeholder="키워드 입력"
+        				style="width: 40vh; height: 5vh;" onkeypress="handleHashtagInput(event)">
+    
+				    <script>
+
+				    function handleHashtagInput(event) {
+				        if (event.key === "Enter") {
+				            event.preventDefault();
+				            var hashtagInput = document.getElementById("hashtag_input");
+				            var hashtagResultDiv = document.getElementById("hashtag_result");
+				            var accomHashtagInput = document.getElementById("accom_hashtag");
+				            var accomInsertBox = document.querySelector(".accom_insert_box");
+
+				            var newHashtag = hashtagInput.value.trim();
+
+				            if (newHashtag !== "") {
+				                if (!newHashtag.startsWith("#")) {
+				                    newHashtag = "#" + newHashtag;
+				                }
+
+				                if (accomHashtagInput.value === "") {
+				                    accomHashtagInput.value = newHashtag;
+				                } else {
+				                    accomHashtagInput.value += ', ' + newHashtag;
+				                }
+
+				                var newHashtagDiv = document.createElement("div");
+				                newHashtagDiv.innerHTML = newHashtag + ("<button type='button' class='hashtagremovebtn' onclick='removeHashtag(this)'>x</button>");
+				                newHashtagDiv.style.display = "inline-block";
+				                newHashtagDiv.style.padding = "0.3vh 2vh";
+				                newHashtagDiv.style.marginRight = "4px";
+				                newHashtagDiv.style.border = "1px solid #ccc";
+				                newHashtagDiv.style.borderRadius = "4px";
+				                newHashtagDiv.style.marginBottom = "2vh";
+
+				                // 추가된 부분: 해시태그 결과를 갱신하고, 입력란 비우기
+				                hashtagResultDiv.appendChild(newHashtagDiv);
+				                hashtagInput.value = "";
+
+				                // 추가된 부분: 입력란이 업데이트되었을 때 accomInsertBox의 높이 조절
+				                accomInsertBox.style.height = '90vh';
+				            }
+				        }
+				    }
+
+				    function removeHashtag(button) {
+				        var hashtagResultDiv = document.getElementById("hashtag_result");
+				        var accomHashtagInput = document.getElementById("accom_hashtag");
+				        var accomInsertBox = document.querySelector(".accom_insert_box");
+
+				        // 부모 엘리먼트를 찾아 삭제
+				        var hashtagDiv = button.parentNode;
+				        hashtagResultDiv.removeChild(hashtagDiv);
+
+				        // 추가된 부분: 해시태그 결과를 갱신하고, 입력란이 업데이트되었을 때 accomInsertBox의 높이 조절
+				        accomHashtagInput.value = Array.from(hashtagResultDiv.children)
+				            .map(tagDiv => tagDiv.textContent.replace('x', '').trim())
+				            .join(', ');
+				        accomInsertBox.style.height = '90vh';
+				    }
+					</script>
+					</td>
+				</tr>
 				<tr>
 					<td align="center" colspan="2">
-						<button type="submit" class="accom_insert_btn1">등록</button>
-						<button type="submit" class="accom_insert_btn2"
+						<button type="button" class="accom_insert_btn1" onclick="submitForm()">등록</button>
+						<button type="button" class="accom_insert_btn2"
 							onclick="location.href='history.back()'">취소</button>
+							<script>
+							    function submitForm() {
+							        // 폼을 선택하고 submit 메서드를 호출하여 폼을 서브밋합니다.
+							        document.forms[0].submit();
+							    }
+							</script>
 					</td>
 				</tr>
 			</table>
