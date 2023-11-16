@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="sist.last.mapper.AccomMapperInter">
 
     <insert id="insertAccom" parameterType="AccomDto">
-        insert into accom(business_id,accom_name,accom_category,accom_photo,accom_location) values (#{business_id},#{accom_name},#{accom_category},#{accom_photo},#{accom_location})
+        insert into accom(business_id,accom_name,accom_category,accom_photo,accom_location,accom_address,accom_hashtag) values (#{business_id},#{accom_name},#{accom_category},#{accom_photo},#{accom_location},#{accom_address},#{accom_hashtag})
     </insert>
     
     <select id="getAllData" resultType="AccomDto">
@@ -16,4 +16,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getTotalCount" resultType="int">
         select count(*) from accom
     </select>
+    
+  	<delete id="deleteAccom" parameterType="int">
+  		delete from accom where accom_num=#{accom_num}
+  	</delete>
+  	
+  	<select id="getOneData" parameterType="int" resultType="AccomDto">
+  		select * from accom where accom_num=#{accom_num}
+  	</select>
+  	
+  	<update id="updateAccom" parameterType="AccomDto">
+  		update accom set accom_name=#{accom_name},accom_category=#{accom_category},accom_photo=#{accom_photo},accom_location=#{accom_location},accom_address=#{accom_address},accom_hashtag=#{accom_hashtag} where accom_num=#{accom_num}
+  	</update>
 </mapper>

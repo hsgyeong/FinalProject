@@ -173,13 +173,36 @@ function updateHeight() {
     // 전역 변수를 업데이트합니다.
     accomInsertBox.style.height = currentHeight + 'vh';
 }
+
+//페이지 로드 후 스크립트 실행 (도로명주소 업데이트)
+document.addEventListener("DOMContentLoaded", function () {
+    // 주소가 있을 때 스타일 설정
+    var searchResultDiv = document.getElementById("search_result");
+    searchResultDiv.style.width = '60vh';
+    searchResultDiv.style.height = '5vh';
+    searchResultDiv.style.marginBottom = '0.5vh';
+    searchResultDiv.style.marginLeft = '0.6vh';
+    updateHeight();
+});
+
+//페이지 로드 후 스크립트 실행 (상세주소 업데이트)
+document.addEventListener("DOMContentLoaded", function () {
+    // 주소가 있을 때 스타일 설정
+    var searchDetailResultDiv = document.getElementById("search_detailresult");
+    searchDetailResultDiv.style.width = '60vh';
+    searchDetailResultDiv.style.height = '5vh';
+    searchDetailResultDiv.style.marginBottom = '0.5vh';
+    searchDetailResultDiv.style.marginLeft = '0.6vh';
+    updateHeight();
+});
 </script>
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="Insert" method="post" enctype="multipart/form-data">
+	<form action="Update" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="accom_num" value="${dto.accom_num }">
 		<div class="accom_insert_box" align="center">
-			<input type="hidden" name="business_id" value="test">
+			<input type="hidden" name="business_id" value="test" ${dto.business_id }>
 			<table class="table table-bordered">
 
 				<tr>
@@ -188,7 +211,7 @@ function updateHeight() {
 				</tr>
 				<tr>
 					<td align="center" valign="middle"><b>숙소이름</b></td>
-					<td valign="middle"><input type="text" class="form-control"
+					<td valign="middle"><input type="text" class="form-control" value="${dto.accom_name }"
 						name="accom_name" required="required" placeholder="ex)신라호텔, 조선호텔"
 						style="width: 30vh; height: 5vh;"></td>
 				</tr>
@@ -198,9 +221,9 @@ function updateHeight() {
 					<td valign="middle"><select class="form-control"
 						name="accom_category" id="accom_category" required="required"
 						style="width: 8vh; height: 5vh;">
-							<option value="호텔">호텔</option>
-							<option value="모텔">모텔</option>
-							<option value="펜션">펜션</option>
+							<option value="호텔" ${dto.accom_category eq '호텔' ? 'selected' : ''}>호텔</option>
+							<option value="모텔" ${dto.accom_category eq '모텔' ? 'selected' : ''}>모텔</option>
+							<option value="펜션" ${dto.accom_category eq '펜션' ? 'selected' : ''}>펜션</option>
 					</select></td>
 				</tr>
 
@@ -216,18 +239,18 @@ function updateHeight() {
 					<td valign="middle">
 						
 						<!-- 도로명주소 출력 -->
-						<div id="search_result"></div>
+						<div id="search_result">${dto.accom_location }</div>
 						<!-- 상세주소 출력 -->
-						<div id="search_detailresult"></div>
+						<div id="search_detailresult">${dto.accom_address }</div>
 						<!-- 도로명 주소 넘기기 -->
-						<input type="hidden" name="accom_location" id="accom_location">
+						<input type="hidden" name="accom_location" id="accom_location" value="${dto.accom_location }">
 						<!-- 상세주소 주소 넘기기 -->
-						<input type="hidden" name="accom_address" id="accom_address">
+						<input type="hidden" name="accom_address" id="accom_address" value="${dto.accom_address }">
 						<!-- 도로명주소 검색 API -->
 						<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 						<script>
 						window.onload = function () {
-					        document.getElementById("address_kakao").addEventListener("click", function () {
+						    document.getElementById("address_kakao").addEventListener("click", function () {
 					            new daum.Postcode({
 					                oncomplete: function (data) {
 					                    var detailAddressInput = document.getElementById("detailAddressInput").value;
@@ -236,22 +259,22 @@ function updateHeight() {
 					                    var accomLocationInput = document.getElementById("accom_location"); // 수정된 부분
 					                    var accomAddressInput = document.getElementById("accom_address"); // 추가된 부분
 					                    var accomInsertBox = document.querySelector(".accom_insert_box");
-
+										
 					                    // 주소 넣기
 					                    searchResultDiv.innerHTML = data.address;
 
 					                    // accom_location input에 주소 값 넣기
 					                    if (accomLocationInput) {
-					                        accomLocationInput.value = data.address;
-					                        accomAddressInput.value = detailAddressInput; // 추가된 부분
-
-					                        // 주소가 있을 때 스타일 설정
-					                        searchResultDiv.style.width = '60vh';
-					                        searchResultDiv.style.height = '5vh';
-					                        searchResultDiv.style.marginBottom = '0.5vh';
-					                        searchResultDiv.style.marginLeft = '0.6vh';
-					                        updateHeight();
-					                    }
+										    accomLocationInput.value = data.address;
+										
+										    // 도로명 주소에 대한 스타일 설정
+										    searchResultDiv.style.width = '60vh';
+										    searchResultDiv.style.height = '5vh';
+										    searchResultDiv.style.marginBottom = '0.5vh';
+										    searchResultDiv.style.marginLeft = '0.6vh';
+											
+										    updateHeight(); // 업데이트 추가
+										}
 					                }
 					            }).open();
 					        });
@@ -290,7 +313,7 @@ function updateHeight() {
 						        $("#myModal").hide();
 						    }
 						
-						 	// 입력 확인 시 동작
+						 // 입력 확인 시 동작
 						    function saveDetailAddress() {
 							    var detailAddressInput = document.getElementById("detailAddressInput").value;
 							    var searchDetailResultDiv = document.getElementById("search_detailresult");
@@ -313,8 +336,7 @@ function updateHeight() {
 							        newDetailElement.innerHTML = detailAddressInput;
 							        newDetailElement.style.width = '60vh';
 							        newDetailElement.style.height = '5vh';
-							        newDetailElement.style.marginBottom = '0.5vh';
-							        newDetailElement.style.marginLeft = '0.6vh';
+							        
 							        searchDetailResultDiv.appendChild(newDetailElement);
 							    }
 							
@@ -336,74 +358,103 @@ function updateHeight() {
         				style="width: 40vh; height: 5vh;" onkeypress="handleHashtagInput(event)">
     
 				    <script>
-
-				    function handleHashtagInput(event) {
-				    	if (event.key === "Enter") {
-				            event.preventDefault();
-				            var hashtagInput = document.getElementById("hashtag_input");
+					 // 서버에서 받아온 해시태그 값
+				        var serverHashtags = "${dto.accom_hashtag }";
+				
+				        // 초기화 함수 호출
+				        initializeHashtags(serverHashtags);
+				
+				        function initializeHashtags(hashtags) {
 				            var hashtagResultDiv = document.getElementById("hashtag_result");
-				            var accomHashtagInput = document.getElementById("accom_hashtag");
-				            var accomInsertBox = document.querySelector(".accom_insert_box");
-
-				            var newHashtag = hashtagInput.value.trim();
-
-				            if (newHashtag !== "") {
-				                // 최대 5개까지만 허용
-				                var currentHashtags = accomHashtagInput.value.split(',').map(tag => tag.trim());
-				                if (currentHashtags.length >= 5) {
-				                    alert("해쉬태그는 최대 5개까지 등록할 수 있습니다.");
-				                    return;
-				                }
-				                
-				                if (newHashtag !== "" && (newHashtag.length - (newHashtag.startsWith("#") ? 1 : 0)) > 3) {
-				                	alert("해시태그는 최대 3글자까지 입력해 주세요.");
-				                	return;
-				                }
-
-				                if (!newHashtag.startsWith("#")) {
-				                    newHashtag = "#" + newHashtag;
-				                }
-
-				                if (accomHashtagInput.value === "") {
-				                    accomHashtagInput.value = newHashtag;
-				                } else {
-				                    accomHashtagInput.value += ', ' + newHashtag;
-				                }
-
-				                var newHashtagDiv = document.createElement("div");
-				                newHashtagDiv.innerHTML = newHashtag +
-				                ("<img src='../accomimage/x.png' onclick='removeHashtag(this)' class='hashtagremovebtn'>");
-				                newHashtagDiv.style.display = "inline-block";
-				                newHashtagDiv.style.padding = "0.3vh 1.25vh";
-				                newHashtagDiv.style.marginRight = "4px";
-				                newHashtagDiv.style.border = "1px solid #ccc";
-				                newHashtagDiv.style.borderRadius = "4px";
-				                newHashtagDiv.style.marginBottom = "2vh";
-
-				                // 해시태그 결과를 갱신하고, 입력란 비우기
-				                hashtagResultDiv.appendChild(newHashtagDiv);
-				                hashtagInput.value = "";
-
-				                updateHeight();
+				
+				            // 받아온 해시태그 값이 있을 경우 동적으로 해시태그 생성
+				            if (hashtags && hashtags.trim() !== "") {
+				                var hashtagList = hashtags.split(',').map(tag => tag.trim());
+				
+				                hashtagList.forEach(function (tag) {
+				                    addHashtagToResult(tag);
+				                });
 				            }
 				        }
-				    }
-
-				    function removeHashtag(button) {
-				        var hashtagResultDiv = document.getElementById("hashtag_result");
-				        var accomHashtagInput = document.getElementById("accom_hashtag");
-				        var accomInsertBox = document.querySelector(".accom_insert_box");
-
-				        // 부모 엘리먼트를 찾아 삭제
-				        var hashtagDiv = button.parentNode;
-				        hashtagResultDiv.removeChild(hashtagDiv);
-
-				        // 해시태그 결과를 갱신하고, 입력란이 업데이트되었을 때 accomInsertBox의 높이 조절
-				        accomHashtagInput.value = Array.from(hashtagResultDiv.children)
-				            .map(tagDiv => tagDiv.textContent.replace('x', '').trim())
-				            .join(', ');
-				        updateHeight();
-				    }
+				
+				        function addHashtagToResult(tag) {
+				            var hashtagResultDiv = document.getElementById("hashtag_result");
+				
+				            // 새로운 해시태그를 동적으로 생성하여 결과에 추가
+				            var newHashtagDiv = document.createElement("div");
+				            newHashtagDiv.innerHTML = tag +
+				                ("<img src='../accomimage/x.png' onclick='removeHashtag(this)' class='hashtagremovebtn'>");
+				            newHashtagDiv.style.display = "inline-block";
+				            newHashtagDiv.style.padding = "0.3vh 1.25vh";
+				            newHashtagDiv.style.marginRight = "4px";
+				            newHashtagDiv.style.border = "1px solid #ccc";
+				            newHashtagDiv.style.borderRadius = "4px";
+				            newHashtagDiv.style.marginBottom = "2vh";
+				
+				            // 해시태그 결과에 추가
+				            hashtagResultDiv.appendChild(newHashtagDiv);
+				        }
+				
+				        // 해시태그 제거 이벤트
+				        function removeHashtag(button) {
+				            var hashtagResultDiv = document.getElementById("hashtag_result");
+				
+				            // 부모 엘리먼트를 찾아 삭제
+				            var hashtagDiv = button.parentNode;
+				            hashtagResultDiv.removeChild(hashtagDiv);
+				        }
+				        
+				        function handleHashtagInput(event) {
+				            if (event.key === "Enter") {
+				                event.preventDefault();
+				                var hashtagInput = document.getElementById("hashtag_input");
+				                var hashtagResultDiv = document.getElementById("hashtag_result");
+				                var accomHashtagInput = document.getElementById("accom_hashtag");
+				                var accomInsertBox = document.querySelector(".accom_insert_box");
+	
+				                var newHashtag = hashtagInput.value.trim();
+	
+				                if (newHashtag !== "") {
+				                    // 최대 5개까지만 허용
+				                    var currentHashtags = accomHashtagInput.value.split(',').map(tag => tag.trim());
+				                    if (currentHashtags.length >= 5) {
+				                        alert("해쉬태그는 최대 5개까지 등록할 수 있습니다.");
+				                        return;
+				                    }
+				                    
+				                    if (newHashtag !== "" && (newHashtag.length - (newHashtag.startsWith("#") ? 1 : 0)) > 3) {
+				                        alert("해시태그는 최대 3글자까지 입력해 주세요.");
+				                        return;
+				                    }
+	
+				                    if (!newHashtag.startsWith("#")) {
+				                        newHashtag = "#" + newHashtag;
+				                    }
+	
+				                    if (accomHashtagInput.value === "") {
+				                        accomHashtagInput.value = newHashtag;
+				                    } else {
+				                        accomHashtagInput.value += ', ' + newHashtag;
+				                    }
+	
+				                    var newHashtagDiv = document.createElement("div");
+				                    newHashtagDiv.innerHTML = newHashtag +
+				                    ("<img src='../accomimage/x.png' onclick='removeHashtag(this)' class='hashtagremovebtn'>");
+				                    newHashtagDiv.style.display = "inline-block";
+				                    newHashtagDiv.style.padding = "0.3vh 1.25vh";
+				                    newHashtagDiv.style.marginRight = "4px";
+				                    newHashtagDiv.style.border = "1px solid #ccc";
+				                    newHashtagDiv.style.borderRadius = "4px";
+				                    newHashtagDiv.style.marginBottom = "2vh";
+	
+				                    // 해시태그 결과를 갱신하고, 입력란 비우기
+				                    hashtagResultDiv.appendChild(newHashtagDiv);
+				                    hashtagInput.value = "";
+	
+				                    updateHeight(); // 업데이트 추가
+				                }
+				            }
+				        }
 					</script>
 					</td>
 				</tr>

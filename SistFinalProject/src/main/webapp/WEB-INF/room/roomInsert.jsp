@@ -12,7 +12,7 @@
 <style type="text/css">
 .room_insert_box{
 	width: 100%;
-	height: 100vh;
+	height: 103vh;
 	margin-top: 3.5vh;
 }
 

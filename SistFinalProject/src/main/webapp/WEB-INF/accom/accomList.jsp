@@ -35,6 +35,10 @@
     }
 }
 
+.accom_list_box{
+	margin-bottom: -3vh;
+}
+
 .accom_list_box img {
     max-width: 10vh;
     max-height: 10vh;
@@ -96,12 +100,12 @@
                     <td align="center" valign="middle" style="width: 20%; height: 15vh;">
                         <img src="../accomsave/${dto.accom_photo}" alt="">
                     </td>
-                    <td align="center" valign="middle" style="width: 20%; height: 15vh;">${dto.accom_location }</td>
+                    <td align="center" valign="middle" style="width: 20%; height: 15vh;">${dto.accom_location }&nbsp;${dto.accom_address }</td>
                     <td align="center" valign="middle" style="width: 20%; height: 15vh;">
                     <button type="button" class="accom_list_btn1"
-                    onclick="location.href='updateForm?num=${dto.accom_num}'">수정</button>
+                    onclick="location.href='Accom-Update?num=${dto.accom_num}'">수정</button>
                     <button type="button" class="accom_list_btn2"
-                    onclick="location.href='delete?num=${dto.accom_num}'">삭제</button>
+                    onclick="location.href='Delete?num=${dto.accom_num}'">삭제</button>
                     </td>
                 </tr>
             </c:forEach>
