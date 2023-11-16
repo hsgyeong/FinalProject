@@ -15,6 +15,17 @@
     <title>Insert title here</title>
 </head>
 <style type="text/css">
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
     .date-wrap {
         font-family: 'NanumSquare', serif;
     }
@@ -104,6 +115,13 @@
         $(".btn-date").click(function () {
             $(".calendar").toggle();
         })
+        $(".price-bar-container").show();
+
+        $(".handle").mousedown(function () {
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+        });
+
     })
 </script>
 <caption><b style="font-size: 40px; font-family: 'NanumSquare', serif;">검색 : '${keyword}'</b></caption>
@@ -317,11 +335,6 @@
                                     dayElement.style.opacity = '0.5'; // Apply visual effect for disabled date
                                 }
 
-                                /*if (i < firstDay.getDay() + 1 || i > lastDay.getDate()) {
-                                    dayElement.classList.add('disabled');
-                                    dayElement.style.pointerEvents = 'none'; // Disable click event
-                                    dayElement.style.opacity = '0.5'; // Apply visual effect for disabled date
-                                }*/
                                 if (currentMonth == firstMonth) {
                                     if (lastClickDay == null) {
                                         if (firstClickDay == i) {
@@ -483,19 +496,24 @@
                         $(".calendar-setting").click(function () {
                             let firstDay;
                             let secondDay;
+                            alert(asc);
                             if (asc) {
                                 firstDay = firstYear + "-" + (firstMonth + 1) + "-" + firstClickDay;
                                 secondDay = lastYear + "-" + (lastMonth + 1) + "-" + lastClickDay;
                             }
                             if (!asc) {
                                 firstDay = lastYear + "-" + (lastMonth + 1) + "-" + lastClickDay;
-                                secondDay = firstYear + "-" + (firstDay + 1) + "-" + firstClickDay;
+                                secondDay = firstYear + "-" + (firstMonth + 1) + "-" + firstClickDay;
+                                alert(firstDay + "," + secondDay);
                             }
                             location.href = "search-main?keyword=${keyword}&selDate1=" + firstDay + "&selDate2=" + secondDay;
                         })
 
 
                     </script>
+                </section>
+                <section class="amount-bar-wrap">
+
                 </section>
 
             </div>
