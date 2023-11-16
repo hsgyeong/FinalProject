@@ -11,13 +11,13 @@
           rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <title>Insert title here</title>
-<script>$(function(){
-	
-	alert("아이디 또는 비밀번호가 틀렸습니다. 다시 입력해주세요.")
-	
-	history.back();
-})
-</script>
+    <script>
+    $(function(){
+    	
+    	alert("아이디 또는 비밀번호가 틀렸습니다. 다시 입력해주세요.");
+    	history.back();
+    })
+    </script>
 </head>
 <body>
 

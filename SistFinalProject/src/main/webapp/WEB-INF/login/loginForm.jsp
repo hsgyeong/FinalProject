@@ -88,7 +88,7 @@ if(saveok==null)
 %>
 <body>
 	<div class="login">
-		<form action="login-insert" method="post">
+		<form action="login" method="post">
 			<table class="table .table-borderless tb" style="width: 700px;">
 			<tr>
 				<td>

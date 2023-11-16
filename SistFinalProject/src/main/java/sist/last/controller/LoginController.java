@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import sist.last.dto.MemberDto;
 import sist.last.service.MemberService;
@@ -24,6 +25,13 @@ public class LoginController {
 	public String loginform()
 	{
 		return "/login/loginForm";
+	}
+	
+	@GetMapping("/login/fail")
+	public String loginfail()
+	{
+		return "/member/loginFail";
+		
 	}
 	
 	@PostMapping("/login/login")
@@ -45,11 +53,21 @@ public class LoginController {
 			
 			MemberDto memberDto = service.getDataById(id);
 			
-			return "redirect:main";
+			return "redirect:/";
 		}else {
 			
-			return "/member/loginfail";
+			return "/login/loginFail";
 		}
 		
 	} 
+	
+	@GetMapping("/login/logout")
+	public String logout(HttpSession session)
+	{
+		session.removeAttribute("loginok");
+		
+		return "redirect:/";
+	}
+	
+	
 }

@@ -20,4 +20,12 @@
  select count(*) from info where info_id=#{id}
  </select>
  
+  <select id="getSearchNick" resultType="int" parameterType="String">
+ select count(*) from info where info_nickname=#{nickname}
+ </select>
+ 
+ <select id="getDataById" resultType="member" parameterType="String">
+ select * from info where info_id=#{id}
+ </select>
+ 
  </mapper>

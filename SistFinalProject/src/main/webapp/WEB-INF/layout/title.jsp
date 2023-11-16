@@ -182,7 +182,12 @@
                 <li class="select-li"><a href="#">내주변</a></li>
                 <li class="select-li"><a href="#">예약내역</a></li>
                 <li class="select-li"><a href="/accom/Accom-Insert" id="see_more">더보기</a></li>
-                <li class="select-li"><a href="/room/Room-Insert">로그인</a></li>
+                <c:if test="${sessionScope.loginok==null }" >
+                <li class="select-li"><a href="/login/loginform">로그인</a></li>
+                </c:if>
+                <c:if test="${sessionScope.loginok!=null }">
+                <li class="select-li"><a href="/login/logout">로그아웃</a></li>
+                </c:if>
             </ul>
         </div>
         <div class="search-input-box">

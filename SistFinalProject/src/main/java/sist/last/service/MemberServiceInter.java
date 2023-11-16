@@ -8,4 +8,5 @@ public interface MemberServiceInter {
 	public int loginPassCheck(String id, String pass);
 	public MemberDto getDataById(String id);
 	public int getSearchId(String id);
+	public int getSearchNick(String nickname);
 }

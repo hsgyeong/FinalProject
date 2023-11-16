@@ -13,4 +13,5 @@ public interface MemberMapperInter {
 	public int loginPassCheck(Map<String, String> map);
 	public MemberDto getDataById(String id);
 	public int getSearchId(String id);
+	public int getSearchNick(String nickname);
 }
