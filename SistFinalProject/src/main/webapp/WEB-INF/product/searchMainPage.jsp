@@ -120,6 +120,7 @@
                             <div class="next" onclick="nextMonth()">&#9655;</div>
                         </div>
                         <div class="days" id="calendar-days"></div>
+                        <button class="calendar-setting btn btn-outline-danger">선택 완료</button>
                     </div>
 
                     <script>
@@ -128,33 +129,84 @@
                         let firstClickDay = today.getDate();
                         let lastClickDay = firstClickDay + 1;
                         let firstMonth = today.getMonth();
+                        let lastMonth = today.getMonth();
                         let currentMonth = today.getMonth();
+                        let firstYear = today.getFullYear();
+                        let lastYear = today.getFullYear();
                         let currentYear = today.getFullYear();
-                        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                        let start = false;
+                        let flag = false;
 
                         function updateCalendar() {
+                            const currentDay = new Date(currentYear, currentMonth + 1, 0);
+                            const lastDay = new Date(lastYear, lastMonth + 1, 0);
+                            const firstDay = new Date(firstYear, firstMonth + 1, 0);
                             //alert(count);
                             alert(firstMonth + "," + currentMonth);
+                            alert(firstClickDay + "," + lastClickDay);
                             if (count == 0) {
                                 lastClickDay = null;
                             }
-
-                            if (count == 1) {
-                                //alert(lastClickDay + "," + firstClickDay);
-                                if (lastClickDay > firstClickDay) {
-                                    if (lastClickDay - firstClickDay > 6) {
-                                        alert("7일까지 예약 가능합니다.")
-                                        lastClickDay = null;
-                                        count--;
-                                        return;
+                            alert(flag && start);
+                            if (flag && start) {
+                                if (count == 1) {
+                                    alert(firstDay.getDate() - firstClickDay + lastClickDay);
+                                    if (firstYear < lastYear) {
+                                        
                                     }
-                                }
-                                if (lastClickDay < firstClickDay) {
-                                    if (firstClickDay - lastClickDay > 6) {
-                                        alert("7일까지 예약 가능합니다.")
-                                        lastClickDay = null;
-                                        count--;
-                                        return;
+                                    if (firstYear > lastYear) {
+
+                                    }
+                                    if (firstYear == lastYear) {
+                                        if (firstMonth < lastMonth) {
+                                            alert("달이 다른 예약");
+                                            if (firstMonth + 1 < lastMonth) {
+                                                alert("2달 지나 예약");
+                                                alert("7일까지 예약 가능합니다.");
+                                                lastClickDay = null;
+                                                lastMonth = null;
+                                                count--;
+                                                return;
+                                            }
+                                            if (firstDay.getDate() - firstClickDay + lastClickDay > 6) {
+                                                alert("7일이상");
+                                                alert("7일까지 예약 가능합니다");
+                                                lastClickDay = null;
+                                                lastMonth = null;
+                                                count--;
+                                                return;
+                                            }
+                                        }
+                                        if (firstMonth > lastMonth) {
+                                            if (firstMonth > lastMonth + 1) {
+                                                alert("7일까지 예약 가능합니다.");
+                                                lastClickDay = null;
+                                                lastMonth = null;
+                                                count--;
+                                                return;
+                                            }
+                                        }
+                                        //alert(lastClickDay + "," + firstClickDay);
+                                        if (firstMonth == lastMonth) {
+                                            if (lastClickDay > firstClickDay) {
+                                                if (lastClickDay - firstClickDay > 6) {
+                                                    alert("7일까지 예약 가능합니다.");
+                                                    lastClickDay = null;
+                                                    lastMonth = null;
+                                                    count--;
+                                                    return;
+                                                }
+                                            }
+                                            if (lastClickDay < firstClickDay) {
+                                                if (firstClickDay - lastClickDay > 6) {
+                                                    alert("7일까지 예약 가능합니다.");
+                                                    lastClickDay = null;
+                                                    lastMonth = null;
+                                                    count--;
+                                                    return;
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -169,15 +221,15 @@
                                     "cursor": "none"
                                 });
                             }
-                            const firstDay = new Date(currentYear, currentMonth, 1);
-                            const lastDay = new Date(currentYear, currentMonth + 1, 0);
+                            /*const firstDay = new Date(currentYear, currentMonth, 1);
+                            const lastDay = new Date(currentYear, currentMonth + 1, 0);*/
                             const daysContainer = document.getElementById('calendar-days');
-                            const currentMonthContainer = document.querySelector('.current-month');
+                            /*const currentMonthContainer = document.querySelector('.current-month');*/
                             $(".current-month").html(currentYear + "년 " + (currentMonth + 1) + "월");
                             daysContainer.innerHTML = '';
                             //alert(currentMonth + "," + firstMonth);
 
-                            for (let i = 1; i <= lastDay.getDate(); i++) {
+                            for (let i = 1; i <= currentDay.getDate(); i++) {
                                 const dayElement = document.createElement('div');
                                 dayElement.textContent = i;
                                 dayElement.classList.add('day');
@@ -188,26 +240,57 @@
                                     dayElement.style.opacity = '0.5'; // Apply visual effect for disabled date
                                 }
 
-                                if (i < firstDay.getDay() + 1 || i > lastDay.getDate()) {
+                                /*if (i < firstDay.getDay() + 1 || i > lastDay.getDate()) {
                                     dayElement.classList.add('disabled');
                                     dayElement.style.pointerEvents = 'none'; // Disable click event
                                     dayElement.style.opacity = '0.5'; // Apply visual effect for disabled date
-                                }
+                                }*/
                                 if (currentMonth == firstMonth) {
-                                    if (i === firstClickDay && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
-                                        dayElement.classList.add('selected');
-                                        firstClickDay = i;
+                                    if (lastClickDay == null) {
+                                        if (firstClickDay == i) {
+                                            dayElement.classList.add('selected');
+                                        }
                                     }
                                     if (lastClickDay != null) {
-                                        if (firstClickDay < lastClickDay) {
-                                            if (i >= firstClickDay && i <= lastClickDay) {
-                                                dayElement.classList.add('selected');
+                                        if (firstMonth == lastMonth) {
+                                            if (firstClickDay < lastClickDay) {
+                                                if (i >= firstClickDay && i <= lastClickDay) {
+                                                    dayElement.classList.add('selected');
+                                                }
+                                            }
+                                            if (firstClickDay > lastClickDay) {
+                                                if (i >= lastClickDay && i <= firstClickDay) {
+                                                    dayElement.classList.add('selected');
+                                                }
                                             }
                                         }
-                                        if (firstClickDay > lastClickDay) {
-                                            if (i >= lastClickDay && i <= firstClickDay) {
+                                        if (firstMonth < lastMonth) {
+                                            if (i >= firstClickDay && i <= lastDay.getDate()) {
                                                 dayElement.classList.add('selected');
                                             }
+
+                                        }
+                                        if (firstMonth > lastMonth) {
+                                            if (i <= firstClickDay && i >= 1) {
+                                                dayElement.classList.add('selected');
+                                            }
+
+                                        }
+                                    }
+                                }
+                                if (currentMonth == lastMonth) {
+                                    if (lastClickDay != null) {
+                                        if (firstMonth > lastMonth) {
+                                            if (i >= lastClickDay && i <= lastDay.getDate()) {
+                                                dayElement.classList.add('selected');
+                                            }
+
+                                        }
+                                        if (firstMonth < lastMonth) {
+                                            if (i <= lastClickDay && i >= 1) {
+                                                dayElement.classList.add('selected');
+                                            }
+
                                         }
                                     }
                                 }
@@ -248,11 +331,17 @@
                             if (count == 2) {
                                 firstClickDay = day;
                                 firstMonth = currentMonth;
+                                firstYear = currentYear;
+                                flag = false;
+                                start = true;
 
                                 count = 0;
                             }
                             if (count == 1) {
                                 lastClickDay = day;
+                                lastMonth = currentMonth;
+                                lastYear = currentYear;
+                                flag = true;
                             }
                             //alert(count);
                             //alert(firstClickDay + "," + lastClickDay);
