@@ -142,26 +142,50 @@
                             const lastDay = new Date(lastYear, lastMonth + 1, 0);
                             const firstDay = new Date(firstYear, firstMonth + 1, 0);
                             //alert(count);
-                            alert(firstMonth + "," + currentMonth);
-                            alert(firstClickDay + "," + lastClickDay);
+                            //alert(firstMonth + "," + currentMonth);
+                            //alert(firstClickDay + "," + lastClickDay);
                             if (count == 0) {
                                 lastClickDay = null;
                             }
-                            alert(flag && start);
+                            //alert(flag && start);
                             if (flag && start) {
                                 if (count == 1) {
-                                    alert(firstDay.getDate() - firstClickDay + lastClickDay);
+                                    //alert(firstDay.getDate() - firstClickDay + lastClickDay);
                                     if (firstYear < lastYear) {
-                                        
+                                        if (lastMonth > 0) {
+                                            alert("7일까지 예약 가능합니다.");
+                                            lastClickDay = null;
+                                            lastMonth = null;
+                                            count--;
+                                            return;
+                                        }
+                                        if (firstDay.getDate() - firstClickDay + lastClickDay > 6) {
+                                            alert("7일까지 예약 가능합니다.");
+                                            lastClickDay = null;
+                                            lastMonth = null;
+                                            count--;
+                                            return;
+                                        }
                                     }
                                     if (firstYear > lastYear) {
-
+                                        if (lastMonth < 11) {
+                                            alert("7일까지 예약 가능합니다.");
+                                            lastClickDay = null;
+                                            lastMonth = null;
+                                            count--;
+                                            return;
+                                        }
+                                        if (lastDay.getDate() - lastClickDay + firstClickDay > 6) {
+                                            alert("7일까지 예약 가능합니다.");
+                                            lastClickDay = null;
+                                            lastMonth = null;
+                                            count--;
+                                            return;
+                                        }
                                     }
                                     if (firstYear == lastYear) {
                                         if (firstMonth < lastMonth) {
-                                            alert("달이 다른 예약");
                                             if (firstMonth + 1 < lastMonth) {
-                                                alert("2달 지나 예약");
                                                 alert("7일까지 예약 가능합니다.");
                                                 lastClickDay = null;
                                                 lastMonth = null;
@@ -169,7 +193,7 @@
                                                 return;
                                             }
                                             if (firstDay.getDate() - firstClickDay + lastClickDay > 6) {
-                                                alert("7일이상");
+                                                //alert("7일이상");
                                                 alert("7일까지 예약 가능합니다");
                                                 lastClickDay = null;
                                                 lastMonth = null;
@@ -252,46 +276,88 @@
                                         }
                                     }
                                     if (lastClickDay != null) {
-                                        if (firstMonth == lastMonth) {
-                                            if (firstClickDay < lastClickDay) {
-                                                if (i >= firstClickDay && i <= lastClickDay) {
-                                                    dayElement.classList.add('selected');
+                                        //alert(firstYear + "," + lastYear);
+                                        if (firstYear == lastYear) {
+                                            if (firstMonth == lastMonth) {
+                                                if (firstClickDay < lastClickDay) {
+                                                    if (i >= firstClickDay && i <= lastClickDay) {
+                                                        dayElement.classList.add('selected');
+                                                    }
+                                                }
+                                                if (firstClickDay > lastClickDay) {
+                                                    if (i >= lastClickDay && i <= firstClickDay) {
+                                                        dayElement.classList.add('selected');
+                                                    }
                                                 }
                                             }
-                                            if (firstClickDay > lastClickDay) {
-                                                if (i >= lastClickDay && i <= firstClickDay) {
+                                            if (firstMonth < lastMonth) {
+                                                if (i >= firstClickDay && i <= lastDay.getDate()) {
+                                                    dayElement.classList.add('selected');
+                                                }
+
+                                            }
+                                            if (firstMonth > lastMonth) {
+                                                if (i <= firstClickDay && i >= 1) {
+                                                    dayElement.classList.add('selected');
+                                                }
+
+                                            }
+                                        }
+                                        if (firstYear < lastYear) {
+                                            //alert("첫번째<나중")
+                                            if (firstYear == currentYear) {
+                                                if (i >= firstClickDay && i <= firstDay.getDate()) {
                                                     dayElement.classList.add('selected');
                                                 }
                                             }
                                         }
-                                        if (firstMonth < lastMonth) {
-                                            if (i >= firstClickDay && i <= lastDay.getDate()) {
-                                                dayElement.classList.add('selected');
+                                        if (firstYear > lastYear) {
+                                            //alert("첫번째>나중")
+                                            if (firstYear == currentYear) {
+                                                if (i <= firstClickDay && i >= 1) {
+                                                    dayElement.classList.add('selected');
+                                                }
                                             }
-
-                                        }
-                                        if (firstMonth > lastMonth) {
-                                            if (i <= firstClickDay && i >= 1) {
-                                                dayElement.classList.add('selected');
+                                            if (lastYear == currentYear) {
+                                                if (i >= lastClickDay && i <= lastDay.getDate()) {
+                                                    dayElement.classList.add('selected');
+                                                }
                                             }
-
                                         }
                                     }
                                 }
                                 if (currentMonth == lastMonth) {
                                     if (lastClickDay != null) {
-                                        if (firstMonth > lastMonth) {
-                                            if (i >= lastClickDay && i <= lastDay.getDate()) {
-                                                dayElement.classList.add('selected');
-                                            }
+                                        if (firstYear == lastYear) {
+                                            if (firstMonth > lastMonth) {
+                                                if (i >= lastClickDay && i <= lastDay.getDate()) {
+                                                    dayElement.classList.add('selected');
+                                                }
 
-                                        }
-                                        if (firstMonth < lastMonth) {
-                                            if (i <= lastClickDay && i >= 1) {
-                                                dayElement.classList.add('selected');
                                             }
+                                            if (firstMonth < lastMonth) {
+                                                if (i <= lastClickDay && i >= 1) {
+                                                    dayElement.classList.add('selected');
+                                                }
 
+                                            }
                                         }
+                                        if (firstYear < lastYear) {
+                                            if (lastYear == currentYear) {
+                                                if (i <= lastClickDay && i >= 1) {
+                                                    dayElement.classList.add('selected');
+                                                }
+                                            }
+                                        }
+                                        if (firstYear > lastYear) {
+                                            //alert("첫번째>나중")
+                                            if (lastYear == currentYear) {
+                                                if (i >= lastClickDay && i <= lastDay.getDate()) {
+                                                    dayElement.classList.add('selected');
+                                                }
+                                            }
+                                        }
+
                                     }
                                 }
 
@@ -323,7 +389,7 @@
 
                         function selectDate(day) {
                             //alert(day + "," + firstClickDay)
-                            if (day == firstClickDay) {
+                            if (day == firstClickDay && firstMonth == currentMonth) {
                                 return false;
                             }
                             //alert('Selected Date:' + day);
