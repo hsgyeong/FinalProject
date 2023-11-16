@@ -112,12 +112,23 @@
 			$(".totalpay").text(pay);
 		});
 		
-		$(".allcheck").click(function(){
+		/* $(".allcheck").click(function(){
 			
 			var chk=$(this).is(":checked");
 			//console.log(chk);
 			
 			$(".check").prop("checked",chk);
+		}); */
+		$(document).ready(function () {
+		    $(".allcheck").click(function () {
+		        var chk = $(this).is(":checked");
+		        $(".check").prop("checked", chk);
+		    });
+
+		    $(".check").click(function () {
+		        var allChecked = $(".check:checked").length === $(".check").length;
+		        $("input.allcheck").prop("checked", allChecked);
+		    });
 		});
 	});
 	
