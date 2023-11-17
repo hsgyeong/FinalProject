@@ -101,6 +101,12 @@
 		padding: 50px 30px 50px 30px;
 		color: #BDBDBD;
 	}
+	
+	.payconfirm{
+		color: #A748FF;
+		background-color: white;
+		border: none;
+	}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -132,33 +138,36 @@
 		});
 	});
 	
-	function reservechk(){
-		
-		if($(".name").val()=='')
-		{
-			alert("이름을 입력해주세요.");
-			return false;
-		}
-		
-		if($(".phone").val()=='')
-		{
-			alert("휴대폰 번호를 입력해주세요.");
-			return false;
-		}
-		
-		for(var i=0;i<3;i++)
-		{
-			if((!($(".check:eq("+i+")").is(":checked"))))
-			{
-				alert("필수 이용 동의 항목에 동의(체크)해주세요.");
-				return false;
-			}
-		}
+	function reservechk() {
+	    // 이름이 비어있는지 확인
+	    if ($(".name").val() == '') {
+	        // 이름이 비어있으면 알림 표시하고 함수 종료
+	        alert("이름을 입력해주세요.");
+	        return false;
+	    } else {
+	        // 이름이 비어있지 않으면 휴대폰 번호가 비어있는지 확인
+	        if ($(".phone").val() == '') {
+	            // 휴대폰 번호가 비어있으면 알림 표시하고 함수 종료
+	            alert("휴대폰 번호를 입력해주세요.");
+	            return false;
+	        } else {
+	            // 휴대폰 번호도 비어있지 않으면 동의 체크박스를 확인
+	            for (var i = 0; i < 3; i++) {
+	                // 동의 체크박스 중 하나라도 체크되어 있지 않으면 알림 표시하고 함수 종료
+	                if (!($(".check:eq(" + i + ")").is(":checked"))) {
+	                    alert("필수 이용 동의 항목에 동의(체크)해주세요.");
+	                    return false;
+	                }
+	            }
+	        }
+	    }
+	    
+	    $("#pay-modal").modal("show");
 	}
 </script>
 </head>
 <body>
-	<form action="#" method="post" onsubmit="return reservechk()">
+	<form action="#" method="post">
 		<div class="left-side">
 			<div>
 				<b>예약자 정보</b>
@@ -277,7 +286,28 @@
 				<br>
 			</div>
 
-			<button type="submit" class="btnpay">결제하기</button>
+			<button type="button" class="btnpay" onclick="reservechk()">결제하기</button>
+			
+			
+			<!-- Modal -->
+			<div class="modal fade" id="pay-modal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">...</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-outline-secondary"
+								data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="payconfirm">확인 및 결제진행</button>	
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</form>
 
