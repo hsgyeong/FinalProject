@@ -1,13 +1,19 @@
 package sist.last.controller;
 
 import java.util.Calendar;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import sist.last.service.ProductService;
 
 @Controller
 public class ProductController {
+
+    @Autowired
+    ProductService service;
 
     @GetMapping("/product/search-main")
     public String searchMainForm(@RequestParam String keyword, Model model,
@@ -25,7 +31,11 @@ public class ProductController {
             model.addAttribute("secondMonth", splitDate2[1]);
             model.addAttribute("secondDay", splitDate2[2]);
             model.addAttribute("sleep", sleep);
+
         }
+        List<String> category = service.selectCategory();
+        model.addAttribute("category", category);
+
         return "/product/searchMainPage";
     }
 
