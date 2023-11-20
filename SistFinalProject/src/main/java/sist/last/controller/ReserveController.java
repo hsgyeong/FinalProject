@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import sist.last.dto.ReserveDto;
-import sist.last.service.MemberService;
+import sist.last.dto.RoomDto;
 import sist.last.service.ReserveService;
 
 @Controller
@@ -19,9 +19,6 @@ public class ReserveController {
 	@Autowired
 	ReserveService rservice;
 	
-	@Autowired
-	MemberService mservice;
-	
 	@GetMapping("/reserve/reserve-form")
 	public String form()
 	{
@@ -29,16 +26,19 @@ public class ReserveController {
 	}
 	
 	@PostMapping("/reserve/payment")
-	public ModelAndView payment(@ModelAttribute ReserveDto dto,HttpSession session)
+	public ModelAndView payment(@ModelAttribute ReserveDto reserveDto,@ModelAttribute RoomDto roomDto,HttpSession session)
 	{
 		ModelAndView model=new ModelAndView();
 		
 		String myid=(String)session.getAttribute("myid");
 		
+		int room_num=roomDto.getRoom_num();
 		
-		dto.setInfo_id(myid);
+		reserveDto.setInfo_id(myid);
 		
-		rservice.reservingInsert(dto);
+		reserveDto.setRoom_num(room_num);
+		
+		rservice.reservingInsert(reserveDto);
 		
 		model.setViewName("/payment/payment");
 		
