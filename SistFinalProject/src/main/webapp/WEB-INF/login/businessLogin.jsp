@@ -11,23 +11,23 @@
           rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <title>Insert title here</title>
-    <style type="text/css">
-    .t{
-	font-family: 'Jalnan';
-	color:#f7323f;
-	text-align: center;
-}
-
-.bt{
-	font-family: 'Jalnan';
-	color: #f7323f;
-	float: right;
-}
-    </style>
 </head>
 <body>
-<h3><div class="t">TRIVIEW</div></h3><br>
-
-<button type="button" class="btn" onclick="location.href='/'">메인으로</button>
+<form action="businessLogin">
+		<tr>
+				<td>
+				<div class="b">
+				<span class="businessId">사업자번호
+				&nbsp;&nbsp;
+				<input type="text" name="business_id" id="bNum" style="width: 190px;"
+					class="form-control" ></span>
+				<br>
+				<span class="businessPass">비밀번호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="password" name="business_pass" style="width: 190px;"
+					class="form-control" ></span>
+			</div>	
+				</td>
+		</tr>	
+</form>			
 </body>
 </html>

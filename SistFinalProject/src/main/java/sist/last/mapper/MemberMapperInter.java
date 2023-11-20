@@ -14,4 +14,5 @@ public interface MemberMapperInter {
 	public MemberDto getDataById(String id);
 	public int getSearchId(String id);
 	public int getSearchNick(String nickname);
+	public String getNick(String id);
 }

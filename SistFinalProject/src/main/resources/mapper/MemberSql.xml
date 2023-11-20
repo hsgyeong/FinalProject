@@ -28,4 +28,8 @@
  select * from info where info_id=#{id}
  </select>
  
+ <select id="getNick" resultType="String" parameterType="String">
+ select info_nickname from info where info_id=#{id}
+ </select>
+ 
  </mapper>
