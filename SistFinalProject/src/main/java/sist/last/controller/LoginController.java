@@ -49,11 +49,6 @@ public class LoginController {
 		}
 	}
 	
-	@GetMapping("/businessLoginForm")
-	public String business()
-	{
-		return "businessLoginForm";
-	}
 	
 	@GetMapping("/login/fail")
 	public String loginfail()
@@ -62,7 +57,7 @@ public class LoginController {
 		
 	}
 	
-	@PostMapping("/login/memberLogin")
+	@PostMapping("/login/member-login")
 	public String login(@RequestParam String id,
 			@RequestParam String pass,
 			@RequestParam(required = false) String cbsave,
@@ -97,7 +92,7 @@ public class LoginController {
 		
 	} 
 	
-	@PostMapping("/login/businessLogin")
+	@PostMapping("/login/business-login")
 	public String Blogin(@RequestParam String business_id,
 			@RequestParam String business_pass,
 			@RequestParam(required = false) String cbsave,

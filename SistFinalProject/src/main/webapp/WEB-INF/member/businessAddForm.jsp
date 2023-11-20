@@ -38,7 +38,7 @@
 
 				type : "get",
 				dataType : "json",
-				url : "businessIdCheck",
+				url : "business-idcheck",
 				data : {
 					"business_id" : business_id
 				},
@@ -148,7 +148,7 @@ body {
 </style>
 </head>
 <body>
-	<form action="joinBusiness" method="post">
+	<form action="join-business" method="post">
 		<table class="tb">
 			<h3><a href="/"	class="t" style="font-family: 'Jalnan'; text-align: center;
 					margin-top: 20px; color: #f7323f; cursor:pointer; text-decoration: none;
