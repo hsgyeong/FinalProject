@@ -236,7 +236,6 @@
 					<option value="tosspay">토스페이</option>
 					<option value="card">신용/체크 카드</option>
 					<option value="account">간편계좌이체</option>
-					<option value="naverpay">네이버페이</option>
 					<option value="payco">페이코</option>
 					<option value="phonepay">휴대폰결제</option>
 				</select>
