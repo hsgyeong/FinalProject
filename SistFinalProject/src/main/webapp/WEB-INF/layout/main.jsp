@@ -126,7 +126,8 @@
     <div class="mainad">
         <img src="${root}/seoul.png" style="width: 100%;">
     </div>
-
+    
+${sessionScope.nickname}<br>
     <div class="maincategory d-inline-flex">
         <a href="#"><figure><img src="${root}/hotel.png"><figcaption>호텔</figcaption></figure></a>
         <a href="#"><figure><img src="${root}/bed.png"><figcaption>모텔</figcaption></figure></a>
