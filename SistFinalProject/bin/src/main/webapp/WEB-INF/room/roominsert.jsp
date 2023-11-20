@@ -51,7 +51,6 @@
 }
 </style>
 <script>
-//이벤트 핸들러
 $(document).ready(function(){
 
     $("select[name='room_minpeople']").change(function(){
@@ -76,9 +75,9 @@ $(document).ready(function(){
 <title>Insert title here</title>
 </head>
 <body>
-<form action="Insert" method="post" enctype="multipart/form-data">
+<form action="insert">
 <div class="room_insert_box" align="center">
-<input type="hidden" name="accom_num" value="1234">
+<input type="hidden" name="accom_num" value="test">
 <table class="table table-bordered">
 
 	<tr>
@@ -113,6 +112,8 @@ $(document).ready(function(){
 				<option value="6">6</option>
 				<option value="7">7</option>
 				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
 			</select>
 			
 			<b style="padding-top: 0.7vh;">&nbsp;~&nbsp;</b>
@@ -127,6 +128,8 @@ $(document).ready(function(){
 				<option value="6">6</option>
 				<option value="7">7</option>
 				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
 			</select>
 		</td>
 	</tr>

@@ -43,10 +43,12 @@
         width: 80%;
         height: 100%;
     }
-    div.select-option>a{
+
+    div.select-option > a {
         width: 30px;
         margin-right: 30px;
     }
+
     i.bi-search {
         color: white;
         cursor: pointer;
@@ -73,7 +75,7 @@
 
     }
 
-    div ul li.select-li>a {
+    div ul li.select-li > a {
         margin-right: 30px;
         color: white;
         text-decoration: none;
@@ -82,28 +84,32 @@
         height: 100%;
         padding-top: 20px;
     }
+
     .titlebox a {
         color: white;
         text-decoration: none;
     }
-    div.search-input-box{
+
+    div.search-input-box {
         display: flex;
         align-items: center;
         width: 80%;
     }
 
-    input.search-input{
+    input.search-input {
         background: #f7323f;
         position: relative;
         width: 80%;
         border: none;
     }
-    input.search-input:focus{
+
+    input.search-input:focus {
         border: none;
         outline: none;
 
     }
-    i.bi-x{
+
+    i.bi-x {
         font-size: 30px;
         cursor: pointer;
     }
@@ -115,11 +121,12 @@
         width: 150px;
         /*border: 3px solid green;*/
         border-radius: 10px;
-        box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.2);
+        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
         padding: 10px 5px 0px 5px;
         margin-right: 60px;
     }
-    div.sub-title a{
+
+    div.sub-title a {
         color: black;
         text-decoration: none;
     }
@@ -130,40 +137,66 @@
 <script>
 
     $(function () {
+        $("i.search-active").hide();
         $("div.sub-title").hide();
         $("div.search-input-box").hide();
 
 
-        $(".select-li:eq(2)").mouseover(function (){
+        $(".select-li:eq(2)").mouseover(function () {
             $("div.sub-title").show();
         });
-        $("div.sub-title").mouseover(function (){
+        $("div.sub-title").mouseover(function () {
             $(this).show();
         });
 
-        $(".select-li").mouseout(function (){
-           $("div.sub-title").hide();
+        $(".select-li").mouseout(function () {
+            $("div.sub-title").hide();
         });
-        $("div.sub-title").mouseout(function (){
+        $("div.sub-title").mouseout(function () {
             $(this).hide();
         });
 
-        $("i.bi-search").click(function (){
-            // $(this).animate({"marginLeft":"100%"},500);
+        $("i.search-disabled").click(function () {
             $("div.search-input-box").show();
             $("div.select-box").hide();
+            $("i.search-active").show().animate({"marginLeft": "70px"}, 500);
+            $(this).hide();
         });
 
-        $(".search-input-box").click(function (){
+        $(".search-input-box").click(function () {
 
         });
 
-        $("i.bi-x").click(function (){
+        $("i.bi-x").click(function () {
+            $("i.search-active").hide().animate({"marginLeft": "0px"}, 500);
+            $("i.search-disabled").show();
             $("div.select-box").show();
             $("div.search-input-box").hide();
         });
 
+        $("i.search-active").click(function () {
+            const searchText = $("input.search-input").val();
+            if (searchText.trim().length == 0) {
+                alert("검색하고 싶은 내용을 입력해주세요.")
+                return false;
+            }
+            searchActive(searchText);
+            $("input.search-input").val("");
+        })
+
+        $("input.search-input").keydown(function (key) {
+            if (key.keyCode === 13) {
+                const searchText = $(this).val();
+                searchActive(searchText);
+            }
+        });
+
     });
+
+    function searchActive(searchText) {
+        //alert(searchText);
+        location.href = "/product/search-main?keyword=" + searchText;
+    }
 
 </script>
 
@@ -176,13 +209,19 @@
         <a href="/"><h2>TRIVIEW</h2></a>
     </div>
     <div class="select-option">
-        <a><i class="bi bi-search"></i></a>
+        <a><i class="bi bi-search search-active"></i></a>
+        <a><i class="bi bi-search search-disabled"></i></a>
         <div class="select-box">
             <ul class="select-ul d-inline-flex">
                 <li class="select-li"><a href="#">내주변</a></li>
                 <li class="select-li"><a href="#">예약내역</a></li>
                 <li class="select-li"><a href="/accom/Accom-Insert" id="see_more">더보기</a></li>
-                <li class="select-li"><a href="/room/Room-Insert">로그인</a></li>
+                <c:if test="${sessionScope.loginok==null }">
+                    <li class="select-li"><a href="/login/loginform">로그인</a></li>
+                </c:if>
+                <c:if test="${sessionScope.loginok!=null }">
+                    <li class="select-li"><a href="/login/logout">로그아웃</a></li>
+                </c:if>
             </ul>
         </div>
         <div class="search-input-box">
@@ -202,7 +241,6 @@
     </div>
 
 </header>
-
 
 
 </body>
