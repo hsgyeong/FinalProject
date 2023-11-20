@@ -13,36 +13,36 @@ import sist.last.mapper.BusinessMapperInter;
 public class BusinessService implements BusinessServiceInter {
 
 	@Autowired
-	BusinessMapperInter mapperInter;
+	BusinessMapperInter businessMapperInter;
 	
 	@Override
 	public void insertBusiness(BusinessDto dto) {
 		// TODO Auto-generated method stub
-		mapperInter.insertBusiness(dto);
+		businessMapperInter.insertBusiness(dto);
 	}
 
 	@Override
-	public int loginPassCheck(String business_id, String business_pass) {
+	public int BloginPassCheck(String business_id, String business_pass) {
 		// TODO Auto-generated method stub
 		
 		Map<String, String> map = new HashMap<>();
 		
-		map.put(business_id, "business_id");
-		map.put(business_pass, "business_pass");
+		map.put("business_id", business_id);
+		map.put("business_pass", business_pass);
 		
-		return mapperInter.loginPassCheck(map);
+		return businessMapperInter.BloginPassCheck(map);
 	}
 
 	@Override
 	public BusinessDto getDataByBusinessId(String business_id) {
 		// TODO Auto-generated method stub
-		return mapperInter.getDataByBusinessId(business_id);
+		return businessMapperInter.getDataByBusinessId(business_id);
 	}
 
 	@Override
 	public int getSearchBusinessId(String business_id) {
 		// TODO Auto-generated method stub
-		return mapperInter.getSearchBusinessId(business_id);
+		return businessMapperInter.getSearchBusinessId(business_id);
 	}
 
 }

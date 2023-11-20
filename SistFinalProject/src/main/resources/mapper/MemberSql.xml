@@ -20,7 +20,7 @@
  select count(*) from info where info_id=#{id}
  </select>
  
-  <select id="getSearchNick" resultType="int" parameterType="String">
+ <select id="getSearchNick" resultType="int" parameterType="String">
  select count(*) from info where info_nickname=#{nickname}
  </select>
  
@@ -28,7 +28,7 @@
  select * from info where info_id=#{id}
  </select>
  
- <select id="getNick" resultType="String" parameterType="String">
+ <select id="getNickname" resultType="String" parameterType="String">
  select info_nickname from info where info_id=#{id}
  </select>
  
