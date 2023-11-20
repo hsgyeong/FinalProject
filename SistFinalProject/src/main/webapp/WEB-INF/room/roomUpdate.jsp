@@ -76,7 +76,7 @@ $(document).ready(function(){
 <title>Insert title here</title>
 </head>
 <body>
-<form action="Update" method="post" enctype="multipart/form-data">
+<form action="update" method="post" enctype="multipart/form-data">
 <input type="hidden" name="room_num" value="${dto.room_num }">
 <div class="room_insert_box" align="center">
 <table class="table table-bordered">
@@ -171,7 +171,7 @@ $(document).ready(function(){
 	<tr>
 		<td align="center" colspan="2">
 			<button type="submit" class="room_insert_btn1">등록</button>
-			<button type="submit" class="room_insert_btn2"onclick="location.href='history.back()'">취소</button>
+			<button type="button" class="room_insert_btn2"onclick="location.href='history.back()'">취소</button>
 		</td>
 	</tr>
 </table>

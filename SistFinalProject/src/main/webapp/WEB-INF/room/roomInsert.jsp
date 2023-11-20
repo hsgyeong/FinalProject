@@ -76,7 +76,7 @@ $(document).ready(function(){
 <title>Insert title here</title>
 </head>
 <body>
-<form action="Insert" method="post" enctype="multipart/form-data">
+<form action="insert" method="post" enctype="multipart/form-data">
 <div class="room_insert_box" align="center">
 <!-- 숙소 번호 넘기기 fk -->
 <input type="hidden" name="accom_num" value="1234">
@@ -173,7 +173,7 @@ $(document).ready(function(){
 	<tr>
 		<td align="center" colspan="2">
 			<button type="submit" class="room_insert_btn1">등록</button>
-			<button type="submit" class="room_insert_btn2"onclick="location.href='history.back()'">취소</button>
+			<button type="button" class="room_insert_btn2"onclick="location.href='history.back()'">취소</button>
 		</td>
 	</tr>
 </table>

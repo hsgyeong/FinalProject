@@ -88,12 +88,10 @@
 <div class="scrolling-text-container">
     <div class="scrolling-text">${totalCount}개의 방을 등록하셨어요!</div>
 </div>
-
 <div class="room_array" align="center">
 			
 				<c:forEach var="dto" items="${list }" varStatus="i">
-				
-				<c:if test="${dto.room_num eq param.accom_num}">
+				<c:if test="${totalCount>0 }">
 				<table class="table table-bordered">
 					<tr>
 						<td colspan="2" align="center" style="height: 3vh;"><b>${i.count }번방</b></td>
@@ -137,9 +135,9 @@
 					<tr>
 						<td colspan="2" align="center" valign="middle" style="height: 10vh;">
 							<button type="button" class="room_list_update"
-								onclick="location.href='Room-Update?num=${dto.room_num}'">수정</button>
+								onclick="location.href='room-update?num=${dto.room_num}'">수정</button>
 							<button type="button" class="room_list_delete"
-								onclick="location.href='Delete?num=${dto.room_num}'">삭제</button>
+								onclick="location.href='delete?num=${dto.room_num}'">삭제</button>
 						</td>
 					</tr>
 				</table>

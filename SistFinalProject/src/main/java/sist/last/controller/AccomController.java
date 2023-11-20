@@ -27,12 +27,12 @@ public class AccomController {
 	@Autowired
 	AccomMapperInter mapper;
 
-	@GetMapping("/accom/Accom-List")
-	public ModelAndView list() {
+	@GetMapping("/accom/accom-list")
+	public ModelAndView list(@RequestParam String business_id) {
 
 		ModelAndView model = new ModelAndView();
 
-		int totalCount = mapper.getTotalCount();
+		int totalCount = mapper.getTotalCount(business_id);
 		List<AccomDto> list = mapper.getAllData();
 
 		model.addObject("totalCount", totalCount);
@@ -43,12 +43,12 @@ public class AccomController {
 		return model;
 	}
 
-	@GetMapping("/accom/Accom-Insert")
+	@GetMapping("/accom/accom-insert")
 	public String accominsertfrom() {
 		return "/accom/accomInsert";
 	}
 
-	@PostMapping("/accom/Insert")
+	@PostMapping("/accom/insert")
 	public String insert(@ModelAttribute AccomDto dto, MultipartFile photo, HttpSession session) {
 		// save 위치
 		String path = session.getServletContext().getRealPath("/accomsave");
@@ -73,10 +73,10 @@ public class AccomController {
 
 		mapper.insertAccom(dto);
 
-		return "redirect:/accom/Accom-List";
+		return "redirect:/accom/accom-list";
 	}
 
-	@GetMapping("/accom/Delete")
+	@GetMapping("/accom/delete")
 	public String delete(@RequestParam int num, HttpSession session) {
 		
 	    AccomDto dto = mapper.getOneData(num);
@@ -100,11 +100,11 @@ public class AccomController {
 	    
 	    mapper.deleteAccom(num);
 			
-		return "redirect:/accom/Accom-List";
+		return "redirect:/accom/accom-list";
 
 	}
 
-	@GetMapping("/accom/Accom-Update")
+	@GetMapping("/accom/accom-update")
 	public String accomupdatefrom(@RequestParam int num, Model model) {
 		AccomDto dto = mapper.getOneData(num);
 
@@ -113,7 +113,7 @@ public class AccomController {
 		return "/accom/accomUpdate";
 	}
 
-	@PostMapping("/accom/Update")
+	@PostMapping("/accom/update")
 	public String update(@ModelAttribute AccomDto dto, MultipartFile photo, HttpSession session) {
 
 	    // save 위치
@@ -143,6 +143,6 @@ public class AccomController {
 
 	    mapper.updateAccom(dto);
 
-	    return "redirect:/accom/Accom-List";
+	    return "redirect:/accom/accom-list";
 	}
 }
