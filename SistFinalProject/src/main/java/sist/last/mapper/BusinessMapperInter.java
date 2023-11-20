@@ -11,7 +11,7 @@ import sist.last.dto.MemberDto;
 public interface BusinessMapperInter {
 
 	public void insertBusiness(BusinessDto dto);
-	public int loginPassCheck(Map<String, String> map);
+	public int BloginPassCheck(Map<String, String> map);
 	public BusinessDto getDataByBusinessId(String business_id);
 	public int getSearchBusinessId(String business_id);
 }

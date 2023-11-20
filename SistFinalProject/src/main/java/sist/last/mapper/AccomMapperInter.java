@@ -11,7 +11,7 @@ public interface AccomMapperInter {
 	
 	public void insertAccom(AccomDto dto);
 	public List<AccomDto> getAllData();
-	public int getTotalCount();
+	public int getTotalCount(String business_id);
 	public void deleteAccom(int num);
 	public AccomDto getOneData(int num);
 	public void updateAccom(AccomDto dto);

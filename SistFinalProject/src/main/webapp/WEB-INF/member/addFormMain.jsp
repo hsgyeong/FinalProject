@@ -63,7 +63,7 @@ $(function(){
 		$.ajax({
 			
 			type:"get",
-			url:"memberJoin",
+			url:"member-join",
 			dataType:"html",
 			success:function(res){
 				
@@ -79,7 +79,7 @@ $(function(){
 		$.ajax({
 			
 			type:"get",
-			url:"businessJoin",
+			url:"business-join",
 			dataType:"html",
 			success:function(res){
 				

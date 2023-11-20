@@ -90,22 +90,24 @@ a:hover {
 </div>
 
 <div class="accom_list_box" align="center">
-    <table class="table table-bordered">
-        <c:if test="${totalCount > 0 }">
-            <tr>
-                <td align="center" style="width: 10%; height: 5vh;">No</td>
-                <td align="center" style="width: 20%; height: 5vh;">이름</td>
-                <td align="center" style="width: 10%; height: 5vh;">종류</td>
-                <td align="center" style="width: 20%; height: 5vh;">사진</td>
-                <td align="center" style="width: 20%; height: 5vh;">위치</td>
-                <td align="center" style="width: 20%; height: 5vh;">수정 & 삭제</td>
-            </tr>
-            <c:forEach var="dto" items="${list}" varStatus="i">
+			
+            <table class="table table-bordered">
+	            <tr>
+	                <td align="center" style="width: 10%; height: 5vh;">No</td>
+	                <td align="center" style="width: 20%; height: 5vh;">이름</td>
+	                <td align="center" style="width: 10%; height: 5vh;">종류</td>
+	                <td align="center" style="width: 20%; height: 5vh;">사진</td>
+	                <td align="center" style="width: 20%; height: 5vh;">위치</td>
+	                <td align="center" style="width: 20%; height: 5vh;">수정 & 삭제</td>
+	            </tr>
+           	
+           	
+	        <c:if test="${totalCount>0 }">
+	        <c:forEach var="dto" items="${list}" varStatus="i">
                 <tr>
                     <td align="center" valign="middle" style="width: 10%; height: 15vh;">${i.count }</td>
                     <td align="center" valign="middle" style="width: 20%; height: 15vh;">
-                    <a href="/room/Room-List?accom_num=${dto.accom_num }" style="color: black;">
-                    ${dto.accom_name }
+                    <a href="/room/room-list?accom_num=${dto.accom_num }" style="color: black;">${dto.accom_name }
                     </a>
                     </td>
                     <td align="center" valign="middle" style="width: 10%; height: 15vh;">${dto.accom_category }</td>
@@ -115,14 +117,14 @@ a:hover {
                     <td align="center" valign="middle" style="width: 20%; height: 15vh;">${dto.accom_location }&nbsp;${dto.accom_address }</td>
                     <td align="center" valign="middle" style="width: 20%; height: 15vh;">
                     <button type="button" class="accom_list_btn1"
-                    onclick="location.href='Accom-Update?num=${dto.accom_num}'">수정</button>
+                    onclick="location.href='accom-update?num=${dto.accom_num}'">수정</button>
                     <button type="button" class="accom_list_btn2"
-                    onclick="location.href='Delete?num=${dto.accom_num}'">삭제</button>
+                    onclick="location.href='delete?num=${dto.accom_num}'">삭제</button>
                     </td>
                 </tr>
             </c:forEach>
-        </c:if>
-    </table>
+            </c:if>
+            </table>
 </div>
 </body>
 </html>

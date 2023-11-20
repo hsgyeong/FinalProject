@@ -30,7 +30,7 @@ public class MemberController {
 		return "/member/addFormMain";
 	}
 	
-	@GetMapping("/member/memberJoin")
+	@GetMapping("/member/member-join")
 	public String addperson()
 	{
 		return "/member/memberAddForm";
@@ -63,7 +63,7 @@ public class MemberController {
 	}
 	
 	
-	@PostMapping("/member/joinMember")
+	@PostMapping("/member/join-member")
 	public String insert(@ModelAttribute MemberDto dto,
 			@RequestParam String hp1,
 			@RequestParam String hp2,

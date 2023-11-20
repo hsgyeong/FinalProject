@@ -114,8 +114,6 @@
 }
 
 .t {
-	font-family: 'Jalnan';
-	color: #f7323f;
 	text-align: center;
 }
 
@@ -123,6 +121,15 @@
 	margin-left: 395px;
 }
 
+h3{
+	  text-align: center;
+    font-family: 'Jalnan';
+    margin-top: 20px;
+    color: #f7323f;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+}
 .cap {
 	text-align: center;
 	align-items:center;
@@ -154,10 +161,12 @@ body {
 </style>
 </head>
 <body>
-	<form action="joinMember" method="post">
+	<form action="join-member" method="post">
 		<table class="tb">
 			<h3>
-				<div class="t">TRIVIEW</div>
+				<a href="/"	class="t" id="t" style="font-family: 'Jalnan'; text-align: center;
+					margin-top: 20px; color: #f7323f; cursor:pointer; text-decoration: none;
+ 					outline: none;">TRIVIEW</a>
 			</h3>
 			<br>
 		
