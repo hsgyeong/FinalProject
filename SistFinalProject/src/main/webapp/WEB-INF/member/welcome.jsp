@@ -13,11 +13,6 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <title>Insert title here</title>
     <style type="text/css">
-    .t{
-	font-family: 'Jalnan';
-	color:#f7323f;
-	text-align: center;
-}
 
 .btn.bt{
 	width:180px;
@@ -37,9 +32,11 @@
 </head>
 <body>
 
-<h3><div class="t">TRIVIEW</div></h3><br>
+<h3><a href="/"	style="font-family: 'Jalnan'; text-align: center;
+					margin-top: 20px; color: #f7323f; cursor:pointer; text-decoration: none;
+ 					outline: none;">TRIVIEW</a></h3><br>
 
-<span class="success"><b>가입을 환영합니다.</b></span><br><br>
+<span class="success">가입을 환영합니다.</span><br><br>
 <button type="button" class="btn bt" onclick="location.href='/'">메인으로</button>
 </body>
 </html>
