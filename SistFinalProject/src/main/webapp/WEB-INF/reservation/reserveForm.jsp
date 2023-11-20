@@ -102,10 +102,18 @@
 		color: #BDBDBD;
 	}
 	
-	.payconfirm{
+	.pay-confirm-btn{
 		color: #A748FF;
 		background-color: white;
 		border: none;
+		font-weight: bold;
+	}
+	
+	.pay-modal-cancel-btn{
+		color: #8C8C8C;
+		background-color: white;
+		border: none;
+		font-weight: bold;
 	}
 </style>
 <script type="text/javascript">
@@ -167,7 +175,7 @@
 </script>
 </head>
 <body>
-	<form action="#" method="post">
+	<form action="payment" method="post">
 		<div class="left-side">
 			<div>
 				<b>예약자 정보</b>
@@ -288,21 +296,36 @@
 			<button type="button" class="btnpay" onclick="reservechk()">결제하기</button>
 			
 			
-			<!-- Modal -->
+			<!-- 결제 확인 Modal -->
 			<div class="modal fade" id="pay-modal" tabindex="-1"
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
 								aria-label="Close"></button>
 						</div>
-						<div class="modal-body">...</div>
+						
+						<div class="modal-body">
+							숙소이름<br>
+							숙소타입 넣을 곳 / 기간<br>
+							<br>
+							
+							<span style="color: #CFCFCF;">체크인</span><span style="float: right; font-weight: bold;">체크인시간</span><br>
+							<span style="color: #CFCFCF;">체크아웃</span><span style="float: right; font-weight: bold;">체크아웃시간</span>
+							<hr>
+							
+							<p>
+								• 19세 미만 청소년은 보호자 동반 시 투숙이 가능합니다.<br>
+								• <span style="font-weight: bold; color: red;">취소 및 환불 규정</span>에 따라 앱내에서 예약취소 가능한 상품입니다. 예약취소 시 취소수수료 가 발생할 수 있습니다.
+							</p>
+						</div>
+						
 						<div class="modal-footer">
-							<button type="button" class="btn btn-outline-secondary"
-								data-bs-dismiss="modal">Close</button>
-							<button type="submit" class="payconfirm">확인 및 결제진행</button>	
+							<button type="button" class="pay-modal-cancel-btn"
+								data-bs-dismiss="modal">취소</button>
+							<button type="submit" class="pay-confirm-btn">확인 및 결제진행</button>	
 						</div>
 					</div>
 				</div>
