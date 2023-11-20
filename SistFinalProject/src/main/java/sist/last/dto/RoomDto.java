@@ -17,5 +17,5 @@ public class RoomDto {
 	private String room_location;
 	private String room_photo;
 	private String room_info;
-	
+	private int room_count;
 }

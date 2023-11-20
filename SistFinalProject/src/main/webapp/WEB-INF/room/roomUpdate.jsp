@@ -76,12 +76,10 @@ $(document).ready(function(){
 <title>Insert title here</title>
 </head>
 <body>
-<form action="Insert" method="post" enctype="multipart/form-data">
+<form action="Update" method="post" enctype="multipart/form-data">
+<input type="hidden" name="room_num" value="${dto.room_num }">
 <div class="room_insert_box" align="center">
-<!-- 숙소 번호 넘기기 fk -->
-<input type="hidden" name="accom_num" value="1234">
 <table class="table table-bordered">
-
 	<tr>
 		<td align="center" valign="middle" colspan="2" style="font-size: 1.5em;"><b>방정보등록</b></td>
 	</tr>
@@ -89,7 +87,7 @@ $(document).ready(function(){
 		<td align="center" valign="middle"><b>이름</b></td>
 		<td valign="middle">
 			<input type="text" class="form-control" name="room_name" required="required"
-			placeholder="ex)디럭스, 스탠다드" style="width: 30vh; height: 5vh;">
+			placeholder="ex)디럭스, 스탠다드" style="width: 30vh; height: 5vh;" value="${dto.room_name }">
 		</td>
 	</tr>
 	
@@ -97,7 +95,7 @@ $(document).ready(function(){
 		<td align="center" valign="middle"><b>가격</b></td>
 		<td valign="middle">
 			<input type="text" class="form-control" name="room_price" required="required"
-			style="width: 25vh; height: 5vh;">
+			style="width: 25vh; height: 5vh;" value="${dto.room_price }">
 		</td>
 	</tr>
 	
@@ -106,28 +104,28 @@ $(document).ready(function(){
 		<td valign="middle" style="display: flex; border-left: none;">
 			<select class="form-control" name="room_minpeople" required="required"
 			style="width: 5vh; height: 5vh;">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
+				<option value="1" ${dto.room_minpeople eq '1' ? 'selected' : ''}>1</option>
+				<option value="2" ${dto.room_minpeople eq '2' ? 'selected' : ''}>2</option>
+				<option value="3" ${dto.room_minpeople eq '3' ? 'selected' : ''}>3</option>
+				<option value="4" ${dto.room_minpeople eq '4' ? 'selected' : ''}>4</option>
+				<option value="5" ${dto.room_minpeople eq '5' ? 'selected' : ''}>5</option>
+				<option value="6" ${dto.room_minpeople eq '6' ? 'selected' : ''}>6</option>
+				<option value="7" ${dto.room_minpeople eq '7' ? 'selected' : ''}>7</option>
+				<option value="8" ${dto.room_minpeople eq '8' ? 'selected' : ''}>8</option>
 			</select>
 			
 			<b style="padding-top: 0.7vh;">&nbsp;~&nbsp;</b>
 			
 			<select class="form-control" name="room_maxpeople" required="required"
 			style="width: 5vh; height: 5vh;">
-				<option value="1">1</option>
-				<option value="2" selected="selected">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
+				<option value="1" ${dto.room_maxpeople eq '1' ? 'selected' : ''}>1</option>
+				<option value="2" ${dto.room_maxpeople eq '2' ? 'selected' : ''}>2</option>
+				<option value="3" ${dto.room_maxpeople eq '3' ? 'selected' : ''}>3</option>
+				<option value="4" ${dto.room_maxpeople eq '4' ? 'selected' : ''}>4</option>
+				<option value="5" ${dto.room_maxpeople eq '5' ? 'selected' : ''}>5</option>
+				<option value="6" ${dto.room_maxpeople eq '6' ? 'selected' : ''}>6</option>
+				<option value="7" ${dto.room_maxpeople eq '7' ? 'selected' : ''}>7</option>
+				<option value="8" ${dto.room_maxpeople eq '8' ? 'selected' : ''}>8</option>
 			</select>
 		</td>
 	</tr>
@@ -137,11 +135,11 @@ $(document).ready(function(){
 		<td valign="middle">
 			<select class="form-control" name="room_count" required="required"
 			style="width: 5vh; height: 5vh;">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
+				<option value="1" ${dto.room_count eq '1' ? 'selected' : ''}>1</option>
+				<option value="2" ${dto.room_count eq '2' ? 'selected' : ''}>2</option>
+				<option value="3" ${dto.room_count eq '3' ? 'selected' : ''}>3</option>
+				<option value="4" ${dto.room_count eq '4' ? 'selected' : ''}>4</option>
+				<option value="5" ${dto.room_count eq '5' ? 'selected' : ''}>5</option>
 			</select>
 		</td>
 	</tr>
@@ -158,7 +156,7 @@ $(document).ready(function(){
 		<td align="center" valign="middle"><b>위치</b></td>
 		<td valign="middle">
 			<input type="text" class="form-control" name="room_location" required="required"
-			placeholder="ex)1층, 2층" style="width: 50vh; height: 5vh;">
+			placeholder="ex)1층, 2층" style="width: 50vh; height: 5vh;" value="${dto.room_location }">
 		</td>
 	</tr>
 
@@ -166,7 +164,7 @@ $(document).ready(function(){
 	<tr>
 		<td align="center" valign="middle"><b>방정보소개</b></td>
 		<td valign="middle">
-			<textarea class="form-control" name="room_info" required="required"></textarea>
+			<textarea class="form-control" name="room_info" required="required">${dto.room_info }</textarea>
 		</td>
 	</tr>
 	
