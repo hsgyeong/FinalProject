@@ -39,14 +39,24 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+		<!-- websocket 입니다.	-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+
+		<!-- freemarker -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+
+
+
 		<!-- jstl -->
 		<dependency>
 		    <groupId>jstl</groupId>
@@ -85,14 +95,9 @@
 		    <version>05Nov2002</version>
 		</dependency>
 
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

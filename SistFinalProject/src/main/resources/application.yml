@@ -12,7 +12,10 @@ spring:
   devtools:
     livereload:
       enabled: true
-#mysql
+# 프리마커
+  freemarker:
+    cache: false
+  #mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://finalproject-sist0615.crsfihj2wlpy.ap-northeast-2.rds.amazonaws.com/finalproject
