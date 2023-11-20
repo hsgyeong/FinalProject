@@ -1,3 +1,4 @@
+<%@page import="sist.last.service.MemberService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -18,16 +19,27 @@
 	text-align: center;
 }
 
-.bt{
+.btn.bt{
+	width:180px;
+	height:60px;
+	border-radius: 5px;
+	background-color: #f7323f;
+	color:white;
+	align-items: center;
+}
+
+.success{
 	font-family: 'Jalnan';
 	color: #f7323f;
-	float: right;
+	font-size: 20px;
 }
     </style>
 </head>
 <body>
+
 <h3><div class="t">TRIVIEW</div></h3><br>
 
-<button type="button" class="btn" onclick="location.href='/'">메인으로</button>
+<span class="success"><b>가입을 환영합니다.</b></span><br><br>
+<button type="button" class="btn bt" onclick="location.href='/'">메인으로</button>
 </body>
 </html>
