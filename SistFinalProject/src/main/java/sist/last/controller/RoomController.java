@@ -24,7 +24,7 @@ public class RoomController {
     @Autowired
     RoomMapperInter mapper;
 
-    @GetMapping("/room/Room-List")
+    @GetMapping("/room/room-list")
     public ModelAndView list(@RequestParam String accom_num) {
 
         ModelAndView model = new ModelAndView();
@@ -40,12 +40,12 @@ public class RoomController {
         return model;
     }
 
-    @GetMapping("/room/Room-Insert")
+    @GetMapping("/room/room-insert")
     public String roominsertform() {
         return "/room/roomInsert";
     }
 
-    @PostMapping("/Room/Insert")
+    @PostMapping("/room/insert")
     public String insert(@ModelAttribute RoomDto dto, MultipartFile photo, HttpSession session,
                          @RequestParam String[] checkin, @RequestParam String[] checkout) {
         // save 위치
@@ -71,10 +71,10 @@ public class RoomController {
 
         mapper.insertRoom(dto);
 
-        return "redirect:/room/Room-List";
+        return "redirect:/room/room-list";
     }
 
-    @GetMapping("/room/Delete")
+    @GetMapping("/room/delete")
     public String delete(@RequestParam int num, HttpSession session) {
 
         RoomDto dto = mapper.getOneData(num);
@@ -98,11 +98,11 @@ public class RoomController {
 
         mapper.deleteRoom(num);
 
-        return "redirect:/room/Room-List";
+        return "redirect:/room/room-list";
 
     }
 
-    @GetMapping("/room/Room-Update")
+    @GetMapping("/room/room-update")
     public String accomupdatefrom(@RequestParam int num, Model model) {
         RoomDto dto = mapper.getOneData(num);
 
@@ -111,7 +111,7 @@ public class RoomController {
         return "/room/roomUpdate";
     }
 
-    @PostMapping("/room/Update")
+    @PostMapping("/room/update")
     public String update(@ModelAttribute RoomDto dto, MultipartFile photo, HttpSession session) {
 
         // save 위치

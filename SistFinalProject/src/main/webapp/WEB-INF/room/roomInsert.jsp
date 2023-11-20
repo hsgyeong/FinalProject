@@ -77,11 +77,11 @@
     <title>Insert title here</title>
 </head>
 <body>
-<form action="Insert" method="post" enctype="multipart/form-data" onsubmit="return checkDate()">
-    <div class="room_insert_box" align="center">
-        <!-- 숙소 번호 넘기기 fk -->
-        <input type="hidden" name="accom_num" value="1234">
-        <table class="table table-bordered">
+<form action="insert" method="post" enctype="multipart/form-data">
+<div class="room_insert_box" align="center">
+<!-- 숙소 번호 넘기기 fk -->
+<input type="hidden" name="accom_num" value="1234">
+<table class="table table-bordered">
 
             <tr>
                 <td align="center" valign="middle" colspan="2" style="font-size: 1.5em;"><b>방정보등록</b></td>

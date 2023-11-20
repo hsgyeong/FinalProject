@@ -17,7 +17,7 @@
     </select>
 
     <select id="getTotalCount" resultType="int">
-        select count(*) from accom
+        select count(*) from accom where business_id=#{business_id}
     </select>
 
     <delete id="deleteAccom" parameterType="int">

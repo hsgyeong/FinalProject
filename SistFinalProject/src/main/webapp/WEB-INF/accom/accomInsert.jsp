@@ -13,7 +13,7 @@
     <style type="text/css">
         .accom_insert_box {
             width: 100%;
-            height: 72vh;
+            height: 73vh;
             margin-top: 3.5vh;
         }
 
@@ -179,10 +179,11 @@
     <title>Insert title here</title>
 </head>
 <body>
-<form action="Insert" method="post" enctype="multipart/form-data">
-    <div class="accom_insert_box" align="center">
-        <input type="hidden" name="business_id" value="test">
-        <table class="table table-bordered">
+	<form action="insert" method="post" enctype="multipart/form-data">
+		<div class="accom_insert_box" align="center">
+			<!-- 사업자 번호 넘기기 fk -->
+			<input type="hidden" name="business_id" value="test">
+			<table class="table table-bordered">
 
             <tr>
                 <td align="center" valign="middle" colspan="2"

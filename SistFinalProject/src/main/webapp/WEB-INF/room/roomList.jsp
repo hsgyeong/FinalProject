@@ -88,66 +88,61 @@
 <div class="scrolling-text-container">
     <div class="scrolling-text">${totalCount}개의 방을 등록하셨어요!</div>
 </div>
-
 <div class="room_array" align="center">
+			
+				<c:forEach var="dto" items="${list }" varStatus="i">
+				<c:if test="${totalCount>0 }">
+				<table class="table table-bordered">
+					<tr>
+						<td colspan="2" align="center" style="height: 3vh;"><b>${i.count }번방</b></td>
+					</tr>
+					<tr>
+						<td align="center" style="height: 6vh;">이름</td>
+						<td align="center">${dto.room_name }</td>
+					</tr>
+					
+					<tr>
+						<td align="center" style="height: 6vh;">가격</td>
+						<td align="center">
+						<fmt:formatNumber value="${dto.room_price }"/>
+						</td>
+					</tr>
 
-    <c:forEach var="dto" items="${list }" varStatus="i">
-
-        <c:if test="${dto.room_num eq param.accom_num}">
-            <table class="table table-bordered">
-                <tr>
-                    <td colspan="2" align="center" style="height: 3vh;"><b>${i.count }번방</b></td>
-                </tr>
-                <tr>
-                    <td align="center" style="height: 6vh;">이름</td>
-                    <td align="center">${dto.room_name }</td>
-                </tr>
-
-                <tr>
-                    <td align="center" style="height: 6vh;">가격</td>
-                    <td align="center">
-                        <fmt:formatNumber value="${dto.room_price }"/>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="center" valign="middle" style="height: 6vh;">인원</td>
-                    <td align="center">${dto.room_minpeople }~${dto.room_maxpeople }</td>
-                </tr>
-
-                <tr>
-                    <td align="center" valign="middle" style="height: 6vh;">방갯수</td>
-                    <td align="center">${dto.room_count }</td>
-                </tr>
-                <tr>
-                    <td align="center" style="height: 6vh;">위치</td>
-                    <td align="center">${dto.room_location }</td>
-                </tr>
-
-                <tr>
-                    <td align="center" valign="middle" style="height: 20vh;">사진</td>
-                    <td align="center" valign="middle"><img src="../roomsave/${dto.room_photo}" alt=""></td>
-                </tr>
-
-                <tr>
-                    <td align="center" valign="middle" style="height: 6vh;">정보</td>
-                    <td align="center" valign="middle">${dto.room_info }</td>
-                </tr>
-
-                <tr>
-                    <td colspan="2" align="center" valign="middle" style="height: 10vh;">
-                        <button type="button" class="room_list_update"
-                                onclick="location.href='Room-Update?num=${dto.room_num}'">수정
-                        </button>
-                        <button type="button" class="room_list_delete"
-                                onclick="location.href='Delete?num=${dto.room_num}'">삭제
-                        </button>
-                    </td>
-                </tr>
-            </table>
-        </c:if>
-    </c:forEach>
-
-</div>
+                    <tr>
+                        <td align="center" valign="middle" style="height: 6vh;">인원</td>
+                        <td align="center">${dto.room_minpeople }~${dto.room_maxpeople }</td>
+                    </tr>
+					<tr>
+						<td align="center" valign="middle" style="height: 6vh;">방갯수</td>
+						<td align="center">${dto.room_count }</td>
+					</tr>
+					<tr>
+						<td align="center" style="height: 6vh;">위치</td>
+						<td align="center">${dto.room_location }</td>
+					</tr>
+					
+					<tr>
+						<td align="center" valign="middle" style="height: 20vh;">사진</td>
+						<td align="center" valign="middle"><img src="../roomsave/${dto.room_photo}" alt=""></td>
+					</tr>
+					
+					<tr>
+						<td align="center" valign="middle"style="height: 6vh;">정보</td>
+						<td align="center" valign="middle">${dto.room_info }</td>
+					</tr>
+					
+					<tr>
+						<td colspan="2" align="center" valign="middle" style="height: 10vh;">
+							<button type="button" class="room_list_update"
+								onclick="location.href='room-update?num=${dto.room_num}'">수정</button>
+							<button type="button" class="room_list_delete"
+								onclick="location.href='delete?num=${dto.room_num}'">삭제</button>
+						</td>
+					</tr>
+				</table>
+				</c:if>	
+				</c:forEach>
+			
+	</div>
 </body>
 </html>
