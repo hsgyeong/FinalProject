@@ -179,6 +179,7 @@ function updateHeight() {
 <body>
 	<form action="Insert" method="post" enctype="multipart/form-data">
 		<div class="accom_insert_box" align="center">
+			<!-- 사업자 번호 넘기기 fk -->
 			<input type="hidden" name="business_id" value="test">
 			<table class="table table-bordered">
 
@@ -187,7 +188,7 @@ function updateHeight() {
 						style="font-size: 1.5em;"><b>숙소정보등록</b></td>
 				</tr>
 				<tr>
-					<td align="center" valign="middle"><b>숙소이름</b></td>
+					<td align="center" valign="middle"><b>이름</b></td>
 					<td valign="middle"><input type="text" class="form-control"
 						name="accom_name" required="required" placeholder="ex)신라호텔, 조선호텔"
 						style="width: 30vh; height: 5vh;"></td>
@@ -205,14 +206,14 @@ function updateHeight() {
 				</tr>
 
 				<tr>
-					<td align="center" valign="middle"><b>숙소사진</b></td>
+					<td align="center" valign="middle"><b>사진</b></td>
 					<td valign="middle"><input type="file" class="form-control"
 						name="photo" required="required" style="width: 40vh; height: 5vh;">
 					</td>
 				</tr>
 
 				<tr>
-					<td align="center" valign="middle"><b>숙소위치</b></td>
+					<td align="center" valign="middle"><b>위치</b></td>
 					<td valign="middle">
 						
 						<!-- 도로명주소 출력 -->

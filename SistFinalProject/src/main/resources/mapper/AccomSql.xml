@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="sist.last.mapper.AccomMapperInter">
 
     <insert id="insertAccom" parameterType="AccomDto">
-        insert into accom(business_id,accom_name,accom_category,accom_photo,accom_location,accom_address,accom_hashtag) values (#{business_id},#{accom_name},#{accom_category},#{accom_photo},#{accom_location},#{accom_address},#{accom_hashtag})
+        insert into accom(accom_name,accom_category,accom_photo,accom_location,accom_address,accom_hashtag,business_id) values (#{accom_name},#{accom_category},#{accom_photo},#{accom_location},#{accom_address},#{accom_hashtag},#{business_id})
     </insert>
     
     <select id="getAllData" resultType="AccomDto">

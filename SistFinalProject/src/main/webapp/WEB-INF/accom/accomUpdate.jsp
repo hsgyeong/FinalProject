@@ -202,7 +202,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	<form action="Update" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="accom_num" value="${dto.accom_num }">
 		<div class="accom_insert_box" align="center">
-			<input type="hidden" name="business_id" value="test" ${dto.business_id }>
 			<table class="table table-bordered">
 
 				<tr>
@@ -210,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						style="font-size: 1.5em;"><b>숙소정보등록</b></td>
 				</tr>
 				<tr>
-					<td align="center" valign="middle"><b>숙소이름</b></td>
+					<td align="center" valign="middle"><b>이름</b></td>
 					<td valign="middle"><input type="text" class="form-control" value="${dto.accom_name }"
 						name="accom_name" required="required" placeholder="ex)신라호텔, 조선호텔"
 						style="width: 30vh; height: 5vh;"></td>
@@ -228,14 +227,14 @@ document.addEventListener("DOMContentLoaded", function () {
 				</tr>
 
 				<tr>
-					<td align="center" valign="middle"><b>숙소사진</b></td>
+					<td align="center" valign="middle"><b>사진</b></td>
 					<td valign="middle"><input type="file" class="form-control"
 						name="photo" required="required" style="width: 40vh; height: 5vh;">
 					</td>
 				</tr>
 
 				<tr>
-					<td align="center" valign="middle"><b>숙소위치</b></td>
+					<td align="center" valign="middle"><b>위치</b></td>
 					<td valign="middle">
 						
 						<!-- 도로명주소 출력 -->

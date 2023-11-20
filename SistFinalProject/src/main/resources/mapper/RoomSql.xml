@@ -5,8 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="sist.last.mapper.RoomMapperInter">
 	
 	<insert id="insertRoom" parameterType="RoomDto">
-        insert into room(room_name,room_price,room_minpeople,room_maxpeople,room_location,room_photo,room_info,accom_num)
-        values (#{room_name},#{room_price},#{room_minpeople},#{room_maxpeople},#{room_location},#{room_photo},#{room_info},#{accom_num})
+        insert into room(room_name,room_price,room_minpeople,room_maxpeople,room_location,room_photo,room_info,room_count,accom_num)
+        values (#{room_name},#{room_price},#{room_minpeople},#{room_maxpeople},#{room_location},#{room_photo},#{room_info},#{room_count},#{accom_num})
     </insert>
     
     <select id="getAllData" resultType="RoomDto">
@@ -14,6 +14,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="getTotalCount" resultType="int">
-        select count(*) from finalproject.accom
+        select count(*) from room where accom_num=#{accom_num}
     </select>
+    
+    <delete id="deleteRoom" parameterType="int">
+  		delete from room where room_num=#{room_num}
+  	</delete>
+  	
+  	<select id="getOneData" parameterType="int" resultType="RoomDto">
+  		select * from room where room_num=#{room_num}
+  	</select>
+  	
+  	<update id="updateRoom" parameterType="RoomDto">
+  		update room set room_name=#{room_name},room_price=#{room_price},room_minpeople=#{room_minpeople},room_maxpeople=#{room_maxpeople},room_location=#{room_location},
+  		room_photo=#{room_photo},room_info=#{room_info},room_count=#{room_count},room_num=#{room_num}
+  	</update>
 </mapper>
