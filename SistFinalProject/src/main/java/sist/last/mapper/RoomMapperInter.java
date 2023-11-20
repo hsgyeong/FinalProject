@@ -11,5 +11,8 @@ public interface RoomMapperInter {
 	
 	public void insertRoom(RoomDto dto);
 	public List<RoomDto> getAllData();
-	public int getTotalCount();
+	public int getTotalCount(String accom_num);
+	public void deleteRoom(int num);
+	public RoomDto getOneData(int num);
+	public void updateRoom(RoomDto dto);
 }

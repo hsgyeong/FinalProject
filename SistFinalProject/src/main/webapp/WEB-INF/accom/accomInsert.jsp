@@ -214,7 +214,7 @@
             </tr>
 
             <tr>
-                <td align="center" valign="middle"><b>숙소위치</b></td>
+                <td align="center" valign="middle"><b>위치</b></td>
                 <td valign="middle">
 
                     <!-- 도로명주소 출력 -->

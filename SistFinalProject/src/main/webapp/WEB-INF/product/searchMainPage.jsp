@@ -608,6 +608,7 @@
                                     <input type="checkbox" id="category${i.count}" style="margin-right: 10px;">
                                     <span class="category${i.count}">${list}</span>
                                 </li>
+                                <br>
                             </c:forEach>
                         </ul>
                     </section>

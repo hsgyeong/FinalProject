@@ -21,17 +21,16 @@
         width: 100%;
 
     }
-
-    div.title {
-        top: 0;
-        z-index: 5;
-        position: fixed;
-        width: 100%;
-        height: 72px;
-        background-color: #f7323f;
-        /*border-bottom: 1px solid #777879;*/
-        box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.1);
-    }
+	div.title{
+		top: 0;
+		position: fixed;
+		width: 100%;
+		height: 72px;
+		background-color: #f7323f;
+		/*border-bottom: 1px solid #777879;*/
+		box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
+		z-index: 1;
+	}
 
     div.main {
 
