@@ -24,13 +24,13 @@ public class BusinessController {
 	@Autowired
 	BusinessService Bservice;
 	
-	@GetMapping("/member/businessJoin")
+	@GetMapping("/member/business-join")
 	public String addbusiness()
 	{
 		return "/member/businessAddForm";
 	}
 	
-	@GetMapping("/member/businessIdCheck")
+	@GetMapping("/member/business-idcheck")
 	@ResponseBody
 	public Map<String, Integer> idCheck(@RequestParam String business_id)
 	{
@@ -43,7 +43,7 @@ public class BusinessController {
 		return map;
 	}
 	
-	@PostMapping("/member/joinBusiness")
+	@PostMapping("/member/join-business")
 	public String insert(@ModelAttribute BusinessDto dto,
 			@RequestParam String hp1,
 			@RequestParam String hp2,

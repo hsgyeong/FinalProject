@@ -161,7 +161,7 @@ body {
 </style>
 </head>
 <body>
-	<form action="joinMember" method="post">
+	<form action="join-member" method="post">
 		<table class="tb">
 			<h3>
 				<a href="/"	class="t" id="t" style="font-family: 'Jalnan'; text-align: center;

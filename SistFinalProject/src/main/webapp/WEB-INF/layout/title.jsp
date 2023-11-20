@@ -191,6 +191,11 @@
             }
         });
 
+        
+        $(".select-li:eq(3)").mouseover(function(){
+        	
+        	$("div.info-title")
+        })
     });
 
     function searchActive(searchText) {

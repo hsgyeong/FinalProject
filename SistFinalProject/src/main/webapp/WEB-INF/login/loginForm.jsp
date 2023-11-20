@@ -148,7 +148,7 @@ else{
 			<tr>
 				<td><br>
 					<div class="memberLogin">
-						<form action="memberLogin" method="post">
+						<form action="member-login" method="post">
 							<span class="id">아이디 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
 								type="text" name="id" style="width: 200px;" class="form-control"
 								required="required"></span> <br>
@@ -166,7 +166,7 @@ else{
 			<tr>
 				<td>
 					<div class="businessLogin">
-						<form action="businessLogin" method="post">
+						<form action="business-login" method="post">
 							<span class="businessId">사업자번호 &nbsp;&nbsp; <input
 								type="text" name="business_id" id="bNum" required="required"
 								style="width: 190px;" class="form-control"></span> <br> <span
