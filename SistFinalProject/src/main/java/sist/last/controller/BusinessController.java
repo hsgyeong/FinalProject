@@ -7,64 +7,44 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import sist.last.dto.BusinessDto;
 import sist.last.dto.MemberDto;
-import sist.last.service.MemberService;
+import sist.last.service.BusinessService;
 
 @Controller
-public class MemberController {
+public class BusinessController {
 
 	@Autowired
-	MemberService service;
+	BusinessService Bservice;
 	
-	
-	@GetMapping("/member/joinform")
-	public String addform()
+	@GetMapping("/member/businessJoin")
+	public String addbusiness()
 	{
-		return "/member/addFormMain";
+		return "/member/businessAddForm";
 	}
 	
-	@GetMapping("/member/memberJoin")
-	public String addperson()
-	{
-		return "/member/memberAddForm";
-	}
-	
-	@GetMapping("/member/idcheck")
+	@GetMapping("/member/businessIdCheck")
 	@ResponseBody
-	public Map<String, Integer> idCheck(@RequestParam String id)
+	public Map<String, Integer> idCheck(@RequestParam String business_id)
 	{
 		Map<String, Integer> map = new HashMap<>();
 		
-		int i = service.getSearchId(id);
+		int i = Bservice.getSearchBusinessId(business_id);
 		
 		map.put("count", i);
 		
 		return map;
 	}
 	
-	@GetMapping("/member/nickcheck")
-	@ResponseBody
-	public Map<String, Integer> nickCheck(@RequestParam String nickname)
-	{
-		Map<String, Integer> map = new HashMap<>();
-		
-		int a = service.getSearchNick(nickname);
-		
-		map.put("count", a);
-		
-		return map;
-	}
-	
-	
-	@PostMapping("/member/joinMember")
-	public String insert(@ModelAttribute MemberDto dto,
+	@PostMapping("/member/joinBusiness")
+	public String insert(@ModelAttribute BusinessDto dto,
 			@RequestParam String hp1,
 			@RequestParam String hp2,
 			@RequestParam String hp3,
@@ -73,16 +53,15 @@ public class MemberController {
 			HttpSession session)
 	{
 		String hp = hp1+"-"+hp2+"-"+hp3;
-		dto.setHp(hp);
+		dto.setBusiness_hp(hp);
 		
 		String email = email1+"@"+email2;
-		dto.setEmail(email);
+		dto.setBusiness_email(email);
 		
-		service.insertMember(dto);	
+		Bservice.insertBusiness(dto);	
 
 		return "/member/welcome";
 	}
 	
 	
-
 }

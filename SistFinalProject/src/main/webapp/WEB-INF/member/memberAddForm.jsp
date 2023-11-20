@@ -108,6 +108,7 @@
 	});
 </script>
 <style type="text/css">
+
 .i {
 	display: inline-flex;
 }
@@ -124,6 +125,7 @@
 
 .cap {
 	text-align: center;
+	align-items:center;
 	font-weight: bold;
 }
 
@@ -133,29 +135,36 @@
 
 .content {
 	margin: auto;
+	width: 60%;
+
+	
 }
 
 .tb {
 	border: none;
+	width: 100%;
 }
 
 body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	
 }
 </style>
 </head>
 <body>
-	<form action="join" method="post">
+	<form action="joinMember" method="post">
 		<table class="tb">
 			<h3>
 				<div class="t">TRIVIEW</div>
 			</h3>
 			<br>
+		
 			<caption align="top" class="cap">
-				<b><h6>회원가입</h6></b>
+				<h6><b>회원가입</b></h6>
 			</caption>
+			
 			<tr>
 				<td>
 					<div class="content">
@@ -163,29 +172,29 @@ body {
 						아이디<br> 
 						<span class="i"><input type="text" name="id"
 							id="id" class="form-control" required="required"
-							style="width: 280px;" placeholder="아이디를 입력해주세요">&nbsp;&nbsp;&nbsp;
+							style="width: 330px;" placeholder="아이디를 입력해주세요">&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn" id="idchk"
-								style="background-color: #f7323f; color: white; font-family: 'Jalnan';">중복체크</button></span>
+								style="background-color: #f7323f; color: white; width:30%; font-family: 'Jalnan';">중복체크</button></span>
 						<span class="idok" style="color: green; font-size: 12px;"></span><br><br>
 						 비밀번호<br> 
 						<input type="password" name="pass"	id="pass1" class="form-control" required="required"
-							style="width: 280px;" placeholder="비밀번호를 입력해주세요">&nbsp;&nbsp;<br>
+							style="width: 300px;" placeholder="비밀번호를 입력해주세요">&nbsp;&nbsp;<br>
 						비밀번호 확인<br>
 						<div style="display: flex;">
 							<input type="password" name="pass2" id="pass2"
-								class="form-control" required="required" style="width: 280px;"
+								class="form-control" required="required" style="width: 300px;"
 								placeholder="비밀번호를 다시 입력해주세요">&nbsp;&nbsp;<br> 
 							<span class="passok" style="color: green; font-size: 12px;"></span>
 						</div>
 						<br> 닉네임<br> 
 						<span class="nickch"> 
 						<input	type="text" name="nickname" id="nick" class="form-control"
-						required="required" style="width: 280px;" placeholder="닉네임을 입력해주세요">&nbsp;&nbsp;&nbsp;
+						required="required" style="width: 330px;" placeholder="닉네임을 입력해주세요">&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn" id="nickchk" style="background-color: #f7323f; color: white; 
-							font-family: 'Jalnan';">중복체크</button></span>
+							font-family: 'Jalnan'; width:30%;">중복체크</button></span>
 						<span class="nickok" style="color: green; font-size: 12px;"></span><br><br>
 						 이름<br> 
-						 <input type="text" name="name"	class="form-control" required="required" style="width: 280px;"
+						 <input type="text" name="name"	class="form-control" required="required" style="width: 300px;"
 							placeholder="이름을 입력해주세요"><br> 
 						휴대폰<br> 
 						<select	style="width: 80px; height: 31px;" name="hp1">
