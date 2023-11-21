@@ -18,8 +18,23 @@ public class ProductService implements ProductServiceInter {
     }
 
     @Override
-    public List<ProductDto> getProductDataByCategory(String keyword) {
-        return mapperInter.getProductDataByCategory(keyword);
+    public List<ProductDto> getProductDataOfCategory(String keyword) {
+        return mapperInter.getProductDataOfCategory(keyword);
+    }
+
+    @Override
+    public List<ProductDto> getProductDataOfName(String keyword) {
+        return mapperInter.getProductDataOfName(keyword);
+    }
+
+    @Override
+    public List<ProductDto> getProductDataOfHashTag(String keyword) {
+        return mapperInter.getProductDataOfHashTag(keyword);
+    }
+
+    @Override
+    public List<ProductDto> getProductDataOfLocation(String keyword) {
+        return mapperInter.getProductDataOfLocation(keyword);
     }
 
 

@@ -6,7 +6,8 @@
     <select id="selectCategory" resultType="String">
         select distinct accom_category from accom order by accom_category asc
     </select>
-    <select id="getProductDataByCategory" resultType="productDto" parameterType="String">
-        select * from accom where accom_category='${category}'
+    <select id="getProductDataOfCategory" resultType="productDto" parameterType="String">
+        select distinct * from accom A, room B where A.accom_num = B.accom_num and A.accom_category = #{category}
+        order by B.room_price asc limit 1;
     </select>
 </mapper>

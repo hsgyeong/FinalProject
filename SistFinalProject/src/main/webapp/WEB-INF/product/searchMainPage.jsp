@@ -203,12 +203,44 @@
         border-radius: 5px;
     }
 
-    /*table {
-        margin-top: 10px;
+    /*div {
+        border: 1px solid black;
     }*/
 
-    table td {
 
+    .accom-list {
+        padding: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .accom-image {
+        margin-right: 10px;
+        border: 1px solid black;
+    }
+
+    .info-container {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column; /* 아래로 정렬 */
+        flex-grow: 1;
+    }
+
+    .accom-info {
+        width: 100%;
+        height: 160px;
+    }
+
+    .room-amount {
+        width: 100%;
+        height: 40px;
+        text-align: right;
+    }
+
+    .accom-image img {
+        width: 80px;
+        height: 200px;
     }
 
 </style>
@@ -738,38 +770,29 @@
         <c:if test="${listCategory.size()!=null}">
 
             <c:forEach items="${listCategory}" var="list" varStatus="i">
-                <table>
-                    <tr>
-                        <td rowspan="5">
-                            <img src="../accomsave/${list.accom_photo}" style="width: 80px; height: 200px;">
-                        </td>
-                        <td>
-                            <b>${list.accom_name}</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>${list.accom_score}</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>${list.accom_location}</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>${list.accom_score}</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>${list.accom_score}</b>
-                        </td>
-                    </tr>
-                </table>
+                <div class="accom-list" idx="${list.room_num}">
+                    <div class="accom-image">
+                        <img src="../accomsave/${list.accom_photo}" style="width: 80px; height: 200px;">
+                    </div>
+                    <div class="info-container">
+                        <div class="accom-info">
+                            <b>${list.accom_name}</b><br>
+                            <b>${list.accom_score}</b><br>
+                            <b>${list.accom_location}</b><br>
+                        </div>
+                        <div class="room-amount">
+                            <b><fmt:formatNumber value="${list.room_price}" pattern="###,###"/>원</b>
+                        </div>
+                    </div>
+                </div>
+                <hr class="div-hr">
             </c:forEach>
-
+            <script type="text/javascript">
+                $(".accom-list").click(function () {
+                    var roomNumber = $(this).attr("idx");
+                    alert(roomNumber);
+                })
+            </script>
         </c:if>
     </div>
 </div>

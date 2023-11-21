@@ -30,7 +30,7 @@ public class ProductController {
         model.addAttribute("category", category);
         if (selDate1 == null) {
             if (!compareCategory(category, keyword).equals(("nothing"))) {
-                List<ProductDto> productList = service.getProductDataByCategory(keyword);
+                List<ProductDto> productList = service.getProductDataOfCategory(keyword);
                 model.addAttribute("listCategory", productList);
                 return "/product/searchMainPage";
             }
