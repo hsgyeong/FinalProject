@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import sist.last.dto.AccomDto;
 import sist.last.dto.RoomDto;
 import sist.last.mapper.RoomMapperInter;
 
@@ -26,17 +28,22 @@ public class RoomController {
     RoomMapperInter mapper;
 
     @GetMapping("/room/room-list")
-    public ModelAndView list(@RequestParam String accom_num) {
+    public ModelAndView list(@RequestParam String accom_num,HttpSession session) {
 
         ModelAndView model = new ModelAndView();
 
         int totalCount = mapper.getTotalCount(accom_num);
         List<RoomDto> list = mapper.getAllData(accom_num);
         
+        String business = (String) session.getAttribute("myid");
+        
+        AccomDto dto = new AccomDto();
+        dto.setBusiness_id(business);
         
         model.addObject("accom_num", accom_num);
         model.addObject("totalCount", totalCount);
         model.addObject("list", list);
+        model.addObject("dto", dto);
 
         model.setViewName("/room/roomList");
 
@@ -46,9 +53,6 @@ public class RoomController {
     @GetMapping("/room/room-insert")
     public String roominsertform(@RequestParam String accom_num,Model model) {
     	
-    	RoomDto dto=mapper.getData(accom_num);
-    	
-    	model.addAttribute("dto", dto);
     	model.addAttribute("accom_num", accom_num);
     	
         return "/room/roomInsert";
@@ -56,7 +60,6 @@ public class RoomController {
 
     @PostMapping("/room/insert")
     public String insert(@ModelAttribute RoomDto dto, MultipartFile photo, HttpSession session,
-                         @RequestParam String[] checkin, @RequestParam String[] checkout,
                          @RequestParam String accom_num) {
         // save 위치
         String path = session.getServletContext().getRealPath("/roomsave");
