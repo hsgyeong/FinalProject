@@ -10,12 +10,12 @@ import lombok.Data;
 @Alias("member")
 public class MemberDto {
 
-	private String id;
-	private String name;
-	private String nickname;
-	private String pass;
-	private String hp;
-	private String email;
-	private String birth;
-	private Timestamp gaipday;
+	private String info_id;
+	private String info_name;
+	private String info_nickname;
+	private String info_pass;
+	private String info_hp;
+	private String info_email;
+	private String info_birth;
+	private Timestamp info_gaipday;
 }
