@@ -3,7 +3,7 @@ package sist.last.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sist.last.dto.AccomDto;
+import sist.last.dto.ProductDto;
 import sist.last.mapper.ProductMapperInter;
 
 @Service
@@ -18,8 +18,8 @@ public class ProductService implements ProductServiceInter {
     }
 
     @Override
-    public List<AccomDto> getProductData(String keyword) {
-        return mapperInter.getProductData(keyword);
+    public List<ProductDto> getProductDataByCategory(String keyword) {
+        return mapperInter.getProductDataByCategory(keyword);
     }
 
 

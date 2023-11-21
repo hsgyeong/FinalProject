@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import sist.last.dto.ProductDto;
 import sist.last.service.ProductService;
 
 @Controller
@@ -15,17 +16,28 @@ public class ProductController {
     @Autowired
     ProductService service;
 
+    public ProductController() {
+        ProductDto productDto = new ProductDto();
+    }
+
     @GetMapping("/product/search-main")
     public String searchMainForm(@RequestParam String keyword, Model model,
                                  @RequestParam(required = false) String selDate1,
                                  @RequestParam(required = false) String selDate2) {
-        model.addAttribute("keyword", keyword);
         List<String> category = service.selectCategory();
+
+        model.addAttribute("keyword", keyword);
         model.addAttribute("category", category);
         if (selDate1 == null) {
+            if (!compareCategory(category, keyword).equals(("nothing"))) {
+                List<ProductDto> productList = service.getProductDataByCategory(keyword);
+                model.addAttribute("listCategory", productList);
+                return "/product/searchMainPage";
+            }
             if (compareCategory(category, keyword).equals("nothing")) {
                 //List<AccomDto> accomList = service.getProductData(keyword);
             }
+
         }
         if (selDate1 != null) {
             int[] splitDate1 = splitIntegerDay(selDate1);
