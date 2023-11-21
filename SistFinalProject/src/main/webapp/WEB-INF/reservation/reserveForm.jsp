@@ -338,7 +338,7 @@
 								function onClickPay() {
 									
 									var reservationNumber = generateReservationNumber();
-									alert(reservationNumber);
+									//alert(reservationNumber);
 									
 								    IMP.init("imp06867735");
 
@@ -354,7 +354,7 @@
 								            sendPaymentData(reservationNumber);
 								        } else {
 								            // 결제 실패 시 처리
-								            alert("결제에 실패하였습니다.");
+								            alert("결제를 취소했습니다");
 								        }
 								    });
 								}
@@ -368,7 +368,6 @@
 								        },
 								        success: function (response) {
 								            // 서버에서 Success 응답을 받으면 추가적인 로직을 수행할 수 있습니다.
-								            console.log(response);
 								            
 								            window.location.href = "/payment/pay-success";
 								        },

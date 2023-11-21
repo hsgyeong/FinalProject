@@ -31,9 +31,6 @@ public class ReserveController {
 	public String payment(@RequestParam("reservationNumber") String reservationNumber, 
 	                      @ModelAttribute ReserveDto reserveDto,
 	                      @ModelAttribute RoomDto roomDto, HttpSession session) {
-	    String myid = (String) session.getAttribute("myid");
-	    int room_num = roomDto.getRoom_num();
-
 	    reserveDto.setReserve_id(reservationNumber); // reservationNumber 설정
 
 	    rservice.reservingInsert(reserveDto);
