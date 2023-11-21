@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,12 +23,12 @@ import sist.last.service.BusinessService;
 public class BusinessController {
 
 	@Autowired
-	BusinessService Bservice;
+	BusinessService businessService;
 	
 	@GetMapping("/member/business-join")
 	public String addbusiness()
 	{
-		return "/member/businessAddForm";
+		return "/company/businessAddForm";
 	}
 	
 	@GetMapping("/member/business-idcheck")
@@ -36,7 +37,7 @@ public class BusinessController {
 	{
 		Map<String, Integer> map = new HashMap<>();
 		
-		int i = Bservice.getSearchBusinessId(business_id);
+		int i = businessService.getSearchBusinessId(business_id);
 		
 		map.put("count", i);
 		
@@ -58,10 +59,30 @@ public class BusinessController {
 		String email = email1+"@"+email2;
 		dto.setBusiness_email(email);
 		
-		Bservice.insertBusiness(dto);	
+		businessService.insertBusiness(dto);	
 
 		return "/member/welcome";
 	}
 	
-	
+	@GetMapping("/member/business-mypage")
+	public String mypage(Model model,
+			HttpSession session)
+	{
+	/*	List<MemberDto> list = service.getAllMembers();
+		
+		model.addAttribute("list", list);   */
+		
+		String myid = (String)session.getAttribute("myid");
+		//System.out.println(myid);
+		
+		BusinessDto businessDto = businessService.getDataByBusinessId(myid);
+		
+		model.addAttribute("businessDto", businessDto);
+		
+		//System.out.println(myid+businessDto);
+		
+		
+		return "/company/businessMyPage";
+	}
+
 }

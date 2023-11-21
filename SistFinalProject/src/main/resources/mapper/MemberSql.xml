@@ -32,4 +32,8 @@
  select info_nickname from info where info_id=#{id}
  </select>
  
+ <select id="getAllMembers" resultType="member">
+ select * from info order by info_id
+ </select>
+ 
  </mapper>

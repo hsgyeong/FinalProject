@@ -25,7 +25,7 @@ public class LoginController {
 	MemberService service;
 	
 	@Autowired
-	BusinessService Bservice;
+	BusinessService businessService;
 	
 	
 	@GetMapping("/login/loginmain")
@@ -36,14 +36,15 @@ public class LoginController {
 		String myid = (String)session.getAttribute("myid");
 		String loginok = (String)session.getAttribute("loginok");
 		
+		
 		if(loginok==null)
 			return "/login/loginForm";	
 		else
 		{
 			String nickname = service.getNickname(myid);
+			
 			model.addAttribute("myid", myid);
 			model.addAttribute("nickname", nickname);
-			
 			
 			return "/";
 		}
@@ -71,19 +72,19 @@ public class LoginController {
 			session.setMaxInactiveInterval(60*60*8);
 			
 			session.setAttribute("myid", id);
-			session.setAttribute("loginok", "yes");
+			session.setAttribute("loginok", "member");
 			session.setAttribute("saveok", cbsave);
-			
-			MemberDto memberDto = service.getDataById(id);
-	/*		
+			 
+			MemberDto memberDto = service.getDataById(id);  //session으로 못넘김 model로 넘겨야함
+		
 			String myid = (String) session.getAttribute("myid");
 
-			if (myid != null) {
-			    System.out.println("세션에 myid가 저장되어 있습니다. 값: " + myid);
+		/*	if (myid != null) {
+			    System.out.println("세션에 myid가 저장되어 있습니다. 값: " + myid+memberDto);
 			} else {
 			    System.out.println("세션에 myid가 저장되어 있지 않습니다.");
 			}
-	*/		
+		*/	
 			return "redirect:/";
 		}else {
 			
@@ -100,17 +101,17 @@ public class LoginController {
 	{
 		HashMap<String, String> map = new HashMap<>();
 		
-		int Bcheck = Bservice.BloginPassCheck(business_id, business_pass);
+		int Bcheck = businessService.BloginPassCheck(business_id, business_pass);
 		
 		if(Bcheck==1) {
 			
 			session.setMaxInactiveInterval(60*60*8);
 			
 			session.setAttribute("myid", business_id);
-			session.setAttribute("loginok", "yes");
+			session.setAttribute("loginok", "business");
 			session.setAttribute("saveok", cbsave);
 			
-			BusinessDto businessDto = Bservice.getDataByBusinessId(business_id);
+			BusinessDto businessDto = businessService.getDataByBusinessId(business_id);
 			
 			
 		/*	 String myid = (String) session.getAttribute("myid");
