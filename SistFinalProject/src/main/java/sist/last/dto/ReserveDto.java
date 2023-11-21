@@ -8,7 +8,7 @@ import lombok.Data;
 @Alias("reserveDto")
 public class ReserveDto {
 
-	private int reserve_id;
+	private String reserve_id;
 	private String info_id;
 	private int room_num;
 	private String reserve_checkin;
