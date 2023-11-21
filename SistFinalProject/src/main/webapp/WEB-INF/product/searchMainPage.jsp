@@ -203,6 +203,14 @@
         border-radius: 5px;
     }
 
+    /*table {
+        margin-top: 10px;
+    }*/
+
+    table td {
+
+    }
+
 </style>
 <body>
 <script type="text/javascript">
@@ -732,8 +740,31 @@
             <c:forEach items="${listCategory}" var="list" varStatus="i">
                 <table>
                     <tr>
+                        <td rowspan="5">
+                            <img src="../accomsave/${list.accom_photo}" style="width: 80px; height: 200px;">
+                        </td>
                         <td>
-                            <img src="../roomsave/${list.accom_photo}">
+                            <b>${list.accom_name}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>${list.accom_score}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>${list.accom_location}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>${list.accom_score}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>${list.accom_score}</b>
                         </td>
                     </tr>
                 </table>
