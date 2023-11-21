@@ -11,6 +11,14 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
+a:link {
+	text-decoration: none;
+}
+
+a:hover {
+	color: gray !important;
+}
+
 .scrolling-text-container {
     width: 100%;
     overflow: hidden;
@@ -86,16 +94,20 @@
         <c:if test="${totalCount > 0 }">
             <tr>
                 <td align="center" style="width: 10%; height: 5vh;">No</td>
-                <td align="center" style="width: 20%; height: 5vh;">숙소이름</td>
-                <td align="center" style="width: 10%; height: 5vh;">숙소종류</td>
-                <td align="center" style="width: 20%; height: 5vh;">숙소사진</td>
-                <td align="center" style="width: 20%; height: 5vh;">숙소위치</td>
+                <td align="center" style="width: 20%; height: 5vh;">이름</td>
+                <td align="center" style="width: 10%; height: 5vh;">종류</td>
+                <td align="center" style="width: 20%; height: 5vh;">사진</td>
+                <td align="center" style="width: 20%; height: 5vh;">위치</td>
                 <td align="center" style="width: 20%; height: 5vh;">수정 & 삭제</td>
             </tr>
             <c:forEach var="dto" items="${list}" varStatus="i">
                 <tr>
                     <td align="center" valign="middle" style="width: 10%; height: 15vh;">${i.count }</td>
-                    <td align="center" valign="middle" style="width: 20%; height: 15vh;">${dto.accom_name }</td>
+                    <td align="center" valign="middle" style="width: 20%; height: 15vh;">
+                    <a href="/room/Room-List?accom_num=${dto.accom_num }" style="color: black;">
+                    ${dto.accom_name }
+                    </a>
+                    </td>
                     <td align="center" valign="middle" style="width: 10%; height: 15vh;">${dto.accom_category }</td>
                     <td align="center" valign="middle" style="width: 20%; height: 15vh;">
                         <img src="../accomsave/${dto.accom_photo}" alt="">

@@ -118,7 +118,6 @@ public class AccomController {
 
 	    // save 위치
 	    String path = session.getServletContext().getRealPath("/accomsave");
-	    System.out.println(path);
 	    // 업로드한 파일 dto 얻기
 	    String originalFilename = photo.getOriginalFilename();
 	    // 파일 이름에 날짜 및 시간 추가

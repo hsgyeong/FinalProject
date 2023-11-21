@@ -50,6 +50,12 @@ public class MemberService implements MemberServiceInter {
 		return mapperInter.getSearchNick(nickname);
 	}
 
+	@Override
+	public String getNickname(String id) {
+		// TODO Auto-generated method stub
+		return mapperInter.getNickname(id);
+	}
+
 	
 	
 	
