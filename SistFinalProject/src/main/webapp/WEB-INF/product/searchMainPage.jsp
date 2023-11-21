@@ -32,6 +32,13 @@
         border: 1px solid gainsboro;
     }
 
+    div.search-box {
+        font-family: 'NanumSquare', serif;
+        padding: 20px;
+        margin: 30px;
+        border: 1px solid gainsboro;
+    }
+
     div.filter-box {
         position: relative;
     }
@@ -185,6 +192,17 @@
         -webkit-appearance: none;
     }
 
+    div.sort-each-box {
+        border: 1px solid gainsboro;
+        width: 33%;
+        text-align: center;
+        vertical-align: middle;
+        padding-top: 1vh;
+        height: 5vh;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
 </style>
 <body>
 <script type="text/javascript">
@@ -198,18 +216,17 @@
 
     })
 </script>
+<c:set var="root" value="<%=request.getContextPath() %>"/>
 <caption><b style="font-size: 40px; font-family: 'NanumSquare', serif;">검색 : '${keyword}'</b></caption>
 <br><br>
-<table style="width: 100%; border: 2px solid gray;">
-    <tr>
-        <td style="width: 35%" colspan="5">
-            <div class="filter-border-box">
-                <div class="filter-box">
-                    <section class="date-wrap">
-                        <h4><b>날짜</b></h4>
-                        <div class="btn-date d-inline-flex">
-                            <i class="bi bi-calendar-check" style="margin-right: 10px;"></i>
-                            <span class="date-view">
+<div style="width: 100%; border: 2px solid gray;" class="d-inline-flex">
+    <div class="filter-border-box" style="width: 33%">
+        <div class="filter-box">
+            <section class="date-wrap">
+                <h4><b>날짜</b></h4>
+                <div class="btn-date d-inline-flex">
+                    <i class="bi bi-calendar-check" style="margin-right: 10px;"></i>
+                    <span class="date-view">
                             <c:if test="${firstYear==null}">
                                 <b class="firstDate">11.15 ~ 11.16</b>
                                 <em>&nbsp;·&nbsp;1박</em>
@@ -219,495 +236,511 @@
                                 <em>&nbsp;·&nbsp;${sleep}박</em>
                             </c:if>
                         </span>
-                        </div>
-                        <div class="calendar">
-                            <div class="header">
-                                <div class="prev" onclick="prevMonth()">&#9665;</div>
-                                <div class="current-month"></div>
-                                <div class="next" onclick="nextMonth()">&#9655;</div>
-                            </div>
-                            <div class="days" id="calendar-days"></div>
-                            <button class="calendar-setting btn btn-outline-danger">선택 완료</button>
-                        </div>
+                </div>
+                <div class="calendar">
+                    <div class="header">
+                        <div class="prev" onclick="prevMonth()">&#9665;</div>
+                        <div class="current-month"></div>
+                        <div class="next" onclick="nextMonth()">&#9655;</div>
+                    </div>
+                    <div class="days" id="calendar-days"></div>
+                    <button class="calendar-setting btn btn-outline-danger">선택 완료</button>
+                </div>
 
-                        <script>
-                            const today = new Date();
-                            let count = 1;
-                            <c:if test="${firstYear==null}">
-                            let firstClickDay = today.getDate();
-                            let lastClickDay = firstClickDay + 1;
-                            let firstMonth = today.getMonth();
-                            let lastMonth = today.getMonth();
-                            let currentMonth = today.getMonth();
-                            let firstYear = today.getFullYear();
-                            let lastYear = today.getFullYear();
-                            let currentYear = today.getFullYear();
-                            if (firstClickDay == today.getDay()) {
-                                lastClickDay = 1;
-                                lastMonth = firstMonth + 1;
-                                if (firstMonth == 11) {
-                                    lastMonth = 0;
-                                    lastYear = firstYear + 1;
+                <script>
+                    const today = new Date();
+                    let count = 1;
+                    <c:if test="${firstYear==null}">
+                    let firstClickDay = today.getDate();
+                    let lastClickDay = firstClickDay + 1;
+                    let firstMonth = today.getMonth();
+                    let lastMonth = today.getMonth();
+                    let currentMonth = today.getMonth();
+                    let firstYear = today.getFullYear();
+                    let lastYear = today.getFullYear();
+                    let currentYear = today.getFullYear();
+                    if (firstClickDay == today.getDay()) {
+                        lastClickDay = 1;
+                        lastMonth = firstMonth + 1;
+                        if (firstMonth == 11) {
+                            lastMonth = 0;
+                            lastYear = firstYear + 1;
+                        }
+                    }
+                    </c:if>
+                    let asc = true;
+                    let start = false;
+                    let flag = false;
+                    let sleep = 1;
+                    <c:if test="${firstYear!=null}">
+                    let firstClickDay = ${firstDay};
+                    let lastClickDay = ${secondDay};
+                    let firstMonth = ${firstMonth-1};
+                    let lastMonth = ${secondMonth-1};
+                    let firstYear = ${firstYear};
+                    let lastYear = ${secondYear};
+                    let currentMonth = ${firstMonth-1};
+                    let currentYear = ${firstYear};
+                    </c:if>
+                    const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+                    $(".firstDate").html((firstMonth + 1) + "." + firstClickDay + " ~ " + (lastMonth + 1) + "." +
+                        lastClickDay)
+
+                    function updateCalendar() {
+                        let otherDay = new Date(currentYear, currentMonth, 0);
+                        //alert(currentYear + "," + currentMonth);
+                        if (currentMonth == 0) {
+                            otherDay = new Date((currentYear - 1), 12, 0);
+                            //alert(otherDay.getDay());
+                        }
+                        //alert(otherDay.getDay());
+                        const currentDay = new Date(currentYear, currentMonth + 1, 0);
+                        const lastDay = new Date(lastYear, lastMonth + 1, 0);
+                        const firstDay = new Date(firstYear, firstMonth + 1, 0);
+                        //alert(count);
+                        //alert(firstMonth + "," + currentMonth);
+                        //alert(firstClickDay + "," + lastClickDay);
+                        if (count == 0) {
+                            lastClickDay = null;
+                        }
+                        //alert(flag && start);
+                        if (flag && start) {
+                            if (count == 1) {
+                                //alert(firstDay.getDate() - firstClickDay + lastClickDay);
+                                if (firstYear < lastYear) {
+                                    if (lastMonth > 0) {
+                                        alert("7일까지 예약 가능합니다.");
+                                        lastClickDay = null;
+                                        lastMonth = null;
+                                        count--;
+                                        return;
+                                    }
+                                    if (firstDay.getDate() - firstClickDay + lastClickDay > 6) {
+                                        alert("7일까지 예약 가능합니다.");
+                                        lastClickDay = null;
+                                        lastMonth = null;
+                                        count--;
+                                        return;
+                                    }
+                                }
+                                if (firstYear > lastYear) {
+                                    if (lastMonth < 11) {
+                                        alert("7일까지 예약 가능합니다.");
+                                        lastClickDay = null;
+                                        lastMonth = null;
+                                        count--;
+                                        return;
+                                    }
+                                    if (lastDay.getDate() - lastClickDay + firstClickDay > 6) {
+                                        alert("7일까지 예약 가능합니다.");
+                                        lastClickDay = null;
+                                        lastMonth = null;
+                                        count--;
+                                        return;
+                                    }
+                                }
+                                if (firstYear == lastYear) {
+                                    if (firstMonth < lastMonth) {
+                                        if (firstMonth + 1 < lastMonth) {
+                                            alert("7일까지 예약 가능합니다.");
+                                            lastClickDay = null;
+                                            lastMonth = null;
+                                            count--;
+                                            return;
+                                        }
+                                        if (firstDay.getDate() - firstClickDay + lastClickDay > 6) {
+                                            //alert("7일이상");
+                                            alert("7일까지 예약 가능합니다");
+                                            lastClickDay = null;
+                                            lastMonth = null;
+                                            count--;
+                                            return;
+                                        }
+                                    }
+                                    if (firstMonth > lastMonth) {
+                                        if (firstMonth > lastMonth + 1) {
+                                            alert("7일까지 예약 가능합니다.");
+                                            lastClickDay = null;
+                                            lastMonth = null;
+                                            count--;
+                                            return;
+                                        }
+                                    }
+                                    //alert(lastClickDay + "," + firstClickDay);
+                                    if (firstMonth == lastMonth) {
+                                        if (lastClickDay > firstClickDay) {
+                                            if (lastClickDay - firstClickDay > 6) {
+                                                alert("7일까지 예약 가능합니다.");
+                                                lastClickDay = null;
+                                                lastMonth = null;
+                                                count--;
+                                                return;
+                                            }
+                                        }
+                                        if (lastClickDay < firstClickDay) {
+                                            if (firstClickDay - lastClickDay > 6) {
+                                                alert("7일까지 예약 가능합니다.");
+                                                lastClickDay = null;
+                                                lastMonth = null;
+                                                count--;
+                                                return;
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                            </c:if>
-                            let asc = true;
-                            let start = false;
-                            let flag = false;
-                            let sleep = 1;
-                            <c:if test="${firstYear!=null}">
-                            let firstClickDay = ${firstDay};
-                            let lastClickDay = ${secondDay};
-                            let firstMonth = ${firstMonth-1};
-                            let lastMonth = ${secondMonth-1};
-                            let firstYear = ${firstYear};
-                            let lastYear = ${secondYear};
-                            let currentMonth = ${firstMonth-1};
-                            let currentYear = ${firstYear};
-                            </c:if>
-                            const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-                            $(".firstDate").html((firstMonth + 1) + "." + firstClickDay + " ~ " + (lastMonth + 1) + "." +
-                                lastClickDay)
+                        }
+                        //alert(currentMonth + "," + today.getMonth());
+                        $(".prev").attr('onclick', "prevMonth()").css({
+                            "color": "white",
+                            "cursor": "pointer"
+                        });
+                        if (currentMonth == today.getMonth()) {
+                            $(".prev").attr("onclick", "").css({
+                                "color": "#ccc",
+                                "cursor": "none"
+                            });
+                        }
+                        /*const firstDay = new Date(currentYear, currentMonth, 1);
+                        const lastDay = new Date(currentYear, currentMonth + 1, 0);*/
+                        /*const currentMonthContainer = document.querySelector('.current-month');*/
+                        $(".current-month").html(currentYear + "년 " + (currentMonth + 1) + "월");
+                        const daysContainer = document.getElementById('calendar-days');
+                        daysContainer.innerHTML = '';
+                        //alert(currentMonth + "," + firstMonth);
+                        //alert(currentMonth);
+                        for (let i = 0; i < weekdays.length; i++) {
+                            //alert(weekdays[i]);
+                            const weekdayLabel = document.createElement('div');
+                            weekdayLabel.textContent = weekdays[i];
+                            weekdayLabel.classList.add('weekend');
+                            daysContainer.appendChild(weekdayLabel);
+                        }
+                        for (let i = 1; i <= otherDay.getDay() + 1; i++) {
+                            const lastdayLabel = document.createElement('div');
+                            lastdayLabel.textContent = -((otherDay.getDay() - i) - (otherDay.getDate() - 1));
+                            lastdayLabel.classList.add('day', 'disabled');
+                            lastdayLabel.style.pointerEvents = 'none'; // Disable click event
+                            lastdayLabel.style.opacity = '0.5'; // Apply visual effect for disabled date
+                            daysContainer.appendChild(lastdayLabel);
 
-                            function updateCalendar() {
-                                let otherDay = new Date(currentYear, currentMonth, 0);
-                                //alert(currentYear + "," + currentMonth);
-                                if (currentMonth == 0) {
-                                    otherDay = new Date((currentYear - 1), 12, 0);
-                                    //alert(otherDay.getDay());
-                                }
-                                //alert(otherDay.getDay());
-                                const currentDay = new Date(currentYear, currentMonth + 1, 0);
-                                const lastDay = new Date(lastYear, lastMonth + 1, 0);
-                                const firstDay = new Date(firstYear, firstMonth + 1, 0);
-                                //alert(count);
-                                //alert(firstMonth + "," + currentMonth);
-                                //alert(firstClickDay + "," + lastClickDay);
-                                if (count == 0) {
-                                    lastClickDay = null;
-                                }
-                                //alert(flag && start);
-                                if (flag && start) {
-                                    if (count == 1) {
-                                        //alert(firstDay.getDate() - firstClickDay + lastClickDay);
-                                        if (firstYear < lastYear) {
-                                            if (lastMonth > 0) {
-                                                alert("7일까지 예약 가능합니다.");
-                                                lastClickDay = null;
-                                                lastMonth = null;
-                                                count--;
-                                                return;
-                                            }
-                                            if (firstDay.getDate() - firstClickDay + lastClickDay > 6) {
-                                                alert("7일까지 예약 가능합니다.");
-                                                lastClickDay = null;
-                                                lastMonth = null;
-                                                count--;
-                                                return;
-                                            }
-                                        }
-                                        if (firstYear > lastYear) {
-                                            if (lastMonth < 11) {
-                                                alert("7일까지 예약 가능합니다.");
-                                                lastClickDay = null;
-                                                lastMonth = null;
-                                                count--;
-                                                return;
-                                            }
-                                            if (lastDay.getDate() - lastClickDay + firstClickDay > 6) {
-                                                alert("7일까지 예약 가능합니다.");
-                                                lastClickDay = null;
-                                                lastMonth = null;
-                                                count--;
-                                                return;
-                                            }
-                                        }
-                                        if (firstYear == lastYear) {
-                                            if (firstMonth < lastMonth) {
-                                                if (firstMonth + 1 < lastMonth) {
-                                                    alert("7일까지 예약 가능합니다.");
-                                                    lastClickDay = null;
-                                                    lastMonth = null;
-                                                    count--;
-                                                    return;
-                                                }
-                                                if (firstDay.getDate() - firstClickDay + lastClickDay > 6) {
-                                                    //alert("7일이상");
-                                                    alert("7일까지 예약 가능합니다");
-                                                    lastClickDay = null;
-                                                    lastMonth = null;
-                                                    count--;
-                                                    return;
-                                                }
-                                            }
-                                            if (firstMonth > lastMonth) {
-                                                if (firstMonth > lastMonth + 1) {
-                                                    alert("7일까지 예약 가능합니다.");
-                                                    lastClickDay = null;
-                                                    lastMonth = null;
-                                                    count--;
-                                                    return;
-                                                }
-                                            }
-                                            //alert(lastClickDay + "," + firstClickDay);
-                                            if (firstMonth == lastMonth) {
-                                                if (lastClickDay > firstClickDay) {
-                                                    if (lastClickDay - firstClickDay > 6) {
-                                                        alert("7일까지 예약 가능합니다.");
-                                                        lastClickDay = null;
-                                                        lastMonth = null;
-                                                        count--;
-                                                        return;
-                                                    }
-                                                }
-                                                if (lastClickDay < firstClickDay) {
-                                                    if (firstClickDay - lastClickDay > 6) {
-                                                        alert("7일까지 예약 가능합니다.");
-                                                        lastClickDay = null;
-                                                        lastMonth = null;
-                                                        count--;
-                                                        return;
-                                                    }
-                                                }
-                                            }
-                                        }
+                        }
+
+                        for (let i = 1; i <= currentDay.getDate(); i++) {
+                            const dayElement = document.createElement('div');
+                            dayElement.textContent = i;
+                            dayElement.classList.add('day');
+
+                            if (i < today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+                                dayElement.classList.add('disabled');
+                                dayElement.style.pointerEvents = 'none'; // Disable click event
+                                dayElement.style.opacity = '0.5'; // Apply visual effect for disabled date
+                            }
+
+                            if (currentMonth == firstMonth) {
+                                if (lastClickDay == null) {
+                                    if (firstClickDay == i) {
+                                        dayElement.classList.add('selected');
                                     }
                                 }
-                                //alert(currentMonth + "," + today.getMonth());
-                                $(".prev").attr('onclick', "prevMonth()").css({
-                                    "color": "white",
-                                    "cursor": "pointer"
-                                });
-                                if (currentMonth == today.getMonth()) {
-                                    $(".prev").attr("onclick", "").css({
-                                        "color": "#ccc",
-                                        "cursor": "none"
-                                    });
-                                }
-                                /*const firstDay = new Date(currentYear, currentMonth, 1);
-                                const lastDay = new Date(currentYear, currentMonth + 1, 0);*/
-                                /*const currentMonthContainer = document.querySelector('.current-month');*/
-                                $(".current-month").html(currentYear + "년 " + (currentMonth + 1) + "월");
-                                const daysContainer = document.getElementById('calendar-days');
-                                daysContainer.innerHTML = '';
-                                //alert(currentMonth + "," + firstMonth);
-                                //alert(currentMonth);
-                                for (let i = 0; i < weekdays.length; i++) {
-                                    //alert(weekdays[i]);
-                                    const weekdayLabel = document.createElement('div');
-                                    weekdayLabel.textContent = weekdays[i];
-                                    weekdayLabel.classList.add('weekend');
-                                    daysContainer.appendChild(weekdayLabel);
-                                }
-                                for (let i = 1; i <= otherDay.getDay() + 1; i++) {
-                                    const lastdayLabel = document.createElement('div');
-                                    lastdayLabel.textContent = -((otherDay.getDay() - i) - (otherDay.getDate() - 1));
-                                    lastdayLabel.classList.add('day', 'disabled');
-                                    lastdayLabel.style.pointerEvents = 'none'; // Disable click event
-                                    lastdayLabel.style.opacity = '0.5'; // Apply visual effect for disabled date
-                                    daysContainer.appendChild(lastdayLabel);
+                                if (lastClickDay != null) {
+                                    //alert(firstYear + "," + lastYear);
+                                    if (firstYear == lastYear) {
+                                        if (firstMonth == lastMonth) {
+                                            if (firstClickDay < lastClickDay) {
+                                                asc = true;
+                                                if (i >= firstClickDay && i <= lastClickDay) {
+                                                    dayElement.classList.add('selected');
 
-                                }
+                                                }
+                                            }
+                                            if (firstClickDay > lastClickDay) {
 
-                                for (let i = 1; i <= currentDay.getDate(); i++) {
-                                    const dayElement = document.createElement('div');
-                                    dayElement.textContent = i;
-                                    dayElement.classList.add('day');
+                                                asc = false;
+                                                if (i >= lastClickDay && i <= firstClickDay) {
+                                                    dayElement.classList.add('selected');
+                                                }
+                                            }
+                                        }
+                                        if (firstMonth < lastMonth) {
 
-                                    if (i < today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
-                                        dayElement.classList.add('disabled');
-                                        dayElement.style.pointerEvents = 'none'; // Disable click event
-                                        dayElement.style.opacity = '0.5'; // Apply visual effect for disabled date
+                                            asc = true;
+                                            if (i >= firstClickDay && i <= lastDay.getDate()) {
+                                                dayElement.classList.add('selected');
+                                            }
+
+                                        }
+                                        if (firstMonth > lastMonth) {
+
+                                            asc = false;
+                                            if (i <= firstClickDay && i >= 1) {
+                                                dayElement.classList.add('selected');
+                                            }
+
+                                        }
                                     }
-
-                                    if (currentMonth == firstMonth) {
-                                        if (lastClickDay == null) {
-                                            if (firstClickDay == i) {
+                                    if (firstYear < lastYear) {
+                                        if (firstYear == currentYear) {
+                                            if (i >= firstClickDay && i <= firstDay.getDate()) {
                                                 dayElement.classList.add('selected');
                                             }
                                         }
-                                        if (lastClickDay != null) {
-                                            //alert(firstYear + "," + lastYear);
-                                            if (firstYear == lastYear) {
-                                                if (firstMonth == lastMonth) {
-                                                    if (firstClickDay < lastClickDay) {
-                                                        asc = true;
-                                                        if (i >= firstClickDay && i <= lastClickDay) {
-                                                            dayElement.classList.add('selected');
-
-                                                        }
-                                                    }
-                                                    if (firstClickDay > lastClickDay) {
-
-                                                        asc = false;
-                                                        if (i >= lastClickDay && i <= firstClickDay) {
-                                                            dayElement.classList.add('selected');
-                                                        }
-                                                    }
-                                                }
-                                                if (firstMonth < lastMonth) {
-
-                                                    asc = true;
-                                                    if (i >= firstClickDay && i <= lastDay.getDate()) {
-                                                        dayElement.classList.add('selected');
-                                                    }
-
-                                                }
-                                                if (firstMonth > lastMonth) {
-
-                                                    asc = false;
-                                                    if (i <= firstClickDay && i >= 1) {
-                                                        dayElement.classList.add('selected');
-                                                    }
-
-                                                }
+                                        asc = true;
+                                    }
+                                    if (firstYear > lastYear) {
+                                        //alert("첫번째>나중")
+                                        asc = false;
+                                        if (firstYear == currentYear) {
+                                            if (i <= firstClickDay && i >= 1) {
+                                                dayElement.classList.add('selected');
                                             }
-                                            if (firstYear < lastYear) {
-                                                if (firstYear == currentYear) {
-                                                    if (i >= firstClickDay && i <= firstDay.getDate()) {
-                                                        dayElement.classList.add('selected');
-                                                    }
-                                                }
-                                                asc = true;
-                                            }
-                                            if (firstYear > lastYear) {
-                                                //alert("첫번째>나중")
-                                                asc = false;
-                                                if (firstYear == currentYear) {
-                                                    if (i <= firstClickDay && i >= 1) {
-                                                        dayElement.classList.add('selected');
-                                                    }
-                                                }
-                                                if (lastYear == currentYear) {
-                                                    if (i >= lastClickDay && i <= lastDay.getDate()) {
-                                                        dayElement.classList.add('selected');
-                                                    }
-                                                }
+                                        }
+                                        if (lastYear == currentYear) {
+                                            if (i >= lastClickDay && i <= lastDay.getDate()) {
+                                                dayElement.classList.add('selected');
                                             }
                                         }
                                     }
-                                    if (currentMonth == lastMonth) {
-                                        if (lastClickDay != null) {
-                                            if (firstYear == lastYear) {
-                                                if (firstMonth > lastMonth) {
-                                                    if (i >= lastClickDay && i <= lastDay.getDate()) {
-                                                        dayElement.classList.add('selected');
-                                                    }
-                                                    asc = false;
-
-                                                }
-                                                if (firstMonth < lastMonth) {
-                                                    if (i <= lastClickDay && i >= 1) {
-                                                        dayElement.classList.add('selected');
-                                                    }
-                                                    asc = true;
-                                                }
+                                }
+                            }
+                            if (currentMonth == lastMonth) {
+                                if (lastClickDay != null) {
+                                    if (firstYear == lastYear) {
+                                        if (firstMonth > lastMonth) {
+                                            if (i >= lastClickDay && i <= lastDay.getDate()) {
+                                                dayElement.classList.add('selected');
                                             }
-                                            if (firstYear < lastYear) {
-                                                if (lastYear == currentYear) {
-                                                    if (i <= lastClickDay && i >= 1) {
-                                                        dayElement.classList.add('selected');
-                                                    }
-                                                }
-                                                asc = true;
-                                            }
-                                            if (firstYear > lastYear) {
-                                                if (lastYear == currentYear) {
-                                                    if (i >= lastClickDay && i <= lastDay.getDate()) {
-                                                        dayElement.classList.add('selected');
-                                                    }
-                                                }
-                                                asc = false;
-                                            }
+                                            asc = false;
 
                                         }
+                                        if (firstMonth < lastMonth) {
+                                            if (i <= lastClickDay && i >= 1) {
+                                                dayElement.classList.add('selected');
+                                            }
+                                            asc = true;
+                                        }
+                                    }
+                                    if (firstYear < lastYear) {
+                                        if (lastYear == currentYear) {
+                                            if (i <= lastClickDay && i >= 1) {
+                                                dayElement.classList.add('selected');
+                                            }
+                                        }
+                                        asc = true;
+                                    }
+                                    if (firstYear > lastYear) {
+                                        if (lastYear == currentYear) {
+                                            if (i >= lastClickDay && i <= lastDay.getDate()) {
+                                                dayElement.classList.add('selected');
+                                            }
+                                        }
+                                        asc = false;
                                     }
 
-                                    daysContainer.appendChild(dayElement);
-
-                                    dayElement.addEventListener('click', () => selectDate(i));
                                 }
                             }
 
-                            function prevMonth() {
-                                if (currentMonth > 0) {
-                                    currentMonth--;
-                                } else {
-                                    currentMonth = 11;
-                                    currentYear--;
-                                }
-                                updateCalendar();
-                            }
+                            daysContainer.appendChild(dayElement);
 
-                            function nextMonth() {
-                                if (currentMonth < 11) {
-                                    currentMonth++;
-                                } else {
-                                    currentMonth = 0;
-                                    currentYear++;
-                                }
-                                updateCalendar();
-                            }
+                            dayElement.addEventListener('click', () => selectDate(i));
+                        }
+                    }
 
-                            function selectDate(day) {
-                                //alert(day + "," + firstClickDay)
-                                if (day == firstClickDay && firstMonth == currentMonth) {
-                                    return false;
-                                }
-                                //alert('Selected Date:' + day);
-                                count++;
-                                if (count == 2) {
-                                    firstClickDay = day;
-                                    firstMonth = currentMonth;
-                                    firstYear = currentYear;
-                                    flag = false;
-                                    start = true;
+                    function prevMonth() {
+                        if (currentMonth > 0) {
+                            currentMonth--;
+                        } else {
+                            currentMonth = 11;
+                            currentYear--;
+                        }
+                        updateCalendar();
+                    }
 
-                                    count = 0;
-                                }
-                                if (count == 1) {
-                                    lastClickDay = day;
-                                    lastMonth = currentMonth;
-                                    lastYear = currentYear;
-                                    flag = true;
-                                }
-                                //alert(count);
-                                //alert(firstClickDay + "," + lastClickDay);
-                                updateCalendar();
-                            }
+                    function nextMonth() {
+                        if (currentMonth < 11) {
+                            currentMonth++;
+                        } else {
+                            currentMonth = 0;
+                            currentYear++;
+                        }
+                        updateCalendar();
+                    }
 
-                            updateCalendar()
+                    function selectDate(day) {
+                        //alert(day + "," + firstClickDay)
+                        if (day == firstClickDay && firstMonth == currentMonth) {
+                            return false;
+                        }
+                        //alert('Selected Date:' + day);
+                        count++;
+                        if (count == 2) {
+                            firstClickDay = day;
+                            firstMonth = currentMonth;
+                            firstYear = currentYear;
+                            flag = false;
+                            start = true;
 
-                            $(".calendar-setting").click(function () {
-                                let firstDay;
-                                let secondDay;
-                                //alert(asc);
-                                if (asc) {
-                                    firstDay = firstYear + "-" + (firstMonth + 1) + "-" + firstClickDay;
-                                    secondDay = lastYear + "-" + (lastMonth + 1) + "-" + lastClickDay;
-                                }
-                                if (!asc) {
-                                    firstDay = lastYear + "-" + (lastMonth + 1) + "-" + lastClickDay;
-                                    secondDay = firstYear + "-" + (firstMonth + 1) + "-" + firstClickDay;
-                                    //alert(firstDay + "," + secondDay);
-                                }
-                                location.href = "search-main?keyword=${keyword}&selDate1=" + firstDay + "&selDate2=" + secondDay;
-                            })
+                            count = 0;
+                        }
+                        if (count == 1) {
+                            lastClickDay = day;
+                            lastMonth = currentMonth;
+                            lastYear = currentYear;
+                            flag = true;
+                        }
+                        //alert(count);
+                        //alert(firstClickDay + "," + lastClickDay);
+                        updateCalendar();
+                    }
+
+                    updateCalendar()
+
+                    $(".calendar-setting").click(function () {
+                        let firstDay;
+                        let secondDay;
+                        //alert(asc);
+                        if (asc) {
+                            firstDay = firstYear + "-" + (firstMonth + 1) + "-" + firstClickDay;
+                            secondDay = lastYear + "-" + (lastMonth + 1) + "-" + lastClickDay;
+                        }
+                        if (!asc) {
+                            firstDay = lastYear + "-" + (lastMonth + 1) + "-" + lastClickDay;
+                            secondDay = firstYear + "-" + (firstMonth + 1) + "-" + firstClickDay;
+                            //alert(firstDay + "," + secondDay);
+                        }
+                        location.href = "search-main?keyword=${keyword}&selDate1=" + firstDay + "&selDate2=" + secondDay;
+                    })
 
 
-                        </script>
-                    </section>
+                </script>
+            </section>
+            <br>
+            <hr>
+            <br>
+            <section class="Type-of-accom">
+                <h5><b>숙소 유형</b></h5>
+                <ul>
+                    <c:forEach items="${category}" var="list" varStatus="i">
+                        <li style="line-height: 2" class="d-inline-flex">
+                            <input type="checkbox" id="category${i.count}" style="margin-right: 10px;">
+                            <span class="category${i.count}">${list}</span>
+                        </li>
+                        <br>
+                    </c:forEach>
+                </ul>
+            </section>
+            <br>
+            <section class="amount-bar-wrap">
+                <div class="middle" style="margin-bottom: 30px;">
+                    가격 : <span class="amount-min"></span><span class="amount-max"></span>
                     <br>
-                    <hr>
-                    <br>
-                    <section class="Type-of-accom">
-                        <h5><b>숙소 유형</b></h5>
-                        <ul>
-                            <c:forEach items="${category}" var="list" varStatus="i">
-                                <li style="line-height: 2" class="d-inline-flex">
-                                    <input type="checkbox" id="category${i.count}" style="margin-right: 10px;">
-                                    <span class="category${i.count}">${list}</span>
-                                </li>
-                                <br>
-                            </c:forEach>
-                        </ul>
-                    </section>
-                    <br>
-                    <section class="amount-bar-wrap">
-                        <div class="middle" style="margin-bottom: 30px;">
-                            가격 : <span class="amount-min"></span><span class="amount-max"></span>
-                            <br>
-                            <div class="multi-range-slider" style="margin-top: 15px;">
-                                <input type="range" id="input-left" min="1" max="30" value="0">
-                                <input type="range" id="input-right" min="1" max="30" value="30">
+                    <div class="multi-range-slider" style="margin-top: 15px;">
+                        <input type="range" id="input-left" min="1" max="30" value="0">
+                        <input type="range" id="input-right" min="1" max="30" value="30">
 
-                                <div class="slider">
-                                    <div class="track"></div>
-                                    <div class="range"></div>
-                                    <div class="thumb left"></div>
-                                    <div class="thumb right"></div>
-                                </div>
-                            </div>
-                            <div class="amount-text" style="margin-top: 15px">
-                                <span class="min-amount" style="float: left">1만원</span>
-                                <span class="max-amount" style="float: right">30만원</span>
-                            </div>
+                        <div class="slider">
+                            <div class="track"></div>
+                            <div class="range"></div>
+                            <div class="thumb left"></div>
+                            <div class="thumb right"></div>
                         </div>
-                        <script type="text/javascript">
-                            var inputLeft = document.getElementById("input-left");
-                            var inputRight = document.getElementById("input-right");
-                            let minValue;
-                            let maxValue;
-
-                            var thumbLeft = document.querySelector(".slider > .thumb.left");
-                            var thumbRight = document.querySelector(".slider > .thumb.right");
-                            var range = document.querySelector(".slider > .range");
-
-                            function setLeftValue() {
-
-                                var _this = inputLeft,
-                                    min = parseInt(_this.min),
-                                    max = parseInt(_this.max);
-
-                                _this.value = Math.min(parseInt(_this.value), parseInt(inputRight.value) - 2);
-
-                                var percent = ((_this.value - min) / (max - min)) * 100;
-
-                                thumbLeft.style.left = percent + "%";
-                                range.style.left = percent + "%";
-                                var minAmount = $("#input-left").val();
-                                //alert(minAmount);
-                                $(".amount-min").html(minAmount + " 만원 ");
-                            }
-
-                            setLeftValue();
-
-                            function setRightValue() {
-                                var _this = inputRight,
-                                    min = parseInt(_this.min),
-                                    max = parseInt(_this.max);
-
-                                _this.value = Math.max(parseInt(_this.value), parseInt(inputLeft.value) + 2);
-
-                                var percent = ((_this.value - min) / (max - min)) * 100;
-
-                                thumbRight.style.right = (100 - percent) + "%";
-                                range.style.right = (100 - percent) + "%";
-                                var maxAmount = $("#input-right").val();
-                                //alert(minAmount);
-                                if (maxAmount == 30) {
-                                    $(".amount-max").html(" 이상 ");
-                                }
-                                if (maxAmount != 30) {
-                                    $(".amount-max").html("~ " + maxAmount + " 만원 ");
-                                }
-                            }
-
-                            setRightValue();
-
-                            inputLeft.addEventListener("input", setLeftValue);
-                            inputRight.addEventListener("input", setRightValue);
-
-                        </script>
-                    </section>
+                    </div>
+                    <div class="amount-text" style="margin-top: 15px">
+                        <span class="min-amount" style="float: left">1만원</span>
+                        <span class="max-amount" style="float: right">30만원</span>
+                    </div>
                 </div>
-                <br>
-                <section class="setting-btn-box">
-                    <h6><b>상세 조건</b></h6>
-                    <button type="button" class="btn btn-outline-danger setting-btn" style="width: 200px;">적용</button>
-                    <script type="text/javascript">
-                        $(".setting-btn").click(function () {
-                            location.href = "/product/search-main?"
-                        })
-                    </script>
-                </section>
-            </div>
-        </td>
-        <td>
+                <script type="text/javascript">
+                    var inputLeft = document.getElementById("input-left");
+                    var inputRight = document.getElementById("input-right");
+                    let minValue;
+                    let maxValue;
 
-        </td>
-    </tr>
+                    var thumbLeft = document.querySelector(".slider > .thumb.left");
+                    var thumbRight = document.querySelector(".slider > .thumb.right");
+                    var range = document.querySelector(".slider > .range");
 
-</table>
+                    function setLeftValue() {
+
+                        var _this = inputLeft,
+                            min = parseInt(_this.min),
+                            max = parseInt(_this.max);
+
+                        _this.value = Math.min(parseInt(_this.value), parseInt(inputRight.value) - 2);
+
+                        var percent = ((_this.value - min) / (max - min)) * 100;
+
+                        thumbLeft.style.left = percent + "%";
+                        range.style.left = percent + "%";
+                        var minAmount = $("#input-left").val();
+                        //alert(minAmount);
+                        $(".amount-min").html(minAmount + " 만원 ");
+                    }
+
+                    setLeftValue();
+
+                    function setRightValue() {
+                        var _this = inputRight,
+                            min = parseInt(_this.min),
+                            max = parseInt(_this.max);
+
+                        _this.value = Math.max(parseInt(_this.value), parseInt(inputLeft.value) + 2);
+
+                        var percent = ((_this.value - min) / (max - min)) * 100;
+
+                        thumbRight.style.right = (100 - percent) + "%";
+                        range.style.right = (100 - percent) + "%";
+                        var maxAmount = $("#input-right").val();
+                        //alert(minAmount);
+                        if (maxAmount == 30) {
+                            $(".amount-max").html(" 이상 ");
+                        }
+                        if (maxAmount != 30) {
+                            $(".amount-max").html("~ " + maxAmount + " 만원 ");
+                        }
+                    }
+
+                    setRightValue();
+
+                    inputLeft.addEventListener("input", setLeftValue);
+                    inputRight.addEventListener("input", setRightValue);
+
+                </script>
+            </section>
+        </div>
+        <br>
+        <section class="setting-btn-box">
+            <h6><b>상세 조건</b></h6>
+            <button type="button" class="btn btn-outline-danger setting-btn" style="width: 200px;">적용</button>
+            <script type="text/javascript">
+                $(".setting-btn").click(function () {
+                    location.href = "/product/search-main?"
+                })
+            </script>
+        </section>
+    </div>
+
+    <div class="search-box" style="width: 65%">
+        <div class="sort-box" style="display: flex;">
+            <div class="sort-each-box">거리순</div>
+            <div class="sort-each-box">낮은가격순</div>
+            <div class="sort-each-box">높은가격순</div>
+        </div>
+
+        <c:if test="${listCategory.size()!=null}">
+
+            <c:forEach items="${listCategory}" var="list" varStatus="i">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="../roomsave/${list.accom_photo}">
+                        </td>
+                    </tr>
+                </table>
+            </c:forEach>
+
+        </c:if>
+    </div>
+</div>
 </body>
 </html>
