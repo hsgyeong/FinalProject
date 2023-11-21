@@ -150,7 +150,7 @@ ${sessionScope.nickname}<br>
                 </li>
                 &nbsp;&nbsp;&nbsp;
                 <li class="newsbox" style="margin-right: 3%;">
-                    <a href="#">
+                    <a href="/accom/accom-insert">
                         <img src="${root}/registration.png">&nbsp;&nbsp;&nbsp;
                         <div class="textbox">
                             <p class="newstext1">TREVIEW 숙소등록하기</p>

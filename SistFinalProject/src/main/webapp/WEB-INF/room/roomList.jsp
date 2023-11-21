@@ -79,8 +79,24 @@
         }
 
         .room_list_update:hover,
-        .room_list_delete:hover {
+        .room_list_delete:hover,
+        .room_list_add:hover {
             background-color: rgb(228, 231, 235);
+        }
+        
+        .room_list_add{
+        	position: fixed;
+        	right: 10%;
+        	bottom: 10%;
+        	z-index: 2;
+        	width: 12vh;
+            height: 6vh;
+            border: 1px solid silver;
+            color: black;
+            font-weight: bold;
+            font-size: 0.9em;
+            background-color: white;
+            border-radius: 1vh;
         }
     </style>
 </head>
@@ -89,9 +105,9 @@
     <div class="scrolling-text">${totalCount}개의 방을 등록하셨어요!</div>
 </div>
 <div class="room_array" align="center">
-			
+				
 				<c:forEach var="dto" items="${list }" varStatus="i">
-				<c:if test="${totalCount>0 }">
+				
 				<table class="table table-bordered">
 					<tr>
 						<td colspan="2" align="center" style="height: 3vh;"><b>${i.count }번방</b></td>
@@ -140,9 +156,13 @@
 						</td>
 					</tr>
 				</table>
-				</c:if>	
+				
+				
 				</c:forEach>
-			
+				
+				<button type="button" onclick="location.href='/room/room-insert?accom_num=${accom_num}'"
+				class="room_list_add">방등록</button>
 	</div>
+	
 </body>
 </html>

@@ -79,9 +79,22 @@ a:hover {
 }
 
 .accom_list_btn1:hover,
-.accom_list_btn2:hover {
+.accom_list_btn2:hover,
+.accom_list_add:hover {
 	background-color: rgb(228, 231, 235);
 }
+
+.accom_list_add{
+			margin-top: 5vh;
+        	width: 14vh;
+            height: 6vh;
+            border: 1px solid silver;
+            color: black;
+            font-weight: bold;
+            font-size: 0.9em;
+            background-color: white;
+            border-radius: 1vh;
+        }
 </style>
 </head>
 <body>
@@ -125,6 +138,8 @@ a:hover {
             </c:forEach>
             </c:if>
             </table>
+            <button type="button" onclick="location.href='/accom/accom-insert?business_id=${dto.business_id}'"
+				class="accom_list_add">숙소등록</button>
 </div>
 </body>
 </html>

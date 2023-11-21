@@ -10,7 +10,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     
     <select id="getAllData" resultType="RoomDto">
-    	select * from room order by room_num
+    	select * from room where accom_num=#{accom_num}
+    </select>
+    
+    <select id="getData" resultType="RoomDto">
+    	select * from room where accom_num=#{accom_num}
     </select>
     
     <select id="getTotalCount" resultType="int">
@@ -27,6 +31,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	
   	<update id="updateRoom" parameterType="RoomDto">
   		update room set room_name=#{room_name},room_price=#{room_price},room_minpeople=#{room_minpeople},room_maxpeople=#{room_maxpeople},room_location=#{room_location},
-  		room_photo=#{room_photo},room_info=#{room_info},room_count=#{room_count},room_num=#{room_num}
+  		room_photo=#{room_photo},room_info=#{room_info},room_count=#{room_count} where room_num=#{room_num}
   	</update>
 </mapper>

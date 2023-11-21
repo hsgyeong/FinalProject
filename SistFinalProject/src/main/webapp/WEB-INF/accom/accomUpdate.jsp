@@ -200,6 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </head>
 <body>
 	<form action="update" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="business_id" value="${dto.business_id }">
 	<input type="hidden" name="accom_num" value="${dto.accom_num }">
 		<div class="accom_insert_box" align="center">
 			<table class="table table-bordered">
