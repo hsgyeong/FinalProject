@@ -1,6 +1,7 @@
 package sist.last.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,16 @@ public class MemberService implements MemberServiceInter {
 		// TODO Auto-generated method stub
 		return mapperInter.getNickname(id);
 	}
+
+	@Override
+	public List<MemberDto> getAllMembers() {
+		// TODO Auto-generated method stub
+		return mapperInter.getAllMembers();
+	}
+
+
+	
+	
 
 	
 	
