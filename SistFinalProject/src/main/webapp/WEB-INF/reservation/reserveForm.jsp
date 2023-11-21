@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 <link href="https://webfontworld.github.io/goodchoice/Jalnan.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
@@ -102,15 +103,8 @@
 		color: #BDBDBD;
 	}
 	
-	.pay-confirm-btn{
+	#pay-confirm-btn{
 		color: #A748FF;
-		background-color: white;
-		border: none;
-		font-weight: bold;
-	}
-	
-	.pay-modal-cancel-btn{
-		color: #8C8C8C;
 		background-color: white;
 		border: none;
 		font-weight: bold;
@@ -175,7 +169,7 @@
 </script>
 </head>
 <body>
-	<form action="payment" method="post">
+	<form action="#" method="post">
 		<div class="left-side">
 			<div>
 				<b>예약자 정보</b>
@@ -284,7 +278,7 @@
 
 				<hr style="width: 95%; margin-left: 5px;">
 				<br> <b>총 결제 금액</b><span class="vat">(VAT포함)</span> <br> <b
-					class="totalpay"><b>원</b></b> <br> <br>
+					class="totalpay">원</b> <br> <br>
 
 				<p class="explain">
 					• 해당 객실가는 세금, 봉사료가 포함된 금액입니다 <br>
@@ -323,9 +317,68 @@
 						</div>
 						
 						<div class="modal-footer">
-							<button type="button" class="pay-modal-cancel-btn"
-								data-bs-dismiss="modal">취소</button>
-							<button type="submit" class="pay-confirm-btn">확인 및 결제진행</button>	
+							<button type="button" id="pay-confirm-btn">확인 및 결제진행</button>
+							
+							<!-- 카카오페이 api -->
+							<script>
+								IMP.init("imp06867735");
+								
+								$(document).ready(function () {
+								    $("#pay-confirm-btn").click(onClickPay);
+								});
+
+								function generateReservationNumber() {
+								    // 예약 번호의 형식을 정의하고, 각 자리의 값을 랜덤으로 생성
+								    return 'xxxx-xxxx-xxxx'.replace(/x/g, function() {
+								        var r = Math.random() * 16 | 0; // 16진수로 표현된 난수 생성 (0 ~ 15)
+								        return r.toString(16); // 16진수로 변환하여 반환
+								    });
+								}
+								
+								function onClickPay() {
+									
+									var reservationNumber = generateReservationNumber();
+									alert(reservationNumber);
+									
+								    IMP.init("imp06867735");
+
+								    IMP.request_pay({
+								        pg: "kakaopay",
+								        pay_method: "card",
+								        amount: "60000",
+								        name: "매운 라면",
+								        merchant_uid: reservationNumber
+								    }, function (rsp) {
+								        if (rsp.success) {
+								            // 결제 성공 시 서버로 데이터 전송
+								            sendPaymentData(reservationNumber);
+								        } else {
+								            // 결제 실패 시 처리
+								            alert("결제에 실패하였습니다.");
+								        }
+								    });
+								}
+								
+								function sendPaymentData(reservationNumber) {
+								    $.ajax({
+								        type: "POST",
+								        url: "/reserve/insert",
+								        data: {
+								            reservationNumber: reservationNumber
+								        },
+								        success: function (response) {
+								            // 서버에서 Success 응답을 받으면 추가적인 로직을 수행할 수 있습니다.
+								            console.log(response);
+								            
+								            window.location.href = "/payment/pay-success";
+								        },
+								        error: function (error) {
+								            // 에러 시 처리
+								            console.log(error);
+								        }
+								    });
+								}
+							</script>
 						</div>
 					</div>
 				</div>

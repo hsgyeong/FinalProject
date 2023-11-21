@@ -4,6 +4,6 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="sist.last.mapper.ReserveMapperInter">
  	<insert id="reservingInsert" parameterType="reserveDto">
- 		insert into reservation values (null,#{info_id},#{room_num},#{reserve_checkin},#{reserve_checkin},"예약중");
+ 		insert into reservation values (#{reserve_id},"kakaotest",31254,"kakaotest","kakaotest","예약완료");
  	</insert>
  </mapper>
