@@ -6,4 +6,7 @@
     <select id="selectCategory" resultType="String">
         select distinct accom_category from accom order by accom_category asc
     </select>
+    <select id="getProductName" resultType="accomDto" parameterType="String">
+        select * from accom where accom_name LIKE '%${keyword}%'
+    </select>
 </mapper>

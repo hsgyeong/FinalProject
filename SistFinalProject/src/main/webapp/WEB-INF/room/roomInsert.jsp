@@ -78,10 +78,10 @@
 </head>
 <body>
 <form action="insert" method="post" enctype="multipart/form-data">
-<div class="room_insert_box" align="center">
-<!-- 숙소 번호 넘기기 fk -->
-<input type="hidden" name="accom_num" value="1234">
-<table class="table table-bordered">
+    <div class="room_insert_box" align="center">
+        <!-- 숙소 번호 넘기기 fk -->
+        <input type="hidden" name="accom_num" value="1234">
+        <table class="table table-bordered">
 
             <tr>
                 <td align="center" valign="middle" colspan="2" style="font-size: 1.5em;"><b>방정보등록</b></td>
@@ -170,7 +170,7 @@
                     <textarea class="form-control" name="room_info" required="required"></textarea>
                 </td>
             </tr>
-            <%-- 성신 수정부분 --%>
+            <%--&lt;%&ndash; 성신 수정부분 &ndash;%&gt;
             <tr>
                 <td align="center" valign="middle"><b>예약 불가능&nbsp; 날짜 선택</b>
                     <br><br>
@@ -179,15 +179,22 @@
                 <td>
                     <h4><b>불가능 날짜</b></h4>
                     <div id="div-nonDate" style="width: 400px;">
-                    <span class="d-inline-flex" id="nonDate1">
+                    <span class="d-inline-flex nonDate" id="nonDate1">
                     <input type="date" id="non_checkin1" name="checkin[]" min=""
                            class="form-control" style="width: 150px; margin-right: 20px;"> ~
                     <input type="date" id="non_checkout1" name="checkout[]" min=""
                            class="form-control" style="width: 150px; margin-left: 20px;">
 					</span><br><br>
                     </div>
-                    <input type="hidden" name="checkin" id="checkin">
-                    <input type="hidden" name="checkout">
+                    <div style="margin-left: 15%">
+                        <button type="button" class="btn btn-outline-danger"
+                                onclick="checkDate()">중복 체크
+                        </button>
+                        <button type="button" class="btn btn-danger"
+                                onclick="resetDate()">다시 설정
+                        </button>
+                    </div>
+                    <input type="hidden" id="checkDuplicate" value="0">
                 </td>
             </tr>
 
@@ -202,7 +209,7 @@
                 let totCount = 1;
                 let count = 1;
                 $("#non_checkin1").attr("min", date);
-                $("#non_checkin2").attr("min", date);
+                $("#non_checkout1").attr("min", date);
 
                 $(".addDate").click(function () {
                     if (totCount > 4) {
@@ -212,14 +219,14 @@
                     totCount++;
                     count++;
                     var s = "";
-                    s += "<span class='d-inline-flex' id='nonDate" + count + "'>";
-                    s += "<input type='date' id='non_checkin" + count + "' name='checkin[]' min=''";
+                    s += "<span class='d-inline-flex nonDate newNonDate' id='nonDate" + count + "'>";
+                    s += "<input type='date' id='non_checkin" + count + "' name='checkin[]' min='" + date + "'";
                     s += "class='form-control' style='width: 150px; margin-right: 20px;'> ~"
-                    s += "<input type='date' id='non_checkout" + count + "' name='checkout[]' min=''";
+                    s += "<input type='date' id='non_checkout" + count + "' name='checkout[]' min='" + date + "'";
                     s += "class='form-control' style='width: 150px; margin-left: 20px;'>";
                     s += "<button type='button' class='delDate btn btn-danger sm' style='margin-left: 10px;' "
                     s += "idx='" + count + "'>x</button>"
-                    s += "</span><span class='br" + count + "'><br><br>";
+                    s += "</span><span class='br br" + count + "'><br><br>";
                     $("#div-nonDate").append(s);
                 })
 
@@ -231,31 +238,66 @@
                 })
 
                 function checkDate() {
-                    var count = 0;
+                    var cnt = count;
                     var checkin = [];
                     var checkout = [];
-                    for (var index = 0; index < count; index++) {
-                        if ($("#non_checkin" + index).val() != null) {
-                            checkin[count] = $("#non_checkin" + index).val();
-                            checkout[count] = $("#non_checkout" + index).val();
-                            count++;
+                    var idx = [];
+                    for (var index = 0; index <= cnt; index++) {
+                        var checkinValue = $("#non_checkin" + index).val();
+                        var checkoutValue = $("#non_checkout" + index).val();
+
+                        if (checkinValue != null && checkoutValue != null) {
+                            checkin.push(checkinValue);
+                            checkout.push(checkoutValue);
+                            idx.push(index);
                         }
                     }
+
                     $.ajax({
-                        type: "get",
-                        url: "duplicateDate",
+                        type: "get",  // 메소드를 명시적으로 지정합니다
+                        url: "duplicate-date",
+                        traditional: true,
                         dataType: "json",
-                        data: {"checkin": checkin, "checkout": checkout},
-                        sunccess: function (data) {
-                            alert("hi");
-
-
+                        data: {"checkin": checkin, "checkout": checkout, "idx": idx},
+                        success: function (data) {
+                            if (data.flag == 1) {
+                                alert(data.index);
+                            }
+                            if (data.flag == 0) {
+                                alert("중복된 날짜가 없습니다.");
+                                $("span.nonDate").children().prop('disabled', true);
+                                $("#checkDuplicate").val(1);
+                            }
                         }
-                    })
-                    return false;
+                    });
+                }
+
+                function resetDate() {
+                    var flag = $("#checkDuplicate").val();
+                    if (flag == 0) {
+                        alert("날짜를 입력하지 않았습니다.");
+                    }
+                    if (flag == 1) {
+                        $("#checkDuplicate").val(0);
+                        $("span.nonDate").children().prop('disabled', false);
+                        $("span.newNonDate").remove();
+                        $("span.br").remove();
+                        $("#non_checkin1").val("");
+                        $("#non_checkout1").val("");
+
+                    }
+                }
+
+                function checkDuplicateDate() {
+                    var flag = $("#checkDuplicate").val();
+                    if (flag == 0) {
+                        alert("중복 날짜를 체크해주세요.");
+                        return false;
+                    }
+                    return true;
                 }
             </script>
-
+--%>
 
             <tr>
                 <td align="center" colspan="2">
