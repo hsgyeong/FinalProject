@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import sist.last.dto.ProductDto;
 import sist.last.service.ProductService;
 
 @Controller
@@ -15,28 +16,46 @@ public class ProductController {
     @Autowired
     ProductService service;
 
+    public ProductController() {
+        ProductDto productDto = new ProductDto();
+    }
+
     @GetMapping("/product/search-main")
     public String searchMainForm(@RequestParam String keyword, Model model,
                                  @RequestParam(required = false) String selDate1,
                                  @RequestParam(required = false) String selDate2) {
+        List<String> category = service.selectCategory();
+
         model.addAttribute("keyword", keyword);
+        model.addAttribute("category", category);
+        if (selDate1 == null) {
+            if (!compareCategory(category, keyword).equals(("nothing"))) {
+                List<ProductDto> productList = service.getProductDataByCategory(keyword);
+                model.addAttribute("listCategory", productList);
+                return "/product/searchMainPage";
+            }
+            if (compareCategory(category, keyword).equals("nothing")) {
+                //List<AccomDto> accomList = service.getProductData(keyword);
+            }
+
+        }
         if (selDate1 != null) {
             int[] splitDate1 = splitIntegerDay(selDate1);
             int[] splitDate2 = splitIntegerDay(selDate2);
             int sleep = calculateSleep(splitDate1, splitDate2);
-            model.addAttribute("firstYear", splitDate1[0]);
-            model.addAttribute("firstMonth", splitDate1[1]);
-            model.addAttribute("firstDay", splitDate1[2]);
-            model.addAttribute("secondYear", splitDate2[0]);
-            model.addAttribute("secondMonth", splitDate2[1]);
-            model.addAttribute("secondDay", splitDate2[2]);
-            model.addAttribute("sleep", sleep);
-
+            model = saveModelAttribute(splitDate1, splitDate2, sleep, model);
         }
-        List<String> category = service.selectCategory();
-        model.addAttribute("category", category);
 
         return "/product/searchMainPage";
+    }
+
+    private String compareCategory(List<String> category, String keyword) {
+        for (int categoryIndex = 0; categoryIndex < category.size(); categoryIndex++) {
+            if (category.get(categoryIndex).equals(keyword)) {
+                return keyword;
+            }
+        }
+        return "nothing";
     }
 
     private int[] splitIntegerDay(String selDate) {
@@ -51,6 +70,17 @@ public class ProductController {
     private int calculateSleep(int[] first, int[] second) {
         int sleep = 0;
         return compareYear(first, second);
+    }
+
+    private Model saveModelAttribute(int[] splitDate1, int[] splitDate2, int sleep, Model model) {
+        model.addAttribute("firstYear", splitDate1[0]);
+        model.addAttribute("firstMonth", splitDate1[1]);
+        model.addAttribute("firstDay", splitDate1[2]);
+        model.addAttribute("secondYear", splitDate2[0]);
+        model.addAttribute("secondMonth", splitDate2[1]);
+        model.addAttribute("secondDay", splitDate2[2]);
+        model.addAttribute("sleep", sleep);
+        return model;
     }
 
     private int compareYear(int[] first, int[] second) {

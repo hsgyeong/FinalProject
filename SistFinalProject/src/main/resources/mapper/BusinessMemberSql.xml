@@ -8,7 +8,7 @@
  select count(*) from businessman
  </select>
  
- <insert id="insertBusiness" parameterType="member">
+ <insert id="insertBusiness" parameterType="business">
  insert into businessman(business_id, business_pass, business_name, business_company, business_hp, business_email) values(#{business_id},#{business_pass},#{business_name},#{business_company},#{business_hp},#{business_email})
  </insert>
  
@@ -20,7 +20,7 @@
  select count(*) from businessman where business_id=#{business_id}
  </select>
  
- <select id="getDataByBusinessId" resultType="member" parameterType="String">
+ <select id="getDataByBusinessId" resultType="business" parameterType="String">
  select * from businessman where business_id=#{business_id}
  </select>
  

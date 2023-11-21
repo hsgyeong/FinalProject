@@ -163,11 +163,4 @@ public class RoomController {
         return "redirect:/room/room-list?accom_num="+dto.getAccom_num();
     }
 
-    @GetMapping("/room/duplicate-date")
-    public String duplicateDate(@RequestParam String[] checkin,
-                                @RequestParam String[] checkout,
-                                @RequestParam String[] index) {
-        return "";
-
-    }
 }

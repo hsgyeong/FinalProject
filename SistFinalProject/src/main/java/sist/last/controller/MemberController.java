@@ -1,12 +1,14 @@
 package sist.last.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import sist.last.dto.MemberDto;
+import sist.last.service.BusinessService;
 import sist.last.service.MemberService;
 
 @Controller
@@ -22,7 +25,6 @@ public class MemberController {
 
 	@Autowired
 	MemberService service;
-	
 	
 	@GetMapping("/member/joinform")
 	public String addform()
@@ -73,16 +75,38 @@ public class MemberController {
 			HttpSession session)
 	{
 		String hp = hp1+"-"+hp2+"-"+hp3;
-		dto.setHp(hp);
+		dto.setInfo_hp(hp);
 		
 		String email = email1+"@"+email2;
-		dto.setEmail(email);
+		dto.setInfo_email(email);
 		
 		service.insertMember(dto);	
 
 		return "/member/welcome";
 	}
 	
+	@GetMapping("/member/member-mypage")
+	public String mypage(Model model,
+			HttpSession session)
+	{
+	/*	List<MemberDto> list = service.getAllMembers();
+		
+		model.addAttribute("list", list);   */
+		
+		String myid = (String)session.getAttribute("myid");
+		//System.out.println(myid);
+		
+		MemberDto memberDto = service.getDataById(myid);
+		
+		model.addAttribute("memberDto", memberDto);
+		
+		//System.out.println(memberDto.getId());
 	
+	
+		//System.out.println(memberDto.getInfo_id());
+		
+		
+		return "/member/memberMyPage";
+	}
 
 }

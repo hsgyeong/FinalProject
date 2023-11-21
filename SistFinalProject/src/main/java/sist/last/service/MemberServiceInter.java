@@ -1,5 +1,7 @@
 package sist.last.service;
 
+import java.util.List;
+
 import sist.last.dto.MemberDto;
 
 public interface MemberServiceInter {
@@ -10,4 +12,6 @@ public interface MemberServiceInter {
 	public int getSearchId(String id);
 	public int getSearchNick(String nickname);
 	public String getNickname(String id);
+	public List<MemberDto> getAllMembers();
+	
 }

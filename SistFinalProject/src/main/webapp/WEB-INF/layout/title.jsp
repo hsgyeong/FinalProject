@@ -130,7 +130,26 @@
         color: black;
         text-decoration: none;
     }
-
+	
+	div.info-title {
+		position: absolute;
+		background:#fff;
+		top:72px;
+		width:150px;
+		border-radius: 10px;
+		box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+		padding: 10px 5px 0px 5px;
+		margin-right: 10px;
+	}
+	
+	div.info-title a {
+		text-decoration: none;
+		color:black;
+	}
+	
+	#log {
+		cursor: pointer;
+	}
 
 </style>
 
@@ -191,11 +210,26 @@
             }
         });
 
+        $("div.info-title").hide();
+        $(".select-li:eq(3)").on({
+        	mouseover: function(){
+        		$("div.info-title").show();
+        	}
+        });
         
-        $(".select-li:eq(3)").mouseover(function(){
-        	
-        	$("div.info-title")
+        $("div.info-title").mouseover(function(){
+        	$(this).show();
         })
+        
+        $(".select-li").mouseout(function(){
+        	$("div.info-title").hide();
+        })
+        
+        $("div.info-title").mouseout(function(){
+        	$(this).hide();
+        })
+       
+      
     });
 
     function searchActive(searchText) {
@@ -225,8 +259,11 @@
                     <li class="select-li"><a href="/login/loginmain">로그인</a></li>
                 </c:if>
                 <c:if test="${sessionScope.loginok!=null }">
-                    <li class="select-li"><a href="/login/logout">로그아웃</a></li>
+                    <li class="select-li" id="log">
+     	                 <img alt="" src="../loginsave/s1.png" style="width:35px; height:35px;">
+ &nbsp;&nbsp;&nbsp;&nbsp;<img alt="" src="../loginsave/t1.png" style="width:8px; height:8px;"></li>
                 </c:if>
+                
             </ul>
         </div>
         <div class="search-input-box">
@@ -238,10 +275,26 @@
             <ul>
                 <li><a href="#">공지사항</a></li>
                 <li><a href="#">이벤트</a></li>
-                <li><a href="#">1:1문의</a></li>
+                <li><a href="/chat/chatting">1:1문의</a></li>
                 <li><a href="#">약관 및 정책</a></li>
                 <li><a href="#">공지사항</a></li>
             </ul>
+        </div>
+        <div class="info-title">
+        	<ul>
+        	<hr>
+        		<li><a href="#">${sessionSope.nickname }</a></li>
+        		<hr>
+        		<c:choose>
+        			<c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
+				<li><a href="/member/member-mypage">내정보</a></li>
+					</c:when>
+					<c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
+					<li><a href="/member/business-mypage">내정보</a></li>
+					</c:when>
+				</c:choose>
+				<li><a href="/login/logout">로그아웃</a></li>        	
+        	</ul>
         </div>
     </div>
 
