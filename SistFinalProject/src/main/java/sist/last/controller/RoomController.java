@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,8 +31,10 @@ public class RoomController {
         ModelAndView model = new ModelAndView();
 
         int totalCount = mapper.getTotalCount(accom_num);
-        List<RoomDto> list = mapper.getAllData();
-
+        List<RoomDto> list = mapper.getAllData(accom_num);
+        
+        
+        model.addObject("accom_num", accom_num);
         model.addObject("totalCount", totalCount);
         model.addObject("list", list);
 
@@ -41,13 +44,20 @@ public class RoomController {
     }
 
     @GetMapping("/room/room-insert")
-    public String roominsertform() {
+    public String roominsertform(@RequestParam String accom_num,Model model) {
+    	
+    	RoomDto dto=mapper.getData(accom_num);
+    	
+    	model.addAttribute("dto", dto);
+    	model.addAttribute("accom_num", accom_num);
+    	
         return "/room/roomInsert";
     }
 
     @PostMapping("/room/insert")
     public String insert(@ModelAttribute RoomDto dto, MultipartFile photo, HttpSession session,
-                         @RequestParam String[] checkin, @RequestParam String[] checkout) {
+                         @RequestParam String[] checkin, @RequestParam String[] checkout,
+                         @RequestParam String accom_num) {
         // save 위치
         String path = session.getServletContext().getRealPath("/roomsave");
 
@@ -58,7 +68,9 @@ public class RoomController {
         String timestamp = sdf.format(new Date());
         String newFilename = timestamp + "_" + originalFilename;
         dto.setRoom_photo(newFilename);
-
+        
+        dto.setAccom_num(Integer.parseInt(accom_num));
+        
         try {
             photo.transferTo(new File(path + "/" + newFilename));
         } catch (IllegalStateException e) {
@@ -70,16 +82,16 @@ public class RoomController {
         }
 
         mapper.insertRoom(dto);
-
-        return "redirect:/room/room-list";
+        
+        return "redirect:/room/room-list?accom_num="+dto.getAccom_num();
     }
 
     @GetMapping("/room/delete")
     public String delete(@RequestParam int num, HttpSession session) {
 
         RoomDto dto = mapper.getOneData(num);
-
-        //AccomDto가 null이 아닌지 확인
+        
+        // AccomDto가 null이 아닌지 확인
         if (dto != null) {
             // 기존 이미지 파일 삭제
             String oldFilename = dto.getRoom_photo();
@@ -87,7 +99,7 @@ public class RoomController {
                 String path = session.getServletContext().getRealPath("/roomsave");
                 File oldFile = new File(path, oldFilename);
 
-                //파일이 존재하고 삭제에 성공한 경우에만 삭제
+                // 파일이 존재하고 삭제에 성공한 경우에만 삭제
                 if (oldFile.exists() && oldFile.delete()) {
                     System.out.println("기존 이미지 파일 삭제 성공");
                 } else {
@@ -97,19 +109,25 @@ public class RoomController {
         }
 
         mapper.deleteRoom(num);
-
-        return "redirect:/room/room-list";
-
+        
+        return "redirect:/room/room-list?accom_num="+dto.getAccom_num();
     }
 
     @GetMapping("/room/room-update")
-    public String accomupdatefrom(@RequestParam int num, Model model) {
+    public ModelAndView accomupdatefrom(@RequestParam int num) {
+    	
+    	ModelAndView model=new ModelAndView();
+    	
         RoomDto dto = mapper.getOneData(num);
 
-        model.addAttribute("dto", dto);
+        model.addObject("dto", dto);
+        
+        model.setViewName("/room/roomUpdate");
 
-        return "/room/roomUpdate";
+        return model;
     }
+    
+    
 
     @PostMapping("/room/update")
     public String update(@ModelAttribute RoomDto dto, MultipartFile photo, HttpSession session) {
@@ -124,6 +142,7 @@ public class RoomController {
         String newFilename = timestamp + "_" + originalFilename;
         // 파일 삭제
         String oldFilename = mapper.getOneData(dto.getRoom_num()).getRoom_photo();
+        
         try {
             // 기존 이미지 파일 삭제
             File oldFile = new File(path + "/" + oldFilename);
@@ -141,7 +160,7 @@ public class RoomController {
 
         mapper.updateRoom(dto);
 
-        return "redirect:/room/room-list";
+        return "redirect:/room/room-list?accom_num="+dto.getAccom_num();
     }
 
     @GetMapping("/room/duplicate-date")

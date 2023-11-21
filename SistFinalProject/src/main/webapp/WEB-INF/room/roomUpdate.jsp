@@ -78,6 +78,8 @@
 <body>
 <form action="update" method="post" enctype="multipart/form-data">
 <input type="hidden" name="room_num" value="${dto.room_num }">
+<!-- redirect -->
+<input type="hidden" name="accom_num" value="${dto.accom_num }">
 <div class="room_insert_box" align="center">
 <table class="table table-bordered">
 	<tr>
@@ -98,7 +100,7 @@
 			style="width: 25vh; height: 5vh;" value="${dto.room_price }">
 		</td>
 	</tr>
-	
+   	
 	<tr>
 		<td align="center" valign="middle"><b>인원</b></td>
 		<td valign="middle" style="display: flex; border-left: none;">
@@ -129,7 +131,7 @@
 			</select>
 		</td>
 	</tr>
-	
+            
 	<tr>
 		<td align="center" valign="middle"><b>방갯수</b></td>
 		<td valign="middle">
@@ -152,15 +154,14 @@
 		</td>
 	</tr>
 
-            <tr>
-                <td align="center" valign="middle"><b>가격</b></td>
+    <tr>
+                <td align="center" valign="middle"><b>위치</b></td>
                 <td valign="middle">
-                    <input type="text" class="form-control" name="room_price" required="required"
-                           style="width: 25vh; height: 5vh;" value="${dto.room_price }">
+                    <input type="text" class="form-control" name="room_location" required="required" value=${dto.room_location }
+                           placeholder="ex)1층, 2층" style="width: 50vh; height: 5vh;">
                 </td>
-            </tr>
+   	</tr>      
 
-	
 	<tr>
 		<td align="center" valign="middle"><b>방정보소개</b></td>
 		<td valign="middle">

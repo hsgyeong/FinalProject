@@ -182,7 +182,8 @@
 	<form action="insert" method="post" enctype="multipart/form-data">
 		<div class="accom_insert_box" align="center">
 			<!-- 사업자 번호 넘기기 fk -->
-			<input type="hidden" name="business_id" value="test">
+			<input type="hidden" name="business_id" value="${dto.business_id }">
+			
 			<table class="table table-bordered">
 
             <tr>

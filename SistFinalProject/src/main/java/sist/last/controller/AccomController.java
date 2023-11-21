@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,24 +27,46 @@ public class AccomController {
 	AccomMapperInter mapper;
 
 	@GetMapping("/accom/accom-list")
-	public ModelAndView list(@RequestParam String business_id) {
+	public ModelAndView list(@RequestParam String business_id,HttpSession session) {
 
 		ModelAndView model = new ModelAndView();
 
 		int totalCount = mapper.getTotalCount(business_id);
-		List<AccomDto> list = mapper.getAllData();
-
+		List<AccomDto> list = mapper.getAllData(business_id);
+		
+		// 세션에서 로그인 정보를 가져오는 로직
+	    String business = (String) session.getAttribute("myid");
+	    
+	    AccomDto dto = new AccomDto();
+	    
+	    dto.setBusiness_id(business);
+	    
 		model.addObject("totalCount", totalCount);
 		model.addObject("list", list);
-
+		model.addObject("dto", dto);
+		
 		model.setViewName("/accom/accomList");
 
 		return model;
 	}
 
 	@GetMapping("/accom/accom-insert")
-	public String accominsertfrom() {
-		return "/accom/accomInsert";
+	public ModelAndView accominsertfrom(HttpSession session) {
+		
+		ModelAndView model=new ModelAndView();
+		
+		// 세션에서 로그인 정보를 가져오는 로직
+	    String business_id = (String) session.getAttribute("myid");
+	    
+	    AccomDto dto = new AccomDto();
+	    
+	    dto.setBusiness_id(business_id);
+	    
+	    model.addObject("dto", dto);
+	    
+	    model.setViewName("/accom/accomInsert");
+		
+		return model;
 	}
 
 	@PostMapping("/accom/insert")
@@ -72,8 +93,8 @@ public class AccomController {
 		}
 
 		mapper.insertAccom(dto);
-
-		return "redirect:/accom/accom-list";
+		
+		return "redirect:/accom/accom-list?business_id="+dto.getBusiness_id();
 	}
 
 	@GetMapping("/accom/delete")
@@ -103,14 +124,24 @@ public class AccomController {
 		return "redirect:/accom/accom-list";
 
 	}
-
+	
 	@GetMapping("/accom/accom-update")
-	public String accomupdatefrom(@RequestParam int num, Model model) {
-		AccomDto dto = mapper.getOneData(num);
-
-		model.addAttribute("dto", dto);
-
-		return "/accom/accomUpdate";
+	public ModelAndView accomupdatefrom(HttpSession session,@RequestParam int num) {
+		
+		ModelAndView model=new ModelAndView();
+		
+		// 세션에서 로그인 정보를 가져오는 로직
+	    String business_id = (String) session.getAttribute("myid");
+	    
+	    AccomDto dto = mapper.getOneData(num);
+	    
+	    dto.setBusiness_id(business_id);
+	    
+	    model.addObject("dto", dto);
+	    
+	    model.setViewName("/accom/accomUpdate");
+		
+		return model;
 	}
 
 	@PostMapping("/accom/update")
@@ -143,6 +174,6 @@ public class AccomController {
 
 	    mapper.updateAccom(dto);
 
-	    return "redirect:/accom/accom-list";
+	    return "redirect:/accom/accom-list?business_id="+dto.getBusiness_id();
 	}
 }

@@ -79,8 +79,9 @@
 <body>
 <form action="insert" method="post" enctype="multipart/form-data">
 <div class="room_insert_box" align="center">
+
 <!-- 숙소 번호 넘기기 fk -->
-<input type="hidden" name="accom_num" value="1234">
+<input type="hidden" name="accom_num" value="${accom_num}">
 <table class="table table-bordered">
 
             <tr>
@@ -192,7 +193,7 @@
             </tr>
 
             <script type="text/javascript">
-                /*성신 추가 기능*/
+                <%--성신 추가 기능 --%>
 
                 let today = new Date();
                 let getYear = today.getFullYear();
@@ -246,7 +247,7 @@
                         url: "duplicateDate",
                         dataType: "json",
                         data: {"checkin": checkin, "checkout": checkout},
-                        sunccess: function (data) {
+                        success: function (data) {
                             alert("hi");
 
 
@@ -260,7 +261,7 @@
             <tr>
                 <td align="center" colspan="2">
                     <button type="submit" class="room_insert_btn1">등록</button>
-                    <button type="submit" class="room_insert_btn2" onclick="location.href='history.back()'">취소</button>
+                    <button type="button" class="room_insert_btn2" onclick="location.href='history.back()'">취소</button>
                 </td>
             </tr>
         </table>

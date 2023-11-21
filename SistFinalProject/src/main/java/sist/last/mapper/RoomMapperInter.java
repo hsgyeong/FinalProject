@@ -10,7 +10,8 @@ import sist.last.dto.RoomDto;
 public interface RoomMapperInter {
 	
 	public void insertRoom(RoomDto dto);
-	public List<RoomDto> getAllData();
+	public List<RoomDto> getAllData(String accom_num);
+	public RoomDto getData(String accom_num);
 	public int getTotalCount(String accom_num);
 	public void deleteRoom(int num);
 	public RoomDto getOneData(int num);

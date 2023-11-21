@@ -6,14 +6,19 @@
 <mapper namespace="sist.last.mapper.AccomMapperInter">
 
     <insert id="insertAccom" parameterType="AccomDto">
-        insert into
-        accom(business_id,accom_name,accom_category,accom_photo,accom_location,accom_address,accom_hashtag,accom_latitude,accom_longitude)
-        values
-        (#{business_id},#{accom_name},#{accom_category},#{accom_photo},#{accom_location},#{accom_address},#{accom_hashtag},#{accom_latitude},#{accom_longitude})
+        insert into accom(
+        business_id, accom_name, accom_category,
+        accom_photo, accom_location, accom_address,
+        accom_hashtag, accom_latitude, accom_longitude
+    ) values (
+        #{business_id}, #{accom_name}, #{accom_category},
+        #{accom_photo}, #{accom_location}, #{accom_address},
+        #{accom_hashtag}, #{accom_latitude}, #{accom_longitude}
+    )
     </insert>
 
     <select id="getAllData" resultType="AccomDto">
-        select * from accom order by accom_num
+        select * from accom where business_id=#{business_id}
     </select>
 
     <select id="getTotalCount" resultType="int">
