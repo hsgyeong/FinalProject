@@ -24,6 +24,8 @@ ${dto.room_count }<br>
 ${dto.room_checkin }<br>
 ${dto.room_checkout }<br>
 
-<button type="button" onclick="location.href='/reserve/reserve-form?room_num=${dto.room_num}'">예약</button>
+<c:if test="${sessionScope.loginok != null }"><button type="button" onclick="location.href='/reserve/reserve-form?room_num=${dto.room_num}'">예약</button></c:if>
+<c:if test="${sessionScope.loginok == null }"><button type="button" onclick="location.href='/login/loginmain'">예약</button></c:if>
+
 </body>
 </html>

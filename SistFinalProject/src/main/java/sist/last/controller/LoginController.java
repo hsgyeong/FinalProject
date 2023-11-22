@@ -71,7 +71,7 @@ public class LoginController {
 			
 			session.setMaxInactiveInterval(60*60*8);
 			
-			session.setAttribute("myid", info_id);
+			session.setAttribute("info_id", info_id);
 			session.setAttribute("loginok", "member");
 			session.setAttribute("saveok", cbsave);
 			 
@@ -107,7 +107,7 @@ public class LoginController {
 			
 			session.setMaxInactiveInterval(60*60*8);
 			
-			session.setAttribute("myid", business_id);
+			session.setAttribute("business_id", business_id);
 			session.setAttribute("loginok", "business");
 			session.setAttribute("saveok", cbsave);
 			

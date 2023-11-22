@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import sist.last.dto.AccomDto;
+import sist.last.dto.MemberDto;
 import sist.last.dto.RoomDto;
 import sist.last.mapper.RoomMapperInter;
 
@@ -35,15 +36,20 @@ public class RoomController {
         int totalCount = mapper.getTotalCount(accom_num);
         List<RoomDto> list = mapper.getAllData(accom_num);
         
-        String business = (String) session.getAttribute("myid");
+        String business = (String) session.getAttribute("business_id");
+        String info=(String)session.getAttribute("info_id");
         
         AccomDto dto = new AccomDto();
         dto.setBusiness_id(business);
+        
+        MemberDto mdto = new MemberDto();
+        mdto.setInfo_id(info);
         
         model.addObject("accom_num", accom_num);
         model.addObject("totalCount", totalCount);
         model.addObject("list", list);
         model.addObject("dto", dto);
+        model.addObject("mdto", mdto);
 
         model.setViewName("/room/roomList");
 
