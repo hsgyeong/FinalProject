@@ -762,9 +762,9 @@
 
     <div class="search-box" style="width: 65%">
         <div class="sort-box" style="display: flex;">
-            <div class="sort-each-box">거리순</div>
-            <div class="sort-each-box">낮은가격순</div>
-            <div class="sort-each-box">높은가격순</div>
+            <div class="sort-each-box" id="sort-distance">거리순</div>
+            <div class="sort-each-box" id="sort-low-price">낮은가격순</div>
+            <div class="sort-each-box" id="sort-score">별점순</div>
         </div>
 
         <c:if test="${productList.size()!=null}">
@@ -795,6 +795,17 @@
                 })
             </script>
         </c:if>
+        <script type="text/javascript">
+            $("#sort-distance").click(function () {
+                alert("거리순 클릭 : 미 구현 ")
+            })
+            $("#sort-low-price").click(function () {
+                alert("가격낮은순 클릭 : 미 구현 ")
+            })
+            $("#sort-score").click(function () {
+                alert("가격낮은순 클릭 : 미 구현 ")
+            })
+        </script>
     </div>
 </div>
 </body>

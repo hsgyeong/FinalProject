@@ -29,28 +29,33 @@ public class ProductController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("category", category);
         if (selDate1 == null) {
-            if (firstSearchCompareKeyword(keyword, model) != null) {
-                List<ProductDto> products = firstSearchCompareKeyword(keyword, model);
+            if (firstSearchCompareKeyword(keyword) != null) {
+                List<ProductDto> products = firstSearchCompareKeyword(keyword);
                 model.addAttribute("productList", products);
                 System.out.println("hello");
                 return "/product/searchMainPage";
             }
-
         }
         if (selDate1 != null) {
             int[] splitDate1 = splitIntegerDay(selDate1);
             int[] splitDate2 = splitIntegerDay(selDate2);
             int sleep = calculateSleep(splitDate1, splitDate2);
-            model = saveModelAttribute(splitDate1, splitDate2, sleep, model);
+
+            model.addAttribute("firstYear", splitDate1[0]);
+            model.addAttribute("firstMonth", splitDate1[1]);
+            model.addAttribute("firstDay", splitDate1[2]);
+            model.addAttribute("secondYear", splitDate2[0]);
+            model.addAttribute("secondMonth", splitDate2[1]);
+            model.addAttribute("secondDay", splitDate2[2]);
+            model.addAttribute("sleep", sleep);
         }
 
         return "/product/searchMainPage";
     }
 
-    private List<ProductDto> firstSearchCompareKeyword(String keyword, Model model) {
+    private List<ProductDto> firstSearchCompareKeyword(String keyword) {
         List<ProductDto> categoryList = service.getProductDataOfCategory(keyword);
         if (!categoryList.isEmpty()) {
-            
             return categoryList;
         }
         List<ProductDto> hashtagList = service.getProductDataOfHashTag(keyword);
@@ -80,17 +85,6 @@ public class ProductController {
     private int calculateSleep(int[] first, int[] second) {
         int sleep = 0;
         return compareYear(first, second);
-    }
-
-    private Model saveModelAttribute(int[] splitDate1, int[] splitDate2, int sleep, Model model) {
-        model.addAttribute("firstYear", splitDate1[0]);
-        model.addAttribute("firstMonth", splitDate1[1]);
-        model.addAttribute("firstDay", splitDate1[2]);
-        model.addAttribute("secondYear", splitDate2[0]);
-        model.addAttribute("secondMonth", splitDate2[1]);
-        model.addAttribute("secondDay", splitDate2[2]);
-        model.addAttribute("sleep", sleep);
-        return model;
     }
 
     private int compareYear(int[] first, int[] second) {

@@ -9,21 +9,24 @@
     <select id="getProductDataOfCategory" resultType="productDto" parameterType="String">
         select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_category = #{keyword}
-        order by B.room_price asc limit 1;
+        order by A.accom_score desc, B.room_price asc limit 1;
     </select>
     <select id="getProductDataOfHashTag" resultType="productDto" parameterType="String">
         select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_hashtag like '%${keyword}%'
-        order by B.room_price asc limit 1;
+        order by A.accom_score desc, B.room_price asc limit 1;
     </select>
     <select id="getProductDataOfLocation" resultType="productDto" parameterType="String">
         select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_location like '%${keyword}%'
-        order by B.room_price asc limit 1;
+        order by A.accom_score desc, B.room_price asc limit 1;
     </select>
     <select id="getProductDataOfName" resultType="productDto" parameterType="String">
         select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_name like '%${keyword}%'
-        order by B.room_price asc limit 1;
+        order by A.accom_score desc, B.room_price asc limit 1;
     </select>
+    <!--<select id="getProductClickOrderByLowPrice" resultType="productDto" parameterType="">
+
+    </select>-->
 </mapper>
