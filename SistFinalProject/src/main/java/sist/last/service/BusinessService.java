@@ -45,4 +45,18 @@ public class BusinessService implements BusinessServiceInter {
 		return businessMapperInter.getSearchBusinessId(business_id);
 	}
 
+	@Override
+	public void updateBusiness(BusinessDto dto) {
+		// TODO Auto-generated method stub
+		businessMapperInter.updateBusiness(dto);
+	}
+
+	@Override
+	public void deleteBusiness(String business_id) {
+		// TODO Auto-generated method stub
+		businessMapperInter.deleteBusiness(business_id);
+	}
+
+
+
 }

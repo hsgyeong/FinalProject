@@ -22,21 +22,47 @@
     text-decoration:none;
     color: gray;
     }
+    
     table {
-		margin-left: 450px;
+		margin: auto;
 	}
 	
 	.img {
 	margin-left: 100px;
 	}
 	
-	.id, .name, .company, .hp{
+	.id, .name, .company, .hp, .email {
 	font-size: 24px;
+	}
+	
+	.up, .out {
+	text-decoration: none;
+	color:black;
+	}
+	
+	.in {
+	text-align: center;
+	}
+	
+	.up {
+	font: bord;
+	font-weight: bold;
+	}
+	
+	#bbtndelete {
+	cursor: pointer;
+	}
+	
+	.mine {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+	font-size: 20px;
 	}
     </style>
 </head>
 <body>
-<b>내 정보</b>
+<div class="in"><b>내 정보</b></div>
 <br>
 
 <table>
@@ -75,6 +101,16 @@
 		</td>
 	</tr>
 	<br>
+		<tr class="email">
+		<td>
+		이메일
+		&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp; 
+		${businessDto.business_email }
+		<br><br>
+		</td>
+	</tr>
+	<br>
 	<tr>
 		<td>
 		<hr>
@@ -85,11 +121,90 @@
 	</tr>
 	<tr>	
 		<td>
-		<a>정보수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a>로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a class="x">회원탈퇴</a>
+		<a href="/member/business-update?business_id=${businessDto.business_id }" class="up">정보수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/login/logout" class="out">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a class="x" name="mx" value="${businessDto.business_id }">회원탈퇴</a>
+			<br><br><br>
+	<a class="mine" href="/accom/accom-list?business_id=${businessDto.business_id }">나의 등록 숙소</a>
 		</td>
 	</tr>
+
 	</table>
+	
+		<!-- The Modal -->
+<div class="modal" id="deleteModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">회원탈퇴</h5>
+        <button type="button" class="btn-close cs" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      정말 탈퇴하시겠습니까?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      
+      <button type="button" class="btn btn-danger" id="bbtndelete"
+      onclick="location.href=/company/delete-business">회원탈퇴</button>
+        <button type="button" class="btn btn-success cc" data-bs-dismiss="modal">취소</button>
+      </div>
+      
+  </div>
+ </div>
+ </div> 
 </body>
+<script>
+$(document).ready(function(){
+	
+	$(document).on("click",".x",function(){
+	
+	$("#deleteModal").show();
+	
+	}); 
+
+	$(document).on("click","#bbtndelete",function(){
+
+		business_id = "${sessionScope.myid}";
+
+		$.ajax({
+			
+			type:"get",
+			dataType:"html",
+			url:"/company/delete-business",
+			data:{"business_id":business_id},
+			success:function(){
+			}
+			})
+		
+		
+	$("#deleteModal").hide();	
+	
+	setTimeout(function(){
+	alert("안녕히가세요!");
+	
+	window.location.href="/login/logout";
+		
+	},300)
+	
+})
+
+	$(document).on("click",".cc",function(){
+		
+		$("#deleteModal").hide();
+		
+	})
+	
+	$(document).on("click",".cs",function(){
+		
+		$("#deleteModal").hide();
+		
+	})
+});
+</script>
 </html>

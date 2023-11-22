@@ -23,38 +23,38 @@ public class MemberService implements MemberServiceInter {
 	}
 
 	@Override
-	public int loginPassCheck(String id, String pass) {
+	public int loginPassCheck(String info_id, String info_pass) {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<>();
 		
-		map.put("id", id);
-		map.put("pass", pass);
+		map.put("info_id", info_id);
+		map.put("info_pass", info_pass);
 		
 		return mapperInter.loginPassCheck(map);
 	}
 
 	@Override
-	public MemberDto getDataById(String id) {
+	public MemberDto getDataById(String info_id) {
 		// TODO Auto-generated method stub
-		return mapperInter.getDataById(id);
+		return mapperInter.getDataById(info_id);
 	}
 
 	@Override
-	public int getSearchId(String id) {
+	public int getSearchId(String info_id) {
 		// TODO Auto-generated method stub
-		return mapperInter.getSearchId(id);
+		return mapperInter.getSearchId(info_id);
 	}
 
 	@Override
-	public int getSearchNick(String nickname) {
+	public int getSearchNick(String info_nickname) {
 		// TODO Auto-generated method stub
-		return mapperInter.getSearchNick(nickname);
+		return mapperInter.getSearchNick(info_nickname);
 	}
 
 	@Override
-	public String getNickname(String id) {
+	public String getNickname(String info_id) {
 		// TODO Auto-generated method stub
-		return mapperInter.getNickname(id);
+		return mapperInter.getNickname(info_id);
 	}
 
 	@Override
@@ -63,12 +63,18 @@ public class MemberService implements MemberServiceInter {
 		return mapperInter.getAllMembers();
 	}
 
+	@Override
+	public void updateMember(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		
+		mapperInter.updateMember(memberDto);
+	}
 
-	
-	
+	@Override
+	public void deleteMember(String info_id) {
+		// TODO Auto-generated method stub
+		mapperInter.deleteMember(info_id);
+	}
 
-	
-	
-	
 
 }
