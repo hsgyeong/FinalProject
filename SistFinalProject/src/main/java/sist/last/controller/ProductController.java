@@ -50,6 +50,7 @@ public class ProductController {
     private List<ProductDto> firstSearchCompareKeyword(String keyword, Model model) {
         List<ProductDto> categoryList = service.getProductDataOfCategory(keyword);
         if (!categoryList.isEmpty()) {
+            
             return categoryList;
         }
         List<ProductDto> hashtagList = service.getProductDataOfHashTag(keyword);
