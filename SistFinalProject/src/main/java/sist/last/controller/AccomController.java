@@ -189,11 +189,13 @@ public class AccomController {
         return "/accom/accomNonBookable";
     }
 
-    @PostMapping("/room/duplicate-date")
+    @GetMapping("/accom/duplicate-date")
     @ResponseBody
     public void duplicateDate(@RequestParam("checkin") List<String> checkin,
                               @RequestParam("checkout") List<String> checkout,
                               @RequestParam("idx") List<Integer> idx) {
+
+        System.out.println("hi");
 
         for (int i = 0; i < checkin.size(); i++) {
             LocalDate checkinDate = LocalDate.parse(checkin.get(i));

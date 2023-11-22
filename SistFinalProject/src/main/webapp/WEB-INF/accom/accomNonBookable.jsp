@@ -15,7 +15,7 @@
 <body>
 <table style="width: 600px; border: 1px solid black">
     <tr>
-        <td align="center" valign="middle"><b>예약 불가능&nbsp; 날짜 선택</b>
+        <td align="center" valign="middle"><b>예약 불가능 날짜 선택</b>
             <br><br>
             <button type="button" class="btn btn-outline-danger addDate">날짜 추가</button>
         </td>
@@ -27,6 +27,7 @@
                            class="form-control" style="width: 150px; margin-right: 20px;"> ~
                     <input type="date" id="non_checkout1" name="checkout[]" min=""
                            class="form-control" style="width: 150px; margin-left: 20px;">
+                    <input type="hidden" id="count1" value="true">
 					</span><br><br>
             </div>
             <div style="margin-left: 15%">
@@ -70,6 +71,7 @@
         s += "class='form-control' style='width: 150px; margin-left: 20px;'>";
         s += "<button type='button' class='delDate btn btn-danger sm' style='margin-left: 10px;' "
         s += "idx='" + count + "'>x</button>"
+        s += "<input type='hidden' id='count" + count + "' value='true'>"
         s += "</span><span class='br br" + count + "'><br><br>";
         $("#div-nonDate").append(s);
     })
@@ -82,23 +84,36 @@
     })
 
     function checkDate() {
+        //alert("누름");
         var cnt = count;
         var checkin = [];
         var checkout = [];
         var idx = [];
-        for (var index = 0; index <= cnt; index++) {
+        for (var index = 1; index <= cnt; index++) {
             var checkinValue = $("#non_checkin" + index).val();
             var checkoutValue = $("#non_checkout" + index).val();
-
-            if (checkinValue != null && checkoutValue != null) {
-                checkin.push(checkinValue);
-                checkout.push(checkoutValue);
-                idx.push(index);
+            var countIdx = $("#count" + index).val();
+            alert("[" + checkinValue + "," + checkoutValue + "]");
+            alert(index + " : " + countIdx);
+            if (countIdx == 'true') {
+                if (checkinValue != "" && checkoutValue != "") {
+                    checkin.push(checkinValue);
+                    checkout.push(checkoutValue);
+                    idx.push(index);
+                }
+                if (checkinValue == "" && checkoutValue != "") {
+                    alert("날짜를 입력하지 않았습니다.");
+                    return false;
+                }
+                if (checkinValue != "" && checkoutValue == "") {
+                    alert("날짜를 입력하지 않았습니다.");
+                    return false;
+                }
             }
         }
 
         $.ajax({
-            type: "get",  // 메소드를 명시적으로 지정합니다
+            type: "get",
             url: "duplicate-date",
             traditional: true,
             dataType: "json",
