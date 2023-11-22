@@ -103,7 +103,7 @@ height: 100%;
 </style>
 </head>
 <% 
-String id = (String)session.getAttribute("id");
+String info_id = (String)session.getAttribute("info_id");
 String business_id = (String)session.getAttribute("business_id");
 String saveok = (String) session.getAttribute("saveok");
 
@@ -111,7 +111,7 @@ boolean save = true;
 
 if(saveok==null)
 {
-	id="";
+	info_id="";
 	business_id="";
 	save=false;
 }
@@ -150,10 +150,10 @@ else{
 					<div class="memberLogin">
 						<form action="member-login" method="post">
 							<span class="id">아이디 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
-								type="text" name="id" style="width: 200px;" class="form-control"
+								type="text" name="info_id" style="width: 200px;" class="form-control"
 								required="required"></span> <br>
 							<br> <span class="pass">비밀번호&nbsp;&nbsp;&nbsp; <input
-								type="password" name="pass" style="width: 200px;"
+								type="password" name="info_pass" style="width: 200px;"
 								class="form-control" required="required"></span>
 							<br><br>
 							<button type="submit" class="btn loginbt">

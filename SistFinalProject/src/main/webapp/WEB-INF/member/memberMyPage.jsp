@@ -21,22 +21,39 @@
     .x { 
     text-decoration:none;
     color: gray;
+    cursor: pointer;
     }
+    
     table {
-		margin-left: 450px;
+		margin: auto;
 	}
 	
 	.img {
 	margin-left: 100px;
 	}
 	
-	.id, .nick, .hp{
+	.id, .nickn, .hp, .email, .birth{
 	font-size: 24px;
+	}
+	
+	.in {
+	text-align: center;
+	}
+	
+	.update {
+	text-decoration: none;
+	font-weight: bold;
+	color:black;
+	}
+	
+	.out {
+	text-decoration: none;
+	color:black;
 	}
     </style>
 </head>
 <body>
-<b>내 정보</b>
+<div class="in"><b>내 정보</b></div>
 <br>
 
 <table>
@@ -48,15 +65,15 @@
 	</tr>
 	<tr class="id">	
 		<td>
-		<br><br><br><br>
+		<br><br>
 		아이디
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		 ${memberDto.info_name }
+		 ${memberDto.info_id }
 		<br><br>
 		</td>
 	</tr>
-	<tr class="nick">
+	<tr class="nickn">
 		<td>
 		닉네임
 		&nbsp;&nbsp;&nbsp;&nbsp;
@@ -74,6 +91,24 @@
 		<br><br>
 		</td>
 	</tr>
+	<tr class="email">
+		<td>
+		이메일
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		 ${memberDto.info_email }
+		<br><br>
+		</td>
+	</tr>
+	<tr class="birth">
+		<td>
+		생년월일
+		&nbsp;&nbsp;
+		&nbsp;&nbsp;
+		 ${memberDto.info_birth }
+		<br><br>
+		</td>
+	</tr>
 	<br>
 	<tr>
 		<td>
@@ -85,11 +120,106 @@
 	</tr>
 	<tr>	
 		<td>
-		<a>정보수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a>로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a class="x">회원탈퇴</a>
+		<a href="/member/member-update?info_id=${memberDto.info_id }" class="update">정보수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a class="out" href="/login/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a class="x" id="x" name="x" value="${memberDto.info_id }">회원탈퇴</a>
 		</td>
 	</tr>
 	</table>
+	
+	<!-- The Modal -->
+<div class="modal" id="deleteModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">회원탈퇴</h5>
+        <button type="button" class="btn-close cs" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      정말 탈퇴하시겠습니까?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      
+      <button type="button" class="btn btn-danger" id="btndelete"
+      onclick="location.href=/member/delete-member">회원탈퇴</button>
+        <button type="button" class="btn btn-success cc" data-bs-dismiss="modal">취소</button>
+      </div>
+      
+  </div>
+ </div>
+ </div> 
+     
 </body>
+<script>
+$(document).ready(function(){
+	
+	$(document).on("click",".x",function(){
+	
+	//info_id = $("#x").attr("value");
+	//info_id = "${sessionScope.myid}";
+	//alert(info_id);
+	
+	$("#deleteModal").show();
+	
+	}); 
+	
+	/*$.ajax({
+		
+		type:"get",
+		dataType:"html",
+		url:"member/delete-member",
+		data:{"info_id":info_id},
+		success(function(){
+				
+		})
+	})*/
+
+
+	$(document).on("click","#btndelete",function(){
+
+		info_id = "${sessionScope.myid}";
+		
+		//alert(info_id);
+		
+		$.ajax({
+			
+			type:"get",
+			dataType:"html",
+			url:"/member/delete-member",
+			data:{"info_id":info_id},
+			success:function(){
+			}
+			})
+		
+		
+	$("#deleteModal").hide();	
+	
+	setTimeout(function(){
+	alert("안녕히가세요!");
+	
+	window.location.href="/login/logout";
+		
+	},300)	
+})
+
+		
+	$(document).on("click",".cs",function(){
+		
+		$("#deleteModal").hide();
+		
+	})
+	
+	$(document).on("click",".cc",function(){
+		
+		$("#deleteModal").hide();
+		
+	})
+});
+</script>
 </html>

@@ -7,11 +7,13 @@ import sist.last.dto.MemberDto;
 public interface MemberServiceInter {
 
 	public void insertMember(MemberDto dto);
-	public int loginPassCheck(String id, String pass);
-	public MemberDto getDataById(String id);
-	public int getSearchId(String id);
-	public int getSearchNick(String nickname);
-	public String getNickname(String id);
+	public int loginPassCheck(String info_id, String info_pass);
+	public MemberDto getDataById(String info_id);
+	public int getSearchId(String info_id);
+	public int getSearchNick(String info_nickname);
+	public String getNickname(String info_id);
 	public List<MemberDto> getAllMembers();
+	public void updateMember(MemberDto dto);
+	public void deleteMember(String info_id);
 	
 }

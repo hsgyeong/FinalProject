@@ -135,11 +135,15 @@
 		position: absolute;
 		background:#fff;
 		top:72px;
-		width:150px;
+		width: 150px;
+		margin: auto;
 		border-radius: 10px;
 		box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
-		padding: 10px 5px 0px 5px;
-		margin-right: 10px;
+		padding:10px 5px 5px; 
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
 	
 	div.info-title a {
@@ -150,6 +154,15 @@
 	#log {
 		cursor: pointer;
 	}
+	
+	.con {
+		align: center;
+	}
+	
+	.title-name {
+		  color: #f7323f;
+	}
+
 
 </style>
 
@@ -280,22 +293,33 @@
                 <li><a href="#">공지사항</a></li>
             </ul>
         </div>
+        <c:if test="${sessionScope.loginok !=null }">
         <div class="info-title">
         	<ul>
-        	<hr>
-        		<li><a href="#">${sessionSope.nickname }</a></li>
-        		<hr>
+        	<div class="con">
+        		<div class="title-name">
+        	<c:choose>
+        		<c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
+				<li><a class="nick">${memberDto.info_nickname }</a></li>
+				</c:when>
+				<c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
+				<li><a class="com">${businessDto.business_company }</a></li>
+				</c:when>
+			</c:choose>
+				</div>
         		<c:choose>
         			<c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
 				<li><a href="/member/member-mypage">내정보</a></li>
 					</c:when>
 					<c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
-					<li><a href="/member/business-mypage">내정보</a></li>
+					<li><a href="/company/business-mypage">내정보</a></li>
 					</c:when>
 				</c:choose>
 				<li><a href="/login/logout">로그아웃</a></li>        	
+        	</div>
         	</ul>
         </div>
+        </c:if>
     </div>
 
 </header>
