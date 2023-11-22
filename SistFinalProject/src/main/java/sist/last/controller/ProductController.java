@@ -50,29 +50,20 @@ public class ProductController {
     private List<ProductDto> firstSearchCompareKeyword(String keyword, Model model) {
         List<ProductDto> categoryList = service.getProductDataOfCategory(keyword);
         if (!categoryList.isEmpty()) {
-            System.out.println("category");
-            model.addAttribute("categoryList", categoryList);
             return categoryList;
         }
         List<ProductDto> hashtagList = service.getProductDataOfHashTag(keyword);
         if (!hashtagList.isEmpty()) {
-            System.out.println("hashtag");
-            model.addAttribute("hashtagList", hashtagList);
             return hashtagList;
         }
         List<ProductDto> locationList = service.getProductDataOfLocation(keyword);
         if (!locationList.isEmpty()) {
-            System.out.println("location");
-            model.addAttribute("locationList", locationList);
             return locationList;
         }
         List<ProductDto> nameList = service.getProductDataOfName(keyword);
         if (!nameList.isEmpty()) {
-            System.out.println("name");
-            model.addAttribute("nameList", nameList);
             return nameList;
         }
-        model.addAttribute("nothing", "nothing");
         return null;
     }
 
