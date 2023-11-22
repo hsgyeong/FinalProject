@@ -10,8 +10,8 @@ import sist.last.dto.AccomDto;
 public interface AccomMapperInter {
 	
 	public void insertAccom(AccomDto dto);
-	public List<AccomDto> getAllData(String business_id);
-	public int getTotalCount(String business_id);
+	public List<AccomDto> getAllData();
+	public int getTotalCount();
 	public void deleteAccom(int num);
 	public AccomDto getOneData(int num);
 	public void updateAccom(AccomDto dto);
