@@ -12,9 +12,11 @@ public interface MemberMapperInter {
 
 	public void insertMember(MemberDto dto);
 	public int loginPassCheck(Map<String, String> map);
-	public MemberDto getDataById(String id);
-	public int getSearchId(String id);
-	public int getSearchNick(String nickname);
-	public String getNickname(String id);
+	public MemberDto getDataById(String info_id);
+	public int getSearchId(String info_id);
+	public int getSearchNick(String info_nickname);
+	public String getNickname(String info_id);
 	public List<MemberDto> getAllMembers();
+	public void updateMember(MemberDto dto);
+	public void deleteMember(String info_id);
 }

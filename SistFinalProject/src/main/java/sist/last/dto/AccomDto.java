@@ -20,5 +20,4 @@ public class AccomDto {
     private double accom_latitude;
     private double accom_longitude;
 
-
 }

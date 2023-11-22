@@ -29,7 +29,7 @@
 				dataType : "json",
 				url : "idcheck",
 				data : {
-					"id" : id
+					"info_id" : id
 				},
 				success : function(res) {
 					//alert(id);
@@ -89,7 +89,7 @@
 				dataType : "json",
 				url : "nickcheck",
 				data : {
-					"nickname" : nickname
+					"info_nickname" : nickname
 				},
 				success : function(res) {
 
@@ -179,14 +179,14 @@ body {
 					<div class="content">
 
 						아이디<br> 
-						<span class="i"><input type="text" name="id"
+						<span class="i"><input type="text" name="info_id"
 							id="id" class="form-control" required="required"
 							style="width: 330px;" placeholder="아이디를 입력해주세요">&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn" id="idchk"
 								style="background-color: #f7323f; color: white; width:30%; font-family: 'Jalnan';">중복체크</button></span>
 						<span class="idok" style="color: green; font-size: 12px;"></span><br><br>
 						 비밀번호<br> 
-						<input type="password" name="pass"	id="pass1" class="form-control" required="required"
+						<input type="password" name="info_pass"	id="pass1" class="form-control" required="required"
 							style="width: 300px;" placeholder="비밀번호를 입력해주세요">&nbsp;&nbsp;<br>
 						비밀번호 확인<br>
 						<div style="display: flex;">
@@ -197,13 +197,13 @@ body {
 						</div>
 						<br> 닉네임<br> 
 						<span class="nickch"> 
-						<input	type="text" name="nickname" id="nick" class="form-control"
+						<input	type="text" name="info_nickname" id="nick" class="form-control"
 						required="required" style="width: 330px;" placeholder="닉네임을 입력해주세요">&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn" id="nickchk" style="background-color: #f7323f; color: white; 
 							font-family: 'Jalnan'; width:30%;">중복체크</button></span>
 						<span class="nickok" style="color: green; font-size: 12px;"></span><br><br>
 						 이름<br> 
-						 <input type="text" name="name"	class="form-control" required="required" style="width: 300px;"
+						 <input type="text" name="info_name"	class="form-control" required="required" style="width: 300px;"
 							placeholder="이름을 입력해주세요"><br> 
 						휴대폰<br> 
 						<select	style="width: 80px; height: 31px;" name="hp1">
@@ -227,7 +227,7 @@ body {
 							<option value="nate.com">nate.com</option>
 						</select> <br><br> 
 						<label for="birth">생년월일</label>&nbsp;&nbsp;<span style="font-size: 12px; color: gray;">(선택사항)</span> <br> 
-						<input type="date" name="birth" id="birth">
+						<input type="date" name="info_birth" id="birth">
 					</div>
 				</td>
 			</tr>

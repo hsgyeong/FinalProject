@@ -46,7 +46,7 @@ public class AccomController {
 		model.addObject("dto", dto);
 		
 		model.setViewName("/accom/accomList");
-
+		
 		return model;
 	}
 

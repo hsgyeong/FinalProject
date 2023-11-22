@@ -12,7 +12,6 @@
     <style type="text/css">
         .room_insert_box {
             width: 100%;
-            /*height: 113vh;*/
             margin-top: 3.5vh;
         }
 
@@ -104,7 +103,7 @@
             </tr>
 
             <tr>
-                <td align="center" valign="middle"><b>인원</b></td>
+                <td align="center" valign="middle"><b>최소 인원<br>&<br>최대 인원</b></td>
                 <td valign="middle" style="display: flex; border-left: none;">
                     <select class="form-control" name="room_minpeople" required="required"
                             style="width: 5vh; height: 5vh;">
@@ -160,7 +159,72 @@
                 <td align="center" valign="middle"><b>위치</b></td>
                 <td valign="middle">
                     <input type="text" class="form-control" name="room_location" required="required"
-                           placeholder="ex)1층, 2층" style="width: 50vh; height: 5vh;">
+                           placeholder="ex)1층 202호, 2층 304호" style="width: 50vh; height: 5vh;">
+                </td>
+            </tr>
+            
+            <tr>
+                <td align="center" valign="middle"><b>checkin<br>&<br>checkout</b></td>
+                <td valign="middle" style="display: flex; border-left: none;">
+                    <select class="form-control" name="room_checkin" required="required"
+                            style="width: 8vh; height: 5vh;">
+                        <option value="00:00" selected="selected">00:00</option>
+                        <option value="1:00">1:00</option>
+                        <option value="2:00">2:00</option>
+                        <option value="3:00">3:00</option>
+                        <option value="4:00">4:00</option>
+                        <option value="5:00">5:00</option>
+                        <option value="6:00">6:00</option>
+                        <option value="7:00">7:00</option>
+                        <option value="8:00">8:00</option>
+                        <option value="9:00">9:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                        <option value="24:00">24:00</option>
+                    </select>
+
+                    <b style="padding-top: 0.7vh;">&nbsp;~&nbsp;</b>
+
+                    <select class="form-control" name="room_checkout" required="required"
+                            style="width: 8vh; height: 5vh;">
+                        <option value="00:00">00:00</option>
+                        <option value="1:00">1:00</option>
+                        <option value="2:00">2:00</option>
+                        <option value="3:00">3:00</option>
+                        <option value="4:00">4:00</option>
+                        <option value="5:00">5:00</option>
+                        <option value="6:00">6:00</option>
+                        <option value="7:00">7:00</option>
+                        <option value="8:00">8:00</option>
+                        <option value="9:00">9:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00" selected="selected">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                        <option value="24:00">24:00</option>
+                    </select>
                 </td>
             </tr>
 
