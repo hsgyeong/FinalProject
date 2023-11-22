@@ -41,10 +41,10 @@ public class LoginController {
 			return "/login/loginForm";	
 		else
 		{
-			String nickname = service.getNickname(myid);
+			String info_nickname = service.getNickname(myid);
 			
 			model.addAttribute("myid", myid);
-			model.addAttribute("nickname", nickname);
+			model.addAttribute("info_nickname", info_nickname);
 			
 			return "/";
 		}
@@ -59,23 +59,23 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login/member-login")
-	public String login(@RequestParam String id,
-			@RequestParam String pass,
+	public String login(@RequestParam String info_id,
+			@RequestParam String info_pass,
 			@RequestParam(required = false) String cbsave,
 			HttpSession session)
 	{
 		HashMap<String, String> map = new HashMap<>();
-		int check = service.loginPassCheck(id, pass);
+		int check = service.loginPassCheck(info_id, info_pass);
 		
 		if(check==1) {
 			
 			session.setMaxInactiveInterval(60*60*8);
 			
-			session.setAttribute("myid", id);
+			session.setAttribute("myid", info_id);
 			session.setAttribute("loginok", "member");
 			session.setAttribute("saveok", cbsave);
 			 
-			MemberDto memberDto = service.getDataById(id);  //session으로 못넘김 model로 넘겨야함
+			MemberDto memberDto = service.getDataById(info_id);  //session으로 못넘김 model로 넘겨야함
 		
 			String myid = (String) session.getAttribute("myid");
 

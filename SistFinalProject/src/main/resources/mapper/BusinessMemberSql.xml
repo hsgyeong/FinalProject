@@ -24,5 +24,11 @@
  select * from businessman where business_id=#{business_id}
  </select>
  
+ <update id="updateBusiness" parameterType="business">
+ update businessman set business_company=#{business_company}, business_pass=#{business_pass},business_hp=#{business_hp}, business_email=#{business_email} where business_id=#{business_id}
+ </update>
  
+ <delete id="deleteBusiness" parameterType="String">
+ delete from businessman where business_id=#{business_id}
+ </delete>
  </mapper>

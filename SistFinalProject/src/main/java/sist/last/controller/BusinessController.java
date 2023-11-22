@@ -3,6 +3,7 @@ package sist.last.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +38,15 @@ public class BusinessController {
 	{
 		Map<String, Integer> map = new HashMap<>();
 		
-		int i = businessService.getSearchBusinessId(business_id);
+		int a = businessService.getSearchBusinessId(business_id);
 		
-		map.put("count", i);
+		map.put("count", a);
 		
 		return map;
 	}
 	
 	@PostMapping("/member/join-business")
-	public String insert(@ModelAttribute BusinessDto dto,
+	public String insert(@ModelAttribute BusinessDto businessDto,
 			@RequestParam String hp1,
 			@RequestParam String hp2,
 			@RequestParam String hp3,
@@ -54,17 +55,17 @@ public class BusinessController {
 			HttpSession session)
 	{
 		String hp = hp1+"-"+hp2+"-"+hp3;
-		dto.setBusiness_hp(hp);
+		businessDto.setBusiness_hp(hp);
 		
 		String email = email1+"@"+email2;
-		dto.setBusiness_email(email);
+		businessDto.setBusiness_email(email);
 		
-		businessService.insertBusiness(dto);	
+		businessService.insertBusiness(businessDto);	
 
 		return "/member/welcome";
 	}
 	
-	@GetMapping("/member/business-mypage")
+	@GetMapping("/company/business-mypage")
 	public String mypage(Model model,
 			HttpSession session)
 	{
@@ -83,6 +84,45 @@ public class BusinessController {
 		
 		
 		return "/company/businessMyPage";
+	}
+
+	@GetMapping("/member/business-update")
+	public String updateform(@RequestParam String business_id, Model model)
+	{	
+		BusinessDto businessDto = businessService.getDataByBusinessId(business_id);
+		
+		model.addAttribute("businessDto", businessDto);
+		
+		return "/company/businessUpdateForm";
+	}
+	
+	@PostMapping("/member/update-business")
+	public String update(@ModelAttribute BusinessDto businessDto,
+			@RequestParam String hp1,
+			@RequestParam String hp2,
+			@RequestParam String hp3,
+			@RequestParam String email1,
+			@RequestParam String email2,
+			HttpSession session)
+	{
+		String hp = hp1+"-"+hp2+"-"+hp3;
+		businessDto.setBusiness_hp(hp);
+		
+		String email = email1+"@"+email2;
+		businessDto.setBusiness_email(email);
+		
+		businessService.updateBusiness(businessDto);
+
+		return "/company/updateSuccess";
+	}
+
+	@GetMapping("/company/delete-business")
+	@ResponseBody
+	public String delete(@RequestParam String business_id,
+			HttpServletRequest request)
+	{
+		businessService.deleteBusiness(business_id);
+		return "/";
 	}
 
 }

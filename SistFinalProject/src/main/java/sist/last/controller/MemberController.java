@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,11 @@ public class MemberController {
 	
 	@GetMapping("/member/idcheck")
 	@ResponseBody
-	public Map<String, Integer> idCheck(@RequestParam String id)
+	public Map<String, Integer> idCheck(@RequestParam String info_id)
 	{
 		Map<String, Integer> map = new HashMap<>();
 		
-		int i = service.getSearchId(id);
+		int i = service.getSearchId(info_id);
 		
 		map.put("count", i);
 		
@@ -53,11 +54,11 @@ public class MemberController {
 	
 	@GetMapping("/member/nickcheck")
 	@ResponseBody
-	public Map<String, Integer> nickCheck(@RequestParam String nickname)
+	public Map<String, Integer> nickCheck(@RequestParam String info_nickname)
 	{
 		Map<String, Integer> map = new HashMap<>();
 		
-		int a = service.getSearchNick(nickname);
+		int a = service.getSearchNick(info_nickname);
 		
 		map.put("count", a);
 		
@@ -107,6 +108,45 @@ public class MemberController {
 		
 		
 		return "/member/memberMyPage";
+	}
+	
+	@GetMapping("/member/member-update")
+	public String updateform(@RequestParam String info_id, Model model)
+	{	
+		MemberDto memberDto = service.getDataById(info_id);
+		
+		model.addAttribute("memberDto", memberDto);
+		
+		return "/member/memberUpdateForm";
+	}
+	
+	@PostMapping("/member/update-member")
+	public String update(@ModelAttribute MemberDto dto,
+			@RequestParam String hp1,
+			@RequestParam String hp2,
+			@RequestParam String hp3,
+			@RequestParam String email1,
+			@RequestParam String email2,
+			HttpSession session)
+	{
+		String hp = hp1+"-"+hp2+"-"+hp3;
+		dto.setInfo_hp(hp);
+		
+		String email = email1+"@"+email2;
+		dto.setInfo_email(email);
+		
+		service.updateMember(dto);
+
+		return "/member/updateSuccess";
+	}
+	
+	@GetMapping("/member/delete-member")
+	@ResponseBody
+	public String delete(@RequestParam String info_id,
+			HttpServletRequest request)
+	{
+		service.deleteMember(info_id);
+		return "/";
 	}
 
 }
