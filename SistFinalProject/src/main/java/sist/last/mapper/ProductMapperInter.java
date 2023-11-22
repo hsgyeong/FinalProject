@@ -9,7 +9,13 @@ public interface ProductMapperInter {
 
     public int getAccommodation(String result);
 
-    public List<ProductDto> getProductDataByCategory(String keyword);
+    public List<ProductDto> getProductDataOfCategory(String keyword);
+
+    public List<ProductDto> getProductDataOfName(String keyword);
+
+    public List<ProductDto> getProductDataOfHashTag(String keyword);
+
+    public List<ProductDto> getProductDataOfLocation(String keyword);
 
     public List<String> selectCategory();
 }
