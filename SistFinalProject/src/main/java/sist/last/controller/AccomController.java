@@ -35,7 +35,7 @@ public class AccomController {
 		List<AccomDto> list = mapper.getAllData(business_id);
 		
 		// 세션에서 로그인 정보를 가져오는 로직
-	    String business = (String) session.getAttribute("myid");
+	    String business = (String) session.getAttribute("business_id");
 	    
 	    AccomDto dto = new AccomDto();
 	    
@@ -56,7 +56,7 @@ public class AccomController {
 		ModelAndView model=new ModelAndView();
 		
 		// 세션에서 로그인 정보를 가져오는 로직
-	    String business_id = (String) session.getAttribute("myid");
+	    String business_id = (String) session.getAttribute("business_id");
 	    
 	    AccomDto dto = new AccomDto();
 	    
@@ -131,7 +131,7 @@ public class AccomController {
 		ModelAndView model=new ModelAndView();
 		
 		// 세션에서 로그인 정보를 가져오는 로직
-	    String business_id = (String) session.getAttribute("myid");
+	    String business_id = (String) session.getAttribute("business_id");
 	    
 	    AccomDto dto = mapper.getOneData(num);
 	    

@@ -94,10 +94,10 @@ public class MemberController {
 		
 		model.addAttribute("list", list);   */
 		
-		String myid = (String)session.getAttribute("myid");
+		String info_id = (String)session.getAttribute("info_id");
 		//System.out.println(myid);
 		
-		MemberDto memberDto = service.getDataById(myid);
+		MemberDto memberDto = service.getDataById(info_id);
 		
 		model.addAttribute("memberDto", memberDto);
 		

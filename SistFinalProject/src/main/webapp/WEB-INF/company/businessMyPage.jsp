@@ -170,7 +170,7 @@ $(document).ready(function(){
 
 	$(document).on("click","#bbtndelete",function(){
 
-		business_id = "${sessionScope.myid}";
+		business_id = "${sessionScope.business_id}";
 
 		$.ajax({
 			
