@@ -130,7 +130,7 @@
         color: black;
         text-decoration: none;
     }
-	
+
 	div.info-title {
 		position: absolute;
 		background:#fff;
@@ -139,26 +139,26 @@
 		margin: auto;
 		border-radius: 10px;
 		box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
-		padding:10px 5px 5px; 
+		padding:10px 5px 5px;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}
-	
+
 	div.info-title a {
 		text-decoration: none;
 		color:black;
 	}
-	
+
 	#log {
 		cursor: pointer;
 	}
-	
+
 	.con {
 		align: center;
 	}
-	
+
 	.title-name {
 		  color: #f7323f;
 	}
@@ -229,20 +229,20 @@
         		$("div.info-title").show();
         	}
         });
-        
+
         $("div.info-title").mouseover(function(){
         	$(this).show();
         })
-        
+
         $(".select-li").mouseout(function(){
         	$("div.info-title").hide();
         })
-        
+
         $("div.info-title").mouseout(function(){
         	$(this).hide();
         })
-       
-      
+
+
     });
 
     function searchActive(searchText) {
@@ -276,7 +276,7 @@
      	                 <img alt="" src="../loginsave/s1.png" style="width:35px; height:35px;">
  &nbsp;&nbsp;&nbsp;&nbsp;<img alt="" src="../loginsave/t1.png" style="width:8px; height:8px;"></li>
                 </c:if>
-                
+
             </ul>
         </div>
         <div class="search-input-box">
@@ -315,7 +315,7 @@
 					<li><a href="/company/business-mypage">내정보</a></li>
 					</c:when>
 				</c:choose>
-				<li><a href="/login/logout">로그아웃</a></li>        	
+				<li><a href="/login/logout">로그아웃</a></li>
         	</div>
         	</ul>
         </div>
