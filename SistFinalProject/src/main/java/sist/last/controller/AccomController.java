@@ -18,32 +18,40 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import sist.last.dto.AccomDto;
+import sist.last.dto.MemberDto;
 import sist.last.mapper.AccomMapperInter;
+import sist.last.mapper.MemberMapperInter;
+import sist.last.service.MemberService;
 
 @Controller
 public class AccomController {
 
 	@Autowired
 	AccomMapperInter mapper;
+	@Autowired
+	MemberService service;
 
 	@GetMapping("/accom/accom-list")
-	public ModelAndView list(@RequestParam String business_id,HttpSession session) {
+	public ModelAndView list(HttpSession session) {
 
 		ModelAndView model = new ModelAndView();
 
-		int totalCount = mapper.getTotalCount(business_id);
-		List<AccomDto> list = mapper.getAllData(business_id);
+		String business = (String) session.getAttribute("business_id");
+		String info=(String)session.getAttribute("info_id");
 		
-		// 세션에서 로그인 정보를 가져오는 로직
-	    String business = (String) session.getAttribute("myid");
+		int totalCount = mapper.getTotalCount();
+		List<AccomDto> list = mapper.getAllData();
 	    
 	    AccomDto dto = new AccomDto();
-	    
 	    dto.setBusiness_id(business);
+	    
+	    MemberDto mdto = new MemberDto();
+        mdto.setInfo_id(info);
 	    
 		model.addObject("totalCount", totalCount);
 		model.addObject("list", list);
 		model.addObject("dto", dto);
+		model.addObject("mdto", mdto);
 		
 		model.setViewName("/accom/accomList");
 		
@@ -56,7 +64,7 @@ public class AccomController {
 		ModelAndView model=new ModelAndView();
 		
 		// 세션에서 로그인 정보를 가져오는 로직
-	    String business_id = (String) session.getAttribute("myid");
+	    String business_id = (String) session.getAttribute("business_id");
 	    
 	    AccomDto dto = new AccomDto();
 	    
@@ -131,7 +139,7 @@ public class AccomController {
 		ModelAndView model=new ModelAndView();
 		
 		// 세션에서 로그인 정보를 가져오는 로직
-	    String business_id = (String) session.getAttribute("myid");
+	    String business_id = (String) session.getAttribute("business_id");
 	    
 	    AccomDto dto = mapper.getOneData(num);
 	    

@@ -18,11 +18,11 @@
     </insert>
 
     <select id="getAllData" resultType="AccomDto">
-        select * from accom where business_id=#{business_id}
+        select * from accom
     </select>
 
     <select id="getTotalCount" resultType="int">
-        select count(*) from accom where business_id=#{business_id}
+        select count(*) from accom
     </select>
 
     <delete id="deleteAccom" parameterType="int">
