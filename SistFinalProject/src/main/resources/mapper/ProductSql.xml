@@ -7,7 +7,23 @@
         select distinct accom_category from accom order by accom_category asc
     </select>
     <select id="getProductDataOfCategory" resultType="productDto" parameterType="String">
-        select distinct * from accom A, room B where A.accom_num = B.accom_num and A.accom_category = #{category}
+        select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        where A.accom_category = #{keyword}
+        order by B.room_price asc limit 1;
+    </select>
+    <select id="getProductDataOfHashTag" resultType="productDto" parameterType="String">
+        select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        where A.accom_hashtag like '%${keyword}%'
+        order by B.room_price asc limit 1;
+    </select>
+    <select id="getProductDataOfLocation" resultType="productDto" parameterType="String">
+        select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        where A.accom_location like '%${keyword}%'
+        order by B.room_price asc limit 1;
+    </select>
+    <select id="getProductDataOfName" resultType="productDto" parameterType="String">
+        select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        where A.accom_name like '%${keyword}%'
         order by B.room_price asc limit 1;
     </select>
 </mapper>

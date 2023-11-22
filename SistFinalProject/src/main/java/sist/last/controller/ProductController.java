@@ -29,13 +29,11 @@ public class ProductController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("category", category);
         if (selDate1 == null) {
-            if (!compareCategory(category, keyword).equals(("nothing"))) {
-                List<ProductDto> productList = service.getProductDataOfCategory(keyword);
-                model.addAttribute("listCategory", productList);
+            if (firstSearchCompareKeyword(keyword, model) != null) {
+                List<ProductDto> products = firstSearchCompareKeyword(keyword, model);
+                model.addAttribute("productList", products);
+                System.out.println("hello");
                 return "/product/searchMainPage";
-            }
-            if (compareCategory(category, keyword).equals("nothing")) {
-                //List<AccomDto> accomList = service.getProductData(keyword);
             }
 
         }
@@ -49,13 +47,33 @@ public class ProductController {
         return "/product/searchMainPage";
     }
 
-    private String compareCategory(List<String> category, String keyword) {
-        for (int categoryIndex = 0; categoryIndex < category.size(); categoryIndex++) {
-            if (category.get(categoryIndex).equals(keyword)) {
-                return keyword;
-            }
+    private List<ProductDto> firstSearchCompareKeyword(String keyword, Model model) {
+        List<ProductDto> categoryList = service.getProductDataOfCategory(keyword);
+        if (!categoryList.isEmpty()) {
+            System.out.println("category");
+            model.addAttribute("categoryList", categoryList);
+            return categoryList;
         }
-        return "nothing";
+        List<ProductDto> hashtagList = service.getProductDataOfHashTag(keyword);
+        if (!hashtagList.isEmpty()) {
+            System.out.println("hashtag");
+            model.addAttribute("hashtagList", hashtagList);
+            return hashtagList;
+        }
+        List<ProductDto> locationList = service.getProductDataOfLocation(keyword);
+        if (!locationList.isEmpty()) {
+            System.out.println("location");
+            model.addAttribute("locationList", locationList);
+            return locationList;
+        }
+        List<ProductDto> nameList = service.getProductDataOfName(keyword);
+        if (!nameList.isEmpty()) {
+            System.out.println("name");
+            model.addAttribute("nameList", nameList);
+            return nameList;
+        }
+        model.addAttribute("nothing", "nothing");
+        return null;
     }
 
     private int[] splitIntegerDay(String selDate) {

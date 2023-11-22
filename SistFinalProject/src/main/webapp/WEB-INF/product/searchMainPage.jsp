@@ -767,9 +767,9 @@
             <div class="sort-each-box">높은가격순</div>
         </div>
 
-        <c:if test="${listCategory.size()!=null}">
+        <c:if test="${productList.size()!=null}">
 
-            <c:forEach items="${listCategory}" var="list" varStatus="i">
+            <c:forEach items="${productList}" var="list" varStatus="i">
                 <div class="accom-list" idx="${list.room_num}">
                     <div class="accom-image">
                         <img src="../accomsave/${list.accom_photo}" style="width: 80px; height: 200px;">
@@ -779,6 +779,7 @@
                             <b>${list.accom_name}</b><br>
                             <b>${list.accom_score}</b><br>
                             <b>${list.accom_location}</b><br>
+                            <b>${list.accom_hashtag}</b>
                         </div>
                         <div class="room-amount">
                             <b><fmt:formatNumber value="${list.room_price}" pattern="###,###"/>원</b>
