@@ -19,86 +19,37 @@ import org.springframework.web.servlet.ModelAndView;
 import sist.last.dto.AccomDto;
 import sist.last.dto.MemberDto;
 import sist.last.mapper.AccomMapperInter;
-import sist.last.mapper.MemberMapperInter;
 import sist.last.service.MemberService;
 
 @Controller
 public class AccomController {
 
-<<<<<<< HEAD
     @Autowired
     AccomMapperInter mapper;
+    @Autowired
+    MemberService service;
 
     @GetMapping("/accom/accom-list")
-    public ModelAndView list(@RequestParam String business_id, HttpSession session) {
-=======
-	@Autowired
-	AccomMapperInter mapper;
-	@Autowired
-	MemberService service;
-
-	@GetMapping("/accom/accom-list")
-	public ModelAndView list(HttpSession session) {
->>>>>>> 208204685d848012a28df565ce5ae64cf1206a21
+    public ModelAndView list(HttpSession session) {
 
         ModelAndView model = new ModelAndView();
 
-<<<<<<< HEAD
-        int totalCount = mapper.getTotalCount(business_id);
-        List<AccomDto> list = mapper.getAllData(business_id);
+        String business = (String) session.getAttribute("business_id");
+        String info = (String) session.getAttribute("info_id");
 
-        // 세션에서 로그인 정보를 가져오는 로직
-        String business = (String) session.getAttribute("myid");
-=======
-		String business = (String) session.getAttribute("business_id");
-		String info=(String)session.getAttribute("info_id");
-		
-		int totalCount = mapper.getTotalCount();
-		List<AccomDto> list = mapper.getAllData();
-	    
-	    AccomDto dto = new AccomDto();
-	    dto.setBusiness_id(business);
-	    
-	    MemberDto mdto = new MemberDto();
-        mdto.setInfo_id(info);
-	    
-		model.addObject("totalCount", totalCount);
-		model.addObject("list", list);
-		model.addObject("dto", dto);
-		model.addObject("mdto", mdto);
-		
-		model.setViewName("/accom/accomList");
-		
-		return model;
-	}
-
-	@GetMapping("/accom/accom-insert")
-	public ModelAndView accominsertfrom(HttpSession session) {
-		
-		ModelAndView model=new ModelAndView();
-		
-		// 세션에서 로그인 정보를 가져오는 로직
-	    String business_id = (String) session.getAttribute("business_id");
-	    
-	    AccomDto dto = new AccomDto();
-	    
-	    dto.setBusiness_id(business_id);
-	    
-	    model.addObject("dto", dto);
-	    
-	    model.setViewName("/accom/accomInsert");
-		
-		return model;
-	}
->>>>>>> 208204685d848012a28df565ce5ae64cf1206a21
+        int totalCount = mapper.getTotalCount();
+        List<AccomDto> list = mapper.getAllData();
 
         AccomDto dto = new AccomDto();
-
         dto.setBusiness_id(business);
+
+        MemberDto mdto = new MemberDto();
+        mdto.setInfo_id(info);
 
         model.addObject("totalCount", totalCount);
         model.addObject("list", list);
         model.addObject("dto", dto);
+        model.addObject("mdto", mdto);
 
         model.setViewName("/accom/accomList");
 
@@ -110,31 +61,8 @@ public class AccomController {
 
         ModelAndView model = new ModelAndView();
 
-<<<<<<< HEAD
         // 세션에서 로그인 정보를 가져오는 로직
-        String business_id = (String) session.getAttribute("myid");
-=======
-	}
-	
-	@GetMapping("/accom/accom-update")
-	public ModelAndView accomupdatefrom(HttpSession session,@RequestParam int num) {
-		
-		ModelAndView model=new ModelAndView();
-		
-		// 세션에서 로그인 정보를 가져오는 로직
-	    String business_id = (String) session.getAttribute("business_id");
-	    
-	    AccomDto dto = mapper.getOneData(num);
-	    
-	    dto.setBusiness_id(business_id);
-	    
-	    model.addObject("dto", dto);
-	    
-	    model.setViewName("/accom/accomUpdate");
-		
-		return model;
-	}
->>>>>>> 208204685d848012a28df565ce5ae64cf1206a21
+        String business_id = (String) session.getAttribute("business_id");
 
         AccomDto dto = new AccomDto();
 
@@ -209,7 +137,7 @@ public class AccomController {
         ModelAndView model = new ModelAndView();
 
         // 세션에서 로그인 정보를 가져오는 로직
-        String business_id = (String) session.getAttribute("myid");
+        String business_id = (String) session.getAttribute("business_id");
 
         AccomDto dto = mapper.getOneData(num);
 
