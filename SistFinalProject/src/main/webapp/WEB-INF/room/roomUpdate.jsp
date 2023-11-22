@@ -12,7 +12,6 @@
     <style type="text/css">
         .room_insert_box {
             width: 100%;
-            height: 113vh;
             margin-top: 3.5vh;
         }
 
@@ -83,7 +82,7 @@
 <div class="room_insert_box" align="center">
 <table class="table table-bordered">
 	<tr>
-		<td align="center" valign="middle" colspan="2" style="font-size: 1.5em;"><b>방정보등록</b></td>
+		<td align="center" valign="middle" colspan="2" style="font-size: 1.5em;"><b>방정보수정</b></td>
 	</tr>
 	<tr>
 		<td align="center" valign="middle"><b>이름</b></td>
@@ -102,7 +101,7 @@
 	</tr>
    	
 	<tr>
-		<td align="center" valign="middle"><b>인원</b></td>
+		<td align="center" valign="middle"><b>최소 인원<br>&<br>최대 인원</b></td>
 		<td valign="middle" style="display: flex; border-left: none;">
 			<select class="form-control" name="room_minpeople" required="required"
 			style="width: 5vh; height: 5vh;">
@@ -158,10 +157,75 @@
                 <td align="center" valign="middle"><b>위치</b></td>
                 <td valign="middle">
                     <input type="text" class="form-control" name="room_location" required="required" value=${dto.room_location }
-                           placeholder="ex)1층, 2층" style="width: 50vh; height: 5vh;">
+                           placeholder="ex)1층 202호, 2층 304호" style="width: 50vh; height: 5vh;">
                 </td>
    	</tr>      
+	
+	<tr>
+                <td align="center" valign="middle"><b>checkin<br>&<br>checkout</b></td>
+                <td valign="middle" style="display: flex; border-left: none;">
+                    <select class="form-control" name="room_checkin" required="required"
+                            style="width: 8vh; height: 5vh;">
+                        <option value="00:00" ${dto.room_checkin eq '00:00' ? 'selected' : ''}>00:00</option>
+                        <option value="1:00" ${dto.room_checkin eq '1:00' ? 'selected' : ''}>1:00</option>
+                        <option value="2:00" ${dto.room_checkin eq '2:00' ? 'selected' : ''}>2:00</option>
+                        <option value="3:00" ${dto.room_checkin eq '3:00' ? 'selected' : ''}>3:00</option>
+                        <option value="4:00" ${dto.room_checkin eq '4:00' ? 'selected' : ''}>4:00</option>
+                        <option value="5:00" ${dto.room_checkin eq '5:00' ? 'selected' : ''}>5:00</option>
+                        <option value="6:00" ${dto.room_checkin eq '6:00' ? 'selected' : ''}>6:00</option>
+                        <option value="7:00" ${dto.room_checkin eq '7:00' ? 'selected' : ''}>7:00</option>
+                        <option value="8:00" ${dto.room_checkin eq '8:00' ? 'selected' : ''}>8:00</option>
+                        <option value="9:00" ${dto.room_checkin eq '9:00' ? 'selected' : ''}>9:00</option>
+                        <option value="10:00" ${dto.room_checkin eq '10:00' ? 'selected' : ''}>10:00</option>
+                        <option value="11:00" ${dto.room_checkin eq '11:00' ? 'selected' : ''}>11:00</option>
+                        <option value="12:00" ${dto.room_checkin eq '12:00' ? 'selected' : ''}>12:00</option>
+                        <option value="13:00" ${dto.room_checkin eq '13:00' ? 'selected' : ''}>13:00</option>
+                        <option value="14:00" ${dto.room_checkin eq '14:00' ? 'selected' : ''}>14:00</option>
+                        <option value="15:00" ${dto.room_checkin eq '15:00' ? 'selected' : ''}>15:00</option>
+                        <option value="16:00" ${dto.room_checkin eq '16:00' ? 'selected' : ''}>16:00</option>
+                        <option value="17:00" ${dto.room_checkin eq '17:00' ? 'selected' : ''}>17:00</option>
+                        <option value="18:00" ${dto.room_checkin eq '18:00' ? 'selected' : ''}>18:00</option>
+                        <option value="19:00" ${dto.room_checkin eq '19:00' ? 'selected' : ''}>19:00</option>
+                        <option value="20:00" ${dto.room_checkin eq '20:00' ? 'selected' : ''}>20:00</option>
+                        <option value="21:00" ${dto.room_checkin eq '21:00' ? 'selected' : ''}>21:00</option>
+                        <option value="22:00" ${dto.room_checkin eq '22:00' ? 'selected' : ''}>22:00</option>
+                        <option value="23:00" ${dto.room_checkin eq '23:00' ? 'selected' : ''}>23:00</option>
+                        <option value="24:00" ${dto.room_checkin eq '24:00' ? 'selected' : ''}>24:00</option>
+                    </select>
 
+                    <b style="padding-top: 0.7vh;">&nbsp;~&nbsp;</b>
+
+                    <select class="form-control" name="room_checkout" required="required"
+                            style="width: 8vh; height: 5vh;">
+                        <option value="00:00" ${dto.room_checkin eq '00:00' ? 'selected' : ''}>00:00</option>
+                        <option value="1:00" ${dto.room_checkin eq '1:00' ? 'selected' : ''}>1:00</option>
+                        <option value="2:00" ${dto.room_checkin eq '2:00' ? 'selected' : ''}>2:00</option>
+                        <option value="3:00" ${dto.room_checkin eq '3:00' ? 'selected' : ''}>3:00</option>
+                        <option value="4:00" ${dto.room_checkin eq '4:00' ? 'selected' : ''}>4:00</option>
+                        <option value="5:00" ${dto.room_checkin eq '5:00' ? 'selected' : ''}>5:00</option>
+                        <option value="6:00" ${dto.room_checkin eq '6:00' ? 'selected' : ''}>6:00</option>
+                        <option value="7:00" ${dto.room_checkin eq '7:00' ? 'selected' : ''}>7:00</option>
+                        <option value="8:00" ${dto.room_checkin eq '8:00' ? 'selected' : ''}>8:00</option>
+                        <option value="9:00" ${dto.room_checkin eq '9:00' ? 'selected' : ''}>9:00</option>
+                        <option value="10:00" ${dto.room_checkin eq '10:00' ? 'selected' : ''}>10:00</option>
+                        <option value="11:00" ${dto.room_checkin eq '11:00' ? 'selected' : ''}>11:00</option>
+                        <option value="12:00" ${dto.room_checkin eq '12:00' ? 'selected' : ''}>12:00</option>
+                        <option value="13:00" ${dto.room_checkin eq '13:00' ? 'selected' : ''}>13:00</option>
+                        <option value="14:00" ${dto.room_checkin eq '14:00' ? 'selected' : ''}>14:00</option>
+                        <option value="15:00" ${dto.room_checkin eq '15:00' ? 'selected' : ''}>15:00</option>
+                        <option value="16:00" ${dto.room_checkin eq '16:00' ? 'selected' : ''}>16:00</option>
+                        <option value="17:00" ${dto.room_checkin eq '17:00' ? 'selected' : ''}>17:00</option>
+                        <option value="18:00" ${dto.room_checkin eq '18:00' ? 'selected' : ''}>18:00</option>
+                        <option value="19:00" ${dto.room_checkin eq '19:00' ? 'selected' : ''}>19:00</option>
+                        <option value="20:00" ${dto.room_checkin eq '20:00' ? 'selected' : ''}>20:00</option>
+                        <option value="21:00" ${dto.room_checkin eq '21:00' ? 'selected' : ''}>21:00</option>
+                        <option value="22:00" ${dto.room_checkin eq '22:00' ? 'selected' : ''}>22:00</option>
+                        <option value="23:00" ${dto.room_checkin eq '23:00' ? 'selected' : ''}>23:00</option>
+                        <option value="24:00" ${dto.room_checkin eq '24:00' ? 'selected' : ''}>24:00</option>
+                    </select>
+                </td>
+            </tr>
+            
 	<tr>
 		<td align="center" valign="middle"><b>방정보소개</b></td>
 		<td valign="middle">
@@ -171,7 +235,7 @@
 	
 	<tr>
 		<td align="center" colspan="2">
-			<button type="submit" class="room_insert_btn1">등록</button>
+			<button type="submit" class="room_insert_btn1">수정</button>
 			<button type="button" class="room_insert_btn2"onclick="location.href='history.back()'">취소</button>
 		</td>
 	</tr>

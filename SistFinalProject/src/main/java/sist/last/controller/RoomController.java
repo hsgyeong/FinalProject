@@ -49,6 +49,20 @@ public class RoomController {
 
         return model;
     }
+    
+    @GetMapping("/room/room-detail")
+    public ModelAndView detail(int room_num)
+    {
+    	ModelAndView model=new ModelAndView();
+    	
+    	RoomDto dto=mapper.getOneData(room_num);
+    	
+    	model.addObject("dto", dto);
+    	
+    	model.setViewName("/room/roomDetail");
+    	
+    	return model;
+    }
 
     @GetMapping("/room/room-insert")
     public String roominsertform(@RequestParam String accom_num,Model model) {
@@ -117,11 +131,11 @@ public class RoomController {
     }
 
     @GetMapping("/room/room-update")
-    public ModelAndView accomupdatefrom(@RequestParam int num) {
+    public ModelAndView accomupdatefrom(@RequestParam int room_num) {
     	
     	ModelAndView model=new ModelAndView();
     	
-        RoomDto dto = mapper.getOneData(num);
+        RoomDto dto = mapper.getOneData(room_num);
 
         model.addObject("dto", dto);
         

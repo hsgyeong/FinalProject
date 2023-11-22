@@ -129,33 +129,43 @@
 						<td colspan="2" align="center" style="height: 3vh;"><b>${i.count }번방</b></td>
 					</tr>
 					<tr>
-						<td align="center" style="height: 6vh;">이름</td>
-						<td align="center">${dto.room_name }</td>
+						<td align="center" valign="middle" style="height: 6vh;">이름</td>
+						<td align="center" valign="middle">${dto.room_name }</td>
 					</tr>
 					
 					<tr>
-						<td align="center" style="height: 6vh;">가격</td>
-						<td align="center">
+						<td align="center" valign="middle" style="height: 6vh;">가격</td>
+						<td align="center" valign="middle">
 						<fmt:formatNumber value="${dto.room_price }"/>
 						</td>
 					</tr>
 
                     <tr>
                         <td align="center" valign="middle" style="height: 6vh;">인원</td>
-                        <td align="center">${dto.room_minpeople }~${dto.room_maxpeople }</td>
+                        <td align="center" valign="middle">${dto.room_minpeople }명 ~ ${dto.room_maxpeople }명</td>
                     </tr>
 					<tr>
 						<td align="center" valign="middle" style="height: 6vh;">방갯수</td>
-						<td align="center">${dto.room_count }</td>
+						<td align="center" valign="middle">${dto.room_count }</td>
 					</tr>
+					
 					<tr>
-						<td align="center" style="height: 6vh;">위치</td>
-						<td align="center">${dto.room_location }</td>
+						<td align="center" valign="middle" style="height: 6vh;">위치</td>
+						<td align="center" valign="middle">${dto.room_location }</td>
+					</tr>
+					
+					<tr>
+						<td align="center" valign="middle" style="height: 6vh;">시간</td>
+						<td align="center" valign="middle">${dto.room_checkin } ~ ${dto.room_checkout }</td>
 					</tr>
 					
 					<tr>
 						<td align="center" valign="middle" style="height: 20vh;">사진</td>
-						<td align="center" valign="middle"><img src="../roomsave/${dto.room_photo}" alt=""></td>
+						<td align="center" valign="middle">
+						<a href="/room/room-detail?room_num=${dto.room_num }">
+						<img src="../roomsave/${dto.room_photo}" alt="">
+						</a>
+						</td>
 					</tr>
 					
 					<tr>
@@ -166,7 +176,7 @@
 					<tr>
 						<td colspan="2" align="center" valign="middle" style="height: 10vh;">
 							<button type="button" class="room_list_update"
-								onclick="location.href='room-update?num=${dto.room_num}'">수정</button>
+								onclick="location.href='room-update?room_num=${dto.room_num}'">수정</button>
 							<button type="button" class="room_list_delete"
 								onclick="location.href='delete?num=${dto.room_num}'">삭제</button>
 						</td>

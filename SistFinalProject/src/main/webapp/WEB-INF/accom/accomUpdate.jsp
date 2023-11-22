@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 				<tr>
 					<td align="center" valign="middle" colspan="2"
-						style="font-size: 1.5em;"><b>숙소정보등록</b></td>
+						style="font-size: 1.5em;"><b>숙소정보수정</b></td>
 				</tr>
 				<tr>
 					<td align="center" valign="middle"><b>이름</b></td>
@@ -461,7 +461,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				<tr>
 					<td align="center" colspan="2">
 						<!-- 해쉬태그 이벤트 때문에 submit이 아니고 button 여기에 submit 메서드 추가 -->
-						<button type="button" class="accom_insert_btn1" onclick="submitForm()">등록</button>
+						<button type="button" class="accom_insert_btn1" onclick="submitForm()">수정</button>
 						<button type="button" class="accom_insert_btn2" onclick="Back()">취소</button>
 							<script>
 							    function submitForm() {
