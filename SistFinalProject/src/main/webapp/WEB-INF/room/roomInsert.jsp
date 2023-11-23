@@ -159,7 +159,7 @@
                 <td align="center" valign="middle"><b>위치</b></td>
                 <td valign="middle">
                     <input type="text" class="form-control" name="room_location" required="required"
-                           placeholder="ex)1층 202호, 2층 304호" style="width: 50vh; height: 5vh;">
+                           placeholder="ex)202호, 304호" style="width: 50vh; height: 5vh;">
                 </td>
             </tr>
             

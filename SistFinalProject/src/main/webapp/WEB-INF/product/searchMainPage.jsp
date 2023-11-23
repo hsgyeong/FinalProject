@@ -675,9 +675,14 @@
                     가격 : <span class="amount-min"></span><span class="amount-max"></span>
                     <br>
                     <div class="multi-range-slider" style="margin-top: 15px;">
-                        <input type="range" id="input-left" min="1" max="30" value="0">
-                        <input type="range" id="input-right" min="1" max="30" value="30">
-
+                        <c:if test="${minPrice==null}">
+                            <input type="range" id="input-left" min="1" max="30" value="0">
+                            <input type="range" id="input-right" min="1" max="30" value="30">
+                        </c:if>
+                        <c:if test="${minPrice!=null}">
+                            <input type="range" id="input-left" min="1" max="30" value="${minPrice/10000}">
+                            <input type="range" id="input-right" min="1" max="30" value="${maxPrice/10000}">
+                        </c:if>
                         <div class="slider">
                             <div class="track"></div>
                             <div class="range"></div>
@@ -754,7 +759,11 @@
             <button type="button" class="btn btn-outline-danger setting-btn" style="width: 200px;">적용</button>
             <script type="text/javascript">
                 $(".setting-btn").click(function () {
-                    location.href = "/product/search-main?"
+                    var keyword = '${keyword}';
+                    var minPrice = $("#input-left");
+                    var maxPrice = $("#input-right");
+                    location.href = "/product/search-main?keyword=" + keyword + "&selDate1=" + firstDay +
+                        "&selDate2=" + secondDay + "&lowPrice=" + minPrice + "&maxPrice=" + maxPrice;
                 })
             </script>
         </section>
@@ -762,9 +771,9 @@
 
     <div class="search-box" style="width: 65%">
         <div class="sort-box" style="display: flex;">
-            <div class="sort-each-box">거리순</div>
-            <div class="sort-each-box">낮은가격순</div>
-            <div class="sort-each-box">높은가격순</div>
+            <div class="sort-each-box" id="sort-distance">거리순</div>
+            <div class="sort-each-box" id="sort-low-price">낮은가격순</div>
+            <div class="sort-each-box" id="sort-score">별점순</div>
         </div>
 
         <c:if test="${productList.size()!=null}">
@@ -795,6 +804,17 @@
                 })
             </script>
         </c:if>
+        <script type="text/javascript">
+            $("#sort-distance").click(function () {
+                alert("거리순 클릭 : 미 구현 ")
+            })
+            $("#sort-low-price").click(function () {
+                alert("가격낮은순 클릭 : 미 구현 ")
+            })
+            $("#sort-score").click(function () {
+                alert("가격낮은순 클릭 : 미 구현 ")
+            })
+        </script>
     </div>
 </div>
 </body>

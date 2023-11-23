@@ -130,38 +130,38 @@
         color: black;
         text-decoration: none;
     }
-	
-	div.info-title {
-		position: absolute;
-		background:#fff;
-		top:72px;
-		width: 150px;
-		margin: auto;
-		border-radius: 10px;
-		box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
-		padding:10px 5px 5px; 
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-	
-	div.info-title a {
-		text-decoration: none;
-		color:black;
-	}
-	
-	#log {
-		cursor: pointer;
-	}
-	
-	.con {
-		align: center;
-	}
-	
-	.title-name {
-		  color: #f7323f;
-	}
+
+    div.info-title {
+        position: absolute;
+        background: #fff;
+        top: 72px;
+        width: 150px;
+        margin: auto;
+        border-radius: 10px;
+        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    div.info-title a {
+        text-decoration: none;
+        color: black;
+    }
+
+    #log {
+        cursor: pointer;
+    }
+
+    .con {
+        align: center;
+    }
+
+    .title-name {
+        color: #f7323f;
+    }
 
 
 </style>
@@ -225,24 +225,24 @@
 
         $("div.info-title").hide();
         $(".select-li:eq(3)").on({
-        	mouseover: function(){
-        		$("div.info-title").show();
-        	}
+            mouseover: function () {
+                $("div.info-title").show();
+            }
         });
-        
-        $("div.info-title").mouseover(function(){
-        	$(this).show();
+
+        $("div.info-title").mouseover(function () {
+            $(this).show();
         })
-        
-        $(".select-li").mouseout(function(){
-        	$("div.info-title").hide();
+
+        $(".select-li").mouseout(function () {
+            $("div.info-title").hide();
         })
-        
-        $("div.info-title").mouseout(function(){
-        	$(this).hide();
+
+        $("div.info-title").mouseout(function () {
+            $(this).hide();
         })
-       
-      
+
+
     });
 
     function searchActive(searchText) {
@@ -267,16 +267,18 @@
             <ul class="select-ul d-inline-flex">
                 <li class="select-li"><a href="#">내주변</a></li>
                 <li class="select-li"><a href="#">예약내역</a></li>
-                <li class="select-li"><a href="/accom/Accom-Insert" id="see_more">더보기</a></li>
+                <li class="select-li"><a href="#" id="see_more">더보기</a></li>
+                <li class="select-li"><a href="/accom/accom-list">예약</a></li>
                 <c:if test="${sessionScope.loginok==null }">
                     <li class="select-li"><a href="/login/loginmain">로그인</a></li>
                 </c:if>
                 <c:if test="${sessionScope.loginok!=null }">
                     <li class="select-li" id="log">
-     	                 <img alt="" src="../loginsave/s1.png" style="width:35px; height:35px;">
- &nbsp;&nbsp;&nbsp;&nbsp;<img alt="" src="../loginsave/t1.png" style="width:8px; height:8px;"></li>
+                        <img alt="" src="../loginsave/s1.png" style="width:35px; height:35px;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;<img alt="" src="../loginsave/t1.png" style="width:8px; height:8px;">
+                    </li>
                 </c:if>
-                
+
             </ul>
         </div>
         <div class="search-input-box">
@@ -294,31 +296,32 @@
             </ul>
         </div>
         <c:if test="${sessionScope.loginok !=null }">
-        <div class="info-title">
-        	<ul>
-        	<div class="con">
-        		<div class="title-name">
-        	<c:choose>
-        		<c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
-				<li><a class="nick">${memberDto.info_nickname }</a></li>
-				</c:when>
-				<c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
-				<li><a class="com">${businessDto.business_company }</a></li>
-				</c:when>
-			</c:choose>
-				</div>
-        		<c:choose>
-        			<c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
-				<li><a href="/member/member-mypage">내정보</a></li>
-					</c:when>
-					<c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
-					<li><a href="/company/business-mypage">내정보</a></li>
-					</c:when>
-				</c:choose>
-				<li><a href="/login/logout">로그아웃</a></li>        	
-        	</div>
-        	</ul>
-        </div>
+            <div class="info-title">
+                <ul>
+                    <div class="con">
+                        <div class="title-name">
+                            <c:choose>
+                                <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
+                                    <li><a class="nick">${memberDto.info_nickname }</a></li>
+                                </c:when>
+                                <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
+                                    <li><a class="com">${businessDto.business_company }</a></li>
+                                </c:when>
+                            </c:choose>
+                        </div>
+                        <c:choose>
+                            <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
+                                <li><a href="/member/member-mypage">내정보</a></li>
+                            </c:when>
+                            <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
+                                <li><a href="/accom/non-book">예약불가날짜</a></li>
+                                <li><a href="/company/business-mypage">내정보</a></li>
+                            </c:when>
+                        </c:choose>
+                        <li><a href="/login/logout">로그아웃</a></li>
+                    </div>
+                </ul>
+            </div>
         </c:if>
     </div>
 

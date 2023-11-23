@@ -33,7 +33,7 @@ public class LoginController {
 			Model model)
 	{
 		
-		String myid = (String)session.getAttribute("myid");
+		//String myid = (String)session.getAttribute("myid");
 		String loginok = (String)session.getAttribute("loginok");
 		
 		
@@ -41,12 +41,34 @@ public class LoginController {
 			return "/login/loginForm";	
 		else
 		{
-			String info_nickname = service.getNickname(myid);
+			String info_id = (String) session.getAttribute("info_id");
+			String business_id = (String) session.getAttribute("business_id");
+			//String info_nickname = service.getNickname(info_id);
+			//model.addAttribute("myid", myid);
+			//model.addAttribute("info_nickname", info_nickname);
+			if(info_id != null) {
+				String info_nickname = service.getNickname(info_id);
+				
+				model.addAttribute("info_id", info_id);
+				model.addAttribute("info_nickname", info_nickname);
+				
+				return "/";
+			}
 			
-			model.addAttribute("myid", myid);
-			model.addAttribute("info_nickname", info_nickname);
+			else if (business_id != null) {
+				
+				model.addAttribute("business_id", business_id);
+				
+				return "/";
+				
+			}
 			
-			return "/";
+			else {
+				
+				return "/login/loginForm";
+			}
+			
+			
 		}
 	}
 	
@@ -71,13 +93,13 @@ public class LoginController {
 			
 			session.setMaxInactiveInterval(60*60*8);
 			
-			session.setAttribute("myid", info_id);
+			session.setAttribute("info_id", info_id);
 			session.setAttribute("loginok", "member");
 			session.setAttribute("saveok", cbsave);
 			 
 			MemberDto memberDto = service.getDataById(info_id);  //session으로 못넘김 model로 넘겨야함
 		
-			String myid = (String) session.getAttribute("myid");
+			//String info_id = (String) session.getAttribute("info_id");
 
 		/*	if (myid != null) {
 			    System.out.println("세션에 myid가 저장되어 있습니다. 값: " + myid+memberDto);
@@ -107,7 +129,7 @@ public class LoginController {
 			
 			session.setMaxInactiveInterval(60*60*8);
 			
-			session.setAttribute("myid", business_id);
+			session.setAttribute("business_id", business_id);
 			session.setAttribute("loginok", "business");
 			session.setAttribute("saveok", cbsave);
 			
@@ -134,8 +156,21 @@ public class LoginController {
 	@GetMapping("/login/logout")
 	public String logout(HttpSession session)
 	{
+		String loginok = (String) session.getAttribute("loginok");
+		
+		if(loginok != null) {
+			
+			if(session.getAttribute("info_id") != null) {
+				session.removeAttribute("info_id");
+			}
+			else if (session.getAttribute("business_id") != null) {
+				session.removeAttribute("business_id");
+			}
+			
+		}
+		
 		session.removeAttribute("loginok");
-		session.removeAttribute("myid");
+		//session.removeAttribute("myid");
 		
 		return "redirect:/";
 	}

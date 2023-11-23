@@ -73,10 +73,10 @@ public class BusinessController {
 		
 		model.addAttribute("list", list);   */
 		
-		String myid = (String)session.getAttribute("myid");
+		String business_id = (String)session.getAttribute("business_id");
 		//System.out.println(myid);
 		
-		BusinessDto businessDto = businessService.getDataByBusinessId(myid);
+		BusinessDto businessDto = businessService.getDataByBusinessId(business_id);
 		
 		model.addAttribute("businessDto", businessDto);
 		
