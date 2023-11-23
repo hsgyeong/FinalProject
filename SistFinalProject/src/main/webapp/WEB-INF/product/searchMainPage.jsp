@@ -675,9 +675,14 @@
                     가격 : <span class="amount-min"></span><span class="amount-max"></span>
                     <br>
                     <div class="multi-range-slider" style="margin-top: 15px;">
-                        <input type="range" id="input-left" min="1" max="30" value="0">
-                        <input type="range" id="input-right" min="1" max="30" value="30">
-
+                        <c:if test="${minPrice==null}">
+                            <input type="range" id="input-left" min="1" max="30" value="0">
+                            <input type="range" id="input-right" min="1" max="30" value="30">
+                        </c:if>
+                        <c:if test="${minPrice!=null}">
+                            <input type="range" id="input-left" min="1" max="30" value="${minPrice/10000}">
+                            <input type="range" id="input-right" min="1" max="30" value="${maxPrice/10000}">
+                        </c:if>
                         <div class="slider">
                             <div class="track"></div>
                             <div class="range"></div>
@@ -754,7 +759,11 @@
             <button type="button" class="btn btn-outline-danger setting-btn" style="width: 200px;">적용</button>
             <script type="text/javascript">
                 $(".setting-btn").click(function () {
-                    location.href = "/product/search-main?"
+                    var keyword = '${keyword}';
+                    var minPrice = $("#input-left");
+                    var maxPrice = $("#input-right");
+                    location.href = "/product/search-main?keyword=" + keyword + "&selDate1=" + firstDay +
+                        "&selDate2=" + secondDay + "&lowPrice=" + minPrice + "&maxPrice=" + maxPrice;
                 })
             </script>
         </section>

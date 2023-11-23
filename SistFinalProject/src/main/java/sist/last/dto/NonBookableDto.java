@@ -7,7 +7,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("nonBookableDto")
 public class NonBookableDto {
     private String idx;
-    private String accom_num;
+    private int accom_num;
     private String non_checkin;
     private String non_checkout;
 }

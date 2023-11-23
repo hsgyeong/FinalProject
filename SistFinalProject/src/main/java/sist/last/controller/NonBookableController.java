@@ -69,7 +69,7 @@ public class NonBookableController {
             NonBookableDto dto = new NonBookableDto();
             dto.setNon_checkin(checkin.get(listIndex));
             dto.setNon_checkout(checkout.get(listIndex));
-            dto.setAccom_num(accom_num);
+            dto.setAccom_num(Integer.parseInt(accom_num));
             mapper.addNonBookableDate(dto);
         }
     }

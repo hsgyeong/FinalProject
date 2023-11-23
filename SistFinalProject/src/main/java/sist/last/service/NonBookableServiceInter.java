@@ -9,4 +9,8 @@ public interface NonBookableServiceInter {
     public String getAccomNumber(String accom_name);
 
     public void addNonBookableDate(NonBookableDto dto);
+
+    public List<String> getNonBookableCheckin(int accom_num);
+
+    public List<String> getNonBookableCheckout(int accom_num);
 }
