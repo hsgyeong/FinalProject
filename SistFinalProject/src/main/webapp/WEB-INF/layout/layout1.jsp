@@ -58,6 +58,7 @@
     <div class="title">
         <tiles:insertAttribute name="title"/>
     </div>
+    <br>
     <div class="main">
         <tiles:insertAttribute name="main"/>
     </div>
