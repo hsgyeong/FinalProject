@@ -18,7 +18,7 @@ public class NonBookableService implements NonBookableServiceInter {
     }
 
     @Override
-    public String getAccomNumber(String accom_name) {
+    public int getAccomNumber(String accom_name) {
         return mapperInter.getAccomNumber(accom_name);
     }
 

@@ -638,6 +638,10 @@
                     $(".calendar-setting").click(function () {
                         let firstDay;
                         let secondDay;
+                        if (count == 0) {
+                            alert("날짜를 선택해주세요.");
+                            return;
+                        }
                         //alert(asc);
                         if (asc) {
                             firstDay = firstYear + "-" + (firstMonth + 1) + "-" + firstClickDay;
