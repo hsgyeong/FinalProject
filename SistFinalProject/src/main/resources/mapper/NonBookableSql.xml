@@ -7,4 +7,11 @@
     <select id="getAccomName" resultType="String" parameterType="String">
         select accom_name from accom where business_id = #{business_id}
     </select>
+    <select id="getAccomNumber" resultType="String" parameterType="String">
+        select accom_num from accom where accom_name = #{accom_name}
+    </select>
+    <insert id="addNonBookableDate" parameterType="nonBookableDto">
+        insert into nonbookable (accom_num,non_checkin,non_checkout)
+        values (#{accom_num},#{non_checkin},#{non_checkout})
+    </insert>
 </mapper>

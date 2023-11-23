@@ -116,7 +116,6 @@
                 if (checkinValue != "" && checkoutValue != "") {
                     checkin.push(checkinValue);
                     checkout.push(checkoutValue);
-                    idx.push(index);
                 }
                 if (checkinValue == "" && checkoutValue != "") {
                     alert("날짜를 입력하지 않았습니다.");
@@ -178,6 +177,7 @@
     }
 
     $("#saveNonBook").click(function () {
+        var flag = $("#checkDuplicate").val();
         if (flag == 0) {
             alert("날짜를 입력 후 중복체크 눌러주세요.");
         }
@@ -189,13 +189,25 @@
                 var checkinValue = $("#non_checkin" + index).val();
                 var checkoutValue = $("#non_checkout" + index).val();
                 var countIdx = $("#count" + index).val();
+                var accom_name = $("#accomSelect").val();
                 /*alert("[" + checkinValue + "," + checkoutValue + "]");
                 alert(index + " : " + countIdx);*/
                 if (countIdx == 'true') {
                     checkin.push(checkinValue);
                     checkout.push(checkoutValue);
+                    alert(checkinValue + "," + checkoutValue);
                 }
             }
+            $.ajax({
+                type: "get",
+                traditional: true,
+                url: "add-book",
+                dataType: "html",
+                data: {"checkin": checkin, "checkout": checkout, "accom_name": accom_name},
+                success: function () {
+                    alert("등록되었습니다.");
+                }
+            })
         }
     })
 </script>
