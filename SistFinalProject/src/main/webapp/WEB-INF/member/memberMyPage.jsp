@@ -183,7 +183,7 @@ $(document).ready(function(){
 
 	$(document).on("click","#btndelete",function(){
 
-		info_id = "${sessionScope.myid}";
+		info_id = "${sessionScope.info_id}";
 		
 		//alert(info_id);
 		
