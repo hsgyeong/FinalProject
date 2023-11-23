@@ -48,10 +48,11 @@
 </head>
 
 <script type="text/javascript">
-    // 웹소켓 전송 시 현재 방의 번호를 넘겨 보낸다.
     var ws;
+
     function wsOpen(){
-        ws = new WebSocket("ws://" + location.host + "/chat/chating/"+$("#roomNumber").val());
+        //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
+        ws = new WebSocket("ws://" + location.host + "/chating/"+$("#roomNumber").val());
         wsEvt();
     }
 
@@ -105,6 +106,7 @@
     function send() {
         var option ={
             type: "message",
+            roomNumber: $("#roomNumber").val(),
             sessionId : $("#sessionId").val(),
             userName : $("#userName").val(),
             msg : $("#chatting").val()
