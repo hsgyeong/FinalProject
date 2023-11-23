@@ -9,7 +9,6 @@ public class PaymentController {
 
 	@GetMapping("/payment/pay-success")
     public ModelAndView paymentSuccess() {
-        // payment.jsp로 이동
         ModelAndView modelAndView = new ModelAndView("/payment/payment");
         return modelAndView;
     }
