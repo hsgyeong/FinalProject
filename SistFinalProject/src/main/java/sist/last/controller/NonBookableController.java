@@ -63,13 +63,13 @@ public class NonBookableController {
                                    @RequestParam("checkout") List<String> checkout,
                                    @RequestParam("accom_name") String accom_name) {
         System.out.println(checkin.size());
-        String accom_num = mapper.getAccomNumber(accom_name);
+        int accom_num = mapper.getAccomNumber(accom_name);
         for (int listIndex = 0; listIndex < checkin.size(); listIndex++) {
             System.out.println(checkin.get(listIndex) + "," + checkout.get(listIndex) + "," + accom_num);
             NonBookableDto dto = new NonBookableDto();
             dto.setNon_checkin(checkin.get(listIndex));
             dto.setNon_checkout(checkout.get(listIndex));
-            dto.setAccom_num(Integer.parseInt(accom_num));
+            dto.setAccom_num(accom_num);
             mapper.addNonBookableDate(dto);
         }
     }

@@ -38,32 +38,32 @@ public class ProductController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("category", category);
         if (selDate1 == null) {
-            if (searchCompareKeyword(keyword) != null) {
-                List<ProductDto> products = searchCompareKeyword(keyword);
-                model.addAttribute("productList", products);
-                System.out.println("hello");
-                return "/product/searchMainPage";
-            }
+            LocalDate today = LocalDate.now();
+            LocalDate tomorrow = today.plusDays(1);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            selDate1 = today.format(formatter);
+            selDate2 = tomorrow.format(formatter);
+            System.out.println(selDate1 + "," + selDate2);
         }
-        if (selDate1 != null) {
-            processDateSelection(selDate1, selDate2, model, minPrice, maxPrice);
-            if (searchCompareKeyword(keyword) != null) {
-                System.out.println("selDate1이 null이 아님");
-                List<ProductDto> products = searchCompareKeyword(keyword);
-                assert products != null;
-                products = compareLimitDate(products, selDate1, selDate2);
-                if (products.isEmpty()) {
-                    model.addAttribute("productList", null);
-                    return "/product/searchMainPage";
-                }
-                System.out.println(products.get(0).getAccom_name());
-                //products = compareLimitPrice(products);
-                if (minPrice != null) {
-                    model.addAttribute("productList", products);
-                }
-                model.addAttribute("productList", products);
+        processDateSelection(selDate1, selDate2, model);
+
+        if (searchCompareKeyword(keyword) != null) {
+            System.out.println("selDate1이 null이 아님");
+            List<ProductDto> products = searchCompareKeyword(keyword);
+            assert products != null;
+            products = compareLimitDate(products, selDate1, selDate2);
+            if (products.isEmpty()) {
+                model.addAttribute("productList", null);
                 return "/product/searchMainPage";
             }
+            System.out.println(products.get(0).getAccom_name());
+            //products = compareLimitPrice(products);
+            if (minPrice != null) {
+                processPriceSelection(minPrice, maxPrice, model);
+                model.addAttribute("productList", products);
+            }
+            model.addAttribute("productList", products);
+            return "/product/searchMainPage";
         }
 
         return "/product/searchMainPage";
@@ -90,10 +90,15 @@ public class ProductController {
     }
 
     private void processDateSelection(String selDate1, String selDate2,
-                                      Model model, String minPrice, String maxPrice) {
-        int[] splitDate1 = splitIntegerDay(selDate1);
-        int[] splitDate2 = splitIntegerDay(selDate2);
-        int sleep = calculateSleep(splitDate1, splitDate2);
+                                      Model model) {
+        int[] splitDate1 = new int[3];
+        int[] splitDate2 = new int[3];
+        int sleep = 1;
+        if (selDate1 != null) {
+            splitDate1 = splitIntegerDay(selDate1);
+            splitDate2 = splitIntegerDay(selDate2);
+            sleep = calculateSleep(splitDate1, splitDate2);
+        }
 
         model.addAttribute("firstYear", splitDate1[0]);
         model.addAttribute("firstMonth", splitDate1[1]);
@@ -101,9 +106,13 @@ public class ProductController {
         model.addAttribute("secondYear", splitDate2[0]);
         model.addAttribute("secondMonth", splitDate2[1]);
         model.addAttribute("secondDay", splitDate2[2]);
+        model.addAttribute("sleep", sleep);
+    }
+
+    private void processPriceSelection(String minPrice, String maxPrice,
+                                       Model model) {
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
-        model.addAttribute("sleep", sleep);
     }
 
     /*private List<ProductDto> secondSearchCompareKeyword(String keyword) {
@@ -176,6 +185,7 @@ public class ProductController {
         int[] integerDay = new int[splitDay.length];
         for (int i = 0; i < integerDay.length; i++) {
             integerDay[i] = Integer.parseInt(splitDay[i]);
+            System.out.println(integerDay[i]);
         }
         return integerDay;
     }
