@@ -3,7 +3,6 @@ package sist.last.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import sist.last.dto.AccomDto;
@@ -181,54 +179,5 @@ public class AccomController {
         mapper.updateAccom(dto);
 
         return "redirect:/accom/accom-list?business_id=" + dto.getBusiness_id();
-    }
-
-    /*이성신 추가 부분*/
-    @GetMapping("/accom/non-book")
-    public String nonBook() {
-        return "/accom/accomNonBookable";
-    }
-
-    @GetMapping("/accom/duplicate-date")
-    @ResponseBody
-    public void duplicateDate(@RequestParam("checkin") List<String> checkin,
-                              @RequestParam("checkout") List<String> checkout,
-                              @RequestParam("idx") List<Integer> idx) {
-
-        System.out.println("hi");
-
-        for (int i = 0; i < checkin.size(); i++) {
-            LocalDate checkinDate = LocalDate.parse(checkin.get(i));
-            LocalDate checkoutDate = LocalDate.parse(checkout.get(i));
-
-            // 중복 검사
-            if (isDateRangeOverlap(checkinDate, checkoutDate, checkin, checkout, i)) {
-                // 중복된 날짜가 있을 경우 필요한 로직을 수행하고 응답을 반환
-                // 예를 들면, 오류 응답이나 처리 중단 등을 수행할 수 있습니다.
-            }
-        }
-
-        // 중복이 없는 경우 필요한 로직을 수행하고 응답을 반환
-        // ...
-    }
-
-    private boolean isDateRangeOverlap(LocalDate newCheckin, LocalDate newCheckout, List<String> checkinList,
-                                       List<String> checkoutList, int currentIndex) {
-        for (int i = 0; i < checkinList.size(); i++) {
-            if (i != currentIndex) {
-                LocalDate existingCheckin = LocalDate.parse(checkinList.get(i));
-                LocalDate existingCheckout = LocalDate.parse(checkoutList.get(i));
-
-                // 새로운 체크인 날짜가 기존 기간에 포함되거나
-                // 새로운 체크아웃 날짜가 기존 기간에 포함되는 경우 중복으로 처리
-                if ((newCheckin.isEqual(existingCheckin) || newCheckin.isAfter(existingCheckin)) &&
-                        (newCheckin.isBefore(existingCheckout) || newCheckin.isEqual(existingCheckout)) ||
-                        (newCheckout.isEqual(existingCheckin) || newCheckout.isAfter(existingCheckin)) &&
-                                (newCheckout.isBefore(existingCheckout) || newCheckout.isEqual(existingCheckout))) {
-                    return true; // 중복이 발생했음
-                }
-            }
-        }
-        return false; // 중복이 없음
     }
 }

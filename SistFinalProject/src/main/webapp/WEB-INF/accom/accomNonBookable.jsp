@@ -13,15 +13,26 @@
     <title>Insert title here</title>
 </head>
 <body>
-<table style="width: 600px; border: 1px solid black">
-    <tr>
-        <td align="center" valign="middle"><b>예약 불가능 날짜 선택</b>
-            <br><br>
-            <button type="button" class="btn btn-outline-danger addDate">날짜 추가</button>
-        </td>
-        <td>
-            <h4><b>불가능 날짜</b></h4>
-            <div id="div-nonDate" style="width: 400px;">
+<c:if test="${accomList==null}">
+    <h1>등록된 숙소가 없습니다</h1>
+</c:if>
+<c:if test="${accomList!=null}">
+    <table style="width: 600px; border: 1px solid black">
+        <tr>
+            <td align="center" valign="top"><b>예약 불가능 날짜 선택</b>
+                <br><br>
+                <h4><b>선택할 숙소</b></h4>
+                <select id="accomSelect" class="form-control" style="width: 120px;">
+                    <c:forEach var="list" items="${accomList}" varStatus="i">
+                        <option value="${list}">${list}</option>
+                    </c:forEach>
+                </select>
+                <br>
+                <button type="button" class="btn btn-outline-danger addDate">날짜 추가</button>
+            </td>
+            <td>
+                <h4><b>불가능 날짜</b></h4>
+                <div id="div-nonDate" style="width: 400px;">
                     <span class="d-inline-flex nonDate" id="nonDate1">
                     <input type="date" id="non_checkin1" name="checkin[]" min=""
                            class="form-control" style="width: 150px; margin-right: 20px;"> ~
@@ -29,19 +40,25 @@
                            class="form-control" style="width: 150px; margin-left: 20px;">
                     <input type="hidden" id="count1" value="true">
 					</span><br><br>
-            </div>
-            <div style="margin-left: 15%">
-                <button type="button" class="btn btn-outline-danger"
-                        onclick="checkDate()">중복 체크
-                </button>
-                <button type="button" class="btn btn-danger"
-                        onclick="resetDate()">다시 설정
-                </button>
-            </div>
-            <input type="hidden" id="checkDuplicate" value="0">
-        </td>
-    </tr>
-</table>
+                </div>
+                <div style="margin-left: 15%">
+                    <button type="button" class="btn btn-outline-danger"
+                            onclick="checkDate()">중복 체크
+                    </button>
+                    <button type="button" class="btn btn-danger"
+                            onclick="resetDate()">다시 설정
+                    </button>
+                </div>
+                <input type="hidden" id="checkDuplicate" value="0">
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+                <button type="button" class="btn btn-outline-danger" id="saveNonBook">등록하기</button>
+            </td>
+        </tr>
+    </table>
+</c:if>
 
 <script type="text/javascript">
     /*성신 추가 기능*/
@@ -93,8 +110,8 @@
             var checkinValue = $("#non_checkin" + index).val();
             var checkoutValue = $("#non_checkout" + index).val();
             var countIdx = $("#count" + index).val();
-            alert("[" + checkinValue + "," + checkoutValue + "]");
-            alert(index + " : " + countIdx);
+            /*alert("[" + checkinValue + "," + checkoutValue + "]");
+            alert(index + " : " + countIdx);*/
             if (countIdx == 'true') {
                 if (checkinValue != "" && checkoutValue != "") {
                     checkin.push(checkinValue);
@@ -109,6 +126,10 @@
                     alert("날짜를 입력하지 않았습니다.");
                     return false;
                 }
+                if (checkinValue == "" && checkoutValue == "") {
+                    alert("날짜를 입력하지 않았습니다.");
+                    return false;
+                }
             }
         }
 
@@ -119,10 +140,10 @@
             dataType: "json",
             data: {"checkin": checkin, "checkout": checkout, "idx": idx},
             success: function (data) {
-                if (data.flag == 1) {
-                    alert(data.index);
-                }
                 if (data.flag == 0) {
+                    alert("중복된 날짜가 있습니다 수정해주세요.");
+                }
+                if (data.flag == 1) {
                     alert("중복된 날짜가 없습니다.");
                     $("span.nonDate").children().prop('disabled', true);
                     $("#checkDuplicate").val(1);
@@ -155,6 +176,28 @@
         }
         return true;
     }
+
+    $("#saveNonBook").click(function () {
+        if (flag == 0) {
+            alert("날짜를 입력 후 중복체크 눌러주세요.");
+        }
+        if (flag == 1) {
+            var cnt = count;
+            var checkin = [];
+            var checkout = [];
+            for (var index = 1; index <= cnt; index++) {
+                var checkinValue = $("#non_checkin" + index).val();
+                var checkoutValue = $("#non_checkout" + index).val();
+                var countIdx = $("#count" + index).val();
+                /*alert("[" + checkinValue + "," + checkoutValue + "]");
+                alert(index + " : " + countIdx);*/
+                if (countIdx == 'true') {
+                    checkin.push(checkinValue);
+                    checkout.push(checkoutValue);
+                }
+            }
+        }
+    })
 </script>
 </body>
 </html>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sist.last.mapper.NonBookableMapperInter">
+    <select id="getAccomName" resultType="String" parameterType="String">
+        select accom_name from accom where business_id = #{business_id}
+    </select>
+</mapper>
