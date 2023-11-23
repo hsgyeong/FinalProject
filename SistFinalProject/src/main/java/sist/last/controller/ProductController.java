@@ -161,20 +161,17 @@ public class ProductController {
                                   LocalDate checkinDate, LocalDate checkoutDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
         for (int i = 0; i < checkinList.size(); i++) {
-            System.out.println(checkinDate + "," + checkoutDate + "," + checkinList.get(i) + "," + checkinList.get(i));
+            System.out.println(checkinDate + "," + checkoutDate + "," + checkinList.get(i) + "," + checkoutList.get(i));
             LocalDate existingCheckin = LocalDate.parse(checkinList.get(i), formatter);
             LocalDate existingCheckout = LocalDate.parse(checkoutList.get(i), formatter);
 
             // 새로운 체크인 날짜가 기존 기간에 포함되거나
             // 새로운 체크아웃 날짜가 기존 기간에 포함되는 경우 중복으로 처리
-            if ((checkinDate.isEqual(existingCheckin) || checkinDate.isAfter(existingCheckin)) &&
-                    (checkinDate.isBefore(existingCheckout) || checkinDate.isEqual(existingCheckout)) ||
-                    (checkoutDate.isEqual(existingCheckin) || checkoutDate.isAfter(existingCheckin)) &&
-                            (checkoutDate.isBefore(existingCheckout) || checkoutDate.isEqual(existingCheckout))) {
+            if ((checkinDate.isBefore(existingCheckout) || checkinDate.isEqual(existingCheckout)) &&
+                    (checkoutDate.isAfter(existingCheckin) || checkoutDate.isEqual(existingCheckin))) {
                 System.out.println("중복발생");
                 return true; // 중복이 발생했음
             }
-
         }
         System.out.println("중복발생x");
         return false; // 중복이 없음
