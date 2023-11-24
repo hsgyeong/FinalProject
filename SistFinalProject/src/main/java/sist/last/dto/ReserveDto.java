@@ -17,4 +17,5 @@ public class ReserveDto {
 	private String reserve_checkin;
 	private String reserve_checkout;
 	private String reserve_status;
+	private String reserve_coupon;
 }

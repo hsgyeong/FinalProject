@@ -370,6 +370,8 @@
 								   	var room_checkout = $("#room_checkout").text();
 								   	var reserve_name = $("#reserve_name").val();
 								   	var reserve_hp = $("#reserve_hp").val();
+								   	var coupon_name = $("#coupon-name").text();
+								   	
 								   	
 								    IMP.init("imp06867735");
 
@@ -384,7 +386,7 @@
 								    	
 								        if (rsp.success) {
 								            // 결제 성공 시 서버로 데이터 전송
-								            sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp);
+								            sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name);
 								        } else {
 								            // 결제 실패 시 처리
 								            alert("결제를 취소했습니다");
@@ -392,7 +394,7 @@
 								    });
 								}
 								
-								function sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp) {
+								function sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name) {
 								    // 여기에 더 많은 데이터를 추가할 수 있습니다.
 								    var additionalData = {
 								        reservationNumber: reservationNumber,
@@ -402,7 +404,8 @@
 										room_checkin: room_checkin,
 										room_checkout: room_checkout,
 										reserve_name: reserve_name,
-										reserve_hp: reserve_hp
+										reserve_hp: reserve_hp,
+										coupon_name: coupon_name
 								    };
 
 								    $.ajax({
