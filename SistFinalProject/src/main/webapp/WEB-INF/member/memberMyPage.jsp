@@ -25,7 +25,8 @@
     }
     
     table {
-		margin: auto;
+	margin: auto;
+	align-content: center;
 	}
 	
 	.img {
@@ -38,6 +39,9 @@
 	
 	.in {
 	text-align: center;
+	font-size: 18px;
+	font-family: 'Jalnan';
+	color:black;
 	}
 	
 	.update {
@@ -46,26 +50,82 @@
 	color:black;
 	}
 	
+	.btn {
+	width:150px;
+	}
+	
 	.out {
 	text-decoration: none;
 	color:black;
+	cursor: pointer;
+	
+	}
+	
+	.booking, .notify, .event, .service {
+	text-decoration: none;	
+	color: gray;
+	cursor: pointer;
+	
+	}
+	
+	.tb {
+	margin-top: -250px;
 	}
     </style>
 </head>
 <body>
+<div>
 <div class="in"><b>내 정보</b></div>
-<br>
+<br><br><br><br>
+<div>
+	<tr>
+		<td>
+			<a class="booking">예약내역</a>
+		</td>
+	</tr>
+	<br><br>
+	<tr>
+		<td>
+			<a class="notify">알림설정</a>
+		</td>
+	</tr>
+	<br><br>
+	<tr>
+		<td>
+			<a class="event">혜택</a>
+		</td>
+	</tr>
+	<br><br>
+	<tr>
+		<td>
+			<a class="service">고객센터</a>
+		</td>
+	</tr>
 
-<table>
+	</div>
+	</div>
+<table class="tb">
 	<tr>
 		<td>
 			<img alt="" src="../loginsave/s7.png"  
 			class="img" width="150px;" height="150px;"> 
 		</td>
 	</tr>
+	<tr>
+		<td>
+		<hr>
+		<button type="button" class="btn coupon" style="background-color: #f7323f; color:white;
+		font-weight: bold;" onclick="location.href='/member/mycoupon'"><i class="bi bi-c-circle"></i>&nbsp;쿠폰함<br>${memberDto.info_coupon }&nbsp;개<br></button>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<button type="button" class="btn point" style="background-color: #f7323f; color:white;
+		font-weight: bold;" onclick="location.href='/member/mypoint'"><i class="bi bi-database-add"></i>&nbsp; 포인트<br>${memberDto.info_point }&nbsp;원</button>
+		<br>
+		<hr>
+		</td>
+	</tr>
 	<tr class="id">	
 		<td>
-		<br><br>
+		<br>
 		아이디
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;
@@ -120,13 +180,15 @@
 	</tr>
 	<tr>	
 		<td>
-		<a href="/member/member-update?info_id=${memberDto.info_id }" class="update">정보수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a class="out" href="/login/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/member/member-update?info_id=${memberDto.info_id }" class="update">정보수정</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a class="out" href="/login/logout">로그아웃</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a class="x" id="x" name="x" value="${memberDto.info_id }">회원탈퇴</a>
 		</td>
 	</tr>
 	</table>
-	
+
 	<!-- The Modal -->
 <div class="modal" id="deleteModal">
   <div class="modal-dialog">
