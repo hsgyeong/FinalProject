@@ -2,6 +2,7 @@ package sist.last.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,7 +152,11 @@ public class LoginController {
 		
 	} 
 	
-
+	@GetMapping("/login/login-fail")
+	public String loginFail() {
+		
+		return "/login/loginFail";
+	}
 	
 	@GetMapping("/login/logout")
 	public String logout(HttpSession session)
@@ -175,5 +180,11 @@ public class LoginController {
 		return "redirect:/";
 	}
 	
-	
+/*	@GetMapping("login/kakao")
+	public String loginSuccess()
+	{
+		
+		return "redirect:/";
+	}
+	*/
 }
