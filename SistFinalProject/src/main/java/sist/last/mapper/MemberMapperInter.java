@@ -19,4 +19,5 @@ public interface MemberMapperInter {
 	public List<MemberDto> getAllMembers();
 	public void updateMember(MemberDto dto);
 	public void deleteMember(String info_id);
+	public int getCouponCount(String info_id);
 }

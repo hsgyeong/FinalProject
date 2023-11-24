@@ -76,5 +76,11 @@ public class MemberService implements MemberServiceInter {
 		mapperInter.deleteMember(info_id);
 	}
 
+	@Override
+	public int getCouponCount(String info_id) {
+		// TODO Auto-generated method stub
+		return mapperInter.getCouponCount(info_id);
+	}
+
 
 }

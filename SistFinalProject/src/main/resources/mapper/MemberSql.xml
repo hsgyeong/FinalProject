@@ -44,4 +44,8 @@
  delete from info where info_id=#{info_id}
  </delete>
  
+ <select id="getCouponCount" parameterType="String" resultType="int">
+ 	select count(info_coupon) from info where info_id=#{info_id}
+ </select>
+ 
  </mapper>

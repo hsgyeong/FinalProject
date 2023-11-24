@@ -47,7 +47,19 @@ public class ReserveController {
 		AccomDto adto=accominter.getOneData(rdto.getAccom_num());
 		
 		String info_hp=mservice.getDataById(info_id).getInfo_hp();
+		int coupon=mservice.getDataById(info_id).getInfo_coupon();
+		int point=mservice.getDataById(info_id).getInfo_point();
 		
+		int couponcnt=0;
+		
+		if(coupon==0)
+			couponcnt=0;
+		else if(coupon>0)
+			couponcnt=mservice.getCouponCount(info_id);
+		
+		model.addAttribute("coupon", coupon);
+		model.addAttribute("couponcnt", couponcnt);
+		model.addAttribute("point", point);
 		model.addAttribute("info_hp", info_hp);
 		model.addAttribute("adto", adto);
 		model.addAttribute("rdto", rdto);
