@@ -240,7 +240,7 @@
 
 			<div class="left-category">
 				<span style="font-size: 15px;">일반쿠폰</span> <span
-					style="float: right;" id="coupon-name">-</span>
+					style="float: right;" id="coupon-name">적용안함</span>
 			</div>
 			<br>
 
