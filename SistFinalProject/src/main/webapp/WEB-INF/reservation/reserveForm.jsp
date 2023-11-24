@@ -109,6 +109,18 @@
 		border: none;
 		font-weight: bold;
 	}
+	
+	#coupon{
+		border: 1px solid #E3005C;
+		border-radius: 5px;
+		font-weight: bold;
+		font-size: 50px;
+		width: 50%;
+		float: right;
+		text-align: center;
+		color: #E3005C;
+		background-color: white;
+	}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -137,6 +149,26 @@
 		        var allChecked = $(".check:checked").length === $(".check").length;
 		        $("input.allcheck").prop("checked", allChecked);
 		    });
+		});
+		
+		$(document).on("click","#coupon",function(){
+			
+			var discountper=parseInt($(this).text());
+			var totalpay=parseInt($("b.buypay").text());
+			
+			$("#discount-amount").text(totalpay*(discountper/100));
+		});
+		
+		$(document).on("click","#counpon-apply",function(){
+			
+			var discountamt= parseInt($("#discount-amount").text());
+			var totalpay= parseInt($("b.totalpay").text());
+			var discountper=parseInt($(this).text());
+			var coupon= $("#coupon").text();
+			
+			$("b.totalpay").text(totalpay-discountamt);
+			$("#coupon-discount").text("-"+discountper+"원");
+			$("#coupon-name").text(coupon+"% 할인쿠폰");
 		});
 	});
 	
@@ -194,33 +226,27 @@
 
 			<div>
 				<span class="left-category">구매 총액</span> <span style="float: right;"><b
-					class="buypay">${rdto.room_price }원</b></span>
+					class="buypay">${rdto.room_price }</b><b>원</b></span>
 			</div>
 			<br>
 
 			<div>
 				<button type="button" class="btn-discount" data-bs-toggle="modal" data-bs-target="#coupon-modal">
-					사용 가능 쿠폰<span class="count">0장</span>
+					사용 가능 쿠폰<span class="count">${couponcnt }장</span>
 				</button>
-				<span style="float: right;"><b>-</b></span>
+				<span style="float: right;" id="coupon-discount"><b>-</b></span>
 			</div>
 			<br>
 
 			<div class="left-category">
 				<span style="font-size: 15px;">일반쿠폰</span> <span
-					style="float: right;">-</span>
-			</div>
-			<br>
-
-			<div class="left-category">
-				<span style="font-size: 15px;">더하기 쿠폰</span> <span
-					style="float: right;">-</span>
+					style="float: right;" id="coupon-name">-</span>
 			</div>
 			<br>
 
 			<div>
 				<button type="button" class="btn-point">
-					포인트 사용<span class="count">0장</span>
+					포인트 사용
 				</button>
 				<span style="float: right;"> <input type="text" value="0"
 					style="text-align: right;" class="point">&nbsp;<b>P</b>
@@ -417,21 +443,22 @@
 
 				<!-- Modal body -->
 				<div class="modal-body">
-					<h5><b>일반쿠폰 <span>0</span>장</b></h5>
-					<div class="mention">
-						사용 가능한 쿠폰이 없습니다.
-					</div>
-					
-					<h5><b>더하기 쿠폰 <span>0</span>장</b></h5>
-					<div class="mention">
-						사용 가능한 쿠폰이 없습니다.
-					</div>
+					<c:if test="${couponcnt==0 }">
+						<h5><b>쿠폰 <span>${couponcnt }</span>장</b></h5>
+						<div class="mention">
+							사용 가능한 쿠폰이 없습니다.
+						</div>
+					</c:if>
+					<c:if test="${couponcnt>0 }">
+						<h5><b>쿠폰 <span>${couponcnt }</span>장</b></h5>
+						<button id="coupon">${coupon }</button>
+					</c:if>
 				</div>
 
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary"
-						data-bs-dismiss="modal" style="width: 100%; height: 50px; font-size: 20px;"><span>0</span>원 적용하기</button>
+					<button type="button" class="btn btn-primary" id="counpon-apply"
+						data-bs-dismiss="modal" style="width: 100%; height: 50px; font-size: 20px;"><span id="discount-amount">0</span>원 적용하기</button>
 				</div>
 
 			</div>
