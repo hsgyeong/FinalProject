@@ -275,6 +275,8 @@
                                 <b>${firstMonth}.${firstDay} ~ ${secondMonth}.${secondDay}</b>
                                 <em>&nbsp;·&nbsp;${sleep}박</em>
                             </c:if>
+                        <input type="hidden" id="selDate1" value="${selDate1}">
+                        <input type="hidden" id="selDate2" value="${selDate2}">
                         </span>
                 </div>
                 <div class="calendar">
@@ -680,7 +682,7 @@
                     <br>
                     <div class="multi-range-slider" style="margin-top: 15px;">
                         <c:if test="${minPrice==null}">
-                            <input type="range" id="input-left" min="1" max="30" value="0">
+                            <input type="range" id="input-left" min="1" max="30" value="1">
                             <input type="range" id="input-right" min="1" max="30" value="30">
                         </c:if>
                         <c:if test="${minPrice!=null}">
@@ -764,10 +766,13 @@
             <script type="text/javascript">
                 $(".setting-btn").click(function () {
                     var keyword = '${keyword}';
-                    var minPrice = $("#input-left");
-                    var maxPrice = $("#input-right");
-                    location.href = "/product/search-main?keyword=" + keyword + "&selDate1=" + firstDay +
-                        "&selDate2=" + secondDay + "&lowPrice=" + minPrice + "&maxPrice=" + maxPrice;
+                    var selDate1 = '${selDate1}';
+                    var selDate2 = '${selDate2}';
+                    alert(selDate1 + "," + selDate2);
+                    var minPrice = $("#input-left").val() * 10000;
+                    var maxPrice = $("#input-right").val() * 10000;
+                    location.href = "/product/search-main?keyword=" + keyword + "&selDate1=" + selDate1 +
+                        "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
                 })
             </script>
         </section>
@@ -809,14 +814,34 @@
             </script>
         </c:if>
         <script type="text/javascript">
+            var keyword = '${keyword}';
+            var selDate1 = '${selDate1}';
+            var selDate2 = '${selDate2}';
+            //alert(selDate1 + "," + selDate2);
+            var minPrice = $("#input-left").val() * 10000;
+            var maxPrice = $("#input-right").val() * 10000;
             $("#sort-distance").click(function () {
+                if (${productList.size() == 0}) {
+                    alert("정렬할 데이터가 없습니다.");
+                    return;
+                }
                 alert("거리순 클릭 : 미 구현 ")
             })
             $("#sort-low-price").click(function () {
-                alert("가격낮은순 클릭 : 미 구현 ")
+                if (${productList.size() == 0}) {
+                    alert("정렬할 데이터가 없습니다.");
+                    return;
+                }
+                location.href = "/product/search-main?sort=lowprice&keyword=" + keyword + "&selDate1=" + selDate1 +
+                    "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
             })
             $("#sort-score").click(function () {
-                alert("가격낮은순 클릭 : 미 구현 ")
+                if (${productList.size() == 0}) {
+                    alert("정렬할 데이터가 없습니다.");
+                    return;
+                }
+                location.href = "/product/search-main?sort=score&keyword=" + keyword + "&selDate1=" + selDate1 +
+                    "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
             })
         </script>
     </div>

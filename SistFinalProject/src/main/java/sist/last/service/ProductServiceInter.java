@@ -14,5 +14,13 @@ public interface ProductServiceInter {
 
     public List<ProductDto> getProductDataOfLocation(String keyword);
 
+    public List<ProductDto> getProductClickOrderByLowPriceOfCategory(String keyword);
+
+    public List<ProductDto> getProductClickOrderByLowPriceOfHashTag(String keyword);
+
+    public List<ProductDto> getProductClickOrderByLowPriceOfLocation(String keyword);
+
+    public List<ProductDto> getProductClickOrderByLowPriceOfName(String keyword);
+
     public List<String> selectCategory();
 }

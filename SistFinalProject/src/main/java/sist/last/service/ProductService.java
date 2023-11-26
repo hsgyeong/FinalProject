@@ -37,6 +37,25 @@ public class ProductService implements ProductServiceInter {
         return mapperInter.getProductDataOfLocation(keyword);
     }
 
+    @Override
+    public List<ProductDto> getProductClickOrderByLowPriceOfCategory(String keyword) {
+        return mapperInter.getProductClickOrderByLowPriceOfCategory(keyword);
+    }
+
+    @Override
+    public List<ProductDto> getProductClickOrderByLowPriceOfHashTag(String keyword) {
+        return mapperInter.getProductClickOrderByLowPriceOfHashTag(keyword);
+    }
+
+    @Override
+    public List<ProductDto> getProductClickOrderByLowPriceOfLocation(String keyword) {
+        return mapperInter.getProductClickOrderByLowPriceOfLocation(keyword);
+    }
+
+    @Override
+    public List<ProductDto> getProductClickOrderByLowPriceOfName(String keyword) {
+        return mapperInter.getProductClickOrderByLowPriceOfName(keyword);
+    }
 
     @Override
     public List<String> selectCategory() {
