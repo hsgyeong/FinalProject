@@ -148,5 +148,18 @@ public class MemberController {
 		service.deleteMember(info_id);
 		return "/";
 	}
+	
+	@GetMapping("/member/mycoupon")
+	public String coupon()
+	{
+		
+		return "/member/myCoupon";
+	}
+	
+	@GetMapping("/member/mypoint")
+	public String point()
+	{
+		return "/member/myPoint";
+	}
 
 }

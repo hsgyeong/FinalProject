@@ -18,6 +18,8 @@ public class MemberDto {
 	private String info_hp;
 	private String info_email;
 	private String info_birth;
+	private int info_coupon;
+	private int info_point;
 	private Timestamp info_gaipday;
 	
 	

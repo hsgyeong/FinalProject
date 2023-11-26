@@ -30,7 +30,7 @@
 		color: #333333;
 		font-size: 0.9em;
 	}
-	b.totalpay{
+	b.totalpay, b.totalpaywon{
 		color: #DB0F56;
 		font-size: 1.4em;
 	}
@@ -109,6 +109,18 @@
 		border: none;
 		font-weight: bold;
 	}
+	
+	#coupon{
+		border: 1px solid #E3005C;
+		border-radius: 5px;
+		font-weight: bold;
+		font-size: 50px;
+		width: 50%;
+		float: right;
+		text-align: center;
+		color: #E3005C;
+		background-color: white;
+	}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -137,6 +149,26 @@
 		        var allChecked = $(".check:checked").length === $(".check").length;
 		        $("input.allcheck").prop("checked", allChecked);
 		    });
+		});
+		
+		$(document).on("click","#coupon",function(){
+			
+			var discountper=parseInt($(this).text());
+			var totalpay=parseInt($("b.buypay").text());
+			
+			$("#discount-amount").text(totalpay*(discountper/100));
+		});
+		
+		$(document).on("click","#counpon-apply",function(){
+			
+			var discountamt= parseInt($("#discount-amount").text());
+			var totalpay= parseInt($("b.totalpay").text());
+			var discountper=parseInt($(this).text());
+			var coupon= $("#coupon").text();
+			
+			$("b.totalpay").text(totalpay-discountamt);
+			$("#coupon-discount").text("-"+discountper+"원");
+			$("#coupon-name").text(coupon+"% 할인쿠폰");
 		});
 	});
 	
@@ -171,6 +203,7 @@
 <body>
 	<form action="#" method="post">
 		<div class="left-side">
+			<input type="hidden" id="room_num" value="${rdto.room_num }">
 			<div>
 				<b>예약자 정보</b>
 			</div>
@@ -178,7 +211,7 @@
 
 			<div class="left-category">예약자 이름</div>
 			<input type="text" class="form-control name" placeholder="체크인시 필요한 정보입니다"
-				style="height: 50px;"> <br>
+				style="height: 50px;" id="reserve_name"> <br>
 			<br>
 
 			<div class="left-category">
@@ -186,40 +219,34 @@
 				<div style="font-size: 0.8em;">개인 정보 보호를 위해 안심번호로 숙소에 전송됩니다.</div>
 			</div>
 			<br> <input type="text" class="form-control phone" style="height: 50px;"
-				value="01097737503"> <br>
+				value="${info_hp }" id="reserve_hp"> <br>
 			<hr>
 			<br> <b>할인 수단 선택</b> <br>
 			<br>
 
 			<div>
 				<span class="left-category">구매 총액</span> <span style="float: right;"><b
-					class="buypay">199,100원</b></span>
+					class="buypay">${rdto.room_price }</b><b>원</b></span>
 			</div>
 			<br>
 
 			<div>
 				<button type="button" class="btn-discount" data-bs-toggle="modal" data-bs-target="#coupon-modal">
-					사용 가능 쿠폰<span class="count">0장</span>
+					사용 가능 쿠폰<span class="count">${couponcnt }장</span>
 				</button>
-				<span style="float: right;"><b>-</b></span>
+				<span style="float: right;" id="coupon-discount"><b>-</b></span>
 			</div>
 			<br>
 
 			<div class="left-category">
 				<span style="font-size: 15px;">일반쿠폰</span> <span
-					style="float: right;">-</span>
-			</div>
-			<br>
-
-			<div class="left-category">
-				<span style="font-size: 15px;">더하기 쿠폰</span> <span
-					style="float: right;">-</span>
+					style="float: right;" id="coupon-name">적용안함</span>
 			</div>
 			<br>
 
 			<div>
 				<button type="button" class="btn-point">
-					포인트 사용<span class="count">0장</span>
+					포인트 사용
 				</button>
 				<span style="float: right;"> <input type="text" value="0"
 					style="text-align: right;" class="point">&nbsp;<b>P</b>
@@ -261,24 +288,24 @@
 		<div class="right-side">
 			<div class="right-inside">
 				<div class="right-category">숙소이름</div>
-				<div>숙소이름 넣을 곳</div>
+				<div>${adto.accom_category }</div>
 				<br>
 
 				<div class="right-category">객실타입/기간</div>
-				<div>숙소타입 넣을 곳 / 기간</div>
+				<div>${rdto.room_name } / 기간</div>
 				<br>
 
 				<div class="right-category">체크인</div>
-				<div>체크인시간</div>
+				<div id="room_checkin">날짜${rdto.room_checkin }</div>
 				<br>
 
 				<div class="right-category">체크아웃</div>
-				<div>체크아웃시간</div>
+				<div id="room_checkout">날짜${rdto.room_checkout }</div>
 				<br>
 
 				<hr style="width: 95%; margin-left: 5px;">
 				<br> <b>총 결제 금액</b><span class="vat">(VAT포함)</span> <br> <b
-					class="totalpay">원</b> <br> <br>
+					class="totalpay">${rdto.room_price }</b><b class="totalpaywon">원</b> <br> <br>
 
 				<p class="explain">
 					• 해당 객실가는 세금, 봉사료가 포함된 금액입니다 <br>
@@ -336,22 +363,30 @@
 								}
 								
 								function onClickPay() {
-									
-									var reservationNumber = generateReservationNumber();
-									//alert(reservationNumber);
-									
+								    var reservationNumber = generateReservationNumber();
+								   	var amount = parseInt($(".totalpay").text());  // 동적으로 계산된 값 가져오기
+									var room_num = $("#room_num").val();
+								   	var room_checkin = $("#room_checkin").text();
+								   	var room_checkout = $("#room_checkout").text();
+								   	var reserve_name = $("#reserve_name").val();
+								   	var reserve_hp = $("#reserve_hp").val();
+								   	var coupon_name = $("#coupon-name").text();
+								   	
+								   	
 								    IMP.init("imp06867735");
 
 								    IMP.request_pay({
 								        pg: "kakaopay",
 								        pay_method: "card",
-								        amount: "60000",
-								        name: "매운 라면",
+								        amount: amount,  // 동적으로 계산된 값 사용
+								        name: "(주)TRIVIEW",
 								        merchant_uid: reservationNumber
 								    }, function (rsp) {
+								    	console.log(rsp);  // 콘솔에 응답 출력
+								    	
 								        if (rsp.success) {
 								            // 결제 성공 시 서버로 데이터 전송
-								            sendPaymentData(reservationNumber);
+								            sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name);
 								        } else {
 								            // 결제 실패 시 처리
 								            alert("결제를 취소했습니다");
@@ -359,16 +394,26 @@
 								    });
 								}
 								
-								function sendPaymentData(reservationNumber) {
+								function sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name) {
+								    // 여기에 더 많은 데이터를 추가할 수 있습니다.
+								    var additionalData = {
+								        reservationNumber: reservationNumber,
+								        itemName: "(주)TRIVIEW",
+								        amount: amount,
+								        room_num: room_num,
+										room_checkin: room_checkin,
+										room_checkout: room_checkout,
+										reserve_name: reserve_name,
+										reserve_hp: reserve_hp,
+										coupon_name: coupon_name
+								    };
+
 								    $.ajax({
 								        type: "POST",
 								        url: "/reserve/insert",
-								        data: {
-								            reservationNumber: reservationNumber
-								        },
+								        data: additionalData,
 								        success: function (response) {
 								            // 서버에서 Success 응답을 받으면 추가적인 로직을 수행할 수 있습니다.
-								            
 								            window.location.href = "/payment/pay-success";
 								        },
 								        error: function (error) {
@@ -377,6 +422,7 @@
 								        }
 								    });
 								}
+
 							</script>
 						</div>
 					</div>
@@ -400,21 +446,22 @@
 
 				<!-- Modal body -->
 				<div class="modal-body">
-					<h5><b>일반쿠폰 <span>0</span>장</b></h5>
-					<div class="mention">
-						사용 가능한 쿠폰이 없습니다.
-					</div>
-					
-					<h5><b>더하기 쿠폰 <span>0</span>장</b></h5>
-					<div class="mention">
-						사용 가능한 쿠폰이 없습니다.
-					</div>
+					<c:if test="${couponcnt==0 }">
+						<h5><b>쿠폰 <span>${couponcnt }</span>장</b></h5>
+						<div class="mention">
+							사용 가능한 쿠폰이 없습니다.
+						</div>
+					</c:if>
+					<c:if test="${couponcnt>0 }">
+						<h5><b>쿠폰 <span>${couponcnt }</span>장</b></h5>
+						<button id="coupon">${coupon }</button>
+					</c:if>
 				</div>
 
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary"
-						data-bs-dismiss="modal" style="width: 100%; height: 50px; font-size: 20px;"><span>0</span>원 적용하기</button>
+					<button type="button" class="btn btn-primary" id="counpon-apply"
+						data-bs-dismiss="modal" style="width: 100%; height: 50px; font-size: 20px;"><span id="discount-amount">0</span>원 적용하기</button>
 				</div>
 
 			</div>

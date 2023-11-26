@@ -16,10 +16,12 @@
 <style>
 .login {
 	display: flex;
-	margin-left:140px;
 	justify-content: center;
-	margin-top: 100px;
 	align-items: flex-start;
+	margin-left: 20px; 
+	width: 400px; 
+	border:3px solid #f7323f;
+	border-radius: 20px;
 }
 .id{
 	display:inline-flex;
@@ -122,9 +124,10 @@ else{
 
 %>
 <body>
-	<div class="login" style="margin-left: 20px; margin-top: 40px;">
+<div align="center">
+	<div class="login">
 
-		<table class="table .table-borderless tb" style="width: 700px;">
+		<table class="table .table-borderless tb" style="width: 300px;">
 
 			<tr>
 				<td>
@@ -177,6 +180,7 @@ else{
 							<button type="submit" class="btn loginbt">
 								<i class="bi bi-door-open"></i>&nbsp;&nbsp;로그인
 							</button>
+							<br>
 						</form>
 					</div>
 				</td>
@@ -190,11 +194,24 @@ else{
 							<a class="s" href="location.href='search'">아이디/비밀번호 찾기</a>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
 								class="a" href="/member/joinform"><b>회원가입</b></a>
+								<br>
+								<br>
 						</div>
+						</div>
+					<!-- /	
+					<a href="https://kauth.kakao.com/oauth/authorize?client_id=	f74ba8d7ae81ba39d038f11c32d7c6ae&redirect_uri=http://localhost:9000/login/kakaoMember">
+							<img alt="" src="../loginsave/kakao.png" style="cursor: pointer;">
+					</a>
+					/ -->	
+					<a href="https://kauth.kakao.com/oauth/authorize?client_id=f74ba8d7ae81ba39d038f11c32d7c6ae&redirect_uri=http://localhost:9000/login/kakao-member&response_type=code">
+					<img alt="" src="../loginsave/kakao.png" style="cursor: pointer;">
+					</a>
 					</div>
 				</td>
 			</tr>
 		</table>
+		</div>
+	</div>	
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
