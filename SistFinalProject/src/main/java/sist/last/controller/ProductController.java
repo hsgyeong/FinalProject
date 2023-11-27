@@ -17,6 +17,8 @@ import sist.last.service.ProductService;
 @Controller
 public class ProductController {
 
+    String selectDate1;
+    String selectDate2;
     @Autowired
     ProductService pService;
 
@@ -34,6 +36,8 @@ public class ProductController {
                                  @RequestParam(required = false) String minPrice,
                                  @RequestParam(required = false) String maxPrice,
                                  @RequestParam(required = false) String sort) {
+        selectDate1 = selDate1;
+        selectDate2 = selDate2;
         List<String> category = pService.selectCategory();
         System.out.println(sort);
         model.addAttribute("keyword", keyword);
@@ -48,16 +52,19 @@ public class ProductController {
         }
         processDateSelection(selDate1, selDate2, model);
         List<ProductDto> products = searchCompareKeyword(keyword);
-        if (sort != null) {
-            compareSort(keyword, sort, model, products);
-            return "/product/searchMainPage";
-        }
+        //System.out.println(products.size() + " 개 의 데이터");
         if (products != null) {
             //System.out.println("selDate1이 null이 아님");
+            products = compareLimitDate(products, selDate1, selDate2);
+            if (sort != null) {
+                System.out.println(products.size() + " 개 의 데이터");
+                compareSort(sort, model, minPrice,
+                        maxPrice, products, keyword);
+                return "/product/searchMainPage";
+            }
             if (minPrice == null) {
                 model.addAttribute("productList", products);
             }
-            products = compareLimitDate(products, selDate1, selDate2);
             if (products.isEmpty()) {
                 model.addAttribute("productList", null);
                 return "/product/searchMainPage";
@@ -65,6 +72,8 @@ public class ProductController {
             //System.out.println(products.get(0).getAccom_name());
             //products = compareLimitPrice(products);
             if (minPrice != null) {
+                //System.out.println("여기까진 들어감");
+                System.out.println(products.size() + " 개 의 데이터");
                 processPriceSelection(minPrice, maxPrice, model, products);
                 return "/product/searchMainPage";
             }
@@ -121,20 +130,35 @@ public class ProductController {
         int integerMaxPrice = Integer.parseInt(maxPrice);
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
+        System.out.println("min:" + integerMinPrice + ", max:" + integerMaxPrice);
         if (integerMaxPrice == 300000) {
-            selectLimitMinPrice(integerMinPrice, products, model);
+            products = selectLimitMinPrice(integerMinPrice, products);
         }
         if (integerMaxPrice != 300000) {
-            selectLimitPrice(integerMinPrice, integerMaxPrice, products, model);
+            products = selectLimitPrice(integerMinPrice, integerMaxPrice, products);
         }
+        model.addAttribute("productList", products);
     }
 
-    private void compareSort(String keyword, String sort, Model model, List<ProductDto> products) {
+    private void compareSort(String sort, Model model, String minPrice,
+                             String maxPrice, List<ProductDto> products,
+                             String keyword) {
+        int integerMinPrice = Integer.parseInt(minPrice);
+        int integerMaxPrice = Integer.parseInt(maxPrice);
+        model.addAttribute("minPrice", minPrice);
+        model.addAttribute("maxPrice", maxPrice);
+        if (integerMaxPrice == 300000) {
+            products = selectLimitMinPrice(integerMinPrice, products);
+        }
+        if (integerMaxPrice != 300000) {
+            products = selectLimitPrice(integerMinPrice, integerMaxPrice, products);
+        }
         List<ProductDto> sortProducts = new ArrayList<>();
         if (sort.equals("distance")) {
         }
         if (sort.equals("lowprice")) {
-            sortProducts = searchSortKeyword(keyword);
+            sortProducts = sortLowPriceOfProducts(keyword, integerMinPrice, integerMaxPrice);
+            //System.out.println("가격순 리스트 갯수 : " + sortProducts.size());
         }
         if (sort.equals("score")) {
             sortProducts = products;
@@ -143,69 +167,128 @@ public class ProductController {
         model.addAttribute("productList", sortProducts);
     }
 
-    private List<ProductDto> searchSortKeyword(String keyword) {
-        List<ProductDto> sortCategory = pService.getProductClickOrderByLowPriceOfCategory(keyword);
-        if (!sortCategory.isEmpty()) {
-            return sortCategory;
+    private List<ProductDto> sortLowPriceOfProducts(String keyword, int minPrice, int maxPrice) {
+        List<ProductDto> products = selectLowPrice(keyword);
+        List<ProductDto> sortedProducts = new ArrayList<>();
+        assert products != null;
+        products = compareLimitDate(products, selectDate1, selectDate2);
+        for (ProductDto product : products) {
+            if (sortPrice(product, minPrice, maxPrice, sortedProducts)) {
+                System.out.println("방 이름 : " + product.getAccom_name());
+                int price = pService.getProductOfLowPrice(product.getAccom_num());
+                product.setRoom_price(price);
+                sortedProducts.add(product);
+            }
         }
-        List<ProductDto> hashtagList = pService.getProductClickOrderByLowPriceOfHashTag(keyword);
-        if (!hashtagList.isEmpty()) {
-            return hashtagList;
-        }
-        List<ProductDto> locationList = pService.getProductClickOrderByLowPriceOfLocation(keyword);
-        if (!locationList.isEmpty()) {
-            return locationList;
-        }
-        List<ProductDto> nameList = pService.getProductClickOrderByLowPriceOfName(keyword);
-        if (!nameList.isEmpty()) {
-            return nameList;
-        }
-        return null;
+        return sortedProducts;
     }
 
-    private void selectLimitMinPrice(int minPrice, List<ProductDto> products,
-                                     Model model) {
+    private boolean sortPrice(ProductDto product, int minPrice, int maxPrice,
+                              List<ProductDto> sortedProducts) {
+        if (maxPrice == 300000) {
+            return sortPriceOfMinPrice(product, minPrice, sortedProducts);
+        }
+        return sortPriceOfRangePrice(product, minPrice, maxPrice, sortedProducts);
+    }
+
+    private boolean sortPriceOfMinPrice(ProductDto product, int minPrice,
+                                        List<ProductDto> sortedProducts) {
+        if (!sortedProducts.isEmpty()) {
+            if (isDuplicateAccom(product, sortedProducts)) {
+                return false;
+            }
+            return product.getRoom_price() >= minPrice;
+        }
+        return product.getRoom_price() >= minPrice;
+
+    }
+
+    private boolean sortPriceOfRangePrice(ProductDto product, int minPrice, int maxPrice,
+                                          List<ProductDto> sortedProducts) {
+        if (!sortedProducts.isEmpty()) {
+            if (isDuplicateAccom(product, sortedProducts)) {
+                return false;
+            }
+            return product.getRoom_price() >= minPrice && product.getRoom_price() <= maxPrice;
+        }
+        return product.getRoom_price() >= minPrice && product.getRoom_price() <= maxPrice;
+    }
+
+    private boolean isDuplicateAccom(ProductDto product, List<ProductDto> sortedProducts) {
+        //System.out.println("중복체크할 방이름 : " + product.getAccom_name());
+        for (ProductDto dto : sortedProducts) {
+            if (product.getAccom_num() == dto.getAccom_num()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<ProductDto> selectLimitMinPrice(int minPrice, List<ProductDto> products) {
         List<ProductDto> selectProductList = new ArrayList<>();
         for (ProductDto product : products) {
-            int price = product.getRoom_price();
+            if (compareEachRoomMinPrice(product, minPrice)) {
+                selectProductList.add(product);
+            }
+        }
+        return selectProductList;
+    }
+
+    private boolean compareEachRoomMinPrice(ProductDto productDto, int minPrice) {
+        //System.out.println("hihi");
+        System.out.println(productDto.getAccom_num());
+        List<Integer> priceList = pService.getPriceOfAccomNumber(productDto.getAccom_num());
+        System.out.println("list size : " + priceList.size());
+        for (int price : priceList) {
             if (price >= minPrice) {
-                selectProductList.add(product);
+                return true;
             }
         }
-        model.addAttribute("productList", selectProductList);
+        return false;
     }
 
-    private void selectLimitPrice(int minPrice, int maxPrice, List<ProductDto> products,
-                                  Model model) {
+    private List<ProductDto> selectLimitPrice(int minPrice, int maxPrice, List<ProductDto> products) {
+        //System.out.println("최소 : " + minPrice + ", 최대 : " + maxPrice);
         List<ProductDto> selectProductList = new ArrayList<>();
         for (ProductDto product : products) {
-            int price = product.getRoom_price();
-            if (price >= minPrice && price <= maxPrice) {
+            if (compareEachRoomPrice(product, minPrice, maxPrice)) {
                 selectProductList.add(product);
             }
+            //System.out.println("가격 : " + price);
         }
-        model.addAttribute("productList", selectProductList);
+        return selectProductList;
     }
 
-    /*private List<ProductDto> secondSearchCompareKeyword(String keyword) {
-        List<ProductDto> categoryList = pService.getProductDataOfCategory(keyword);
+    private boolean compareEachRoomPrice(ProductDto productDto, int minPrice, int maxPrice) {
+        List<Integer> priceList = pService.getPriceOfAccomNumber(productDto.getAccom_num());
+        for (int price : priceList) {
+            if (price >= minPrice && price <= maxPrice) {
+                //System.out.println("가격 저장 " + product.getAccom_name());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<ProductDto> selectLowPrice(String keyword) {
+        List<ProductDto> categoryList = pService.getProductOfCategoryByLowPrice(keyword);
         if (!categoryList.isEmpty()) {
             return categoryList;
         }
-        List<ProductDto> hashtagList = pService.getProductDataOfHashTag(keyword);
+        List<ProductDto> hashtagList = pService.getProductOfHashTagByLowPrice(keyword);
         if (!hashtagList.isEmpty()) {
             return hashtagList;
         }
-        List<ProductDto> locationList = pService.getProductDataOfLocation(keyword);
+        List<ProductDto> locationList = pService.getProductOfLocationByLowPrice(keyword);
         if (!locationList.isEmpty()) {
             return locationList;
         }
-        List<ProductDto> nameList = pService.getProductDataOfName(keyword);
+        List<ProductDto> nameList = pService.getProductOfNameByLowPrice(keyword);
         if (!nameList.isEmpty()) {
             return nameList;
         }
         return null;
-    }*/
+    }
 
     private List<ProductDto> compareLimitDate(List<ProductDto> products, String selDate1, String selDate2) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");

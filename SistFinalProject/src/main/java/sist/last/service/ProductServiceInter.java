@@ -14,13 +14,25 @@ public interface ProductServiceInter {
 
     public List<ProductDto> getProductDataOfLocation(String keyword);
 
-    public List<ProductDto> getProductClickOrderByLowPriceOfCategory(String keyword);
+    public List<ProductDto> getProductClickOrderByLowPriceOfCategory(String keyword, String minPrice, String maxPrice);
 
-    public List<ProductDto> getProductClickOrderByLowPriceOfHashTag(String keyword);
+    public List<ProductDto> getProductClickOrderByLowPriceOfHashTag(String keyword, String minPrice, String maxPrice);
 
-    public List<ProductDto> getProductClickOrderByLowPriceOfLocation(String keyword);
+    public List<ProductDto> getProductClickOrderByLowPriceOfLocation(String keyword, String minPrice, String maxPrice);
 
-    public List<ProductDto> getProductClickOrderByLowPriceOfName(String keyword);
+    public List<ProductDto> getProductClickOrderByLowPriceOfName(String keyword, String minPrice, String maxPrice);
+
+    public List<ProductDto> getProductOfCategoryByLowPrice(String keyword);
+
+    public List<ProductDto> getProductOfNameByLowPrice(String keyword);
+
+    public List<ProductDto> getProductOfHashTagByLowPrice(String keyword);
+
+    public List<ProductDto> getProductOfLocationByLowPrice(String keyword);
+
+    public List<Integer> getPriceOfAccomNumber(int accom_num);
+    
+    public int getProductOfLowPrice(int accom_num);
 
     public List<String> selectCategory();
 }

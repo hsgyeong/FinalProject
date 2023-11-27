@@ -7,43 +7,88 @@
         select distinct accom_category from accom order by accom_category asc
     </select>
     <select id="getProductDataOfCategory" resultType="productDto" parameterType="String">
-        select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_category = #{keyword}
-        order by A.accom_score desc, B.room_price asc limit 5;
+        GROUP BY A.accom_num
+        order by A.accom_score desc, B.room_price asc
     </select>
     <select id="getProductDataOfHashTag" resultType="productDto" parameterType="String">
-        select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_hashtag like '%${keyword}%'
-        order by A.accom_score desc, B.room_price asc limit 5;
+        GROUP BY A.accom_num
+        order by A.accom_score desc, B.room_price asc
     </select>
     <select id="getProductDataOfLocation" resultType="productDto" parameterType="String">
-        select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_location like '%${keyword}%'
-        order by A.accom_score desc, B.room_price asc limit 5;
+        GROUP BY A.accom_num
+        order by A.accom_score desc, B.room_price asc
     </select>
     <select id="getProductDataOfName" resultType="productDto" parameterType="String">
-        select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_name like '%${keyword}%'
-        order by A.accom_score desc, B.room_price asc limit 5;
+        GROUP BY A.accom_num
+        order by A.accom_score desc, B.room_price asc
     </select>
-    <select id="getProductClickOrderByLowPriceOfCategory" resultType="productDto" parameterType="String">
-        select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+    <select id="getProductOfCategoryByLowPrice" resultType="productDto" parameterType="String">
+        select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_category = #{keyword}
-        order by B.room_price asc, A.accom_score desc limit 5;
+        order by B.room_price asc, A.accom_score desc
     </select>
-    <select id="getProductClickOrderByLowPriceOfHashTag" resultType="productDto" parameterType="String">
-        select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+    <select id="getProductOfHashTagByLowPrice" resultType="productDto" parameterType="String">
+        select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_hashtag like '%${keyword}%'
-        order by B.room_price asc, A.accom_score desc limit 5;
+        order by B.room_price asc, A.accom_score desc
     </select>
-    <select id="getProductClickOrderByLowPriceOfLocation" resultType="productDto" parameterType="String">
-        select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+    <select id="getProductOfLocationByLowPrice" resultType="productDto" parameterType="String">
+        select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_location like '%${keyword}%'
-        order by B.room_price asc, A.accom_score desc limit 5;
+        order by B.room_price asc, A.accom_score desc
     </select>
-    <select id="getProductClickOrderByLowPriceOfName" resultType="productDto" parameterType="String">
-        select distinct * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+    <select id="getProductOfNameByLowPrice" resultType="productDto" parameterType="String">
+        select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_name like '%${keyword}%'
-        order by B.room_price asc, A.accom_score desc limit 5;
+        order by B.room_price asc, A.accom_score desc
+    </select>
+    <select id="getProductClickOrderByLowPriceOfCategory" resultType="productDto" parameterType="Map">
+        select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        where A.accom_category = #{keyword} and
+        B.room_price between #{minPrice} and #{maxPrice}
+        GROUP BY A.accom_num
+        order by B.room_price asc, A.accom_score desc
+    </select>
+    <select id="getProductClickOrderByLowPriceOfHashTag" resultType="productDto" parameterType="Map">
+        select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        where A.accom_hashtag like '%${keyword}%' and
+        B.room_price between #{minPrice} and #{maxPrice}
+        GROUP BY A.accom_num
+        order by B.room_price asc, A.accom_score desc
+    </select>
+    <select id="getProductClickOrderByLowPriceOfLocation" resultType="productDto" parameterType="Map">
+        select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        where A.accom_location like '%${keyword}%' and
+        B.room_price between #{minPrice} and #{maxPrice}
+        GROUP BY A.accom_num
+        order by B.room_price asc, A.accom_score desc
+    </select>
+    <select id="getPriceOfAccomNumber" resultType="int" parameterType="int">
+        select B.room_price from accom A JOIN room B ON A.accom_num = B.accom_num
+        where A.accom_num = #{accom_num}
+    </select>
+    <select id="getPriceOfRoomNumber" resultType="int" parameterType="int">
+        select B.room_price from accom A JOIN room B ON A.accom_num = B.accom_num
+        where A.accom_num = #{accom_num}
+    </select>
+    <select id="getProductOfLowPrice" resultType="int" parameterType="int">
+        select B.room_price from accom A JOIN room B ON A.accom_num = B.accom_num
+        where A.accom_num = #{accom_num}
+        order by B.room_price asc limit 1
+    </select>
+    <select id="getProductClickOrderByLowPriceOfName" resultType="productDto" parameterType="Map">
+        select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        where A.accom_name like '%${keyword}%' and
+        B.room_price between #{minPrice} and #{maxPrice}
+        GROUP BY A.accom_num
+        order by B.room_price asc, A.accom_score desc
     </select>
 </mapper>

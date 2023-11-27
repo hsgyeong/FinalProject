@@ -1,6 +1,8 @@
 package sist.last.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sist.last.dto.ProductDto;
@@ -38,23 +40,69 @@ public class ProductService implements ProductServiceInter {
     }
 
     @Override
-    public List<ProductDto> getProductClickOrderByLowPriceOfCategory(String keyword) {
-        return mapperInter.getProductClickOrderByLowPriceOfCategory(keyword);
+    public List<ProductDto> getProductClickOrderByLowPriceOfCategory(String keyword, String minPrice, String maxPrice) {
+        Map<String, String> map = new HashMap<>();
+        map.put("keyword", keyword);
+        map.put("minPrice", minPrice);
+        map.put("maxPrice", maxPrice);
+        return mapperInter.getProductClickOrderByLowPriceOfCategory(map);
     }
 
     @Override
-    public List<ProductDto> getProductClickOrderByLowPriceOfHashTag(String keyword) {
-        return mapperInter.getProductClickOrderByLowPriceOfHashTag(keyword);
+    public List<ProductDto> getProductClickOrderByLowPriceOfHashTag(String keyword, String minPrice, String maxPrice) {
+        Map<String, String> map = new HashMap<>();
+        map.put("keyword", keyword);
+        map.put("minPrice", minPrice);
+        map.put("maxPrice", maxPrice);
+        return mapperInter.getProductClickOrderByLowPriceOfHashTag(map);
     }
 
     @Override
-    public List<ProductDto> getProductClickOrderByLowPriceOfLocation(String keyword) {
-        return mapperInter.getProductClickOrderByLowPriceOfLocation(keyword);
+    public List<ProductDto> getProductClickOrderByLowPriceOfLocation(String keyword, String minPrice, String maxPrice) {
+        Map<String, String> map = new HashMap<>();
+        map.put("keyword", keyword);
+        map.put("minPrice", minPrice);
+        map.put("maxPrice", maxPrice);
+        return mapperInter.getProductClickOrderByLowPriceOfLocation(map);
     }
 
     @Override
-    public List<ProductDto> getProductClickOrderByLowPriceOfName(String keyword) {
-        return mapperInter.getProductClickOrderByLowPriceOfName(keyword);
+    public List<ProductDto> getProductClickOrderByLowPriceOfName(String keyword, String minPrice, String maxPrice) {
+        Map<String, String> map = new HashMap<>();
+        map.put("keyword", keyword);
+        map.put("minPrice", minPrice);
+        map.put("maxPrice", maxPrice);
+        return mapperInter.getProductClickOrderByLowPriceOfName(map);
+    }
+
+    @Override
+    public List<ProductDto> getProductOfCategoryByLowPrice(String keyword) {
+        return mapperInter.getProductOfCategoryByLowPrice(keyword);
+    }
+
+    @Override
+    public List<ProductDto> getProductOfNameByLowPrice(String keyword) {
+        return mapperInter.getProductOfNameByLowPrice(keyword);
+    }
+
+    @Override
+    public List<ProductDto> getProductOfHashTagByLowPrice(String keyword) {
+        return mapperInter.getProductOfHashTagByLowPrice(keyword);
+    }
+
+    @Override
+    public List<ProductDto> getProductOfLocationByLowPrice(String keyword) {
+        return mapperInter.getProductOfLocationByLowPrice(keyword);
+    }
+
+    @Override
+    public List<Integer> getPriceOfAccomNumber(int accom_num) {
+        return mapperInter.getPriceOfAccomNumber(accom_num);
+    }
+
+    @Override
+    public int getProductOfLowPrice(int accom_num) {
+        return mapperInter.getProductOfLowPrice(accom_num);
     }
 
     @Override
