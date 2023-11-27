@@ -798,7 +798,7 @@
         <c:if test="${productList.size()!=null}">
 
             <c:forEach items="${productList}" var="list" varStatus="i">
-                <div class="accom-list" idx="${list.room_num}">
+                <div class="accom-list" idx="${list.accom_num}">
                     <div class="accom-image">
                         <img src="../accomsave/${list.accom_photo}" style="width: 80px; height: 200px;">
                     </div>
@@ -819,8 +819,8 @@
             </c:forEach>
             <script type="text/javascript">
                 $(".accom-list").click(function () {
-                    var roomNumber = $(this).attr("idx");
-                    alert(roomNumber);
+                    var accom_num = $(this).attr("idx");
+                    location.href = "/room/room-detail?accom_num=" + accom_num;
                 })
             </script>
         </c:if>
