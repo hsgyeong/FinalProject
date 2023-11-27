@@ -37,6 +37,9 @@ public class ReserveController {
 	
 	@GetMapping("/reserve/reserve-form")
 	public String form(Model model,@RequestParam int room_num,
+			@RequestParam String checkin,
+			@RequestParam String checkout,
+			@RequestParam int sleep,
 			@ModelAttribute MemberDto memberDto,
 			@ModelAttribute ReserveDto reserveDto,
 			HttpSession session)
@@ -66,6 +69,9 @@ public class ReserveController {
 		model.addAttribute("adto", adto);
 		model.addAttribute("rdto", rdto);
 		model.addAttribute("info_id", info_id);
+		model.addAttribute("checkin", checkin);
+		model.addAttribute("checkout", checkout);
+		model.addAttribute("sleep", sleep);
 		
 		return "/reservation/reserveForm";
 	}

@@ -289,15 +289,15 @@
 				<br>
 
 				<div class="right-category">객실타입/기간</div>
-				<div>${rdto.room_name } / 기간</div>
+				<div>${rdto.room_name } / ${sleep }박</div>
 				<br>
 
 				<div class="right-category">체크인</div>
-				<div id="room_checkin">날짜${rdto.room_checkin }</div>
+				<div id="room_checkin">${checkin}&nbsp;${rdto.room_checkin }</div>
 				<br>
 
 				<div class="right-category">체크아웃</div>
-				<div id="room_checkout">날짜${rdto.room_checkout }</div>
+				<div id="room_checkout">${checkout}&nbsp;${rdto.room_checkout }</div>
 				<br>
 
 				<hr style="width: 95%; margin-left: 5px;">
@@ -327,11 +327,11 @@
 						
 						<div class="modal-body">
 							${adto.accom_category }<br>
-							${rdto.room_name } / 기간<br>
+							${rdto.room_name } / ${sleep }박<br>
 							<br>
 							
-							<span style="color: #CFCFCF;">체크인</span><span style="float: right; font-weight: bold;">${rdto.room_checkin }</span><br>
-							<span style="color: #CFCFCF;">체크아웃</span><span style="float: right; font-weight: bold;">${rdto.room_checkout }</span>
+							<span style="color: #CFCFCF;">체크인</span><span style="float: right; font-weight: bold;">${checkin}&nbsp;${rdto.room_checkin }</span><br>
+							<span style="color: #CFCFCF;">체크아웃</span><span style="float: right; font-weight: bold;">${checkout}&nbsp;${rdto.room_checkout }</span>
 							<hr>
 							
 							<p>
