@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.security.auth.login.AccountException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -95,7 +94,7 @@ public class MemberController {
 	
 	@PostMapping("/member/join-member")
 	@ResponseBody
-	public String insert(@Valid MemberDto memberDto, Errors errors,
+	public String insert(MemberDto memberDto,
 			Model model,
 			@RequestParam String hp1,
 			@RequestParam String hp2,
@@ -104,17 +103,7 @@ public class MemberController {
 			@RequestParam String email2,
 			HttpSession session)
 	{
-		if(errors.hasErrors()) {
 			
-			model.addAttribute("memberDto", memberDto);
-			
-			Map<String, String> validatorResult = service.validateHandling(errors);
-			for(String key : validatorResult.keySet()) {
-				model.addAttribute(key, validatorResult.get(key));
-			}
-			
-			return "/member/memberAddForm";
-		}
 			String hp = hp1+"-"+hp2+"-"+hp3;
 			memberDto.setInfo_hp(hp);
 			
