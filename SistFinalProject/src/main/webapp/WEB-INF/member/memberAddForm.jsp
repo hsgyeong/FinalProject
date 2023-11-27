@@ -17,6 +17,23 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(function() {
+		
+		function ValidId(id){
+			var idRegex = /^[a-z0-9]{4,12}$/;
+			return idRegex.test(id);
+		}
+		
+		$("#id").keyup(function(){
+			
+			var id = $(this).val();
+			var validId = ValidId(id);
+			if(validId){
+				$("span.validid").text("");
+			}else{
+				$("span.validid").text("4~12자의 영문 소문자와 숫자만 가능합니다.").css("color","red")
+			}
+		})
+		
 
 		$("#idchk").click(function() {
 
@@ -36,10 +53,11 @@
 					if (res.count == 0) {
 
 						alert("사용 가능한 아이디입니다.");
-						$("span.idok").text("사용 가능한 아이디입니다.");
+						$("span.idok").text("사용 가능한 아이디입니다.").css("color","green");
 					} else {
 
 						alert("사용중인 아이디입니다. 다시 입력해주세요.");
+						$("span.idok").text("사용중인 아이디입니다.").css("color","red");
 						$("#id").val("");
 					}
 
@@ -63,21 +81,38 @@
 			}
 		})
 
+		$("#pass1").keyup(function(){
+			
+			var pass1=$(this).val();
+			var validPass = ValidPassword(pass1);
+			if(validPass){
+				$("span.passvalid").text("");		
+			}else{
+				$("span.passvalid").text("비밀번호는 8~12자리의 영소문자 또는 대문자, 숫자, 특수문자를 포함해야합니다.").css("color","red");
+			}
+		})
+		
+		function ValidPassword(password) {
+			var passwords = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/;
+			return passwords.test(password);
+		}
+		
 		$("#pass2").keyup(function() {
 			var pass1 = $("#pass1").val();
 			var pass2 = $("#pass2").val();
-
+		
 			//alert(pass1+","+pass2)
 			if (pass1 == pass2) {
-				$("span.passok").text("비밀번호가 일치합니다.");
+				$("span.passok").text("비밀번호가 일치합니다.").css("color","green");
+				
 			} else {
-				$("span.passok").text("비밀번호가 일치하지 않습니다.");
+				$("span.passok").text("비밀번호가 일치하지 않습니다.").css("color","red");
 				$("#pass2").focus();
 
 			}
 
-		})
-
+		});
+		
 		$("#nickchk").click(function() {
 
 			var nickname = $("#nick").val();
@@ -95,16 +130,16 @@
 
 					if (res.count == 0) {
 
-						$("span.nickok").text("사용 가능한 닉네임입니다.");
+						$("span.nickok").text("사용 가능한 닉네임입니다.").css("color","green");
 					} else {
 
-						$("span.nickok").text("사용중인 닉네임입니다.");
+						$("span.nickok").text("사용중인 닉네임입니다.").css("color","red");
 					}
 				}
 			})
 
 		})
-
+	
 	});
 </script>
 <style type="text/css">
@@ -161,7 +196,7 @@ body {
 </style>
 </head>
 <body>
-	<form action="join-member" method="post">
+	<form action="join-member" method="post" id="joinForm">
 		<table class="tb">
 			<h3>
 				<a href="/"	class="t" id="t" style="font-family: 'Jalnan'; text-align: center;
@@ -183,11 +218,16 @@ body {
 							id="id" class="form-control" required="required"
 							style="width: 330px;" placeholder="아이디를 입력해주세요">&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn" id="idchk"
-								style="background-color: #f7323f; color: white; width:30%; font-family: 'Jalnan';">중복체크</button></span>
-						<span class="idok" style="color: green; font-size: 12px;"></span><br><br>
+								style="background-color: #f7323f; color: white; width:30%; font-family: 'Jalnan';">중복체크</button></span>	
+								<span class="idok" style="color: green; font-size: 12px;"></span><br>
+								<span class="validid"  style="font-size: 12px;"></span>
+					<br>
 						 비밀번호<br> 
 						<input type="password" name="info_pass"	id="pass1" class="form-control" required="required"
-							style="width: 300px;" placeholder="비밀번호를 입력해주세요">&nbsp;&nbsp;<br>
+							style="width: 300px;" placeholder="비밀번호를 입력해주세요">
+							<span class="passvalid" style="font-size: 12px;"></span>
+							&nbsp;&nbsp;<br>
+							
 						비밀번호 확인<br>
 						<div style="display: flex;">
 							<input type="password" name="pass2" id="pass2"
@@ -203,7 +243,7 @@ body {
 							font-family: 'Jalnan'; width:30%;">중복체크</button></span>
 						<span class="nickok" style="color: green; font-size: 12px;"></span><br><br>
 						 이름<br> 
-						 <input type="text" name="info_name"	class="form-control" required="required" style="width: 300px;"
+						 <input type="text" name="info_name" class="form-control" required="required" style="width: 300px;"
 							placeholder="이름을 입력해주세요"><br> 
 						휴대폰<br> 
 						<select	style="width: 80px; height: 31px;" name="hp1">

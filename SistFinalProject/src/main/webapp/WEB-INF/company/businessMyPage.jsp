@@ -21,6 +21,7 @@
     .x { 
     text-decoration:none;
     color: gray;
+    cursor:pointer;
     }
     
     table {
@@ -121,8 +122,10 @@
 	</tr>
 	<tr>	
 		<td>
-		<a href="/member/business-update?business_id=${businessDto.business_id }" class="up">정보수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="/login/logout" class="out">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/member/business-update?business_id=${businessDto.business_id }" class="up">정보수정</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/login/logout" class="out">로그아웃</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a class="x" name="mx" value="${businessDto.business_id }">회원탈퇴</a>
 			<br><br><br>
 	<a class="mine" href="/accom/accom-list?business_id=${businessDto.business_id }">나의 등록 숙소</a>
@@ -150,9 +153,9 @@
       <!-- Modal footer -->
       <div class="modal-footer">
       
-      <button type="button" class="btn btn-danger" id="bbtndelete"
+      <button type="button" class="btn del" id="bbtndelete" style="background-color: white;"
       onclick="location.href=/company/delete-business">회원탈퇴</button>
-        <button type="button" class="btn btn-success cc" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn cc" data-bs-dismiss="modal" style="background-color: white;">취소</button>
       </div>
       
   </div>
