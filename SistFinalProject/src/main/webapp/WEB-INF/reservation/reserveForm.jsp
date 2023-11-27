@@ -326,12 +326,12 @@
 						</div>
 						
 						<div class="modal-body">
-							숙소이름<br>
-							숙소타입 넣을 곳 / 기간<br>
+							${adto.accom_category }<br>
+							${rdto.room_name } / 기간<br>
 							<br>
 							
-							<span style="color: #CFCFCF;">체크인</span><span style="float: right; font-weight: bold;">체크인시간</span><br>
-							<span style="color: #CFCFCF;">체크아웃</span><span style="float: right; font-weight: bold;">체크아웃시간</span>
+							<span style="color: #CFCFCF;">체크인</span><span style="float: right; font-weight: bold;">${rdto.room_checkin }</span><br>
+							<span style="color: #CFCFCF;">체크아웃</span><span style="float: right; font-weight: bold;">${rdto.room_checkout }</span>
 							<hr>
 							
 							<p>
