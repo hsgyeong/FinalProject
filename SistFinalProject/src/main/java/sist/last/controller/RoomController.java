@@ -61,7 +61,8 @@ public class RoomController {
     }
     
     @GetMapping("/room/room-detail")
-    public ModelAndView detail(@RequestParam int accom_num,@RequestParam int sleep)
+    public ModelAndView detail(@RequestParam int accom_num,@RequestParam int sleep,
+    		@RequestParam String checkin,@RequestParam String checkout)
     {
     	ModelAndView model=new ModelAndView();
     
@@ -79,6 +80,8 @@ public class RoomController {
     	model.addObject("dto", dto);
     	model.addObject("photoList", photoList);
     	model.addObject("sleep", sleep);
+    	model.addObject("checkin", checkin);
+    	model.addObject("checkout", checkout);
 
     	model.setViewName("/room/roomDetail");
     	
