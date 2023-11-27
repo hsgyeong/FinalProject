@@ -227,6 +227,11 @@
 	height: 5vh;
 	margin-top: -1vh;
 }
+
+.detail_suk_info{
+	width: 80%;
+	margin-left: 10%;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -362,11 +367,7 @@
 
 					<script>
 						$(document).ready(function() {
-							var accomScore = $
-							{
-								dto.accom_score
-							}
-							;
+							var accomScore = ${dto.accom_score }
 
 							if (accomScore > 9) {
 								$(".detail_score_result").text("최고예요");
@@ -415,7 +416,7 @@
 				<div class="detail_room_select_name">${rdto.room_name }</div>
 				<div class="detail_room_select_suk">숙박</div>
 				<div class="detail_room_select_price" align="right">
-					<fmt:formatNumber value="${rdto.room_price }" />
+					<fmt:formatNumber value="${rdto.room_price*sleep }" />
 					원
 				</div>
 				<div class="detail_room_select_checkin">
@@ -428,7 +429,7 @@
 					<br>
 					<c:if test="${sessionScope.loginok != null }">
 						<button type="button" class="room_detail_reserve_btn"
-							onclick="location.href='/reserve/reserve-form?room_num=${rdto.room_num}&checkin=${rdto.room_checkin }&checkout=${rdto.room_checkout }&sleep=${sleep }'">예약</button>
+							onclick="location.href='/reserve/reserve-form?room_num=${rdto.room_num}&checkin=${checkin }&checkout=${checkout }&sleep=${sleep }'">예약</button>
 					</c:if>
 					<c:if test="${sessionScope.loginok == null }">
 						<button type="button" id="detail_alert"
