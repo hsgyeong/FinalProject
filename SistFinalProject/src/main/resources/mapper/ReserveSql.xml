@@ -4,6 +4,15 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="sist.last.mapper.ReserveMapperInter">
  	<insert id="reservingInsert" parameterType="reserveDto">
- 		insert into reservation values (#{reserve_id},#{info_id},#{reserve_name},#{reserve_hp},#{room_num},#{reserve_amount},#{reserve_checkin},#{reserve_checkout},"예약완료",#{reserve_coupon});
+ 		insert into reservation values (null,#{reserve_id},#{info_id},#{reserve_name},#{reserve_hp},#{room_num},#{reserve_amount},#{reserve_checkin},#{reserve_checkout},"예약완료",#{reserve_coupon});
  	</insert>
+ 	
+ 	<select id="getOneDataByIdOfReserve" parameterType="Map" resultType="reserveDto">
+ 		select * from reservation where info_id=#{info_id} and idx=#{idx}
+ 	</select>
+ 	
+ 	<select id="getMaxIdxOfReserve" resultType="int">
+ 		select max(idx) from reservation
+ 	</select>
+ 	
  </mapper>

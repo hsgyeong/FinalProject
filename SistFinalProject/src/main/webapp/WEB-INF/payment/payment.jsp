@@ -13,6 +13,8 @@
     <title>Insert title here</title>
 </head>
 <body>
-	예약페이지
+	<div>
+		${reserveDto.reserve_id }
+	</div>
 </body>
 </html>

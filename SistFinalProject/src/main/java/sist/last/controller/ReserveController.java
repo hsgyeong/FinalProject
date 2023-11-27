@@ -38,6 +38,7 @@ public class ReserveController {
 	@GetMapping("/reserve/reserve-form")
 	public String form(Model model,@RequestParam int room_num,
 			@ModelAttribute MemberDto memberDto,
+			@ModelAttribute ReserveDto reserveDto,
 			HttpSession session)
 	{
 		String info_id=(String)session.getAttribute("info_id");
@@ -57,6 +58,7 @@ public class ReserveController {
 		else if(coupon>0)
 			couponcnt=mservice.getCouponCount(info_id);
 		
+		model.addAttribute("reserveDto", reserveDto);
 		model.addAttribute("coupon", coupon);
 		model.addAttribute("couponcnt", couponcnt);
 		model.addAttribute("point", point);
