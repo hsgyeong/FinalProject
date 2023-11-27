@@ -43,7 +43,10 @@ public class ProductController {
         selectDate1 = selDate1;
         selectDate2 = selDate2;
         List<String> category = pService.selectCategory();
-        System.out.println(sort);
+        if (selCate == "") {
+            selCate = null;
+        }
+        System.out.println(sort + "," + selCate);
         model.addAttribute("keyword", keyword);
         model.addAttribute("category", category);
         if (selDate1 == null) {
@@ -213,6 +216,9 @@ public class ProductController {
     }
 
     private boolean isEqualInputCategory(ProductDto product) {
+        if (categoryList.isEmpty()) {
+            return true;
+        }
         for (String category : categoryList) {
             if (category.equals(product.getAccom_category())) {
                 return true;
