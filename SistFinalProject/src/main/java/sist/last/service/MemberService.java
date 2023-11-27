@@ -3,9 +3,13 @@ package sist.last.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
 import sist.last.dto.MemberDto;
 import sist.last.mapper.MemberMapperInter;
@@ -80,6 +84,21 @@ public class MemberService implements MemberServiceInter {
 	public int getCouponCount(String info_id) {
 		// TODO Auto-generated method stub
 		return mapperInter.getCouponCount(info_id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Map<String, String> validateHandling(Errors errors) {
+		// TODO Auto-generated method stub
+		
+		Map<String, String> validatorResult = new HashMap<>();
+		
+		for (FieldError error : errors.getFieldErrors()) {
+			String validKeyName = String.format("valid_%s", error.getField());
+			validatorResult.put(validKeyName, error.getDefaultMessage());
+		}
+		
+		return validatorResult;
 	}
 
 

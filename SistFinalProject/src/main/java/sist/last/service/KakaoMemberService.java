@@ -82,7 +82,7 @@ public class KakaoMemberService implements KakaoMemberServiceInter {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public HashMap<String, Object> getMemberInfo(String access_token) throws Throwable {
+	public HashMap<String, Object> getUserInfo(String access_token) throws Throwable {
 		// TODO Auto-generated method stub
 		
 		HashMap<String, Object> memberInfo = new HashMap<String, Object>();
@@ -134,6 +134,35 @@ public class KakaoMemberService implements KakaoMemberServiceInter {
 		e.printStackTrace();
 	}
 		return memberInfo;
+	}
+
+	@Override
+	public void kakaoLogout(String access_token) {
+		// TODO Auto-generated method stub
+		String reqURL = "https://kapi.kakao.com/v1/user/logout";
+		
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Authorization", "Bearer "+access_token);
+			
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode : "+responseCode);
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			
+			String result = "";
+			String line = "";
+			
+			while((line = br.readLine()) != null) {
+				result += line;
+			}
+			System.out.println(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -96,6 +96,7 @@ public class KakaoAPI {
 		return accessToken;
 	
 		}
+	
 	public HashMap<String, Object> getMemberInfo(String accessToken){
 		
 		HashMap<String, Object> userInfo  = new HashMap<String, Object>();

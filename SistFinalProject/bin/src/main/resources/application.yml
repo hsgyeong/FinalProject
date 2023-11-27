@@ -24,11 +24,10 @@ spring:
     url: jdbc:mysql://finalproject-sist0615.crsfihj2wlpy.ap-northeast-2.rds.amazonaws.com/finalproject
     username: Sist0615_1st
     password: Tkddyd1109!#
-
-
     
 #mybatis setting
 mybatis:
   type-aliases-package: sist.last.*
   mapper-locations:
   - /mapper/**/*.xml
+  

@@ -72,7 +72,23 @@
 				$(this).attr("maxlength", 4);
 
 			}
+		});
+		
+		$("#pass1").keyup(function(){
+			
+			var pass1=$(this).val();
+			var validPass = ValidPassword(pass1);
+			if(validPass){
+				$("span.passvalid").text("");		
+			}else{
+				$("span.passvalid").text("비밀번호는 8~12자리의 영소문자 또는 대문자, 숫자, 특수문자를 포함해야합니다.").css("color","red");
+			}
 		})
+		
+		function ValidPassword(password) {
+			var passwords = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/;
+			return passwords.test(password);
+		}
 
 		$("#pass2").keyup(function() {
 			var pass1 = $("#pass1").val();
@@ -80,9 +96,9 @@
 
 			//alert(pass1+","+pass2)
 			if (pass1 == pass2) {
-				$("span.passok").text("비밀번호가 일치합니다.");
+				$("span.passok").text("비밀번호가 일치합니다.").css("color","green");
 			} else {
-				$("span.passok").text("비밀번호가 일치하지 않습니다.");
+				$("span.passok").text("비밀번호가 일치하지 않습니다.").css("color","red");
 				$("#pass2").focus();
 
 			}
@@ -172,13 +188,15 @@ body {
 						<span class="bNumOk" style="color: green; font-size: 12px;"></span><br><br>
 						 비밀번호<br> 
 						<input type="password" name="business_pass"	id="pass1" class="form-control" required="required"
-							style="width: 300px;" placeholder="비밀번호를 입력해주세요">&nbsp;&nbsp;<br>
+							style="width: 300px;" placeholder="비밀번호를 입력해주세요">
+							<span class="passvalid" style="font-size: 12px;"></span>
+							&nbsp;&nbsp;<br>
 						비밀번호 확인<br>
 						<div style="display: flex;">
 							<input type="password" name="pass2" id="pass2"
 								class="form-control" required="required" style="width: 300px;"
 								placeholder="비밀번호를 다시 입력해주세요">&nbsp;&nbsp;<br> 
-							<span class="passok" style="color: green; font-size: 12px;"></span>
+							<span class="passok" style="font-size: 12px;"></span>
 						</div>
 						<br> 상호명<br> 
 						<span class="accommodation"> 
@@ -189,7 +207,7 @@ body {
 					  -->		
 							</span>
 					<!--<span class="nickok" style="color: green; font-size: 12px;"></span> -->
-					<br><br>
+					<br>
 						 대표자<br> 
 						 <input type="text" name="business_name"	class="form-control" required="required" style="width: 300px;"
 							placeholder="대표자명을 입력해주세요"><br> 
