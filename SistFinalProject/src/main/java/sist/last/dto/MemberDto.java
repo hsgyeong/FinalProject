@@ -2,9 +2,6 @@ package sist.last.dto;
 
 import java.sql.Timestamp;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;

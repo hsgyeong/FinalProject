@@ -7,15 +7,12 @@ import java.util.Map;
 import javax.security.auth.login.AccountException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,26 +92,15 @@ public class MemberController {
 	
 	@PostMapping("/member/join-member")
 	@ResponseBody
-	public String insert(@Valid MemberDto memberDto, Errors errors,
-			Model model,
+	public String insert(MemberDto memberDto,
 			@RequestParam String hp1,
 			@RequestParam String hp2,
 			@RequestParam String hp3,
 			@RequestParam String email1,
 			@RequestParam String email2,
 			HttpSession session)
-	{
-		if(errors.hasErrors()) {
+	{	
 			
-			model.addAttribute("memberDto", memberDto);
-			
-			Map<String, String> validatorResult = service.validateHandling(errors);
-			for(String key : validatorResult.keySet()) {
-				model.addAttribute(key, validatorResult.get(key));
-			}
-			
-			return "/member/memberAddForm";
-		}
 			String hp = hp1+"-"+hp2+"-"+hp3;
 			memberDto.setInfo_hp(hp);
 			
