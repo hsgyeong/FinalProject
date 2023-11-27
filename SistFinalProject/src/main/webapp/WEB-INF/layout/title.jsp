@@ -269,7 +269,7 @@
                 <li class="select-li"><a href="#">예약내역</a></li>
                 <li class="select-li"><a href="#" id="see_more">더보기</a></li>
                 <li class="select-li"><a href="/accom/accom-list">예약</a></li>
-                <c:if test="${sessionScope.loginok==null }">
+                <c:if test="${sessionScope.loginok==null}">
                     <li class="select-li"><a href="/login/loginmain">로그인</a></li>
                 </c:if>
                 <c:if test="${sessionScope.loginok!=null }">
@@ -289,7 +289,7 @@
         <div class="sub-title">
             <ul>
                 <li><a href="#">공지사항</a></li>
-                <li><a href="#">이벤트</a></li>
+                <li><a href="/notice/event">이벤트</a></li>
                 <li><a href="/chat/room1">1:1문의</a></li>
                 <li><a href="#">약관 및 정책</a></li>
                 <li><a href="#">공지사항</a></li>
@@ -318,7 +318,7 @@
                                 <li><a href="/company/business-mypage">내정보</a></li>
                             </c:when>
                         </c:choose>
-                        <li><a href="/login/logout">로그아웃</a></li>
+                        <li><a href="login/logout">로그아웃</a></li>
                     </div>
                 </ul>
             </div>

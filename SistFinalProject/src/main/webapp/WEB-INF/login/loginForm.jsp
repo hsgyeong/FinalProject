@@ -204,7 +204,7 @@ else{
 					</a>
 					/ -->	
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=f74ba8d7ae81ba39d038f11c32d7c6ae&redirect_uri=http://localhost:9000/login/kakao-member&response_type=code">
-					<img alt="" src="../loginsave/kakao.png" style="cursor: pointer;">
+					<img alt="" src="../loginsave/kakao.png" style="cursor: pointer; width:145px;height:40px;">
 					</a>
 					</div>
 				</td>

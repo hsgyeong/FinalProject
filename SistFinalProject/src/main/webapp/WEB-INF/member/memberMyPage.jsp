@@ -71,6 +71,16 @@
 	.tb {
 	margin-top: -250px;
 	}
+	
+	.del {
+	width:100px;
+	background-color: white;
+	}
+	
+	.cc {
+	width:100px;
+	background-color: white;
+	}
     </style>
 </head>
 <body>
@@ -86,13 +96,13 @@
 	<br><br>
 	<tr>
 		<td>
-			<a class="notify">알림설정</a>
+			<a class="event" onclick="location.href='/notice/event'">이벤트</a>
 		</td>
 	</tr>
 	<br><br>
 	<tr>
 		<td>
-			<a class="event">혜택</a>
+			<a class="notify">알림설정</a>
 		</td>
 	</tr>
 	<br><br>
@@ -208,9 +218,9 @@
       <!-- Modal footer -->
       <div class="modal-footer">
       
-      <button type="button" class="btn btn-danger" id="btndelete"
+      <button type="button" class="btn del" id="btndelete" style="background-color: white;"
       onclick="location.href=/member/delete-member">회원탈퇴</button>
-        <button type="button" class="btn btn-success cc" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn cc"  style="background-color: white;" data-bs-dismiss="modal">취소</button>
       </div>
       
   </div>

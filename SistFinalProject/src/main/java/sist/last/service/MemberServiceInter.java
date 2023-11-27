@@ -1,6 +1,9 @@
 package sist.last.service;
 
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.validation.Errors;
 
 import sist.last.dto.MemberDto;
 
@@ -16,4 +19,5 @@ public interface MemberServiceInter {
 	public void updateMember(MemberDto dto);
 	public void deleteMember(String info_id);
 	public int getCouponCount(String info_id);
+	public Map<String, String> validateHandling(Errors errors);
 }

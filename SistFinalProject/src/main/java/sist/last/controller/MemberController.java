@@ -4,12 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.security.auth.login.AccountException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import sist.last.dto.MemberDto;
 import sist.last.service.BusinessService;
 import sist.last.service.MemberService;
+import sist.last.service.MemberServiceInter;
 
 @Controller
 public class MemberController {
@@ -65,9 +71,31 @@ public class MemberController {
 		return map;
 	}
 	
+	/*
+	@PostMapping("/member/sendMessage")
+	@ResponseBody
+	public String sendMessage(@Valid MemberDto memberDto, Errors errors, Model model) {
+		
+		if(errors.hasErrors()) {
+		
+		model.addAttribute("memberDto", memberDto);
+		
+		Map<String, String> validatorResult = service.validateHandling(errors);
+		for(String key : validatorResult.keySet()) {
+			model.addAttribute(key, validatorResult.get(key));
+		}
+		return "/member/memberAddForm";
+	}
+		service.insertMember(memberDto);
+		return "/member/welcom";
+	}
+	
+	*/
 	
 	@PostMapping("/member/join-member")
-	public String insert(@ModelAttribute MemberDto dto,
+	@ResponseBody
+	public String insert(MemberDto memberDto,
+			Model model,
 			@RequestParam String hp1,
 			@RequestParam String hp2,
 			@RequestParam String hp3,
@@ -75,13 +103,14 @@ public class MemberController {
 			@RequestParam String email2,
 			HttpSession session)
 	{
-		String hp = hp1+"-"+hp2+"-"+hp3;
-		dto.setInfo_hp(hp);
+			
+			String hp = hp1+"-"+hp2+"-"+hp3;
+			memberDto.setInfo_hp(hp);
+			
+			String email = email1+"@"+email2;
+			memberDto.setInfo_email(email);	
 		
-		String email = email1+"@"+email2;
-		dto.setInfo_email(email);
-		
-		service.insertMember(dto);	
+		service.insertMember(memberDto);	
 
 		return "/member/welcome";
 	}
@@ -140,6 +169,8 @@ public class MemberController {
 		return "/member/updateSuccess";
 	}
 	
+	
+	
 	@GetMapping("/member/delete-member")
 	@ResponseBody
 	public String delete(@RequestParam String info_id,
@@ -160,6 +191,12 @@ public class MemberController {
 	public String point()
 	{
 		return "/member/myPoint";
+	}
+	
+	@GetMapping("/notice/event")
+	public String event()
+	{
+		return "/notice/event";
 	}
 
 }
