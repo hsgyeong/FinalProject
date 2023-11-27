@@ -819,8 +819,12 @@
             </c:forEach>
             <script type="text/javascript">
                 $(".accom-list").click(function () {
+                    var selDate1 = '${selDate1}';
+                    var selDate2 = '${selDate2}';
+                    var sleep = '${sleep}';
                     var accom_num = $(this).attr("idx");
-                    location.href = "/room/room-detail?accom_num=" + accom_num;
+                    location.href = "/room/room-detail?accom_num=" + accom_num + "&checkin=" + selDate1 +
+                        "&checkout=" + selDate2 + "&sleep=" + sleep;
                 })
             </script>
         </c:if>
