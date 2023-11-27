@@ -173,11 +173,11 @@
                 <th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
                 <th><button onclick="send()" id="sendBtn">보내기</button></th>
             </tr>
-<%--            <tr>--%>
-<%--                <th>파일업로드</th>--%>
-<%--                <th><input type="file" id="fileUpload"></th>--%>
-<%--                <th><button onclick="fileSend()" id="sendFileBtn">파일업로드</button></th>--%>
-<%--            </tr>--%>
+            <tr>
+                <th>파일업로드</th>
+                <th><input type="file" id="fileUpload"></th>
+                <th><button onclick="fileSend()" id="sendFileBtn">파일업로드</button></th>
+            </tr>
         </table>
     </div>
 </div>
