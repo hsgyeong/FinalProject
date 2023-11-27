@@ -228,9 +228,12 @@
 	margin-top: -1vh;
 }
 
-.detail_suk_info{
+.detail_suk_info,.detail_review{
 	width: 80%;
 	margin-left: 10%;
+	border: 1px solid black;
+	height: 500px;
+	margin-top: 3vh;
 }
 </style>
 <script type="text/javascript">
@@ -239,6 +242,12 @@
 		(function() {
 			$(".detail_suk_info").hide();
 			$(".detail_review").hide();
+			$(".detail_select_1").css({
+				
+				"color" : "#f7323f",
+				"border-bottom" : "5px solid #f7323f",
+				"font-weight" : "bold"
+			});
 		})();
 
 		// 경고 창 띄우는 함수
@@ -253,15 +262,13 @@
 
 				"color" : "#f7323f",
 				"border-bottom" : "5px solid #f7323f",
-				"font-weight" : "bold",
-				"margin-left" : "-2vh"
+				"font-weight" : "bold"
 			})
 
 			$(".detail_select_2, .detail_select_3").css({
 				"color" : "",
 				"border-bottom" : "",
-				"font-weight" : "",
-				"margin-left" : ""
+				"font-weight" : ""
 			});
 
 			$(".detail_room_select").show();
@@ -275,15 +282,13 @@
 
 				"color" : "#f7323f",
 				"border-bottom" : "5px solid #f7323f",
-				"font-weight" : "bold",
-				"margin-left" : "-2vh"
+				"font-weight" : "bold"
 			})
 
 			$(".detail_select_1, .detail_select_3").css({
 				"color" : "",
 				"border-bottom" : "",
-				"font-weight" : "",
-				"margin-left" : ""
+				"font-weight" : ""
 			});
 			$(".detail_room_select").hide();
 			$(".detail_suk_info").show();
@@ -296,15 +301,13 @@
 
 				"color" : "#f7323f",
 				"border-bottom" : "5px solid #f7323f",
-				"font-weight" : "bold",
-				"margin-left" : "-2vh"
+				"font-weight" : "bold"
 			})
 
 			$(".detail_select_1, .detail_select_2").css({
 				"color" : "",
 				"border-bottom" : "",
-				"font-weight" : "",
-				"margin-left" : ""
+				"font-weight" : ""
 			});
 
 			$(".detail_room_select").hide();
