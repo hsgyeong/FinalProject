@@ -175,13 +175,6 @@
 	margin-right: 1vh;
 }
 
-.detail_date {
-	width: 80%;
-	margin-left: 10%;
-	border: 3px solid blue;
-	margin-top: 3vh;
-}
-
 .detail_room_select {
 	width: 80%;
 	margin-left: 10%;
@@ -245,32 +238,94 @@
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
+    // 페이지 로딩 시 실행되는 함수
+    (function() {
+        $(".detail_suk_info").hide();
+        $(".detail_review").hide();
+    })();
+
+    // 경고 창 띄우는 함수
     $("#detail_alert").click(function() {
         alert('로그인 후 이용해주세요');
     });
-});
-
-$(document).ready(function() {
 
     // 탭 클릭 시 이벤트 처리
     $(".detail_select_1").click(function() {
+        $(".detail_select_1").css({
+            "color": "",
+            "border-bottom": "",
+            "font-weight": "",
+            "margin-left": ""
+        }).css({
+            "color": "#f7323f",
+            "border-bottom": "5px solid #f7323f",
+            "font-weight": "bold",
+            "margin-left": "-2vh"
+        });
+
+        $(".detail_select_2, .detail_select_3").css({
+            "color": "",
+            "border-bottom": "",
+            "font-weight": "",
+            "margin-left": ""
+        });
+
         $(".detail_room_select").show();
         $(".detail_suk_info").hide();
         $(".detail_review").hide();
     });
 
     $(".detail_select_2").click(function() {
-    	$(".detail_room_select").hide();
+        $(".detail_select_2").css({
+            "color": "",
+            "border-bottom": "",
+            "font-weight": "",
+            "margin-left": ""
+        }).css({
+            "color": "#f7323f",
+            "border-bottom": "5px solid #f7323f",
+            "font-weight": "bold",
+            "margin-left": "-2vh"
+        });
+
+        $(".detail_select_1, .detail_select_3").css({
+            "color": "",
+            "border-bottom": "",
+            "font-weight": "",
+            "margin-left": ""
+        });
+
+        $(".detail_room_select").hide();
         $(".detail_suk_info").show();
         $(".detail_review").hide();
     });
 
     $(".detail_select_3").click(function() {
-    	$(".detail_room_select").hide();
+        $(".detail_select_3").css({
+            "color": "",
+            "border-bottom": "",
+            "font-weight": "",
+            "margin-left": ""
+        }).css({
+            "color": "#f7323f",
+            "border-bottom": "5px solid #f7323f",
+            "font-weight": "bold",
+            "margin-left": "-2vh"
+        });
+
+        $(".detail_select_1, .detail_select_2").css({
+            "color": "",
+            "border-bottom": "",
+            "font-weight": "",
+            "margin-left": ""
+        });
+
+        $(".detail_room_select").hide();
         $(".detail_suk_info").hide();
         $(".detail_review").show();
     });
 });
+
 </script>
 <body>
 	<div class="detail_box">
@@ -364,8 +419,6 @@ $(document).ready(function() {
 			</ul>
 		</div>
 		</div>
-
-		<div class="detail_date">날짜 선택하는거 띄워주세요</div>
 
 		<c:forEach items="${list }" var="rdto">
 		<div class="detail_room_select">
