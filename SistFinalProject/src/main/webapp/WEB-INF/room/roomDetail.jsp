@@ -428,7 +428,7 @@
 					<br>
 					<c:if test="${sessionScope.loginok != null }">
 						<button type="button" class="room_detail_reserve_btn"
-							onclick="location.href='/reserve/reserve-form?room_num=${rdto.room_num}'">예약</button>
+							onclick="location.href='/reserve/reserve-form?room_num=${rdto.room_num}&checkin=${rdto.room_checkin }&checkout=${rdto.room_checkout }&sleep=${sleep }'">예약</button>
 					</c:if>
 					<c:if test="${sessionScope.loginok == null }">
 						<button type="button" id="detail_alert"

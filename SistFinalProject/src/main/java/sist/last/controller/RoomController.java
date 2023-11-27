@@ -61,7 +61,7 @@ public class RoomController {
     }
     
     @GetMapping("/room/room-detail")
-    public ModelAndView detail(@RequestParam int accom_num)
+    public ModelAndView detail(@RequestParam int accom_num,@RequestParam int sleep)
     {
     	ModelAndView model=new ModelAndView();
     
@@ -73,11 +73,12 @@ public class RoomController {
 
 	    // 이미지 파일 이름들을 콤마로 스플릿하여 리스트로 변환
 	    List<String> photoList = Arrays.asList(photoNames.split(","));
+	  
 	    
 		model.addObject("list", list);
     	model.addObject("dto", dto);
     	model.addObject("photoList", photoList);
-    	
+    	model.addObject("sleep", sleep);
 
     	model.setViewName("/room/roomDetail");
     	
