@@ -668,7 +668,13 @@
                 <ul>
                     <c:forEach items="${category}" var="list" varStatus="i">
                         <li style="line-height: 2" class="d-inline-flex">
-                            <input type="checkbox" id="category${i.count}" style="margin-right: 10px;">
+                            <input type="checkbox" id="category${i.count}" style="margin-right: 10px;"
+                                   value="${list}" name="category"
+                            <c:forEach items="${selCate}" var="cate" varStatus="i">
+                            <c:if test="${cate==list}">
+                                   checked
+                            </c:if>
+                            </c:forEach>>
                             <span class="category${i.count}">${list}</span>
                         </li>
                         <br>
@@ -765,13 +771,17 @@
             <button type="button" class="btn btn-outline-danger setting-btn" style="width: 200px;">적용</button>
             <script type="text/javascript">
                 $(".setting-btn").click(function () {
+                    var cateArray = $('input:checkbox[name=category]:checked').map(function () {
+                        return this.value;
+                    }).get().join(', ');
+                    cateArray = cateArray.replace(/[\[\]']/g, '');
                     var keyword = '${keyword}';
                     var selDate1 = '${selDate1}';
                     var selDate2 = '${selDate2}';
-                    alert(selDate1 + "," + selDate2);
+                    alert(selDate1 + "," + selDate2 + "," + cateArray);
                     var minPrice = $("#input-left").val() * 10000;
                     var maxPrice = $("#input-right").val() * 10000;
-                    location.href = "/product/search-main?keyword=" + keyword + "&selDate1=" + selDate1 +
+                    location.href = "/product/search-main?keyword=" + keyword + "&selCate=" + cateArray + "&selDate1=" + selDate1 +
                         "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
                 })
             </script>
@@ -795,6 +805,7 @@
                     <div class="info-container">
                         <div class="accom-info">
                             <b>${list.accom_name}</b><br>
+                            <b>${list.accom_category}</b><br>
                             <b>${list.accom_score}</b><br>
                             <b>${list.accom_location}</b><br>
                             <b>${list.accom_hashtag}</b>
@@ -814,6 +825,9 @@
             </script>
         </c:if>
         <script type="text/javascript">
+            var cateArray = $('input:checkbox[name=category]:checked').map(function () {
+                return this.value;
+            }).get().join(', ');
             var keyword = '${keyword}';
             var selDate1 = '${selDate1}';
             var selDate2 = '${selDate2}';
@@ -832,7 +846,7 @@
                     alert("정렬할 데이터가 없습니다.");
                     return;
                 }
-                location.href = "/product/search-main?sort=lowprice&keyword=" + keyword + "&selDate1=" + selDate1 +
+                location.href = "/product/search-main?sort=lowprice&keyword=" + keyword + "&selCate=" + cateArray + "&selDate1=" + selDate1 +
                     "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
             })
             $("#sort-score").click(function () {
@@ -840,7 +854,7 @@
                     alert("정렬할 데이터가 없습니다.");
                     return;
                 }
-                location.href = "/product/search-main?sort=score&keyword=" + keyword + "&selDate1=" + selDate1 +
+                location.href = "/product/search-main?sort=score&keyword=" + keyword + "&selCate=" + cateArray + "&selDate1=" + selDate1 +
                     "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
             })
         </script>

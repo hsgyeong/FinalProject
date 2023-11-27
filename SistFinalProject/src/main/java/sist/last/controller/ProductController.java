@@ -19,6 +19,8 @@ public class ProductController {
 
     String selectDate1;
     String selectDate2;
+    List<String> categoryList;
+
     @Autowired
     ProductService pService;
 
@@ -35,7 +37,9 @@ public class ProductController {
                                  @RequestParam(required = false) String selDate2,
                                  @RequestParam(required = false) String minPrice,
                                  @RequestParam(required = false) String maxPrice,
-                                 @RequestParam(required = false) String sort) {
+                                 @RequestParam(required = false) String sort,
+                                 @RequestParam(required = false) String selCate) {
+        categoryList = new ArrayList<>();
         selectDate1 = selDate1;
         selectDate2 = selDate2;
         List<String> category = pService.selectCategory();
@@ -52,6 +56,15 @@ public class ProductController {
         }
         processDateSelection(selDate1, selDate2, model);
         List<ProductDto> products = searchCompareKeyword(keyword);
+        if (selCate != null) {
+            String[] splitCategory = selCate.split(",");
+            for (int arrayIndex = 0; arrayIndex < splitCategory.length; arrayIndex++) {
+                categoryList.add(splitCategory[arrayIndex].trim());
+                model.addAttribute("selCate", categoryList);
+            }
+            assert products != null;
+            products = compareSelectCategory(products);
+        }
         //System.out.println(products.size() + " 개 의 데이터");
         if (products != null) {
             //System.out.println("selDate1이 null이 아님");
@@ -100,6 +113,18 @@ public class ProductController {
             return nameList;
         }
         return null;
+    }
+
+    private List<ProductDto> compareSelectCategory(List<ProductDto> products) {
+        List<ProductDto> result = new ArrayList<>();
+        for (ProductDto product : products) {
+            System.out.println(product.getAccom_name() + "의 카테고리 : " + product.getAccom_category());
+            if (!isEqualInputCategory(product)) {
+                continue;
+            }
+            result.add(product);
+        }
+        return result;
     }
 
     private void processDateSelection(String selDate1, String selDate2,
@@ -173,6 +198,10 @@ public class ProductController {
         assert products != null;
         products = compareLimitDate(products, selectDate1, selectDate2);
         for (ProductDto product : products) {
+            System.out.println(product.getAccom_name() + "의 카테고리 : " + product.getAccom_category());
+            if (!isEqualInputCategory(product)) {
+                continue;
+            }
             if (sortPrice(product, minPrice, maxPrice, sortedProducts)) {
                 System.out.println("방 이름 : " + product.getAccom_name());
                 int price = pService.getProductOfLowPrice(product.getAccom_num());
@@ -181,6 +210,15 @@ public class ProductController {
             }
         }
         return sortedProducts;
+    }
+
+    private boolean isEqualInputCategory(ProductDto product) {
+        for (String category : categoryList) {
+            if (category.equals(product.getAccom_category())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean sortPrice(ProductDto product, int minPrice, int maxPrice,
@@ -236,9 +274,9 @@ public class ProductController {
 
     private boolean compareEachRoomMinPrice(ProductDto productDto, int minPrice) {
         //System.out.println("hihi");
-        System.out.println(productDto.getAccom_num());
+        //System.out.println(productDto.getAccom_num());
         List<Integer> priceList = pService.getPriceOfAccomNumber(productDto.getAccom_num());
-        System.out.println("list size : " + priceList.size());
+        //System.out.println("list size : " + priceList.size());
         for (int price : priceList) {
             if (price >= minPrice) {
                 return true;
