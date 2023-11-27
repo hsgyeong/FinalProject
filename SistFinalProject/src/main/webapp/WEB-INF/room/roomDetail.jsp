@@ -157,13 +157,6 @@
 	list-style: none;
 }
 
-.detail_select ul li:first-child {
-	color: #f7323f;
-	border-bottom: 5px solid #f7323f;
-	font-weight: bold;
-	margin-left: -2vh;
-}
-
 .detail_select ul li {
 	display: inline-block;
 	color: silver;
@@ -202,31 +195,30 @@
 	padding: 0px 2vh;
 }
 
-.detail_room_select_name{
+.detail_room_select_name {
 	font-weight: bold;
 	font-size: 2.2vh;
 	margin-bottom: 1.5vh;
 }
 
-.detail_room_select_suk{
+.detail_room_select_suk {
 	font-weight: bold;
 	font-size: 2vh;
 }
 
-.detail_room_select_price{
+.detail_room_select_price {
 	font-weight: bold;
 	font-size: 2.5vh;
 	box-shadow: 0 0.5px 0 silver;
 	margin-bottom: 1vh;
 }
 
-.detail_room_select_checkin>b,
-.detail_room_select_checkout>b{
+.detail_room_select_checkin>b, .detail_room_select_checkout>b {
 	text-align: right;
-    display: block;
+	display: block;
 }
 
-.room_detail_reserve_btn{
+.room_detail_reserve_btn {
 	color: white;
 	background-color: #f7323f;
 	border: none;
@@ -237,95 +229,84 @@
 }
 </style>
 <script type="text/javascript">
-$(document).ready(function() {
-    // 페이지 로딩 시 실행되는 함수
-    (function() {
-        $(".detail_suk_info").hide();
-        $(".detail_review").hide();
-    })();
+	$(document).ready(function() {
+		// 페이지 로딩 시 실행되는 함수
+		(function() {
+			$(".detail_suk_info").hide();
+			$(".detail_review").hide();
+		})();
 
-    // 경고 창 띄우는 함수
-    $("#detail_alert").click(function() {
-        alert('로그인 후 이용해주세요');
-    });
+		// 경고 창 띄우는 함수
+		$("#detail_alert").click(function() {
+			alert('로그인 후 이용해주세요');
+		});
 
-    // 탭 클릭 시 이벤트 처리
-    $(".detail_select_1").click(function() {
-        $(".detail_select_1").css({
-            "color": "",
-            "border-bottom": "",
-            "font-weight": "",
-            "margin-left": ""
-        }).css({
-            "color": "#f7323f",
-            "border-bottom": "5px solid #f7323f",
-            "font-weight": "bold",
-            "margin-left": "-2vh"
-        });
+		// 탭 클릭 시 이벤트 처리
+		$(".detail_select_1").click(function() {
 
-        $(".detail_select_2, .detail_select_3").css({
-            "color": "",
-            "border-bottom": "",
-            "font-weight": "",
-            "margin-left": ""
-        });
+			$(this).css({
 
-        $(".detail_room_select").show();
-        $(".detail_suk_info").hide();
-        $(".detail_review").hide();
-    });
+				"color" : "#f7323f",
+				"border-bottom" : "5px solid #f7323f",
+				"font-weight" : "bold",
+				"margin-left" : "-2vh"
+			})
 
-    $(".detail_select_2").click(function() {
-        $(".detail_select_2").css({
-            "color": "",
-            "border-bottom": "",
-            "font-weight": "",
-            "margin-left": ""
-        }).css({
-            "color": "#f7323f",
-            "border-bottom": "5px solid #f7323f",
-            "font-weight": "bold",
-            "margin-left": "-2vh"
-        });
+			$(".detail_select_2, .detail_select_3").css({
+				"color" : "",
+				"border-bottom" : "",
+				"font-weight" : "",
+				"margin-left" : ""
+			});
 
-        $(".detail_select_1, .detail_select_3").css({
-            "color": "",
-            "border-bottom": "",
-            "font-weight": "",
-            "margin-left": ""
-        });
+			$(".detail_room_select").show();
+			$(".detail_suk_info").hide();
+			$(".detail_review").hide();
+		});
 
-        $(".detail_room_select").hide();
-        $(".detail_suk_info").show();
-        $(".detail_review").hide();
-    });
+		$(".detail_select_2").click(function() {
 
-    $(".detail_select_3").click(function() {
-        $(".detail_select_3").css({
-            "color": "",
-            "border-bottom": "",
-            "font-weight": "",
-            "margin-left": ""
-        }).css({
-            "color": "#f7323f",
-            "border-bottom": "5px solid #f7323f",
-            "font-weight": "bold",
-            "margin-left": "-2vh"
-        });
+			$(this).css({
 
-        $(".detail_select_1, .detail_select_2").css({
-            "color": "",
-            "border-bottom": "",
-            "font-weight": "",
-            "margin-left": ""
-        });
+				"color" : "#f7323f",
+				"border-bottom" : "5px solid #f7323f",
+				"font-weight" : "bold",
+				"margin-left" : "-2vh"
+			})
 
-        $(".detail_room_select").hide();
-        $(".detail_suk_info").hide();
-        $(".detail_review").show();
-    });
-});
+			$(".detail_select_1, .detail_select_3").css({
+				"color" : "",
+				"border-bottom" : "",
+				"font-weight" : "",
+				"margin-left" : ""
+			});
+			$(".detail_room_select").hide();
+			$(".detail_suk_info").show();
+			$(".detail_review").hide();
+		});
 
+		$(".detail_select_3").click(function() {
+
+			$(this).css({
+
+				"color" : "#f7323f",
+				"border-bottom" : "5px solid #f7323f",
+				"font-weight" : "bold",
+				"margin-left" : "-2vh"
+			})
+
+			$(".detail_select_1, .detail_select_2").css({
+				"color" : "",
+				"border-bottom" : "",
+				"font-weight" : "",
+				"margin-left" : ""
+			});
+
+			$(".detail_room_select").hide();
+			$(".detail_suk_info").hide();
+			$(".detail_review").show();
+		});
+	});
 </script>
 <body>
 	<div class="detail_box">
@@ -338,37 +319,37 @@ $(document).ready(function() {
 
 			<div class="detail_imgs">
 				<ul>
-					
+
 					<c:forEach var="photo" items="${photoList}">
-					    <li><img src="../roomsave/${photo}" alt=""></li>
+						<li><img src="../roomsave/${photo}" alt=""></li>
 					</c:forEach>
-					
+
 				</ul>
 			</div>
 
 			<script>
-			$(".detail_imgs ul li img").click(function() {
-		        var selectImg = $(this).attr('src');
-		        
-				//제거
-		        $(".detail_imgs ul li img").css({
+				$(".detail_imgs ul li img").click(function() {
+					var selectImg = $(this).attr('src');
 
-		        	"transform" : "none"
-		        	});
-				
-		     	//효과 생성
-		        $(this).css({
+					//제거
+					$(".detail_imgs ul li img").css({
 
-		        	"transform" : "scale(1.05)"
-		        	});
-		     	
-		        $(".detail_img img").fadeOut(300, function() {
+						"transform" : "none"
+					});
 
-		            $(this).attr('src', selectImg);
-		            
-		            $(this).fadeIn(300);
-		        });
-		    });
+					//효과 생성
+					$(this).css({
+
+						"transform" : "scale(1.05)"
+					});
+
+					$(".detail_img img").fadeOut(300, function() {
+
+						$(this).attr('src', selectImg);
+
+						$(this).fadeIn(300);
+					});
+				});
 			</script>
 
 			<div class="detail_info">
@@ -380,26 +361,30 @@ $(document).ready(function() {
 					<div class="detail_score_result"></div>
 
 					<script>
-			 $(document).ready(function() {
-			        var accomScore = ${dto.accom_score};
+						$(document).ready(function() {
+							var accomScore = $
+							{
+								dto.accom_score
+							}
+							;
 
-			        if (accomScore > 9) {
-			            $(".detail_score_result").text("최고예요");
-			        }
-			        
-			        else if (accomScore >= 8 && accomScore <= 9) {
-			            $(".detail_score_result").text("좋아요");
-			        }
-			        
-			        else if (accomScore >= 7 && accomScore <= 8) {
-				        $(".detail_score_result").text("괜찮아요");
-				    }
-			        
-			        else {
-			        	$(".detail_score_result").text("아쉬워요");
-			        }
-			    });
-			</script>
+							if (accomScore > 9) {
+								$(".detail_score_result").text("최고예요");
+							}
+
+							else if (accomScore >= 8 && accomScore <= 9) {
+								$(".detail_score_result").text("좋아요");
+							}
+
+							else if (accomScore >= 7 && accomScore <= 8) {
+								$(".detail_score_result").text("괜찮아요");
+							}
+
+							else {
+								$(".detail_score_result").text("아쉬워요");
+							}
+						});
+					</script>
 					<div class="detail_review_count">리뷰 1000개</div>
 				</div>
 				<div class="detail_accom_location">${dto.accom_location }</div>
@@ -418,9 +403,9 @@ $(document).ready(function() {
 				<li class="detail_select_3">리뷰</li>
 			</ul>
 		</div>
-		</div>
+	</div>
 
-		<c:forEach items="${list }" var="rdto">
+	<c:forEach items="${list }" var="rdto">
 		<div class="detail_room_select">
 
 			<div class="detail_room_select_img">
@@ -430,25 +415,32 @@ $(document).ready(function() {
 				<div class="detail_room_select_name">${rdto.room_name }</div>
 				<div class="detail_room_select_suk">숙박</div>
 				<div class="detail_room_select_price" align="right">
-				<fmt:formatNumber value="${rdto.room_price }"/>원
+					<fmt:formatNumber value="${rdto.room_price }" />
+					원
 				</div>
-				<div class="detail_room_select_checkin">입실시간 <b>${rdto.room_checkin }시부터</b></div>
-				<div class="detail_room_select_checkout">퇴실시간 <b>익일 ${rdto.room_checkout }시</b></div>
-				<div align="center"><br>
-				<c:if test="${sessionScope.loginok != null }">
-					<button type="button" class="room_detail_reserve_btn"
-						onclick="location.href='/reserve/reserve-form?room_num=${rdto.room_num}'">예약</button>
-				</c:if>
-				<c:if test="${sessionScope.loginok == null }">
-					<button type="button" id="detail_alert" class="room_detail_reserve_btn"
-						onclick="location.href='/login/loginmain'">예약</button>
-				</c:if>
+				<div class="detail_room_select_checkin">
+					입실시간 <b>${rdto.room_checkin }시부터</b>
+				</div>
+				<div class="detail_room_select_checkout">
+					퇴실시간 <b>익일 ${rdto.room_checkout }시</b>
+				</div>
+				<div align="center">
+					<br>
+					<c:if test="${sessionScope.loginok != null }">
+						<button type="button" class="room_detail_reserve_btn"
+							onclick="location.href='/reserve/reserve-form?room_num=${rdto.room_num}'">예약</button>
+					</c:if>
+					<c:if test="${sessionScope.loginok == null }">
+						<button type="button" id="detail_alert"
+							class="room_detail_reserve_btn"
+							onclick="location.href='/login/loginmain'">예약</button>
+					</c:if>
 				</div>
 			</div>
 		</div>
-		</c:forEach>
-		
-		<div class="detail_suk_info">2</div>
-		<div class="detail_review">3</div>
+	</c:forEach>
+
+	<div class="detail_suk_info">2</div>
+	<div class="detail_review">3</div>
 </body>
 </html>
