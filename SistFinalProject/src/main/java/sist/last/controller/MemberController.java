@@ -99,7 +99,7 @@ public class MemberController {
 			@RequestParam String email1,
 			@RequestParam String email2,
 			HttpSession session)
-	{	
+	{
 			
 			String hp = hp1+"-"+hp2+"-"+hp3;
 			memberDto.setInfo_hp(hp);
