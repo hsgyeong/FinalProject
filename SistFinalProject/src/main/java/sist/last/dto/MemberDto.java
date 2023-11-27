@@ -22,5 +22,4 @@ public class MemberDto {
 	private int info_point;
 	private Timestamp info_gaipday;
 	
-	
 }

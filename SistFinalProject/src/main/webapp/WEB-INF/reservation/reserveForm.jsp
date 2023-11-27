@@ -201,7 +201,6 @@
 </script>
 </head>
 <body>
-	<form action="#" method="post">
 		<div class="left-side">
 			<input type="hidden" id="room_num" value="${rdto.room_num }">
 			<div>
@@ -410,6 +409,7 @@
 								
 								function sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name) {
 								    // 여기에 더 많은 데이터를 추가할 수 있습니다.
+								    
 								    var additionalData = {
 								        reservationNumber: reservationNumber,
 								        itemName: "(주)TRIVIEW",
@@ -443,7 +443,6 @@
 				</div>
 			</div>
 		</div>
-	</form>
 
 
 
