@@ -9,11 +9,13 @@
         insert into accom(
         business_id, accom_name, accom_category,
         accom_photo, accom_location, accom_address,
-        accom_hashtag, accom_latitude, accom_longitude
+        accom_hashtag, accom_latitude, accom_longitude,
+        accom_info
     ) values (
         #{business_id}, #{accom_name}, #{accom_category},
         #{accom_photo}, #{accom_location}, #{accom_address},
-        #{accom_hashtag}, #{accom_latitude}, #{accom_longitude}
+        #{accom_hashtag}, #{accom_latitude}, #{accom_longitude},
+        #{accom_info}
     )
     </insert>
 
@@ -35,7 +37,12 @@
 
     <update id="updateAccom" parameterType="AccomDto">
         update accom set
-        accom_name=#{accom_name},accom_category=#{accom_category},accom_photo=#{accom_photo},accom_location=#{accom_location},accom_address=#{accom_address},accom_hashtag=#{accom_hashtag}
+        accom_name=#{accom_name},accom_category=#{accom_category},accom_photo=#{accom_photo},accom_location=#{accom_location},accom_address=#{accom_address},accom_hashtag=#{accom_hashtag},accom_info=#{accom_info}
         where accom_num=#{accom_num}
     </update>
+    
+      	<select id="selectjoin" parameterType="int" resultType="productDto">
+  		select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        where A.accom_num=#{accom_num};
+  	</select>
 </mapper>

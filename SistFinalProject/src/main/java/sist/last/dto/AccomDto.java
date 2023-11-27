@@ -16,8 +16,9 @@ public class AccomDto {
     private String accom_address;
     private String accom_hashtag;
     private int accom_readcount;
-    private double accom_score;
-    private double accom_latitude;
-    private double accom_longitude;
+    private Double accom_score;
+    private Double accom_latitude;
+    private Double accom_longitude;
+    private String accom_info;
 
 }

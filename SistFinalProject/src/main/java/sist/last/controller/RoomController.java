@@ -3,6 +3,7 @@ package sist.last.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import sist.last.dto.AccomDto;
 import sist.last.dto.MemberDto;
 import sist.last.dto.RoomDto;
+import sist.last.mapper.AccomMapperInter;
 import sist.last.mapper.RoomMapperInter;
 
 @Controller
@@ -27,9 +29,11 @@ public class RoomController {
 
     @Autowired
     RoomMapperInter mapper;
+    @Autowired
+    AccomMapperInter amapper;
 
     @GetMapping("/room/room-list")
-    public ModelAndView list(@RequestParam String accom_num,HttpSession session) {
+    public ModelAndView list(@RequestParam int accom_num,HttpSession session) {
 
         ModelAndView model = new ModelAndView();
 
@@ -57,14 +61,24 @@ public class RoomController {
     }
     
     @GetMapping("/room/room-detail")
-    public ModelAndView detail(int room_num)
+    public ModelAndView detail(@RequestParam int accom_num)
     {
     	ModelAndView model=new ModelAndView();
+    
+		List<RoomDto> list = mapper.getAllData(accom_num);
+		AccomDto dto=amapper.getOneData(accom_num);
     	
-    	RoomDto dto=mapper.getOneData(room_num);
-    	
+		RoomDto rdto = list.get(0);
+		String photoNames = rdto.getRoom_photo(); // 가정: 이미지 파일 이름들을 담고 있는 문자열
+
+	    // 이미지 파일 이름들을 콤마로 스플릿하여 리스트로 변환
+	    List<String> photoList = Arrays.asList(photoNames.split(","));
+	    
+		model.addObject("list", list);
     	model.addObject("dto", dto);
+    	model.addObject("photoList", photoList);
     	
+
     	model.setViewName("/room/roomDetail");
     	
     	return model;
@@ -79,32 +93,39 @@ public class RoomController {
     }
 
     @PostMapping("/room/insert")
-    public String insert(@ModelAttribute RoomDto dto, MultipartFile photo, HttpSession session,
+    public String insert(@ModelAttribute RoomDto dto, List<MultipartFile> photos, HttpSession session,
                          @RequestParam String accom_num) {
         // save 위치
         String path = session.getServletContext().getRealPath("/roomsave");
 
-        // 업로드한 파일 dto 얻기
-        String originalFilename = photo.getOriginalFilename();
-        // 파일 이름에 날짜 및 시간 추가
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        String timestamp = sdf.format(new Date());
-        String newFilename = timestamp + "_" + originalFilename;
-        dto.setRoom_photo(newFilename);
+        String uphoto="";
         
-        dto.setAccom_num(Integer.parseInt(accom_num));
-        
-        try {
-            photo.transferTo(new File(path + "/" + newFilename));
-        } catch (IllegalStateException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        if(photos.get(0).getOriginalFilename().equals("")) {
+        	uphoto="no";
         }
-
-        mapper.insertRoom(dto);
+        
+        else {
+        	for (MultipartFile photo : photos) {
+                String originalFilename = photo.getOriginalFilename();
+                String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+                String newFilename = timestamp + "_" + originalFilename;
+                uphoto+=newFilename+",";
+             
+                try {
+                	
+					photo.transferTo(new File(path+"/"+newFilename));
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        	uphoto=uphoto.substring(0,uphoto.length()-1);
+        	dto.setRoom_photo(uphoto);
+        	mapper.insertRoom(dto);
+        }
         
         return "redirect:/room/room-list?accom_num="+dto.getAccom_num();
     }
@@ -153,37 +174,42 @@ public class RoomController {
     
 
     @PostMapping("/room/update")
-    public String update(@ModelAttribute RoomDto dto, MultipartFile photo, HttpSession session) {
+    public String update(@ModelAttribute RoomDto dto, List<MultipartFile> photos, HttpSession session) {
 
-        // save 위치
+    	// save 위치
         String path = session.getServletContext().getRealPath("/roomsave");
-        // 업로드한 파일 dto 얻기
-        String originalFilename = photo.getOriginalFilename();
-        // 파일 이름에 날짜 및 시간 추가
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
-        String timestamp = sdf.format(new Date());
-        String newFilename = timestamp + "_" + originalFilename;
-        // 파일 삭제
-        String oldFilename = mapper.getOneData(dto.getRoom_num()).getRoom_photo();
+
+        String uphoto="";
         
-        try {
-            // 기존 이미지 파일 삭제
-            File oldFile = new File(path + "/" + oldFilename);
-            oldFile.delete();
-
-            // 신규 이미지 파일 저장
-            photo.transferTo(new File(path + "/" + newFilename));
-
-            // 새 파일 이름 설정
-            dto.setRoom_photo(newFilename);
-
-        } catch (IllegalStateException | IOException e) {
-            e.printStackTrace();
+        if(photos.get(0).getOriginalFilename().equals("")) {
+        	uphoto="no";
         }
-
-        mapper.updateRoom(dto);
+        
+        else {
+        	for (MultipartFile photo : photos) {
+                String originalFilename = photo.getOriginalFilename();
+                String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+                String newFilename = timestamp + "_" + originalFilename;
+                uphoto+=newFilename+",";
+             
+                try {
+                	
+					photo.transferTo(new File(path+"/"+newFilename));
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        	uphoto=uphoto.substring(0,uphoto.length()-1);
+        	dto.setRoom_photo(uphoto);
+        	mapper.updateRoom(dto);
+        }
 
         return "redirect:/room/room-list?accom_num="+dto.getAccom_num();
     }
+
 
 }

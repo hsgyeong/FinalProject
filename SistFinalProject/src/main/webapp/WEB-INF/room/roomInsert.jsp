@@ -150,7 +150,7 @@
             <tr>
                 <td align="center" valign="middle"><b>사진</b></td>
                 <td valign="middle">
-                    <input type="file" class="form-control" name="photo" required="required"
+                    <input type="file" class="form-control" name="photos" required="required" multiple="multiple"
                            style="width: 40vh; height: 5vh;">
                 </td>
             </tr>
@@ -225,14 +225,6 @@
                         <option value="23:00">23:00</option>
                         <option value="24:00">24:00</option>
                     </select>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td align="center" valign="middle"><b>방정보소개</b></td>
-                <td valign="middle">
-                    <textarea class="form-control" name="room_info" required="required"></textarea>
                 </td>
             </tr>
             

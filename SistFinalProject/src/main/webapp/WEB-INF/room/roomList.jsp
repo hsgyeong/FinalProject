@@ -50,6 +50,10 @@
             margin: 5vh 5vh 0vh 5vh;
             float: left;
         }
+        
+         .room_array table td {
+         	width: 5vh;
+         }
 
         .room_array img {
             max-width: 15vh;
@@ -162,15 +166,15 @@
 					<tr>
 						<td align="center" valign="middle" style="height: 20vh;">사진</td>
 						<td align="center" valign="middle">
-						<a href="/room/room-detail?room_num=${dto.room_num }">
-						<img src="../roomsave/${dto.room_photo}" alt="">
+						
+						<a href="/room/room-detail?accom_num=${dto.accom_num }">
+					    <c:forEach var="photo" items="${dto.room_photo }">
+   
+    					<img src="../roomsave/${photo}" alt="">
+
+					    </c:forEach>
 						</a>
 						</td>
-					</tr>
-					
-					<tr>
-						<td align="center" valign="middle"style="height: 6vh;">정보</td>
-						<td align="center" valign="middle">${dto.room_info }</td>
 					</tr>
 					
 					<tr>

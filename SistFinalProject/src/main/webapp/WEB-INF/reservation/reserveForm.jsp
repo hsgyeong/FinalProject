@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 <link href="https://webfontworld.github.io/goodchoice/Jalnan.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
@@ -60,7 +60,7 @@
 		color: #707070;
 	}
 	
-	.btn-discount, .btn-point, .btn-giftcard, .payment{
+	.btn-discount, .btn-point, .btn-giftcard, #payment{
 		border: 1px solid lightgray;
 		padding: 10px 10px 10px 10px;
 		border-radius: 5px;
@@ -260,13 +260,11 @@
 			<br>
 
 			<div>
-				<select class="payment">
+				<select id="payment">
 					<option value="kakaopay">카카오페이</option>
 					<option value="tosspay">토스페이</option>
-					<option value="card">신용/체크 카드</option>
-					<option value="account">간편계좌이체</option>
+					<option value="html5_inicis">신용/체크 카드</option>
 					<option value="payco">페이코</option>
-					<option value="phonepay">휴대폰결제</option>
 				</select>
 			</div>
 			<br>
@@ -364,34 +362,50 @@
 								
 								function onClickPay() {
 								    var reservationNumber = generateReservationNumber();
-								   	var amount = parseInt($(".totalpay").text());  // 동적으로 계산된 값 가져오기
-									var room_num = $("#room_num").val();
-								   	var room_checkin = $("#room_checkin").text();
-								   	var room_checkout = $("#room_checkout").text();
-								   	var reserve_name = $("#reserve_name").val();
-								   	var reserve_hp = $("#reserve_hp").val();
-								   	var coupon_name = $("#coupon-name").text();
-								   	
-								   	
+								    var amount = parseInt($(".totalpay").text());
+								    var room_num = $("#room_num").val();
+								    var room_checkin = $("#room_checkin").text();
+								    var room_checkout = $("#room_checkout").text();
+								    var reserve_name = $("#reserve_name").val();
+								    var reserve_hp = $("#reserve_hp").val();
+								    var coupon_name = $("#coupon-name").text();
+								    
+								    // 선택한 결제 방식 가져오기
+								    var selectedPaymentMethod = $("#payment").val();
+
 								    IMP.init("imp06867735");
 
 								    IMP.request_pay({
-								        pg: "kakaopay",
-								        pay_method: "card",
-								        amount: amount,  // 동적으로 계산된 값 사용
+								        pg: selectedPaymentMethod, // 선택한 결제 방식 사용
+								        pay_method: getPayMethod(selectedPaymentMethod), // 결제 방식 결정
+								        amount: amount,
 								        name: "(주)TRIVIEW",
 								        merchant_uid: reservationNumber
 								    }, function (rsp) {
-								    	console.log(rsp);  // 콘솔에 응답 출력
-								    	
+								        console.log(rsp);
+
 								        if (rsp.success) {
-								            // 결제 성공 시 서버로 데이터 전송
 								            sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name);
 								        } else {
-								            // 결제 실패 시 처리
 								            alert("결제를 취소했습니다");
 								        }
 								    });
+								}
+
+								// 선택한 결제 방식에 따라 pay_method 결정하는 함수
+								function getPayMethod(paymentMethod) {
+								    switch (paymentMethod) {
+								        case "kakaopay":
+								            return "card"; // 필요에 따라 TossPay의 경우 해당하는 pay_method으로 업데이트
+								        case "tosspay":
+								            return "card"; // TossPay의 경우 해당하는 pay_method으로 업데이트
+								        case "html5_inicis":
+								            return "card";
+								        case "payco":
+								            return "card"; // Payco의 경우 해당하는 pay_method으로 업데이트
+								        default:
+								            return "card"; // 선택한 방식이 인식되지 않는 경우 기본적으로 카드 결제로 설정
+								    }
 								}
 								
 								function sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name) {

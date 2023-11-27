@@ -13,7 +13,7 @@
     <style type="text/css">
         .accom_insert_box {
             width: 100%;
-            height: 73vh;
+            height: 101vh;
             margin-top: 3.5vh;
         }
 
@@ -155,7 +155,7 @@
             var hashtagResultDiv = document.getElementById("hashtag_result");
 
             // 초기 높이를 설정
-            currentHeight = 72;
+            currentHeight = 101;
 
             if (document.getElementById("accom_location").value !== "") {
                 // 도로명 주소가 있으면 6vh를 추가하여 설정
@@ -429,6 +429,14 @@
                     </script>
                 </td>
             </tr>
+            
+            <tr>
+                <td align="center" valign="middle"><b>숙소정보소개</b></td>
+                <td valign="middle">
+                    <textarea class="form-control" name="accom_info" required="required"></textarea>
+                </td>
+            </tr>
+            
             <tr>
                 <td align="center" colspan="2">
                     <!-- 해쉬태그 이벤트 때문에 submit이 아니고 button 여기에 submit 메서드 추가 -->
