@@ -335,7 +335,7 @@ public class ProductController {
     }
 
     private List<ProductDto> compareLimitDate(List<ProductDto> products, String selDate1, String selDate2) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
         //System.out.println("제외날짜비교 로직 들어옴");
         LocalDate checkinDate = LocalDate.parse(selDate1, formatter);
         LocalDate checkoutDate = LocalDate.parse(selDate2, formatter);
