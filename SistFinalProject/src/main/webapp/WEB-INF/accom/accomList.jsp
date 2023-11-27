@@ -44,7 +44,7 @@ a:hover {
 }
 
 .accom_list_box{
-	margin-bottom: -3vh;
+	
 }
 
 .accom_list_box img {
@@ -142,9 +142,9 @@ a:hover {
                     <td align="center" valign="middle" style="width: 20%; height: 15vh;">${dto.accom_location }&nbsp;${dto.accom_address }</td>
                     <td align="center" valign="middle" style="width: 20%; height: 15vh;">
                     <button type="button" class="accom_list_btn1"
-                    onclick="location.href='accom-update?num=${dto.accom_num}'">수정</button>
+                    onclick="location.href='accom-update?accom_num=${dto.accom_num}'">수정</button>
                     <button type="button" class="accom_list_btn2"
-                    onclick="location.href='delete?num=${dto.accom_num}'">삭제</button>
+                    onclick="location.href='delete?accom_num=${dto.accom_num}'">삭제</button>
                     </td>
                 </tr>
             </c:forEach>

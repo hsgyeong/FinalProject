@@ -16,7 +16,6 @@ public class RoomDto {
 	private int room_maxpeople;
 	private String room_location;
 	private String room_photo;
-	private String room_info;
 	private int room_count;
 	private String room_checkin;
 	private String room_checkout;
