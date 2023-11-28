@@ -19,7 +19,7 @@ public class Room {
     @Override
     public String toString() {
         return "Room [roomNumber=" + roomNumber + ", roomName=" + roomName + "]";
-    }
+    } // toString() 메서드는 객체의 문자열 표현을 반환합니다. 이 메서드를 재정의하여 객체를 문자열로 표현할 때 사용됩니다.
 
     // Room 클래스는 방의 번호와 이름을 나타내는 데이터 모델로 사용될 수 있습니다.
     //멤버 변수는 private으로 선언되어 외부에서 직접 접근되지 않고 게터와 세터를 통해 접근됩니다.

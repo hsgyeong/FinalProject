@@ -1,10 +1,12 @@
 package sist.last.chat;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
 
 
 // Spring Framework 에서 WebSocket을 구성하기 위한 설정 클래스인 'WebSocketConfig' 클래스입니다.
@@ -29,4 +31,12 @@ public class WebSocketConfig implements WebSocketConfigurer{
         registry.addHandler(socketHandler, "/chating/{roomNumber}"); // registry.addHandler(socketHandler, "/chating/{roomNumber}") 코드는 socketHandler를 "/chating/{roomNumber}" 경로에 매핑시킵니다. 여기서 {roomNumber}는 변수로, 채팅방 번호에 해당합니다.
     }
     // 이 설정을 통해 해당 애플리케이션에서 "/chating/{roomNumber}" 경로로 들어오는 WebSocket 연결을 처리하고, SocketHandler에서 정의한 로직을 실행할 수 있게 됩니다. WebSocket을 사용하면 클라이언트와 서버 간에 양방향 통신이 가능해져 실시간 채팅과 같은 기능을 구현할 수 있습니다.
+
+    @Bean
+    public ServletServerContainerFactoryBean createWebSocketContainer() {
+        ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
+        container.setMaxTextMessageBufferSize(500000);
+        container.setMaxBinaryMessageBufferSize(500000);
+        return container;
+    }
 }
