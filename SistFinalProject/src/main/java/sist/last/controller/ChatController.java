@@ -1,12 +1,14 @@
 package sist.last.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import sist.last.chat.Room;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +16,25 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller // 이 클래스가 Spring MVC의 컨트롤러 임을 나타내는 어노테이션이다.
+
+
+
+
 @RequestMapping("/chat") // 이 컨트롤러의 기본 URL 정보가 "/chat" 임을 지정합니다.
 public class ChatController {
+//
+//    @RequestMapping("/room1")
+//    public ModelAndView loginCheck(HttpSession session){
+//        ModelAndView mv=new ModelAndView();
+//        String loginok=(String) session.getAttribute("loginok");
+//        if (loginok==null){
+//            mv.setViewName("/login/loginForm");
+//        } else {
+//            mv.setViewName("/chat/room");
+//        }
+//        return mv;
+//    }
+
 
     List<Room> roomList = new ArrayList<Room>(); // 방 정보를 저장하는 리스트
     static int roomNumber = 0; // 방 번호 관리하는 변수, 0으로 초기화
