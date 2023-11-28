@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     
     <select id="getAllData" parameterType="int" resultType="RoomDto">
-    	select * from room where accom_num=#{accom_num}
+    	select * from room where accom_num=#{accom_num} order by room_price
     </select>
     
     <select id="getData" resultType="RoomDto">

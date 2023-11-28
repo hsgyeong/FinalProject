@@ -103,7 +103,7 @@
             </tr>
 
             <tr>
-                <td align="center" valign="middle"><b>최소 인원<br>&<br>최대 인원</b></td>
+                <td align="center" valign="middle"><b>인원</b></td>
                 <td valign="middle" style="display: flex; border-left: none;">
                     <select class="form-control" name="room_minpeople" required="required"
                             style="width: 5vh; height: 5vh;">
@@ -164,10 +164,10 @@
             </tr>
             
             <tr>
-                <td align="center" valign="middle"><b>checkin<br>&<br>checkout</b></td>
+                <td align="center" valign="middle"><b>체크인</b></td>
                 <td valign="middle" style="display: flex; border-left: none;">
                     <select class="form-control" name="room_checkin" required="required"
-                            style="width: 8vh; height: 5vh;">
+                            style="width: 10vh; height: 5vh;">
                         <option value="00:00" selected="selected">00:00</option>
                         <option value="1:00">1:00</option>
                         <option value="2:00">2:00</option>
@@ -198,7 +198,7 @@
                     <b style="padding-top: 0.7vh;">&nbsp;~&nbsp;</b>
 
                     <select class="form-control" name="room_checkout" required="required"
-                            style="width: 8vh; height: 5vh;">
+                            style="width: 10vh; height: 5vh;">
                         <option value="00:00">00:00</option>
                         <option value="1:00">1:00</option>
                         <option value="2:00">2:00</option>

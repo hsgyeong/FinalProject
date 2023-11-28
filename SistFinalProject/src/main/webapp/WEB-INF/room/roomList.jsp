@@ -167,13 +167,12 @@
 						<td align="center" valign="middle" style="height: 20vh;">사진</td>
 						<td align="center" valign="middle">
 						
-						<a href="/room/room-detail?accom_num=${dto.accom_num }">
+						
 					    <c:forEach var="photo" items="${dto.room_photo }">
    
     					<img src="../roomsave/${photo}" alt="">
 
 					    </c:forEach>
-						</a>
 						</td>
 					</tr>
 					

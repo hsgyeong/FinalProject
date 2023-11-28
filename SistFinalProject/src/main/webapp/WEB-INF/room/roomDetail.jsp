@@ -20,16 +20,15 @@
 }
 
 .detail_content {
-	width: 80%;
+	width: 100%;
 	height: 55vh;
-	margin-left: 10%;
 }
 
 .detail_info {
 	width: 45%;
 	position: relative;
 	left: 55%;
-	top: -85%;
+	top: -93%;
 }
 
 .detail_img {
@@ -41,6 +40,7 @@
 	width: 100%;
 	height: 40vh;
 	border-radius: 2px;
+	box-shadow: 5px 5px 5px silver;
 }
 
 .detail_imgs {
@@ -71,16 +71,18 @@
 }
 
 .detail_imgs ul li img {
-	max-width: 95%;
+	max-width: 100%;
 	max-height: 110%;
 	border-radius: 1px;
+	margin: 1vh 0.5vh 1vh 0.5vh;
+	box-shadow: 3px 3px 3px silver;
 }
 
 .detail_room_name {
 	width: 100%;
 	bottom: 39vh;
 	font-weight: bold;
-	font-size: 2.5vh;
+	font-size: 3vh;
 }
 
 .detail_asr {
@@ -101,7 +103,7 @@
 .detail_score_result {
 	width: 15%;
 	color: orange;
-	font-size: 1.7vh;
+	font-size: 2vh;
 	font-weight: 650;
 	margin-right: 0.5vh;
 	text-align: center;
@@ -110,7 +112,7 @@
 .detail_review_count {
 	width: 20%;
 	color: silver;
-	font-size: 1.7vh;
+	font-size: 2vh;
 	font-weight: 500;
 	margin-left: 0.5vh;
 }
@@ -118,21 +120,21 @@
 .detail_accom_location {
 	width: 100%;
 	color: gray;
-	font-size: 1.7vh;
+	font-size: 2vh;
 	margin: 1vh 0px 2vh 0px;
 }
 
 .detail_accom_hashtag {
 	width: 100%;
 	color: gray;
-	font-size: 1.7vh;
+	font-size: 2vh;
 	margin: 1vh 0px 2vh 0px;
 }
 
 .detail_room_info {
 	width: 100%;
 	color: gray;
-	font-size: 1.6vh;
+	font-size: 2vh;
 	background-color: #FAFAFA;
 	padding: 2vh 2vh 2vh 2vh;
 	border: 1px solid silver;
@@ -140,7 +142,7 @@
 
 .detail_room_info b {
 	color: black;
-	font-size: 1.6vh;
+	font-size: 2vh;
 	font-weight: 600;
 }
 
@@ -149,33 +151,32 @@
 }
 
 .detail_select {
-	width: 80%;
-	margin-left: 10%;
+	width: 100%;
+	margin-top: 5vh;
 }
 
 .detail_select ul {
 	list-style: none;
+	margin-left: -2%;
 }
 
 .detail_select ul li {
 	display: inline-block;
 	color: silver;
-	font-size: 1.8vh;
+	font-size: 2.3vh;
 	text-align: center;
-	padding: 0px 0.5vh;
-	padding-bottom: 2vh;
+	padding-bottom: 1vh;
 	cursor: pointer;
 	margin-right: 1vh;
 }
 
 .detail_room_select {
-	width: 80%;
-	margin-left: 10%;
 	border: 1px solid silver;
 	border-radius: 1px;
 	margin-top: 3vh;
 	display: flex;
 	box-shadow: 0 0.5px 0 silver;
+	
 }
 
 .detail_room_select_img {
@@ -185,7 +186,8 @@
 
 .detail_room_select_img img {
 	width: 100%;
-	height: 29.8vh;
+	height: 35vh;
+	box-shadow: 2px 2px 2px silver;
 }
 
 .detail_room_reserve {
@@ -224,16 +226,43 @@
 	border: none;
 	border-radius: 3px;
 	width: 100%;
-	height: 5vh;
-	margin-top: -1vh;
+	height: 7vh;
+	margin-top: -2vh;
+	box-shadow: 2px 2px 2px silver;
 }
 
 .detail_suk_info,.detail_review{
-	width: 80%;
-	margin-left: 10%;
+	width: 100%;
 	border: 1px solid black;
 	height: 500px;
 	margin-top: 3vh;
+}
+
+#map {
+    width: 100%;
+    height: 50vh;
+    border: 1px solid black;
+}
+
+#address {
+    width: 10%;
+    margin-top: -50px; /* 마커 위로 조절 */
+    padding: 1vh;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    text-align: center;
+    font-size: 2vh;
+    position: absolute;
+    top: 49%;
+    left: 45%;
+    z-index: 1;
+}
+
+.detail_room_count{
+	color:red;
+	font-size: 0.8em;
+	float: right;
 }
 </style>
 <script type="text/javascript">
@@ -416,8 +445,8 @@
 				<img src="../roomsave/${rdto.room_photo.split(',')[0]}" alt="">
 			</div>
 			<div class="detail_room_reserve">
-				<div class="detail_room_select_name">${rdto.room_name }</div>
-				<div class="detail_room_select_suk">숙박</div>
+				<div class="detail_room_select_name">${rdto.room_name } <span class="detail_room_count">남은 객실 ${rdto.room_count }개</span> </div>
+				<div class="detail_room_select_suk">기준${rdto.room_minpeople }인 최대${rdto.room_maxpeople }인</div>
 				<div class="detail_room_select_price" align="right">
 					<fmt:formatNumber value="${rdto.room_price*sleep }" />
 					원
@@ -444,7 +473,97 @@
 		</div>
 	</c:forEach>
 
-	<div class="detail_suk_info">2</div>
+	<div class="detail_suk_info">
+		
+		<div id="map"></div>
+		<div id="address"></div>
+
+		<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=c1b8de800495871b37c96707bbc9b0cb&libraries=services"></script>
+		<script src="app.js"></script>
+
+		<script>
+		    document.addEventListener("DOMContentLoaded", function () {
+		        // 여기에 위도와 경도를 가져오는 로직을 추가하세요.
+		        var latitude = ${dto.accom_latitude};
+		        var longitude = ${dto.accom_longitude};
+		
+		        // 카카오 지도 API 초기화
+		        kakao.maps.load(function () {
+		            var container = document.getElementById('map');
+		            var options = {
+		                center: new kakao.maps.LatLng(latitude, longitude),
+		                draggable: false,
+		                level: 1,
+		                
+		            };
+		
+		            var map = new kakao.maps.Map(container, options);
+		
+		            // 마커 추가
+		            var markerPosition = new kakao.maps.LatLng(latitude, longitude);
+		            var marker = new kakao.maps.Marker({
+		                position: markerPosition
+		            });
+		
+		            marker.setMap(map);
+
+		            // 지도의 중심 좌표를 얻어옵니다 
+		            var center = map.getCenter(); 
+		            // 마커에 표시할 인포윈도우를 생성합니다
+		            var infowindow = new kakao.maps.InfoWindow({
+		                position : center, 
+		                content : '<div id="address">도로명주소: 검색 후 표시됩니다.</div>' 
+		            });
+
+		            // 지도에 클릭 이벤트를 등록합니다
+		            kakao.maps.event.addListener(map, 'click', function(mouseEvent) { 
+
+		                // 클릭한 위도, 경도 정보를 가져옵니다 
+		                var latlng = mouseEvent.latLng;
+
+		                // 지도의 중심 좌표를 변경합니다
+		                map.setCenter(latlng);
+		                // 마커 위치를 클릭한 위치로 옮깁니다
+		                marker.setPosition(latlng);
+
+		                // 클릭한 위치에 인포윈도우를 열어줍니다
+		                infowindow.open(map, marker);
+
+		                // 지도를 클릭할 때마다 호출하여 클릭한 위치의 주소를 표시합니다
+		                searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+
+		            });
+
+		            // 주소-좌표 변환 객체를 생성합니다
+		            var geocoder = new kakao.maps.services.Geocoder();
+
+		            // 지도의 중심 좌표에 대한 주소를 얻어옵니다
+		            searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+
+		            function searchAddrFromCoords(coords, callback) {
+		                // 좌표로 행정동 주소 정보를 요청합니다
+		                geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+		            }
+
+		            // 주소 정보를 실제 지도에 표시하는 함수입니다
+		            function displayCenterInfo(result, status) {
+		                if (status === kakao.maps.services.Status.OK) {
+		                    var infoDiv = document.getElementById('address');
+
+		                    for(var i = 0; i < result.length; i++) {
+		                        // 행정동의 region_type 값은 'H' 이므로
+		                        if (result[i].region_type === 'H') {
+		                            infoDiv.innerHTML = result[i].address_name;
+		                            break;
+		                        }
+		                    }
+		                }    
+		            }
+		        });
+		    });
+		</script>
+    
+	</div>
 	<div class="detail_review">3</div>
 </body>
 </html>
