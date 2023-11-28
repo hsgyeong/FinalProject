@@ -16,30 +16,26 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller // 이 클래스가 Spring MVC의 컨트롤러 임을 나타내는 어노테이션이다.
-
-
-
-
-@RequestMapping("/chat") // 이 컨트롤러의 기본 URL 정보가 "/chat" 임을 지정합니다.
+//@RequestMapping("/chat") // 이 컨트롤러의 기본 URL 정보가 "/chat" 임을 지정합니다.
 public class ChatController {
-//
-//    @RequestMapping("/room1")
-//    public ModelAndView loginCheck(HttpSession session){
-//        ModelAndView mv=new ModelAndView();
-//        String loginok=(String) session.getAttribute("loginok");
-//        if (loginok==null){
-//            mv.setViewName("/login/loginForm");
-//        } else {
-//            mv.setViewName("/chat/room");
-//        }
-//        return mv;
-//    }
+
+    @RequestMapping("/chat/room1")
+    public ModelAndView loginCheck(HttpSession session){
+        ModelAndView mv=new ModelAndView();
+        String loginok=(String) session.getAttribute("loginok");
+        if (loginok==null){
+            mv.setViewName("/login/loginForm");
+        } else {
+            mv.setViewName("/chat/room");
+        }
+        return mv;
+    }
 
 
     List<Room> roomList = new ArrayList<Room>(); // 방 정보를 저장하는 리스트
     static int roomNumber = 0; // 방 번호 관리하는 변수, 0으로 초기화
 
-    @RequestMapping("/chat")
+    @RequestMapping("/chat/chat")
     public ModelAndView chat() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/chat/chat");
@@ -50,19 +46,19 @@ public class ChatController {
      * 방 페이지
      * @return
      */
-    @RequestMapping("/room1")
-    public ModelAndView room() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("/chat/room");
-        return mv;
-    }
+//    @RequestMapping("/room1")
+//    public ModelAndView room() {
+//        ModelAndView mv = new ModelAndView();
+//        mv.setViewName("/chat/room");
+//        return mv;
+//    }
 
     /**
      * 방 생성하기
      * @param params
      * @return
      */
-    @RequestMapping("/createRoom") // '/chat/createRoom'경로로  POST 요청이 오면 호출되는 메서드로, 새로운 채탕방을 생성합니다. 생성된 방은 'roomList'에 추가되고, 현재까지 생성된 모든 방의 목록이 클라이언트에게 반환됩니다.
+    @RequestMapping("/chat/createRoom") // '/chat/createRoom'경로로  POST 요청이 오면 호출되는 메서드로, 새로운 채탕방을 생성합니다. 생성된 방은 'roomList'에 추가되고, 현재까지 생성된 모든 방의 목록이 클라이언트에게 반환됩니다.
     public @ResponseBody List<Room> createRoom(@RequestParam HashMap<Object, Object> params){ // '@ResponseBody' : 메서드의 반환 값이 HTTP 응답 본문에 직접 포함되어야 함을 나타내는 어노테이션입니다.
         // 'createRoom' 메서드 파라미터 : @RequestParam HashMap<Object, Object> params' : 요청 파라미터를 담을 'HashMap' 입니다. 여기서는 방 이름을 받아옵니다.
         String roomName = (String) params.get("roomName"); // 요청 파라미터에서 "roomName"을 추출합니다.
@@ -80,7 +76,7 @@ public class ChatController {
      * @param params
      * @return
      */
-    @RequestMapping("/getRoom") // 'getRoom' 경로로 GET 요청이 오면 호출되는 메소드로, 현재 생성된 모든 방의 정보를 반환합니다.
+    @RequestMapping("/chat/getRoom") // 'getRoom' 경로로 GET 요청이 오면 호출되는 메소드로, 현재 생성된 모든 방의 정보를 반환합니다.
     public @ResponseBody List<Room> getRoom(@RequestParam HashMap<Object, Object> params){
         return roomList;
     }
@@ -93,7 +89,7 @@ public class ChatController {
      */
 
     // 이 코드는 '/chat/moveChating' 경로로의 요청을 처리하는 메서드입니다. 클라이언트가 이 엔드포인트로 GET 또는 POST 요청을 보내면, 해당 방의 채팅 화면으로 이동하기 위한 처리를 수행합니다.
-    @RequestMapping("/moveChating") // "/moveChating" 경로로 접근 시 특정 방의 채팅 화면으로 이동하기 위한 메서드 입니다.
+    @RequestMapping("/chat/moveChating") // "/moveChating" 경로로 접근 시 특정 방의 채팅 화면으로 이동하기 위한 메서드 입니다.
     public ModelAndView chating(@RequestParam HashMap<Object, Object> params) { // params라는 요청 파라미터에서 roomNumber를 읽어와 해당 방의 정보를 찾고, 채팅 화면으로 이동합니다.
         ModelAndView mv = new ModelAndView();
         int roomNumber = Integer.parseInt((String) params.get("roomNumber")); // 요청 파라미터에서 "rommNumber"를 읽어와 정수형으로 변환합니다.
