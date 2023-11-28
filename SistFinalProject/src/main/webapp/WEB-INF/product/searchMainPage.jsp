@@ -10,6 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gaegu:wght@300&family=Nanum+Pen+Script&family=Sunflower:wght@300&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css">
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d8615c9af3b1b87d93e4b6344af3f2a7&libraries=services"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <title>Insert title here</title>
 </head>
@@ -203,11 +207,6 @@
         border-radius: 5px;
     }
 
-    /*div {
-        border: 1px solid black;
-    }*/
-
-
     .accom-list {
         padding: 10px;
         cursor: pointer;
@@ -255,6 +254,17 @@
         $(".price-bar-container").show();
 
     })
+    navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position)
+    });
+
+    function accessToGeo(position) {
+        const positionObj = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        }
+        console.log(positionObj)
+    }
 </script>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 <caption><b style="font-size: 40px; font-family: 'NanumSquare', serif;">검색 : '${keyword}'</b></caption>
@@ -843,7 +853,8 @@
                     alert("정렬할 데이터가 없습니다.");
                     return;
                 }
-                alert("거리순 클릭 : 미 구현 ")
+                alert("거리순으로 나열하고 싶은 위치를 입력하세요.");
+                sample4_execDaumPostcode();
             })
             $("#sort-low-price").click(function () {
                 if (${productList.size() == 0}) {
@@ -863,6 +874,118 @@
             })
         </script>
     </div>
+
+    <input type="hidden" data-bs-toggle="modal" data-bs-target="#myModal" id="modal-btn">
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">현재 위치 등록하기</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input type="hidden" id="accom_latitude">
+                    <input type="hidden" id="accom_longitude">
+                    <div id="map" style="width: 100%; height: 400px;"></div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        let modalFlag = false;
+
+        function sample4_execDaumPostcode() {
+            modalFlag = false;
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                    // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var geocoder = new kakao.maps.services.Geocoder();
+                    geocoder.addressSearch(data.address, function (result, status) {
+                        //alert("등록");
+                        // 정상적으로 검색이 완료됐으면
+                        if (status === kakao.maps.services.Status.OK) {
+                            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                            var message = 'latlng: new kakao.maps.LatLng(' + result[0].y + ', ';
+                            message += result[0].x + ')';
+                            //alert(result[0].y + "," + result[0].x);
+                            $("#accom_latitude").val(result[0].y);
+                            $("#accom_longitude").val(result[0].x);
+                            modalFlag = true;
+                            $("#modal-btn").click();
+                        }
+                    });
+                }
+            }).open();
+        }
+
+        $("#modal-btn").click(function () {
+            if (modalFlag == true) {
+                var lat = $("#accom_latitude").val();
+                var long = $("#accom_longitude").val();
+                //alert(lat + "," + long);
+                $("#map").empty();
+
+                var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                    mapOption = {
+
+                        center: new kakao.maps.LatLng(lat, long), // 지도의 중심좌표
+                        level: 3 // 지도의 확대 레벨
+                    };
+                var map = new kakao.maps.Map(mapContainer, mapOption);
+
+                var markerPosition = new kakao.maps.LatLng(lat, long);
+
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+                marker.setMap(map);
+
+                // 주소-좌표 변환 객체를 생성합니다
+                var geocoder = new kakao.maps.services.Geocoder();
+
+                // 주소로 좌표를 검색합니다
+                geocoder.addressSearch($('#address').val(), function (result, status) {
+
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === kakao.maps.services.Status.OK) {
+                        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                        // 결과값으로 받은 위치를 마커로 표시합니다
+                        var marker = new kakao.maps.Marker({
+                            map: map,
+                            position: coords
+                        });
+
+                        // 인포윈도우로 장소에 대한 설명을 표시합니다
+                        var infowindow = new kakao.maps.InfoWindow({
+                            content: '<div style="width:150px;text-align:center;padding:6px 0;">장소</div>'
+                        });
+                        infowindow.open(map, marker);
+
+                        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                        map.setCenter(coords);
+                    }
+                });
+
+                loadKakaoMap();
+            }
+
+        })
+    </script>
+
 </div>
 </body>
 </html>
