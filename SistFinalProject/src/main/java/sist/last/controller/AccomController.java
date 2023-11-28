@@ -40,7 +40,7 @@ public class AccomController {
 		
 		int totalCount = mapper.getTotalCount();
 		List<AccomDto> list = mapper.getAllData();
-	    
+		
 	    AccomDto dto = new AccomDto();
 	    dto.setBusiness_id(business);
 	    
@@ -58,14 +58,14 @@ public class AccomController {
 	}
 
 	@GetMapping("/accom/accom-insert")
-	public ModelAndView accominsertfrom(@RequestParam int accom_num, HttpSession session) {
+	public ModelAndView accominsertfrom(HttpSession session) {
 		
 		ModelAndView model=new ModelAndView();
 		
 		// 세션에서 로그인 정보를 가져오는 로직
 	    String business_id = (String) session.getAttribute("business_id");
 	    
-	    AccomDto dto = mapper.getOneData(accom_num);
+	    AccomDto dto = new AccomDto();
 	    
 	    dto.setBusiness_id(business_id);
 	    

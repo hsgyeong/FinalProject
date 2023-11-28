@@ -167,7 +167,7 @@
 	text-align: center;
 	padding-bottom: 1vh;
 	cursor: pointer;
-	margin-right: 1vh;
+	margin-right: 3%;
 }
 
 .detail_room_select {
@@ -231,22 +231,18 @@
 	box-shadow: 2px 2px 2px silver;
 }
 
-.detail_suk_info,.detail_review{
+.detail_suk_info{
 	width: 100%;
-	border: 1px solid black;
-	height: 500px;
-	margin-top: 3vh;
+	border: 1px solid silver;
 }
 
 #map {
     width: 100%;
-    height: 50vh;
-    border: 1px solid black;
+    height: 70vh;
 }
 
 #address {
-    width: 10%;
-    margin-top: -50px; /* 마커 위로 조절 */
+    width: 11%;
     padding: 1vh;
     border: 1px solid black;
     border-radius: 5px;
@@ -254,8 +250,8 @@
     text-align: center;
     font-size: 2vh;
     position: absolute;
-    top: 49%;
-    left: 45%;
+    top: 50%;
+    left: 44.5%;
     z-index: 1;
 }
 
@@ -263,6 +259,24 @@
 	color:red;
 	font-size: 0.8em;
 	float: right;
+}
+
+.detail_review{
+	width: 80%;
+	margin-left: 10%;
+}
+
+.detail_review_result{
+	width: 100%;
+	border: 3px solid orange;
+	height: 35vh;
+}
+
+.detail_review_input{
+	width: 100%;
+	border: 3px solid blue;
+	height: 25vh;
+	margin-top: 10vh;
 }
 </style>
 <script type="text/javascript">
@@ -365,27 +379,41 @@
 			</div>
 
 			<script>
-				$(".detail_imgs ul li img").click(function() {
-					var selectImg = $(this).attr('src');
+				var clickTimer;
 
-					//제거
-					$(".detail_imgs ul li img").css({
+				$(".detail_imgs ul li img").click(function () {
+				    var selectImg = $(this).attr('src');
 
-						"transform" : "none"
-					});
+				    // 제거
+				    $(".detail_imgs ul li img").css({
+				        "transform": "none"
+				    });
 
-					//효과 생성
-					$(this).css({
+				    // 효과 생성
+				    $(this).css({
+				        "transform": "scale(1.05)"
+				    });
 
-						"transform" : "scale(1.05)"
-					});
+				    $(".detail_img img").fadeOut(300, function () {
+				        $(this).attr('src', selectImg);
+				        $(this).fadeIn(300);
+				    });
 
-					$(".detail_img img").fadeOut(300, function() {
+				    // 타이머가 이미 설정되어 있다면 해제
+				    if (clickTimer) {
+				        clearTimeout(clickTimer);
+				    }
 
-						$(this).attr('src', selectImg);
-
-						$(this).fadeIn(300);
-					});
+				    // 2초 후에 초기 이미지로 돌아가기
+				    clickTimer = setTimeout(function () {
+				        $(".detail_imgs ul li img").css({
+				            "transform": "none"
+				        });
+				        $(".detail_img img").fadeOut(300, function () {
+				            $(this).attr('src', "../accomsave/${dto.accom_photo}");
+				            $(this).fadeIn(300);
+				        });
+				    }, 2000);
 				});
 			</script>
 
@@ -432,7 +460,7 @@
 		<div class="detail_select">
 			<ul>
 				<li class="detail_select_1">객실안내/예약</li>
-				<li class="detail_select_2">숙소정보</li>
+				<li class="detail_select_2">숙소위치</li>
 				<li class="detail_select_3">리뷰</li>
 			</ul>
 		</div>
@@ -446,7 +474,7 @@
 			</div>
 			<div class="detail_room_reserve">
 				<div class="detail_room_select_name">${rdto.room_name } <span class="detail_room_count">남은 객실 ${rdto.room_count }개</span> </div>
-				<div class="detail_room_select_suk">기준${rdto.room_minpeople }인 최대${rdto.room_maxpeople }인</div>
+				<div class="detail_room_select_suk">기준${rdto.room_minpeople }인 · 최대${rdto.room_maxpeople }인 / ${sleep }박</div>
 				<div class="detail_room_select_price" align="right">
 					<fmt:formatNumber value="${rdto.room_price*sleep }" />
 					원
@@ -486,18 +514,20 @@
 		        // 여기에 위도와 경도를 가져오는 로직을 추가하세요.
 		        var latitude = ${dto.accom_latitude};
 		        var longitude = ${dto.accom_longitude};
-		
+				
 		        // 카카오 지도 API 초기화
 		        kakao.maps.load(function () {
 		            var container = document.getElementById('map');
 		            var options = {
 		                center: new kakao.maps.LatLng(latitude, longitude),
+		                disableDoubleClickZoom: true,
 		                draggable: false,
-		                level: 1,
+		                level: 2,
 		                
 		            };
 		
 		            var map = new kakao.maps.Map(container, options);
+		            
 		
 		            // 마커 추가
 		            var markerPosition = new kakao.maps.LatLng(latitude, longitude);
@@ -511,9 +541,9 @@
 		            var center = map.getCenter(); 
 		            // 마커에 표시할 인포윈도우를 생성합니다
 		            var infowindow = new kakao.maps.InfoWindow({
-		                position : center, 
-		                content : '<div id="address">도로명주소: 검색 후 표시됩니다.</div>' 
-		            });
+					    position: center,
+					    content: '<div id="address">도로명주소: 검색 후 표시됩니다.</div>'
+					});
 
 		            // 지도에 클릭 이벤트를 등록합니다
 		            kakao.maps.event.addListener(map, 'click', function(mouseEvent) { 
@@ -545,25 +575,39 @@
 		                geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
 		            }
 
-		            // 주소 정보를 실제 지도에 표시하는 함수입니다
+		         	// 주소 정보를 실제 지도에 표시하는 함수입니다
 		            function displayCenterInfo(result, status) {
 		                if (status === kakao.maps.services.Status.OK) {
 		                    var infoDiv = document.getElementById('address');
 
-		                    for(var i = 0; i < result.length; i++) {
+		                    for (var i = 0; i < result.length; i++) {
 		                        // 행정동의 region_type 값은 'H' 이므로
 		                        if (result[i].region_type === 'H') {
-		                            infoDiv.innerHTML = result[i].address_name;
+		                            var fullAddress = result[i].address_name + " " + "${dto.accom_address}";
+		                            infoDiv.innerHTML = fullAddress;
 		                            break;
 		                        }
 		                    }
-		                }    
+		                }
 		            }
 		        });
 		    });
 		</script>
     
 	</div>
-	<div class="detail_review">3</div>
+	<div class="detail_review">
+		<div class="detail_review_result">
+		
+		</div>
+		
+		<div class="detail_review_input">
+		<table class="table table-bordered">
+			<tr>
+				<td style="padding: 2vh;">닉네임</td>
+				<td style="padding: 2vh; float: right;">댓글 작성 날짜</td>
+			</tr>		
+		</table>
+		</div>
+	</div>
 </body>
 </html>

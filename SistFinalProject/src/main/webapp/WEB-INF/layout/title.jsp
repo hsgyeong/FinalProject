@@ -317,7 +317,7 @@
                                 <li><a href="/company/business-mypage">내정보</a></li>
                             </c:when>
                         </c:choose>
-                        <li><a href="login/logout">로그아웃</a></li>
+                        <li><a href="/login/logout">로그아웃</a></li>
                     </div>
                 </ul>
             </div>
