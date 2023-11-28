@@ -13,7 +13,7 @@
     <style type="text/css">
         .accom_insert_box {
             width: 100%;
-            height: 101vh;
+            height: 102vh;
             margin-top: 3.5vh;
         }
 
@@ -155,7 +155,7 @@
             var hashtagResultDiv = document.getElementById("hashtag_result");
 
             // 초기 높이를 설정
-            currentHeight = 101;
+            currentHeight = 102;
 
             if (document.getElementById("accom_location").value !== "") {
                 // 도로명 주소가 있으면 6vh를 추가하여 설정
@@ -410,28 +410,28 @@
                                 }
                             }
                         }
+                        
+                     	// 해시태그 제거 이벤트
+				        function removeHashtag(button) {
+				            var hashtagResultDiv = document.getElementById("hashtag_result");
+				            var accomHashtagInput = document.getElementById("accom_hashtag");
 
-                        function removeHashtag(button) {
-                            var hashtagResultDiv = document.getElementById("hashtag_result");
-                            var accomHashtagInput = document.getElementById("accom_hashtag");
-                            var accomInsertBox = document.querySelector(".accom_insert_box");
+				            // 부모 엘리먼트를 찾아 삭제
+				            var hashtagDiv = button.parentNode;
+				            var removedTag = hashtagDiv.textContent.trim(); // 삭제된 해시태그 텍스트
+				            hashtagResultDiv.removeChild(hashtagDiv);
 
-                            // 부모 엘리먼트를 찾아 삭제
-                            var hashtagDiv = button.parentNode;
-                            hashtagResultDiv.removeChild(hashtagDiv);
-
-                            // 해시태그 결과를 갱신하고, 입력란이 업데이트되었을 때 accomInsertBox의 높이 조절
-                            accomHashtagInput.value = Array.from(hashtagResultDiv.children)
-                                .map(tagDiv => tagDiv.textContent.replace('x', '').trim())
-                                .join(', ');
-                            updateHeight();
-                        }
+				            // 입력된 해시태그 값에서 삭제된 해시태그 제거
+				            var currentTags = accomHashtagInput.value.split(',').map(tag => tag.trim());
+				            var updatedTags = currentTags.filter(tag => tag !== removedTag);
+				            accomHashtagInput.value = updatedTags.join(', ');
+				        }
                     </script>
                 </td>
             </tr>
             
             <tr>
-                <td align="center" valign="middle"><b>숙소정보소개</b></td>
+                <td align="center" valign="middle"><b>방정보소개</b></td>
                 <td valign="middle">
                     <textarea class="form-control" name="accom_info" required="required"></textarea>
                 </td>

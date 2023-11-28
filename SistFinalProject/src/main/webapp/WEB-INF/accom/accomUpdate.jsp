@@ -13,7 +13,7 @@
     <style type="text/css">
         .accom_insert_box {
             width: 100%;
-            height: 106h;
+            height: 109vh;
             margin-top: 3.5vh;
         }
 
@@ -145,6 +145,7 @@
             filter: none;
         }
     </style>
+    
     <script type="text/javascript">
         //높이를 업데이트하는 함수
         function updateHeight() {
@@ -155,7 +156,7 @@
             var hashtagResultDiv = document.getElementById("hashtag_result");
 
             // 초기 높이를 설정
-            currentHeight = 101;
+            currentHeight = 103;
 
             if (document.getElementById("accom_location").value !== "") {
                 // 도로명 주소가 있으면 6vh를 추가하여 설정
@@ -176,6 +177,7 @@
             accomInsertBox.style.height = currentHeight + 'vh';
         }
     </script>
+    
     <title>Insert title here</title>
 </head>
 <body>
@@ -190,7 +192,7 @@
 
             <tr>
                 <td align="center" valign="middle" colspan="2"
-                    style="font-size: 1.5em;"><b>숙소정보등록</b></td>
+                    style="font-size: 1.5em;"><b>숙소정보수정</b></td>
             </tr>
             <tr>
                 <td align="center" valign="middle"><b>숙소이름</b></td>
@@ -397,13 +399,20 @@
 				            hashtagResultDiv.appendChild(newHashtagDiv);
 				        }
 				
-				        // 해시태그 제거 이벤트
+				     	// 해시태그 제거 이벤트
 				        function removeHashtag(button) {
 				            var hashtagResultDiv = document.getElementById("hashtag_result");
-				
+				            var accomHashtagInput = document.getElementById("accom_hashtag");
+
 				            // 부모 엘리먼트를 찾아 삭제
 				            var hashtagDiv = button.parentNode;
+				            var removedTag = hashtagDiv.textContent.trim(); // 삭제된 해시태그 텍스트
 				            hashtagResultDiv.removeChild(hashtagDiv);
+
+				            // 입력된 해시태그 값에서 삭제된 해시태그 제거
+				            var currentTags = accomHashtagInput.value.split(',').map(tag => tag.trim());
+				            var updatedTags = currentTags.filter(tag => tag !== removedTag);
+				            accomHashtagInput.value = updatedTags.join(', ');
 				        }
 				        
 				        function handleHashtagInput(event) {
@@ -462,7 +471,7 @@
             </tr>
             
             <tr>
-                <td align="center" valign="middle"><b>숙소정보소개</b></td>
+                <td align="center" valign="middle"><b>방정보소개</b></td>
                 <td valign="middle">
                     <textarea class="form-control" name="accom_info" required="required">${dto.accom_info }</textarea>
                 </td>
