@@ -183,6 +183,7 @@ public class ProductController {
         }
         List<ProductDto> sortProducts = new ArrayList<>();
         if (sort.equals("distance")) {
+
         }
         if (sort.equals("lowprice")) {
             sortProducts = sortLowPriceOfProducts(keyword, integerMinPrice, integerMaxPrice);
