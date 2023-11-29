@@ -293,20 +293,14 @@
         $(".price-bar-container").show();
 
     })
-    navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position)
-    });
-
-    function accessToGeo(position) {
-        const positionObj = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-        }
-        console.log(positionObj)
-    }
 </script>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
-<caption><b style="font-size: 40px; font-family: 'NanumSquare', serif;">검색 : '${keyword}'</b></caption>
+<c:if test="${mySurrounding==null && sortSurrounding==null}">
+    <caption><b style="font-size: 40px; font-family: 'NanumSquare', serif;">검색 : '${keyword}'</b></caption>
+</c:if>
+<c:if test="${mySurrounding!=null || sortSurrounding!=null}">
+    <caption><b style="font-size: 40px; font-family: 'NanumSquare', serif;">'내 근처'</b></caption>
+</c:if>
 <br><br>
 <div style="width: 100%; border: 2px solid gray;" class="d-inline-flex">
     <div class="filter-border-box" style="width: 33%">
@@ -715,19 +709,39 @@
             <section class="Type-of-accom">
                 <h5><b>숙소 유형</b></h5>
                 <ul>
-                    <c:forEach items="${category}" var="list" varStatus="i">
-                        <li style="line-height: 2" class="d-inline-flex">
-                            <input type="checkbox" id="category${i.count}" style="margin-right: 10px;"
-                                   value="${list}" name="category"
-                            <c:forEach items="${selCate}" var="cate" varStatus="i">
-                            <c:if test="${cate==list}">
-                                   checked
-                            </c:if>
-                            </c:forEach>>
-                            <span class="category${i.count}">${list}</span>
-                        </li>
-                        <br>
-                    </c:forEach>
+                    <li style="line-height: 2" class="d-inline-flex">
+                        <input type="checkbox" style="margin-right: 10px;"
+                               value="모텔" name="category"
+                        <c:forEach items="${selCate}" var="cate" varStatus="i">
+                        <c:if test="${cate=='모텔'}">
+                               checked
+                        </c:if>
+                        </c:forEach>>
+                        <span class="category">모텔</span>
+                    </li>
+                    <br>
+                    <li style="line-height: 2" class="d-inline-flex">
+                        <input type="checkbox" style="margin-right: 10px;"
+                               value="호텔" name="category"
+                        <c:forEach items="${selCate}" var="cate" varStatus="i">
+                        <c:if test="${cate=='호텔'}">
+                               checked
+                        </c:if>
+                        </c:forEach>>
+                        <span class="category">호텔</span>
+                    </li>
+                    <br>
+                    <li style="line-height: 2" class="d-inline-flex">
+                        <input type="checkbox" style="margin-right: 10px;"
+                               value="펜션" name="category"
+                        <c:forEach items="${selCate}" var="cate" varStatus="i">
+                        <c:if test="${cate=='펜션'}">
+                               checked
+                        </c:if>
+                        </c:forEach>>
+                        <span class="category">펜션</span>
+                    </li>
+                    <br>
                 </ul>
             </section>
             <br>
@@ -880,7 +894,7 @@
                             </div>
                             <div class="detail_accom_location">${list.accom_location }</div>
                             <div class="detail_accom_hashtag">${list.accom_hashtag }</div>
-                            <c:if test="${sort=='distance'}">
+                            <c:if test="${sort=='distance'||mySurrounding!=null}">
                                 <c:if test="${list.distance<1000}">
                                     <fmt:formatNumber value="${list.distance}" pattern="###"/>m
                                 </c:if>

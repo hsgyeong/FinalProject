@@ -31,8 +31,10 @@ public interface ProductServiceInter {
     public List<ProductDto> getProductOfLocationByLowPrice(String keyword);
 
     public List<Integer> getPriceOfAccomNumber(int accom_num);
-    
+
     public int getProductOfLowPrice(int accom_num);
+
+    public List<ProductDto> getAllProduct();
 
     public List<String> selectCategory();
 }

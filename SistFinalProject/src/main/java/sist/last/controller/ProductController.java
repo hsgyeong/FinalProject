@@ -47,6 +47,10 @@ public class ProductController {
                                  @RequestParam(required = false) String selCate,
                                  @RequestParam(required = false) String latitude,
                                  @RequestParam(required = false) String longitude) {
+        System.out.println("keyword : " + keyword);
+        if (keyword.isEmpty()) {
+            model.addAttribute("sortSurrounding", "yes");
+        }
         categoryList = new ArrayList<>();
         selectDate1 = selDate1;
         selectDate2 = selDate2;
@@ -62,15 +66,8 @@ public class ProductController {
         System.out.println(sort + "," + selCate);
         model.addAttribute("keyword", keyword);
         model.addAttribute("category", category);
-        if (selDate1 == null) {
-            LocalDate today = LocalDate.now();
-            LocalDate tomorrow = today.plusDays(1);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            selDate1 = today.format(formatter);
-            selDate2 = tomorrow.format(formatter);
-            //System.out.println(selDate1 + "," + selDate2);
-        }
-        processDateSelection(selDate1, selDate2, model);
+        isSelDateNull(selDate1);
+        processDateSelection(selectDate1, selectDate2, model);
         List<ProductDto> products = searchCompareKeyword(keyword);
         if (selCate != null) {
             String[] splitCategory = selCate.split(",");
@@ -84,7 +81,7 @@ public class ProductController {
         //System.out.println(products.size() + " 개 의 데이터");
         if (products != null) {
             //System.out.println("selDate1이 null이 아님");
-            products = compareLimitDate(products, selDate1, selDate2);
+            products = compareLimitDate(products, selectDate1, selectDate2);
             if (sort != null) {
                 model.addAttribute("sort", sort);
                 System.out.println(products.size() + " 개 의 데이터");
@@ -112,6 +109,36 @@ public class ProductController {
         return "/product/searchMainPage";
     }
 
+    @GetMapping("/product/msr")
+    public String currentLocationSortProduct(@RequestParam double latitude,
+                                             @RequestParam double longitude,
+                                             Model model) {
+        userLat = latitude;
+        userLong = longitude;
+        List<ProductDto> allProducts = pService.getAllProduct();
+        isSelDateNull(null);
+        processDateSelection(selectDate1, selectDate2, model);
+        allProducts = compareLimitDate(allProducts, selectDate1, selectDate2);
+        sortDistanceOfProduct(allProducts);
+        allProducts = exceptLongDistance(allProducts);
+        model.addAttribute("mySurrounding", "yes");
+        model.addAttribute("productList", allProducts);
+
+        return "/product/searchMainPage";
+    }
+
+    private List<ProductDto> exceptLongDistance(List<ProductDto> products) {
+        List<ProductDto> exceptProduct = new ArrayList<>();
+
+        for (ProductDto product : products) {
+            if (product.getDistance() <= 10000) {
+                exceptProduct.add(product);
+                System.out.println(product.getDistance());
+            }
+        }
+        return exceptProduct;
+    }
+
     private List<ProductDto> searchCompareKeyword(String keyword) {
         List<ProductDto> categoryList = pService.getProductDataOfCategory(keyword);
         if (!categoryList.isEmpty()) {
@@ -130,6 +157,17 @@ public class ProductController {
             return nameList;
         }
         return null;
+    }
+
+    private void isSelDateNull(String selDate1) {
+        if (selDate1 == null) {
+            LocalDate today = LocalDate.now();
+            LocalDate tomorrow = today.plusDays(1);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            selectDate1 = today.format(formatter);
+            selectDate2 = tomorrow.format(formatter);
+            //System.out.println(selDate1 + "," + selDate2);
+        }
     }
 
     private List<ProductDto> compareSelectCategory(List<ProductDto> products) {
