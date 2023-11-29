@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import sist.last.dto.BusinessDto;
 import sist.last.dto.MemberDto;
+import sist.last.service.AdminMapperService;
 import sist.last.service.BusinessService;
 import sist.last.service.MemberService;
 
@@ -30,6 +31,9 @@ public class LoginController {
 	
 	@Autowired
 	BusinessService businessService;
+	
+	@Autowired
+	AdminMapperService adminService;
 	
 	
 	@GetMapping("/login/loginmain")
@@ -126,6 +130,8 @@ public class LoginController {
 	@PostMapping("/login/business-login")
 	public String Blogin(@RequestParam String business_id,
 			@RequestParam String business_pass,
+			@RequestParam String admin_id,
+			@RequestParam String admin_pass,
 			@RequestParam(required = false) String cbsave,
 			HttpSession session,
 			HttpServletResponse response)
@@ -157,7 +163,8 @@ public class LoginController {
 			 	}  */
 			 		
 			return "redirect:/";
-		}else {
+		}
+		else {
 			
 			return "/login/loginFail";
 		}
