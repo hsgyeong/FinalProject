@@ -130,8 +130,6 @@ public class LoginController {
 	@PostMapping("/login/business-login")
 	public String Blogin(@RequestParam String business_id,
 			@RequestParam String business_pass,
-			@RequestParam String admin_id,
-			@RequestParam String admin_pass,
 			@RequestParam(required = false) String cbsave,
 			HttpSession session,
 			HttpServletResponse response)
@@ -139,7 +137,6 @@ public class LoginController {
 		HashMap<String, String> map = new HashMap<>();
 		
 		int Bcheck = businessService.BloginPassCheck(business_id, business_pass);
-		int adCheck = adminService.AdminloginPassCheck(admin_id, admin_pass);
 		
 		if(Bcheck==1) {
 			
@@ -163,16 +160,6 @@ public class LoginController {
 			 		System.out.println("세션에 myid가 저장되어 있지 않습니다."); 
 			 	}  */
 			 		
-			return "redirect:/";
-		}
-		else if(adCheck==1)
-		{
-			session.setMaxInactiveInterval(60*60*8);
-			
-			session.setAttribute("admin_id", admin_id);
-			session.setAttribute("loginok", "admin");
-			session.setAttribute("saveok", cbsave);
-			
 			return "redirect:/";
 		}
 		else {
