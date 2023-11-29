@@ -1,3 +1,4 @@
+<%@page import="javax.swing.text.Document"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -31,7 +32,7 @@
 }
 
 .btn.loginbt{
-	width:290px;
+	width:305px;
 	height:40px;
 	border-radius: 5px;
 	background-color: #f7323f;
@@ -85,24 +86,46 @@
 .b .select button{
 	width:50%;
 }
-.businessId{
-	display: flex;
-}
-.businessPass{
+.businessId {
 	display: flex;
 }
 
-.p
-{
+.p {
 	position: static;
 }
-.b
-{
-display: none;
-position: static;
-height: 100%;
+.b {
+	display: none;
+	position: static;
+	height: 100%;
 }
+
+.businessPass {
+	position:relative;
+	display: flex;
+
+}
+
+.memberPass {
+	position:relative;
+	display: flex;
+}
+
+.businessShowPass {
+	position: absolute;
+	left:253px;
+	top:5px;
+	cursor:pointer;
+}
+
+.memberShowPass {
+	position: absolute;
+	left:253px;
+	top:5px;
+	cursor:pointer;
+}
+
 </style>
+
 </head>
 <% 
 String info_id = (String)session.getAttribute("info_id");
@@ -121,6 +144,24 @@ else{
 	save=true;	
 }
 
+Cookie[] cookies = request.getCookies();
+if(cookies != null) {
+	for(Cookie cookie : cookies) {
+		if(cookie.getName().equals("infoId")){
+			String infoId = cookie.getValue();
+			
+			request.setAttribute("infoId", infoId);
+			
+		}
+		else if(cookie.getName().equals("businessId")){
+			String businessId = cookie.getValue();
+			
+			request.setAttribute("businessId", businessId);
+			break;
+		}
+	}
+	
+}
 
 %>
 <body>
@@ -152,12 +193,20 @@ else{
 				<td><br>
 					<div class="memberLogin">
 						<form action="/login/member-login" method="post">
-							<span class="id">아이디 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
-								type="text" name="info_id" style="width: 200px;" class="form-control"
-								required="required"></span> <br>
-							<br> <span class="pass">비밀번호&nbsp;&nbsp;&nbsp; <input
-								type="password" name="info_pass" style="width: 200px;"
-								class="form-control" required="required"></span>
+							<span class="id">아이디 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+							<input type="text" name="info_id" style="width: 200px;" class="form-control"
+								required="required" value="${sessionScope.saveok==null?'':requestScope.infoId }">
+							</span>
+							 <br><br>
+							<span class="member input-group">	
+							<div class="memberPass">비밀번호&nbsp;&nbsp;&nbsp;
+							<input type="password" name="info_pass" style="width: 200px;"
+								class="form-control" required="required" id="member_pass">&nbsp;&nbsp;
+							<i class="bi bi-eye memberShowPass" style="color:gray" ></i>
+							</div>
+							</span>
+							<br>
+							<input type="checkbox" name ="cbsave" ${sessionScope.saveok == null?"":"checked"  } >&nbsp;아이디 저장
 							<br><br>
 							<button type="submit" class="btn loginbt">
 							<i class="bi bi-door-open"></i>&nbsp;&nbsp;로그인
@@ -169,16 +218,24 @@ else{
 			<tr>
 				<td>
 					<div class="businessLogin">
-						<form action="/login/business-login" method="post">
-							<span class="businessId">사업자번호 &nbsp;&nbsp; <input
-								type="text" name="business_id" id="bNum" required="required"
-								style="width: 190px;" class="form-control"></span> <br> <span
-								class="businessPass">비밀번호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
-								type="password" name="business_pass" required="required"
-								style="width: 190px;" class="form-control"></span> <br>
+						<form action="/login/business-login" method="post" >
+							<span class="businessId">사업자번호 &nbsp;&nbsp; 
+							<input type="text" name="business_id" id="bNum" required="required"
+								style="width: 190px;" class="form-control" value="${sessionScope.saveok==null?'':requestScope.businessId }">
+							</span>	
+							 <br> 
+							<span class="business input-group">
+							<div class="businessPass">비밀번호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+								<input type="password" name="business_pass" required="required"
+								style="width: 190px;" class="form-control" id="business_pass">&nbsp;&nbsp;
+								<i class="bi bi-eye businessShowPass" style="color:gray"></i>
+							</div>
+							</span>
 							<br>
+							<input type="checkbox" name ="cbsave" ${sessionScope.saveok == null?"":"checked"  } >&nbsp;아이디 저장
+							<br><br>
 							<button type="submit" class="btn loginbt">
-								<i class="bi bi-door-open"></i>&nbsp;&nbsp;로그인
+								&nbsp;&nbsp;로그인
 							</button>
 							<br>
 						</form>
@@ -203,9 +260,15 @@ else{
 							<img alt="" src="../loginsave/kakao.png" style="cursor: pointer;">
 					</a>
 					/ -->	
+					<div style="display: flex;">
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=f74ba8d7ae81ba39d038f11c32d7c6ae&redirect_uri=http://localhost:9000/login/kakao-member&response_type=code">
 					<img alt="" src="../loginsave/kakao.png" style="cursor: pointer; width:145px;height:40px;">
 					</a>
+					&nbsp;&nbsp;&nbsp;
+					<a href="naver-login">
+					<img alt="" src="../loginsave/naver.png" style="cursor: pointer; width:145px;height:40px;">
+					</a>
+					</div>
 					</div>
 				</td>
 			</tr>
@@ -214,6 +277,7 @@ else{
 	</div>	
 </body>
 <script type="text/javascript">
+
 $(document).ready(function(){
 	
 	$(".businessLogin").hide();
@@ -240,10 +304,33 @@ $(document).ready(function(){
 
 		} 
 	});
-	
-	
-});
 
+	$(".businessShowPass").click(function(){
+		
+		var businessPass = $("#business_pass");
+		
+		if(businessPass.attr("type")=="password"){
+			businessPass.attr("type","text");
+		}else
+			{
+			businessPass.attr("type","password");
+			}
+
+	})
+	
+	$(".memberShowPass").click(function(){
+		
+		var memberPass = $("#member_pass");
+		
+		if(memberPass.attr("type")=="password"){
+			memberPass.attr("type","text");
+		}else
+			{
+			memberPass.attr("type","password");
+			}
+
+	})
+});
 
 </script>
 </html>

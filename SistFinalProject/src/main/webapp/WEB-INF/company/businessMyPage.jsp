@@ -60,6 +60,10 @@
 	font-weight: bold;
 	font-size: 20px;
 	}
+	
+	.a, .b, .c, .d {
+	font-size: 20px;
+	}
     </style>
 </head>
 <body>
@@ -79,7 +83,7 @@
 		대표자
 		&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;
-		${businessDto.business_name }
+		<span class="a">${businessDto.business_name }</span>
 		<br><br>
 		</td>
 	</tr>
@@ -88,7 +92,7 @@
 		상호명
 		&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;
-		${businessDto.business_company }
+		<span class="b">${businessDto.business_company }</span>
 		<br><br>
 		</td>
 	</tr>
@@ -97,7 +101,7 @@
 		연락처
 		&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp; 
-		${businessDto.business_hp }
+		<span class="c">${businessDto.business_hp }</span>
 		<br><br>
 		</td>
 	</tr>
@@ -107,11 +111,17 @@
 		이메일
 		&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp; 
-		${businessDto.business_email }
+		<span class="d">${businessDto.business_email }</span>
 		<br><br>
 		</td>
 	</tr>
 	<br>
+	<tr>
+		<td>
+		<button class="btn" style="background-color:#f7323f; width:380px; color:white;" onclick="location.href='/accom/accom-list?business_id=${businessDto.business_id}'">나의 등록 숙소</button>
+		</td>
+	</tr>
+	<br><br>
 	<tr>
 		<td>
 		<hr>
@@ -128,7 +138,6 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a class="x" name="mx" value="${businessDto.business_id }">회원탈퇴</a>
 			<br><br><br>
-	<a class="mine" href="/accom/accom-list?business_id=${businessDto.business_id }">나의 등록 숙소</a>
 		</td>
 	</tr>
 

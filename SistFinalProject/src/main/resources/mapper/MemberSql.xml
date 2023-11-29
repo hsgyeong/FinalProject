@@ -7,9 +7,13 @@
  <select id="getTotalCount" resultType="int">
  select count(*) from info
  </select>
- 
+
  <insert id="insertMember" parameterType="member">
  insert into info(info_id, info_name, info_nickname, info_pass, info_hp, info_email, info_birth, info_gaipday) values(#{info_id},#{info_name},#{info_nickname},#{info_pass},#{info_hp},#{info_email},#{info_birth},now())
+ </insert>
+ 
+ <insert id="kakaoInsertMember" parameterType="member">
+ insert into info(kakao_id, kakao_name, kakao_gaipday)values(#{info_id}, #{info_name}, now())
  </insert>
  
  <select id="loginPassCheck" parameterType="Map" resultType="int">

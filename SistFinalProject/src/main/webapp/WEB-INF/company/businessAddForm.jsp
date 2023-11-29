@@ -33,6 +33,8 @@
 
 			var business_id = $("#bNum").val();
 			//alert(bNum);
+			
+			if(/^\d{10}$/.test(business_id)){
 
 			$.ajax({
 
@@ -57,7 +59,11 @@
 				}
 			})
 
-		});
+		}else {
+			alert("잘못된 형식의 사업자번호입니다. 다시 입력해주세요.");
+			
+		}
+		})
 
 		$("#hp2").keyup(function() {
 
@@ -117,7 +123,7 @@
 	text-align: center;
 }
 .bt {
-	margin-left: 395px;
+	margin: auto;
 }
 
 .cap {
@@ -140,10 +146,9 @@ h3{
     outline: none;
 }
 
-
 .content {
 	margin: auto;
-	width: 60%;	
+	width: 60%;
 }
 
 .accommodation{
@@ -172,20 +177,21 @@ body {
 			<br>
 		
 			<caption align="top" class="cap">
-				<h6><b>회원가입</b></h6>
+				<h6><b>회원가입</b></h6><br>
 			</caption>
 			
 			<tr>
 				<td>
-					<div class="content">
+				<div class="cs"  style="margin: auto;">
+					<div class="content" style="width:480px;" align="left">
 
 						사업자등록번호<br> 
 						<span class="i"><input type="text" name="business_id"
 							id="bNum" class="form-control" required="required"
 							style="width: 330px;" placeholder="사업자등록번호를 입력해주세요">&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn" id="bNumChk"
-								style="background-color: #f7323f; color: white; width:30%; font-family: 'Jalnan';">중복체크</button></span>
-						<span class="bNumOk" style="color: green; font-size: 12px;"></span><br><br>
+								style="background-color: #f7323f; color: white; width:30%; font-family: 'Jalnan';">중복체크</button></span><br>
+						<span class="bNumOk" style="color: green; font-size: 12px;"></span><br>
 						 비밀번호<br> 
 						<input type="password" name="business_pass"	id="pass1" class="form-control" required="required"
 							style="width: 300px;" placeholder="비밀번호를 입력해주세요">
@@ -233,12 +239,13 @@ body {
 							<option value="nate.com">nate.com</option>
 						</select> <br><br> 
 					</div>
+				</div>	
 				</td>
 			</tr>
 		</table>
 		<br>
 		<br>
-		<div class="bt">
+		<div class="bt" style="text-align: center;">
 			<button type="submit" class="btn"
 				style="background-color: #f7323f; color: white; width: 200px; font-family: 'Jalnan';">회원가입</button>
 		</div>

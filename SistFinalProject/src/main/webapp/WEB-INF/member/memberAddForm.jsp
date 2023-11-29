@@ -153,7 +153,7 @@
 }
 
 .bt {
-	margin-left: 395px;
+	margin: auto;
 }
 
 h3{
@@ -178,9 +178,8 @@ h3{
 .content {
 	margin: auto;
 	width: 60%;
-
-	
 }
+
 
 .tb {
 	border: none;
@@ -193,6 +192,8 @@ body {
 	justify-content: center;
 	
 }
+
+
 </style>
 </head>
 <body>
@@ -206,14 +207,15 @@ body {
 			<br>
 		
 			<caption align="top" class="cap">
-				<h6><b>회원가입</b></h6>
+				<h6><b>회원가입</b></h6><br>
 			</caption>
 			
 			<tr>
 				<td>
-					<div class="content">
+				<div class="cs"  style="margin: auto;">
+					<div class="content" style="width:480px;" align="left">
 
-						아이디<br> 
+						아이디<br>
 						<span class="i"><input type="text" name="info_id"
 							id="id" class="form-control" required="required"
 							style="width: 330px;" placeholder="아이디를 입력해주세요">&nbsp;&nbsp;&nbsp;
@@ -222,7 +224,7 @@ body {
 								<span class="idok" style="color: green; font-size: 12px;"></span><br>
 								<span class="validid"  style="font-size: 12px;"></span>
 					<br>
-						 비밀번호<br> 
+						 비밀번호<br>
 						<input type="password" name="info_pass"	id="pass1" class="form-control" required="required"
 							style="width: 300px;" placeholder="비밀번호를 입력해주세요">
 							<span class="passvalid" style="font-size: 12px;"></span>
@@ -235,17 +237,17 @@ body {
 								placeholder="비밀번호를 다시 입력해주세요">&nbsp;&nbsp;<br> 
 							<span class="passok" style="color: green; font-size: 12px;"></span>
 						</div>
-						<br> 닉네임<br> 
+						<br> 닉네임<br>
 						<span class="nickch"> 
 						<input	type="text" name="info_nickname" id="nick" class="form-control"
 						required="required" style="width: 330px;" placeholder="닉네임을 입력해주세요">&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn" id="nickchk" style="background-color: #f7323f; color: white; 
 							font-family: 'Jalnan'; width:30%;">중복체크</button></span>
 						<span class="nickok" style="color: green; font-size: 12px;"></span><br><br>
-						 이름<br> 
+						<span class="line">이름<br></span> 
 						 <input type="text" name="info_name" class="form-control" required="required" style="width: 300px;"
 							placeholder="이름을 입력해주세요"><br> 
-						휴대폰<br> 
+						휴대폰<br>
 						<select	style="width: 80px; height: 31px;" name="hp1">
 							<option value="010" selected="selected">010</option>
 							<option value="011">011</option>
@@ -257,7 +259,7 @@ body {
 						<input type="text" name="hp2" id="hp2" class="form-conrol"	required="required" style="width: 80px;">
 						- 
 						<input type="text" name="hp3" id="hp3" class="form-conrol"	required="required" style="width: 80px;"><br><br> 
-						이메일 <br> 
+						이메일 <br>
 						<input type="text" name="email1" id="email1" class="form-conrol" required="required"	style="width: 130px;">&nbsp;
 						&nbsp; 
 						<select style="width: 130px; height: 31px;" name="email2" id="email2" >
@@ -266,15 +268,16 @@ body {
 							<option value="hanmail.net">hanmail.net</option>
 							<option value="nate.com">nate.com</option>
 						</select> <br><br> 
-						<label for="birth">생년월일</label>&nbsp;&nbsp;<span style="font-size: 12px; color: gray;">(선택사항)</span> <br> 
+						<label for="birth">생년월일</label>&nbsp;&nbsp;<span style="font-size: 12px; color: gray;">(선택사항)<br> 
 						<input type="date" name="info_birth" id="birth">
+					</div>
 					</div>
 				</td>
 			</tr>
 		</table>
 		<br>
 		<br>
-		<div class="bt">
+		<div class="bt" style="text-align: center;">
 			<button type="submit" class="btn"
 				style="background-color: #f7323f; color: white; width: 200px; font-family: 'Jalnan';">회원가입</button>
 		</div>

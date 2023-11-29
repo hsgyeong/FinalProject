@@ -2,9 +2,12 @@ package sist.last.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,7 +72,6 @@ public class LoginController {
 				return "/login/loginForm";
 			}
 			
-			
 		}
 	}
 	
@@ -85,7 +87,8 @@ public class LoginController {
 	public String login(@RequestParam String info_id,
 			@RequestParam String info_pass,
 			@RequestParam(required = false) String cbsave,
-			HttpSession session)
+			HttpSession session,
+			HttpServletResponse response)
 	{
 		HashMap<String, String> map = new HashMap<>();
 		int check = service.loginPassCheck(info_id, info_pass);
@@ -93,6 +96,10 @@ public class LoginController {
 		if(check==1) {
 			
 			session.setMaxInactiveInterval(60*60*8);
+			
+			Cookie cookie = new Cookie("infoId", info_id);
+			cookie.setMaxAge(60*60*24*30);
+			response.addCookie(cookie);
 			
 			session.setAttribute("info_id", info_id);
 			session.setAttribute("loginok", "member");
@@ -120,7 +127,8 @@ public class LoginController {
 	public String Blogin(@RequestParam String business_id,
 			@RequestParam String business_pass,
 			@RequestParam(required = false) String cbsave,
-			HttpSession session)
+			HttpSession session,
+			HttpServletResponse response)
 	{
 		HashMap<String, String> map = new HashMap<>();
 		
@@ -129,6 +137,10 @@ public class LoginController {
 		if(Bcheck==1) {
 			
 			session.setMaxInactiveInterval(60*60*8);
+			
+			Cookie cookie = new Cookie("businessId", business_id);
+			cookie.setMaxAge(60*60*24*30);
+			response.addCookie(cookie);
 			
 			session.setAttribute("business_id", business_id);
 			session.setAttribute("loginok", "business");
@@ -159,7 +171,7 @@ public class LoginController {
 	}
 	
 	@GetMapping("/login/logout")
-	public String logout(HttpSession session)
+	public String logout(HttpSession session, HttpServletResponse response)
 	{
 		String loginok = (String) session.getAttribute("loginok");
 		
@@ -175,16 +187,11 @@ public class LoginController {
 		}
 		
 		session.removeAttribute("loginok");
+		session.removeAttribute("userId");
+		session.removeAttribute("kakao_nickname");
 		//session.removeAttribute("myid");
 		
 		return "redirect:/";
 	}
-	
-/*	@GetMapping("login/kakao")
-	public String loginSuccess()
-	{
-		
-		return "redirect:/";
-	}
-	*/
+
 }

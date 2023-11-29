@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gaegu:wght@300&family=Nanum+Pen+Script&family=Sunflower:wght@300&display=swap"
           rel="stylesheet">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <title>Insert title here</title>
     <style type="text/css">
@@ -34,7 +35,7 @@
 	}
 	
 	.id, .nickn, .hp, .email, .birth{
-	font-size: 24px;
+	font-size: 20px;
 	}
 	
 	.in {
@@ -61,13 +62,6 @@
 	
 	}
 	
-	.booking, .notify, .event, .service {
-	text-decoration: none;	
-	color: gray;
-	cursor: pointer;
-	
-	}
-	
 	.tb {
 	margin-top: -250px;
 	}
@@ -81,40 +75,28 @@
 	width:100px;
 	background-color: white;
 	}
+	
+	.i {
+	font-size: 30px;
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+	}
+	
+	.a, .b, .c, .d {
+	font-size: 18px;
+	}
     </style>
 </head>
 <body>
 <div>
+<br><br><br>
 <div class="in"><b>내 정보</b></div>
-<br><br><br><br>
-<div>
-	<tr>
-		<td>
-			<a class="booking">예약내역</a>
-		</td>
-	</tr>
-	<br><br>
-	<tr>
-		<td>
-			<a class="event" onclick="location.href='/notice/event'">이벤트</a>
-		</td>
-	</tr>
-	<br><br>
-	<tr>
-		<td>
-			<a class="notify">알림설정</a>
-		</td>
-	</tr>
-	<br><br>
-	<tr>
-		<td>
-			<a class="service">고객센터</a>
-		</td>
-	</tr>
-
-	</div>
-	</div>
+<br><br><br><br><br><br>
+</div>
+	
 <table class="tb">
+  
 	<tr>
 		<td>
 			<img alt="" src="../loginsave/s7.png"  
@@ -139,7 +121,7 @@
 		아이디
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		 ${memberDto.info_id }
+		<span class="a"> ${memberDto.info_id }</span>
 		<br><br>
 		</td>
 	</tr>
@@ -148,7 +130,7 @@
 		닉네임
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		${memberDto.info_nickname }
+		<span class="b">${memberDto.info_nickname }</span>
 		<br><br>
 		</td>
 	</tr>
@@ -157,7 +139,7 @@
 		연락처
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		 ${memberDto.info_hp }
+		<span class="c"> ${memberDto.info_hp }</span>
 		<br><br>
 		</td>
 	</tr>
@@ -166,14 +148,14 @@
 		이메일
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		 ${memberDto.info_email }
+		<span class="d">${memberDto.info_email }</span>
 		<br><br>
 		</td>
 	</tr>
 	<tr class="birth">
 		<td>
 		생년월일
-		&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;
 		 ${memberDto.info_birth }
 		<br><br>
@@ -197,6 +179,9 @@
 		<a class="x" id="x" name="x" value="${memberDto.info_id }">회원탈퇴</a>
 		</td>
 	</tr>
+	<br><br><br><br><br><br>
+	
+	
 	</table>
 
 	<!-- The Modal -->

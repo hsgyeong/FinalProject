@@ -5,16 +5,30 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+import sist.last.dto.KakaoMemberDto;
 
 @Service
 public class KakaoMemberService implements KakaoMemberServiceInter {
@@ -110,9 +124,19 @@ public class KakaoMemberService implements KakaoMemberServiceInter {
 		}
 		
 		System.out.println("response body: "+result);
+		
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(result);
+		
+		String kakao_id = element.getAsJsonObject().get("id").getAsString();
+		System.out.println("카카오아이디 "+kakao_id);
+	
 		System.out.println("result type: "+result.getClass().getName());
 		
 		try {
+			
+			KakaoMemberDto kakaoMemberDto = new KakaoMemberDto();
+			
 			ObjectMapper objectMapper = new ObjectMapper();
 			Map<String, Object> jsonMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {
 			});
@@ -124,9 +148,10 @@ public class KakaoMemberService implements KakaoMemberServiceInter {
 			Map<String, Object> kakao_account = (Map<String, Object>)
 			jsonMap.get("kakao_account");
 			
-			String nickname = properties.get("nickname").toString();
+			String kakao_nickname = properties.get("nickname").toString();
 			
-			memberInfo.put("nickname", nickname);
+			memberInfo.put("kakao_nickname", kakao_nickname);  
+			memberInfo.put("kakao_id", kakao_id);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -136,7 +161,7 @@ public class KakaoMemberService implements KakaoMemberServiceInter {
 		return memberInfo;
 	}
 
-	@Override
+/*	
 	public void kakaoLogout(String access_token) {
 		// TODO Auto-generated method stub
 		String reqURL = "https://kapi.kakao.com/v1/user/logout";
@@ -163,6 +188,87 @@ public class KakaoMemberService implements KakaoMemberServiceInter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	} */
+	
+	@Override
+	public JsonNode Logout(String authorization_code) {
+		// TODO Auto-generated method stub
+		
+		final String logoutUrl = "https://kapi.kakao.com/v1/user/logout";
+		
+		final HttpClient client = HttpClientBuilder.create().build();
+		
+		final HttpPost post = new HttpPost(logoutUrl);
+		
+		post.addHeader("Authorization", "Bearer "+authorization_code);
+		
+		JsonNode returnNode = null;
+		
+		try {
+		
+			final HttpResponse response = client.execute(post);
+			ObjectMapper mapper = new ObjectMapper();
+			returnNode = mapper.readTree(response.getEntity().getContent());
+			
+		}catch(UnsupportedEncodingException e) {
+		e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}finally {
+			
+		}
+		return returnNode;
 	}
+
+	@Override
+	public void kakaoUnlink(int kakao_id, String access_token) {
+		// TODO Auto-generated method stub
+		String reqURL = "https://kapi.kakao.com/v1/user/unlink";
+	
+			try {
+				URL url = new URL(reqURL);
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Authorization", "Bearer "+access_token);
+				conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
+				conn.setDoOutput(true);
+				
+				 
+			try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()))){
+				StringBuilder sb = new StringBuilder();
+				sb.append("target_id_type=user_id");
+				sb.append("&target_id="+kakao_id);
+				bw.write(sb.toString());
+				bw.flush();
+				}
+			
+				int responseCode = conn.getResponseCode();
+				System.out.println("responseCode: "+responseCode);
+				
+				if(responseCode == HttpURLConnection.HTTP_OK) {
+				
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				
+				String result="";
+				String line="";
+				
+				while((line = br.readLine()) != null) {
+					result += line;
+				}
+				
+				System.out.println(result);
+				
+				br.close();
+				//bw.close();
+				}else {
+					System.out.println("kakao unlink failed");
+				}
+				
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 }
