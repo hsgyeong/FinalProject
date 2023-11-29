@@ -188,6 +188,10 @@ public class LoginController {
 			else if (session.getAttribute("business_id") != null) {
 				session.removeAttribute("business_id");
 			}
+			else if (session.getAttribute("admin_id") != null)
+			{
+				session.removeAttribute("admin_id");
+			}
 			
 		}
 		

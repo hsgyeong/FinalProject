@@ -67,12 +67,12 @@
 					<div class="memberLogin">
 						<form action="/admin/admin-login" method="post">
 							<span class="id">아이디 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="text" name="info_id" style="width: 200px;" class="form-control" required="required">
+							<input type="text" name="admin_id" style="width: 200px;" class="form-control" required="required">
 							</span>
 							 <br><br>
 							<span class="member">	
 							<div class="memberPass">비밀번호&nbsp;&nbsp;&nbsp;
-							<input type="password" name="info_pass" style="width: 200px;"
+							<input type="password" name="admin_pass" style="width: 200px;"
 								class="form-control" required="required" id="member_pass">&nbsp;&nbsp;
 							</div>
 							</span>
