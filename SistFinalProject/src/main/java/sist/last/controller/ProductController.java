@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,10 @@ public class ProductController {
     String selectDate1;
     String selectDate2;
     List<String> categoryList;
+
+    double userLat;
+
+    double userLong;
 
     @Autowired
     ProductService pService;
@@ -38,10 +44,17 @@ public class ProductController {
                                  @RequestParam(required = false) String minPrice,
                                  @RequestParam(required = false) String maxPrice,
                                  @RequestParam(required = false) String sort,
-                                 @RequestParam(required = false) String selCate) {
+                                 @RequestParam(required = false) String selCate,
+                                 @RequestParam(required = false) String latitude,
+                                 @RequestParam(required = false) String longitude) {
         categoryList = new ArrayList<>();
         selectDate1 = selDate1;
         selectDate2 = selDate2;
+        System.out.println(latitude + "," + longitude);
+        if (latitude != null) {
+            userLat = Double.parseDouble(latitude);
+            userLong = Double.parseDouble(longitude);
+        }
         List<String> category = pService.selectCategory();
         if (selCate == "") {
             selCate = null;
@@ -73,6 +86,7 @@ public class ProductController {
             //System.out.println("selDate1이 null이 아님");
             products = compareLimitDate(products, selDate1, selDate2);
             if (sort != null) {
+                model.addAttribute("sort", sort);
                 System.out.println(products.size() + " 개 의 데이터");
                 compareSort(sort, model, minPrice,
                         maxPrice, products, keyword);
@@ -183,7 +197,10 @@ public class ProductController {
         }
         List<ProductDto> sortProducts = new ArrayList<>();
         if (sort.equals("distance")) {
-
+            sortProducts = sortDistanceOfProduct(products);
+            /*for (int i = 0; i < sortProducts.size(); i++) {
+                System.out.println(sortProducts.get(i).getDistance());
+            }*/
         }
         if (sort.equals("lowprice")) {
             sortProducts = sortLowPriceOfProducts(keyword, integerMinPrice, integerMaxPrice);
@@ -194,6 +211,28 @@ public class ProductController {
 
         }
         model.addAttribute("productList", sortProducts);
+    }
+
+    private List<ProductDto> sortDistanceOfProduct(List<ProductDto> products) {
+        for (ProductDto product : products) {
+            double distance = getDistance(userLat, userLong, product.getAccom_latitude(), product.getAccom_longitude());
+            product.setDistance(distance);
+        }
+        Collections.sort(products, Comparator.comparing(ProductDto::getDistance));
+        return products;
+    }
+
+    private double getDistance(double lat1, double lon1, double lat2, double lon2) {
+        double EARTH_RADIUS = 6371.0;
+
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(lat1)) * Math.cos(
+                Math.toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        //System.out.println("거리 : " + EARTH_RADIUS * c * 1000);
+        return EARTH_RADIUS * c * 1000;
     }
 
     private List<ProductDto> sortLowPriceOfProducts(String keyword, int minPrice, int maxPrice) {

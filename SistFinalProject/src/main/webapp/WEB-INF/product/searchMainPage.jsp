@@ -242,6 +242,45 @@
         height: 200px;
     }
 
+    .detail_accom_name {
+        width: 100%;
+        bottom: 39vh;
+        font-weight: bold;
+        font-size: 3vh;
+    }
+
+    .detail_asr {
+        width: 100%;
+        display: flex;
+        margin: 1vh 0px 2vh 0px;
+    }
+
+    .detail_accom_score {
+        width: 10%;
+        border-radius: 5px;
+        color: white;
+        background-color: orange;
+        text-align: center;
+        margin-right: 1vh;
+    }
+
+    .detail_score_result {
+        width: 15%;
+        color: orange;
+        font-size: 2vh;
+        font-weight: 650;
+        margin-right: 0.5vh;
+        text-align: center;
+    }
+
+    .detail_review_count {
+        width: 20%;
+        color: silver;
+        font-size: 2vh;
+        font-weight: 500;
+        margin-left: 0.5vh;
+    }
+
 </style>
 <body>
 <script type="text/javascript">
@@ -814,11 +853,41 @@
                     </div>
                     <div class="info-container">
                         <div class="accom-info">
-                            <b>${list.accom_name}</b><br>
-                            <b>${list.accom_category}</b><br>
-                            <b>${list.accom_score}</b><br>
-                            <b>${list.accom_location}</b><br>
-                            <b>${list.accom_hashtag}</b>
+
+                            <div class="detail_accom_name">${list.accom_name }</div>
+                            <div class="detail_accom_category">${list.accom_category}</div>
+                            <div class="detail_asr">
+                                <div class="detail_accom_score">${list.accom_score }</div>
+                                <div class="detail_score_result"></div>
+
+                                <script>
+                                    $(document).ready(function () {
+                                        var accomScore =
+                                        ${list.accom_score }
+
+                                        if (accomScore > 9) {
+                                            $(".detail_score_result").text("최고예요");
+                                        } else if (accomScore >= 8 && accomScore <= 9) {
+                                            $(".detail_score_result").text("좋아요");
+                                        } else if (accomScore >= 7 && accomScore <= 8) {
+                                            $(".detail_score_result").text("괜찮아요");
+                                        } else {
+                                            $(".detail_score_result").text("아쉬워요");
+                                        }
+                                    });
+                                </script>
+                                <div class="detail_review_count">리뷰 1000개</div>
+                            </div>
+                            <div class="detail_accom_location">${list.accom_location }</div>
+                            <div class="detail_accom_hashtag">${list.accom_hashtag }</div>
+                            <c:if test="${sort=='distance'}">
+                                <c:if test="${list.distance<1000}">
+                                    <fmt:formatNumber value="${list.distance}" pattern="###"/>m
+                                </c:if>
+                                <c:if test="${list.distance>=1000}">
+                                    <fmt:formatNumber value="${list.distance/1000}" pattern="###.#"/>km
+                                </c:if>
+                            </c:if>
                         </div>
                         <div class="room-amount">
                             <b><fmt:formatNumber value="${list.room_price}" pattern="###,###"/>원</b>
@@ -872,6 +941,14 @@
                 location.href = "/product/search-main?sort=score&keyword=" + keyword + "&selCate=" + cateArray + "&selDate1=" + selDate1 +
                     "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
             })
+
+            function settingSortDistance() {
+                var lat = $("#accom_latitude").val();
+                var long = $("#accom_longitude").val();
+                location.href = "/product/search-main?sort=distance&keyword=" + keyword + "&selCate=" + cateArray + "&selDate1=" + selDate1 +
+                    "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice + "&latitude="
+                    + lat + " &longitude=" + long;
+            }
         </script>
     </div>
 
@@ -889,14 +966,17 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <input type="hidden" id="accom_latitude">
-                    <input type="hidden" id="accom_longitude">
                     <div id="map" style="width: 100%; height: 400px;"></div>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
+                            onclick="settingSortDistance()">위치 선택
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
+                            onclick="sample4_execDaumPostcode()">위치 다시 찾기
+                    </button>
                 </div>
             </div>
         </div>
@@ -952,40 +1032,13 @@
                     position: markerPosition
                 });
                 marker.setMap(map);
-
-                // 주소-좌표 변환 객체를 생성합니다
-                var geocoder = new kakao.maps.services.Geocoder();
-
-                // 주소로 좌표를 검색합니다
-                geocoder.addressSearch($('#address').val(), function (result, status) {
-
-                    // 정상적으로 검색이 완료됐으면
-                    if (status === kakao.maps.services.Status.OK) {
-                        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                        // 결과값으로 받은 위치를 마커로 표시합니다
-                        var marker = new kakao.maps.Marker({
-                            map: map,
-                            position: coords
-                        });
-
-                        // 인포윈도우로 장소에 대한 설명을 표시합니다
-                        var infowindow = new kakao.maps.InfoWindow({
-                            content: '<div style="width:150px;text-align:center;padding:6px 0;">장소</div>'
-                        });
-                        infowindow.open(map, marker);
-
-                        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                        map.setCenter(coords);
-                    }
-                });
-
                 loadKakaoMap();
             }
 
         })
     </script>
-
+    <input type="hidden" id="accom_latitude">
+    <input type="hidden" id="accom_longitude">
 </div>
 </body>
 </html>

@@ -29,4 +29,5 @@ public class ProductDto {
     private int room_count;
     private String room_checkin;
     private String room_checkout;
+    private double distance;
 }
