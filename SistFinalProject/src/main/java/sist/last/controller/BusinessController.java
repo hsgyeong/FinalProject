@@ -65,7 +65,19 @@ public class BusinessController {
 		return "/member/welcome";
 	}
 	
-	@GetMapping("/company/business-mypage")
+	@GetMapping("/business/business-mytriview")
+	public String mytriview(Model model, HttpSession session)
+	{
+		String business_id = (String) session.getAttribute("business_id");
+		
+		BusinessDto businessDto = businessService.getDataByBusinessId(business_id);
+		
+		model.addAttribute("businessDto", businessDto);
+		
+		return "/company/businessMyTriview";
+	}
+	
+	@GetMapping("/business/business-mypage")
 	public String mypage(Model model,
 			HttpSession session)
 	{
@@ -124,5 +136,6 @@ public class BusinessController {
 		businessService.deleteBusiness(business_id);
 		return "/";
 	}
+	
 
 }

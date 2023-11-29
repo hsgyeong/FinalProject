@@ -11,14 +11,27 @@
           rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <title>Insert title here</title>
-    <script>
-    $(function(){
-        alert("정보가 수정되었습니다.");
-       location.href="/business/business-mypage"
-    	
-    })
-    </script>
 </head>
 <body>
+<table style="text-align: center; align-items: center; margin:auto; width:1000px;
+				font-family: 'jalnan'">
+	<tr>
+		<td>
+		<span style="font-weight: bold; font-size: 24px; color:#f7323f;"><b>TRIVIEW</b></span>
+		 &nbsp;&nbsp;제작자
+	
+		<br><br><br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<span>이성신</span><br><br>
+		<span>임형준</span><br><br>
+		<span>최성현</span><br><br>
+		<span>최진평</span><br><br>
+		<span>홍성경</span><br><br>
+		</td>
+	</tr>
+</table>
 </body>
 </html>

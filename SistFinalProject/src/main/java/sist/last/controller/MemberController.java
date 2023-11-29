@@ -1,29 +1,22 @@
 package sist.last.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.security.auth.login.AccountException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import sist.last.dto.MemberDto;
-import sist.last.service.BusinessService;
 import sist.last.service.MemberService;
-import sist.last.service.MemberServiceInter;
 
 @Controller
 public class MemberController {
@@ -69,26 +62,6 @@ public class MemberController {
 		return map;
 	}
 	
-	/*
-	@PostMapping("/member/sendMessage")
-	@ResponseBody
-	public String sendMessage(@Valid MemberDto memberDto, Errors errors, Model model) {
-		
-		if(errors.hasErrors()) {
-		
-		model.addAttribute("memberDto", memberDto);
-		
-		Map<String, String> validatorResult = service.validateHandling(errors);
-		for(String key : validatorResult.keySet()) {
-			model.addAttribute(key, validatorResult.get(key));
-		}
-		return "/member/memberAddForm";
-	}
-		service.insertMember(memberDto);
-		return "/member/welcom";
-	}
-	
-	*/
 	
 	@PostMapping("/member/join-member")
 	@ResponseBody
@@ -112,13 +85,22 @@ public class MemberController {
 		return "/member/welcome";
 	}
 	
+	@GetMapping("/member/member-mytriview")
+	public String mytriview(Model model, HttpSession session)
+	{
+		String info_id = (String)session.getAttribute("info_id");
+		
+		MemberDto memberDto = service.getDataById(info_id);
+		
+		model.addAttribute("memberDto", memberDto);
+		
+		return "/member/memberMyTriview";
+	}
+	
 	@GetMapping("/member/member-mypage")
 	public String mypage(Model model,
 			HttpSession session)
 	{
-	/*	List<MemberDto> list = service.getAllMembers();
-		
-		model.addAttribute("list", list);   */
 		
 		String info_id = (String)session.getAttribute("info_id");
 		//System.out.println(myid);
@@ -129,9 +111,7 @@ public class MemberController {
 		
 		//System.out.println(memberDto.getId());
 	
-	
 		//System.out.println(memberDto.getInfo_id());
-		
 		
 		return "/member/memberMyPage";
 	}
@@ -194,6 +174,12 @@ public class MemberController {
 	public String event()
 	{
 		return "/notice/event";
+	}
+	
+	@GetMapping("/triview/info")
+	public String info()
+	{
+		return "/notice/triviewInfo";
 	}
 
 }

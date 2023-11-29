@@ -2,6 +2,7 @@ package sist.last.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -15,7 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class KakaoAPI {
-	
+/*	
 	public String getAccessToken(String code) {
 	//받은 코드를 가지고 2번째 요청인 토큰을 요청하여 받기 위한 작업
 		String accessToken = "";
@@ -62,7 +63,7 @@ public class KakaoAPI {
 			String line = "";
 			String result ="";
 			//StringBuffer result = new StringBuffer();
-		
+		String id = "";
 			//한줄 단위로 읽어서 result라는 StringBuffer에 적재하기
 			while((line = br.readLine())!=null) {
 			
@@ -70,7 +71,7 @@ public class KakaoAPI {
 			}
 			
 			//현재 result는 하나의 문자열로 인식
-			
+
 			System.out.println("resonse body = "+result);
 			
 			JsonParser parser = new JsonParser();
@@ -113,24 +114,31 @@ public class KakaoAPI {
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			
 			String line = "";
-			String result="";
+			String result=""; 
+			StringBuilder result = new StringBuilder();
 			
 			while((line = br.readLine()) != null) {
 				
-				result += line;
+				result += line; 
+				result.append(line);
 			}
-			System.out.println("response body = "+result);
+			System.out.println("response body = "+result);   
+			System.out.println("response body = "+result.toString());
 			
 			JsonParser parser = new JsonParser();
-			JsonElement element = parser.parse(result);
+			JsonElement element = parser.parse(result);  
+			JsonElement element = parser.parse(result.toString()); 
 			
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 			JsonObject kakaoAccount = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 			
-			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-		//	String email = properties.getAsJsonObject().get("email").getAsString();
+			String kakao_nickname = properties.getAsJsonObject().get("nickname").getAsString();
+			String kakao_id = element.getAsJsonObject().get("id").getAsString();
 			
-			userInfo.put("nickname", nickname);
+			
+			
+			userInfo.put("kakao_nickname", kakao_nickname);
+			userInfo.put("kakao_id", kakao_id);
 		//	userInfo.put("email", email);
 					
 		}catch(Exception e) {
@@ -168,5 +176,32 @@ public class KakaoAPI {
 	}
 
 	}
+
+	
+	public void unlink(String access_token) {
+		String reqURL = "https://kapi.kakao.com/v1/user/unlink";
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Authorization", "Bearer "+access_token);
+			
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode "+responseCode);
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			
+			String result = "";
+			String line = "";
+			
+			while((line = br.readLine())!=null) {
+				result += line;
+			}
+			System.out.println(result);
+		}catch (IOException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	} */
 }
 

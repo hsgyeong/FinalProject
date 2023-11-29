@@ -12,6 +12,9 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <title>Insert title here</title>
 </head>
+<%
+String loginok = (String) session.getAttribute("loginok");
+%>
 <style>
     body {
         margin: 0;
@@ -168,6 +171,26 @@
 
 <script>
 
+	$(document).ready(function(){
+		
+		$("#logoutBtn").click(function(){
+			
+			if("<%=loginok%>"==="kakao"){
+				
+				$.ajax({
+					
+					url:"/logout/kakaounlink",
+					type:"get",
+					success:function(){
+						window.location.href="/";
+					}
+				});
+			}else{
+						window.location.href="/login/logout";
+			}
+		})
+	})
+
     $(function () {
         $("i.search-active").hide();
         $("div.sub-title").hide();
@@ -304,21 +327,25 @@
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
                                     <li><a class="nick">${memberDto.info_nickname }</a></li>
                                 </c:when>
+                                <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'kakaomember'}">
+                                    <li><a class="nick">${KakaoMemberDto.kakao_nickname }</a></li>
+                                </c:when>
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
                                     <li><a class="com">${businessDto.business_company }</a></li>
                                 </c:when>
                             </c:choose>
                         </div>
                         <c:choose>
-                            <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
-                                <li><a href="/member/member-mypage">내정보</a></li>
+                            <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member' || sessionScope.loginok == 'kakaomember'}">
+                                <li><a href="/member/member-mytriview">내정보</a></li>
                             </c:when>
                             <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
                                 <li><a href="/accom/non-book">예약불가날짜</a></li>
-                                <li><a href="/company/business-mypage">내정보</a></li>
+                                <li><a href="/business/business-mytriview">내정보</a></li>
                             </c:when>
                         </c:choose>
-                        <li><a href="login/logout">로그아웃</a></li>
+                     
+                        <li><a href="" id="logoutBtn">로그아웃</a></li>
                     </div>
                 </ul>
             </div>
