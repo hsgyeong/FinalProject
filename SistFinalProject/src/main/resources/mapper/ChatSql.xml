@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sist.last.mapper.ChatMapperInter">
+	<select id="maxNumOfChat" resultType="int">
+        select max(chatnum) from chat
+    </select>
+	<select id="getAllDataOfChat" parameterType="int" resultType="chatDto">
+        select * from chat where roomnumber=#{roomnumber} order by chatnum desc
+    </select>
+    <insert id="insertChat" parameterType="chatDto">
+        insert into chat values(null,#{roomnumber},#{senderid},#{receiverid},#{chatcontent},now())
+    </insert>
+</mapper>

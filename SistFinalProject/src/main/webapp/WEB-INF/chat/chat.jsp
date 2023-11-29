@@ -60,10 +60,13 @@
 <script type="text/javascript">
     var ws;
 
-    function wsOpen(){
+    function wsOpen(){ // 웹 소켓을 연결하고, 연결이 열릴 때와 메시지를 수신할 때의 이벤트 핸들러를 정의합니다.
         //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-        ws = new WebSocket("ws://" + location.host + "/chating/"+$("#roomNumber").val());
-        wsEvt();
+        // 웹 소켓 연결 URL을 생성합니다. 현재 방의 번호를 포함하여 서버에 연결합니다.
+        ws = new WebSocket("ws://" + location.host + "/chating/"+$("#roomNumber").val()); // 현재 호스트와 채팅 방 번호를 포함한 웹 소켓 연결 URL 을 나타냅니다.
+
+        // 웹 소켓 이벤트 핸들러를 설정하는 함수를 호출합니다.
+        wsEvt(); // 함수 내부에서는 서버로부터 받은 메시지를 파싱하여 메시지 유형에 따라 다른 동작을 수행합니다.
     }
 
     function wsEvt() {
@@ -105,7 +108,7 @@
         });
     }
 
-    function chatName(){
+    function chatName(){ // 사용자 이름을 입력하고, 웹 소켓을 열어 채팅에 참가합니다.
         var userName = $("#userName").val();
         if(userName == null || userName.trim() == ""){
             alert("사용자 이름을 입력해주세요.");
@@ -117,7 +120,7 @@
         }
     }
 
-    function send() {
+    function send() { // 채팅 메시지를 서버로 전송합니다.
         var option ={
             type: "message",
             roomNumber: $("#roomNumber").val(),
