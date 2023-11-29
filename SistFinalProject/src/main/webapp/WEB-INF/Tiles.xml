@@ -14,7 +14,7 @@
 	
 	<definition name="adminLayout" template="/WEB-INF/layout/adminLayout.jsp">
 		<put-attribute name="atitle" value="/WEB-INF/layout/adminTitle.jsp"/>
-		<put-attribute name="main" value="/WEB-INF/layout/adminMain.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/layout/main.jsp"/>
 	</definition>
 	
 	<definition name="/2/*/*" extends="adminLayout">

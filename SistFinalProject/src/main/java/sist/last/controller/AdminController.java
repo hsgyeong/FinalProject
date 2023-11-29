@@ -20,7 +20,7 @@ public class AdminController {
 	@GetMapping("/admin/admin-page")
 	public String adminStart()
 	{
-		return "/2/layout/adminMain";
+		return "/2/admin/adminAccomAccept";
 	}
 	
 	@GetMapping("/admin/admin-loginform")

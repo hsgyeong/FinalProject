@@ -70,11 +70,13 @@
 				<li class="linklist">
 					<a href="#">TREVIEW 마케팅센터</a><span>|</span>
 					<a href="#">액티비니 호스트센터</a><span>|</span>
-					<a href="#">콘텐츠산업진흥법에 의한 표시</a><span>|</span>
+					<a href="#">콘텐츠산업진흥법에 의한 표시</a>
 					<c:if test="${sessionScope.loginok == null}">
+						<span>|</span>
 						<a href="/admin/admin-loginform">관리자로그인</a>
 					</c:if>
 					<c:if test="${sessionScope.loginok != null && sessionScope.admin_id != null }">
+						<span>|</span>
 						<a href="/admin/admin-page">관리자페이지</a>
 					</c:if>
 				</li>
