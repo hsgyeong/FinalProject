@@ -376,7 +376,9 @@
                             </c:when>
                         </c:choose>
 
+
                         <li><a href="" id="logoutBtn">로그아웃</a></li>
+
                     </div>
                 </ul>
             </div>
