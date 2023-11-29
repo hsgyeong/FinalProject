@@ -13,7 +13,7 @@
     <title>Insert title here</title>
 </head>
 <%
-String loginok = (String) session.getAttribute("loginok");
+    String loginok = (String) session.getAttribute("loginok");
 %>
 <style>
     body {
@@ -166,30 +166,34 @@ String loginok = (String) session.getAttribute("loginok");
         color: #f7323f;
     }
 
+    #my-surroundings {
+        cursor: pointer;
+    }
+
 
 </style>
 
 <script>
 
-	$(document).ready(function(){
-		
-		$("#logoutBtn").click(function(){
-			
-			if("<%=loginok%>"==="kakao"){
-				
-				$.ajax({
-					
-					url:"/logout/kakaounlink",
-					type:"get",
-					success:function(){
-						window.location.href="/";
-					}
-				});
-			}else{
-						window.location.href="/login/logout";
-			}
-		})
-	})
+    $(document).ready(function () {
+
+        $("#logoutBtn").click(function () {
+
+            if ("<%=loginok%>" === "kakao") {
+
+                $.ajax({
+
+                    url: "/logout/kakaounlink",
+                    type: "get",
+                    success: function () {
+                        window.location.href = "/";
+                    }
+                });
+            } else {
+                window.location.href = "/login/logout";
+            }
+        })
+    })
 
     $(function () {
         $("i.search-active").hide();
@@ -273,6 +277,34 @@ String loginok = (String) session.getAttribute("loginok");
         location.href = "/product/search-main?keyword=" + searchText;
     }
 
+    navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position)
+        accessToGeo(position);
+    });
+
+    let lat;
+    let long;
+
+    function accessToGeo(position) {
+        const positionObj = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        }
+        console.log(positionObj);
+
+        lat = positionObj.latitude;
+        long = positionObj.longitude;
+    }
+
+
+    function settingLocation() {
+        if (lat == null) {
+            alert("주소록 앞 느낌표를 누른 후 위치 권한 허용으로 변경해주세요.");
+            return false;
+        }
+        location.href = "/product/msr?latitude=" + lat + "&longitude=" + long;
+    }
+
 </script>
 
 
@@ -288,7 +320,7 @@ String loginok = (String) session.getAttribute("loginok");
         <a><i class="bi bi-search search-disabled"></i></a>
         <div class="select-box">
             <ul class="select-ul d-inline-flex">
-                <li class="select-li"><a href="#">내주변</a></li>
+                <li class="select-li"><a onclick="settingLocation()" id="my-surroundings">내주변</a></li>
                 <li class="select-li"><a href="#">예약내역</a></li>
                 <li class="select-li"><a href="#" id="see_more">더보기</a></li>
                 <c:if test="${sessionScope.loginok==null}">
@@ -343,7 +375,7 @@ String loginok = (String) session.getAttribute("loginok");
                                 <li><a href="/business/business-mytriview">내정보</a></li>
                             </c:when>
                         </c:choose>
-                     
+
                         <li><a href="" id="logoutBtn">로그아웃</a></li>
                     </div>
                 </ul>

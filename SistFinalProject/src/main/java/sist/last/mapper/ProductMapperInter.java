@@ -38,5 +38,7 @@ public interface ProductMapperInter {
 
     public int getProductOfLowPrice(int accom_num);
 
+    public List<ProductDto> getAllProduct();
+
     public List<String> selectCategory();
 }

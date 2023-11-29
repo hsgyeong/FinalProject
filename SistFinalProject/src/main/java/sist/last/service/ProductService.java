@@ -106,6 +106,11 @@ public class ProductService implements ProductServiceInter {
     }
 
     @Override
+    public List<ProductDto> getAllProduct() {
+        return mapperInter.getAllProduct();
+    }
+
+    @Override
     public List<String> selectCategory() {
         return mapperInter.selectCategory();
     }
