@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getMaxNum">
         select max(roomnumber) from chatroom;
     </select>
-    <insert id="insertChatRoom" parameterType="chatRoomDto">
+    <insert id="insertChatRoom" parameterType="String">
         insert into chatroom values(null,#{senderid},'admin',now())
     </insert>
 <!-- table에 내가 진행했던 채팅방이 있는지 확인 -->
@@ -16,5 +16,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectChatRoom" resultType="chatRoomDto">
         select * from chatroom order by roomnumber desc
     </select>
+    <select id="getChatRoom" resultType="chatRoomDto" parameterType="String">
+        select * from chatroom where senderid=#{senderid}
+    </select>
+
 
 </mapper>
