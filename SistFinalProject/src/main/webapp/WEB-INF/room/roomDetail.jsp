@@ -707,7 +707,7 @@
     			</td>
     			
     			<td align="center" valign="middle" style="width: 25%;">
-    			<span>${ }</span>
+    			<span></span>
 				</td>
 				
 				<td align="center" valign="middle" style="width: 30%;">
