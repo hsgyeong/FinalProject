@@ -108,6 +108,8 @@ public class ReserveController {
 	    reserveDto.setAccom_name(accom_name);
 	    reserveDto.setRoom_name(room_name);
 
+	    session.setAttribute("reserve_id", reserveDto.getReserve_id());
+	    
 	    rservice.reservingInsert(reserveDto);
 	    
 	    roominter.emptyRoomCnt(room_num);
