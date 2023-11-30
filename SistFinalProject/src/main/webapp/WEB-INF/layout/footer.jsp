@@ -77,7 +77,7 @@
 					</c:if>
 					<c:if test="${sessionScope.loginok != null && sessionScope.admin_id != null }">
 						<span>|</span>
-						<a href="/admin/admin-page">관리자페이지</a>
+						<a href="/admin/admin-accom-approval-page?currentPage=1">관리자페이지</a>
 					</c:if>
 				</li>
 				<br>
