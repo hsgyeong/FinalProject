@@ -1,5 +1,6 @@
 package sist.last.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import sist.last.chat.Room;
+import sist.last.dto.ChatDto;
+import sist.last.dto.ChatRoomDto;
+import sist.last.service.ChatRoomService;
+import sist.last.service.ChatService;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -19,8 +24,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/chat") // 이 컨트롤러의 기본 URL 정보가 "/chat" 임을 지정합니다.
 public class ChatController {
 
+    @Autowired
+    ChatRoomService chatRoomService;
+
+    @Autowired
+    ChatService chatService;
+
+
     @RequestMapping("/room1")
-    public ModelAndView loginCheck(HttpSession session){
+    public ModelAndView loginCheck(@RequestParam ChatDto chatDto,
+                                   HttpSession session){
         ModelAndView mv=new ModelAndView();
         String loginok=(String) session.getAttribute("loginok");
         String info_id=(String) session.getAttribute("info_id");
@@ -33,7 +46,14 @@ public class ChatController {
         } else if (admin_id!=null) {
             mv.setViewName("/chat/room");
         } else if (info_id!=null||business_id!=null){
-            mv.setViewName("/chat/chat");
+            info_id = chatRoomService.getSenderId(info_id);
+            business_id = chatRoomService.getSenderId(business_id);
+
+            if(info_id==null||business_id==null){
+                chatRoomService.insertChatRoom(chatDto);
+            }
+
+            mv.setViewName("/chat/room");
         }
         return mv;
     }

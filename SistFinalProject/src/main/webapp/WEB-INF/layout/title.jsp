@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-<%--    <link href="https://webfontworld.github.io/goodchoice/Jalnan.css" rel="stylesheet">--%>
+    <link href="https://webfontworld.github.io/goodchoice/Jalnan.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
             integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4" crossorigin="anonymous"></script>
