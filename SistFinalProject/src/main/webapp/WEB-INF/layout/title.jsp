@@ -11,7 +11,8 @@
     <link href="https://webfontworld.github.io/goodchoice/Jalnan.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
-            integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4" crossorigin="anonymous"></script>
+            integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4"
+            crossorigin="anonymous"></script>
     <script>
         Kakao.init('96ced9696af356c1a427e93050902f77'); // 사용하려는 앱의 JavaScript 키 입력
     </script>
@@ -174,10 +175,16 @@
     #my-surroundings {
         cursor: pointer;
     }
-    aside{
+
+    aside {
         position: fixed;
         bottom: 50px;
         right: 100px;
+    }
+
+    #logoutBtn {
+        color: black;
+        cursor: pointer;
     }
 
 
@@ -185,25 +192,25 @@
 
 <script>
 
-	$(document).ready(function(){
+    $(document).ready(function () {
 
-		$("#logoutBtn").click(function(){
+        $("#logoutBtn").click(function () {
+            if (
+                ${sessionScope.loginok=='kakao'}) {
 
-			if("<%=loginok%>"==="kakao"){
+                $.ajax({
 
-				$.ajax({
-
-					url:"/logout/kakaologout",
-					type:"get",
-					success:function(){
-						window.location.href="/";
-					}
-				});
-			}else{
-						window.location.href="/login/logout";
-			}
-		})
-	})
+                    url: "/logout/kakaologout",
+                    type: "get",
+                    success: function () {
+                        window.location.href = "/";
+                    }
+                });
+            } else {
+                window.location.href = "/login/logout";
+            }
+        })
+    })
 
     $(function () {
         $("i.search-active").hide();
@@ -371,7 +378,7 @@
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
                                     <li><a class="com">${businessDto.business_company }</a></li>
                                 </c:when>
-                          <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'kakao'}">
+                                <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'kakao'}">
                                     <li><a class="com">${memberDto.info_nickname }</a></li>
                                 </c:when>
                             </c:choose>
@@ -385,7 +392,7 @@
                                 <li><a href="/business/business-mytriview">내정보</a></li>
                             </c:when>
                         </c:choose>
-                        <li><a href="" id="logoutBtn">로그아웃</a></li>
+                        <li><span id="logoutBtn">로그아웃</span></li>
 
                     </div>
                 </ul>
@@ -395,35 +402,31 @@
 </header>
 
 <aside>
-<%--    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"--%>
-<%--            integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4" crossorigin="anonymous"></script>--%>
-<%--    <script>--%>
-<%--        Kakao.init('96ced9696af356c1a427e93050902f77'); // 사용하려는 앱의 JavaScript 키 입력--%>
-<%--    </script>--%>
+    <%--    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"--%>
+    <%--            integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4" crossorigin="anonymous"></script>--%>
+    <%--    <script>--%>
+    <%--        Kakao.init('96ced9696af356c1a427e93050902f77'); // 사용하려는 앱의 JavaScript 키 입력--%>
+    <%--    </script>--%>
 
-<%--    <a id="chat-channel-button" href="javascript:chatChannel()">--%>
-<%--        <img src="/tool/resource/static/img/button/channel/consult/consult_small_yellow_pc.png"--%>
-<%--             alt="카카오톡 채널 채팅하기 버튼" />--%>
-<%--    </a>--%>
-
-
-<%--    <script>--%>
-<%--        function chatChannel() {--%>
-<%--            Kakao.Channel.chat({--%>
-<%--                channelPublicId:'_AwxhnG',--%>
-<%--            });--%>
-<%--        }--%>
-
-<%--    </script>--%>
+    <%--    <a id="chat-channel-button" href="javascript:chatChannel()">--%>
+    <%--        <img src="/tool/resource/static/img/button/channel/consult/consult_small_yellow_pc.png"--%>
+    <%--             alt="카카오톡 채널 채팅하기 버튼" />--%>
+    <%--    </a>--%>
 
 
+    <%--    <script>--%>
+    <%--        function chatChannel() {--%>
+    <%--            Kakao.Channel.chat({--%>
+    <%--                channelPublicId:'_AwxhnG',--%>
+    <%--            });--%>
+    <%--        }--%>
+
+    <%--    </script>--%>
 
 
     <div>
         <a id="chat-channel-button" href="https://pf.kakao.com/_AwxhnG/chat"></a>
     </div>
-
-
 
 
 </aside>

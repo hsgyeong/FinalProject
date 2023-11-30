@@ -23,6 +23,7 @@
                 <br><br>
                 <h4><b>선택할 숙소</b></h4>
                 <select id="accomSelect" class="form-control" style="width: 120px;">
+                    <option value="nonSelect">선택해주세요</option>
                     <c:forEach var="list" items="${accomList}" varStatus="i">
                         <option value="${list}">${list}</option>
                     </c:forEach>
@@ -33,15 +34,10 @@
             <td>
                 <h4><b>불가능 날짜</b></h4>
                 <div id="div-nonDate" style="width: 400px;">
-                    <span class="d-inline-flex nonDate" id="nonDate1">
-                    <input type="date" id="non_checkin1" name="checkin[]" min=""
-                           class="form-control" style="width: 150px; margin-right: 20px;"> ~
-                    <input type="date" id="non_checkout1" name="checkout[]" min=""
-                           class="form-control" style="width: 150px; margin-left: 20px;">
-                    <input type="hidden" id="count1" value="true">
-					</span><br><br>
                 </div>
-                <div style="margin-left: 15%">
+                <input type="hidden" id="count">
+                <input type="hidden" id="totCount">
+                <div style="margin-left: 15%" id="setting-btn">
                     <button type="button" class="btn btn-outline-danger"
                             onclick="checkDate()">중복 체크
                     </button>
@@ -61,19 +57,22 @@
 </c:if>
 
 <script type="text/javascript">
-    /*성신 추가 기능*/
-
     let today = new Date();
     let getYear = today.getFullYear();
     let getMonth = today.getMonth() + 1;
     let getDay = today.getDate();
     let date = getYear + "-" + getMonth + "-" + getDay;
-    let totCount = 1;
-    let count = 1;
     $("#non_checkin1").attr("min", date);
     $("#non_checkout1").attr("min", date);
+    $("#setting-btn").hide();
+    $("#saveNonBook").hide();
+    $(".addDate").hide();
 
     $(".addDate").click(function () {
+        var totCount = $("#totCount").val();
+        var count = $("#count").val();
+        //alert("totCount" + totCount);
+        //alert("count" + count);
         if (totCount > 4) {
             alert("5개 이상 등록할 수 없습니다.");
             return;
@@ -91,18 +90,23 @@
         s += "<input type='hidden' id='count" + count + "' value='true'>"
         s += "</span><span class='br br" + count + "'><br><br>";
         $("#div-nonDate").append(s);
+
+        $("#totCount").val(totCount);
+        $("#count").val(count);
     })
 
     $(document).on("click", ".delDate", function () {
+        var totCount = $("#totCount").val();
         var idx = $(this).attr("idx");
         $("#nonDate" + idx).remove();
         $(".br" + idx).remove();
         totCount--;
+        $("#totCount").val(totCount);
     })
 
     function checkDate() {
         //alert("누름");
-        var cnt = count;
+        var cnt = $("#count").val();
         var checkin = [];
         var checkout = [];
         var idx = [];
@@ -110,8 +114,8 @@
             var checkinValue = $("#non_checkin" + index).val();
             var checkoutValue = $("#non_checkout" + index).val();
             var countIdx = $("#count" + index).val();
-            /*alert("[" + checkinValue + "," + checkoutValue + "]");
-            alert(index + " : " + countIdx);*/
+            //alert("[" + checkinValue + "," + checkoutValue + "]");
+            //alert(index + " : " + countIdx);
             if (countIdx == 'true') {
                 if (checkinValue != "" && checkoutValue != "") {
                     checkin.push(checkinValue);
@@ -178,11 +182,12 @@
 
     $("#saveNonBook").click(function () {
         var flag = $("#checkDuplicate").val();
+        alert(flag);
         if (flag == 0) {
             alert("날짜를 입력 후 중복체크 눌러주세요.");
         }
         if (flag == 1) {
-            var cnt = count;
+            var cnt = $("#count").val();
             var checkin = [];
             var checkout = [];
             for (var index = 1; index <= cnt; index++) {
@@ -198,6 +203,9 @@
                     alert(checkinValue + "," + checkoutValue);
                 }
             }
+            for (var i = 0; i < checkin.length; i++) {
+                alert(checkin[i]);
+            }
             $.ajax({
                 type: "get",
                 traditional: true,
@@ -206,10 +214,74 @@
                 data: {"checkin": checkin, "checkout": checkout, "accom_name": accom_name},
                 success: function () {
                     alert("등록되었습니다.");
+                    location.reload();
                 }
             })
         }
     })
+
+    $("#accomSelect").change(function () {
+        $("span.newNonDate").remove();
+        $("span.br").remove();
+        var accom_name = $("#accomSelect").val();
+        if (accom_name == 'nonSelect') {
+            $("#setting-btn").hide();
+            $("#saveNonBook").hide();
+            $(".addDate").hide();
+            return false;
+        }
+        $.ajax({
+            type: "get",
+            url: "select-accom",
+            dataType: "json",
+            data: {"accom_name": accom_name},
+            success: function (data) {
+                alert(data.length)
+                if (data.length == 0) {
+                    $("#totCount").val(1);
+                    $("#count").val(1);
+                    var s = "";
+                    s += "<span class='d-inline-flex nonDate newNonDate' id='nonDate1'>";
+                    s += "<input type='date' id='non_checkin1' name='checkin[]' min='" + date + "'";
+                    s += "class='form-control' style='width: 150px; margin-right: 20px;'> ~";
+                    s += "<input type='date' id='non_checkout1' name='checkout[]' min='" + date + "'";
+                    s += "class='form-control' style='width: 150px; margin-left: 20px;'>";
+                    s += "<button type='button' class='delDate btn btn-danger sm' style='margin-left: 10px;' ";
+                    s += "idx='1'>x</button>";
+                    s += "<input type='hidden' id='count1' value='true'>"
+                    s += "</span><span class='br br1'><br><br>";
+                    $("#div-nonDate").append(s);
+                    $("#setting-btn").show();
+                    $("#saveNonBook").show();
+                    $(".addDate").show();
+                }
+                if (data.length > 0) {
+                    $("#totCount").val(data.length);
+                    $("#count").val(data.length);
+                    $.each(data, function (i, ele) {
+                        var s = "";
+                        s += "<span class='d-inline-flex nonDate newNonDate' id='nonDate" + (i + 1) + "'>";
+                        s += "<input type='date' id='non_checkin" + (i + 1) + "' name='checkin[]' min='" + date + "'";
+                        s += "class='form-control' style='width: 150px; margin-right: 20px;'";
+                        s += "value='" + ele.non_checkin + "'> ~"
+                        s += "<input type='date' id='non_checkout" + (i + 1) + "' name='checkout[]' min='" + date + "'";
+                        s += "class='form-control' style='width: 150px; margin-left: 20px;'";
+                        s += "value='" + ele.non_checkout + "'>"
+                        s += "<button type='button' class='delDate btn btn-danger sm' style='margin-left: 10px;' "
+                        s += "idx='" + (i + 1) + "'>x</button>"
+                        s += "<input type='hidden' id='count" + (i + 1) + "' value='true'>"
+                        s += "</span><span class='br br" + (i + 1) + "'><br><br>";
+                        $("#div-nonDate").append(s);
+                        $("#setting-btn").show();
+                        $("#saveNonBook").show();
+                        $(".addDate").show();
+                    })
+                }
+            }
+        })
+
+    })
+
 </script>
 </body>
 </html>

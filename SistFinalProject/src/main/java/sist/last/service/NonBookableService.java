@@ -23,6 +23,11 @@ public class NonBookableService implements NonBookableServiceInter {
     }
 
     @Override
+    public List<NonBookableDto> getNonBookableList(String accom_name) {
+        return mapperInter.getNonBookableList(accom_name);
+    }
+
+    @Override
     public void addNonBookableDate(NonBookableDto dto) {
         mapperInter.addNonBookableDate(dto);
     }
@@ -35,5 +40,15 @@ public class NonBookableService implements NonBookableServiceInter {
     @Override
     public List<String> getNonBookableCheckout(int accom_num) {
         return mapperInter.getNonBookableCheckout(accom_num);
+    }
+
+    @Override
+    public void deleteNonBookableDate(String idx) {
+        mapperInter.deleteNonBookableDate(idx);
+    }
+
+    @Override
+    public void deleteNonBookableDateOfAccomNumber(String accom_name) {
+        mapperInter.deleteNonBookableDateOfAccomNumber(accom_name);
     }
 }

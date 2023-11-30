@@ -54,7 +54,7 @@ public class ProductController {
         categoryList = new ArrayList<>();
         selectDate1 = selDate1;
         selectDate2 = selDate2;
-        System.out.println(latitude + "," + longitude);
+        System.out.println("위도 : " + latitude + ",경도 : " + longitude);
         if (latitude != null) {
             userLat = Double.parseDouble(latitude);
             userLong = Double.parseDouble(longitude);
@@ -63,7 +63,7 @@ public class ProductController {
         if (selCate == "") {
             selCate = null;
         }
-        System.out.println(sort + "," + selCate);
+        System.out.println("정렬: " + sort + ",선택한 카테고리: " + selCate);
         model.addAttribute("keyword", keyword);
         model.addAttribute("category", category);
         isSelDateNull(selDate1);
@@ -84,7 +84,7 @@ public class ProductController {
             products = compareLimitDate(products, selectDate1, selectDate2);
             if (sort != null) {
                 model.addAttribute("sort", sort);
-                System.out.println(products.size() + " 개 의 데이터");
+                //System.out.println(products.size() + " 개 의 데이터");
                 compareSort(sort, model, minPrice,
                         maxPrice, products, keyword);
                 return "/product/searchMainPage";

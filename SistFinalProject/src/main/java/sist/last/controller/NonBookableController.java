@@ -1,6 +1,7 @@
 package sist.last.controller;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,19 +13,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sist.last.dto.NonBookableDto;
-import sist.last.mapper.NonBookableMapperInter;
+import sist.last.service.NonBookableService;
 
 @Controller
 public class NonBookableController {
 
     @Autowired
-    NonBookableMapperInter mapper;
+    NonBookableService service;
 
     /*이성신 추가 부분*/
     @GetMapping("/accom/non-book")
     public String nonBook(HttpSession session, Model model) {
         String business_id = (String) session.getAttribute("business_id");
-        List<String> accomList = mapper.getAccomName(business_id);
+        List<String> accomList = service.getAccomName(business_id);
         if (accomList.isEmpty()) {
             model.addAttribute("nothing", "nothing");
             return "/accom/accomNonBookable";
@@ -63,14 +64,17 @@ public class NonBookableController {
                                    @RequestParam("checkout") List<String> checkout,
                                    @RequestParam("accom_name") String accom_name) {
         System.out.println(checkin.size());
-        int accom_num = mapper.getAccomNumber(accom_name);
+        System.out.println(accom_name);
+        int accom_num = service.getAccomNumber(accom_name);
+        service.deleteNonBookableDateOfAccomNumber(accom_name);
         for (int listIndex = 0; listIndex < checkin.size(); listIndex++) {
             System.out.println(checkin.get(listIndex) + "," + checkout.get(listIndex) + "," + accom_num);
             NonBookableDto dto = new NonBookableDto();
             dto.setNon_checkin(checkin.get(listIndex));
             dto.setNon_checkout(checkout.get(listIndex));
             dto.setAccom_num(accom_num);
-            mapper.addNonBookableDate(dto);
+            dto.setAccom_name(accom_name);
+            service.addNonBookableDate(dto);
         }
     }
 
@@ -92,5 +96,20 @@ public class NonBookableController {
             }
         }
         return false; // 중복이 없음
+    }
+
+    @GetMapping("/accom/select-accom")
+    @ResponseBody
+    public List<NonBookableDto> getSelectAccom(@RequestParam String accom_name) {
+        LocalDate today = LocalDate.now();
+        List<NonBookableDto> nonBookableList = service.getNonBookableList(accom_name);
+        for (NonBookableDto nonBookable : nonBookableList) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate checkout = LocalDate.parse(nonBookable.getNon_checkout(), formatter);
+            if (checkout.isBefore(today)) {
+                service.deleteNonBookableDate(nonBookable.getIdx());
+            }
+        }
+        return service.getNonBookableList(accom_name);
     }
 }
