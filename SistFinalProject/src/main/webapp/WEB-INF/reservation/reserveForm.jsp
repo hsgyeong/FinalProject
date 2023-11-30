@@ -203,6 +203,8 @@
 <body>
 		<div class="left-side">
 			<input type="hidden" id="room_num" value="${rdto.room_num }">
+			<input type="hidden" id="accom_name" value="${accom_name }">
+			<input type="hidden" id="room_name" value="${room_name }">
 			<div>
 				<b>예약자 정보</b>
 			</div>
@@ -368,6 +370,8 @@
 								    var reserve_name = $("#reserve_name").val();
 								    var reserve_hp = $("#reserve_hp").val();
 								    var coupon_name = $("#coupon-name").text();
+								    var accom_name = $("#accom_name").val();
+								    var room_name = $("#room_name").val();
 								    
 								    // 선택한 결제 방식 가져오기
 								    var selectedPaymentMethod = $("#payment").val();
@@ -384,7 +388,7 @@
 								        console.log(rsp);
 
 								        if (rsp.success) {
-								            sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name);
+								            sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name, accom_name, room_name);
 								        } else {
 								            alert("결제를 취소했습니다");
 								        }
@@ -407,7 +411,7 @@
 								    }
 								}
 								
-								function sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name) {
+								function sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name, accom_name, room_name) {
 								    // 여기에 더 많은 데이터를 추가할 수 있습니다.
 								    
 								    var additionalData = {
@@ -419,7 +423,9 @@
 										room_checkout: room_checkout,
 										reserve_name: reserve_name,
 										reserve_hp: reserve_hp,
-										coupon_name: coupon_name
+										coupon_name: coupon_name,
+										accom_name: accom_name,
+										room_name: room_name
 								    };
 
 								    $.ajax({

@@ -90,6 +90,8 @@ public class ReserveController {
 						  @RequestParam("room_checkin") String room_checkin,
 						  @RequestParam("room_checkout") String room_checkout,
 						  @RequestParam("coupon_name") String coupon_name,
+						  @RequestParam("accom_name") String accom_name,
+						  @RequestParam("room_name") String room_name,
 	                      @ModelAttribute ReserveDto reserveDto,
 	                      HttpSession session) {
 		String info_id=(String)session.getAttribute("info_id");
@@ -103,6 +105,8 @@ public class ReserveController {
 	    reserveDto.setReserve_checkin(room_checkin);
 	    reserveDto.setReserve_checkout(room_checkout);
 	    reserveDto.setReserve_coupon(coupon_name);
+	    reserveDto.setAccom_name(accom_name);
+	    reserveDto.setRoom_name(room_name);
 
 	    rservice.reservingInsert(reserveDto);
 	    
