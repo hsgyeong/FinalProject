@@ -11,20 +11,24 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
 	rel="stylesheet">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 </head>
 <style>
 .detail_box {
+
 	width: 100%;
 }
 
 .detail_content {
+
 	width: 100%;
 	height: 55vh;
 }
 
 .detail_info {
+
 	width: 45%;
 	position: relative;
 	left: 55%;
@@ -32,11 +36,13 @@
 }
 
 .detail_img {
+
 	width: 50%;
 	height: 40vh;
 }
 
 .detail_img img {
+
 	width: 100%;
 	height: 40vh;
 	border-radius: 2px;
@@ -44,12 +50,14 @@
 }
 
 .detail_imgs {
+
 	width: 50%;
 	margin-top: 1%;
 	overflow: hidden;
 }
 
 .detail_imgs img {
+
 	width: 15vh;
 	max-width: 15vh;
 	height: 10vh;
@@ -57,6 +65,7 @@
 }
 
 .detail_imgs ul {
+
 	list-style: none;
 	display: flex;
 	justify-content: center;
@@ -67,10 +76,12 @@
 }
 
 .detail_imgs ul li:first-child {
+
 	margin-left: 0.6vh;
 }
 
 .detail_imgs ul li img {
+
 	max-width: 100%;
 	max-height: 110%;
 	border-radius: 1px;
@@ -79,6 +90,7 @@
 }
 
 .detail_room_name {
+
 	width: 100%;
 	bottom: 39vh;
 	font-weight: bold;
@@ -86,12 +98,14 @@
 }
 
 .detail_asr {
+
 	width: 100%;
 	display: flex;
 	margin: 1vh 0px 2vh 0px;
 }
 
 .detail_accom_score {
+
 	width: 10%;
 	border-radius: 5px;
 	color: white;
@@ -101,6 +115,7 @@
 }
 
 .detail_score_result {
+
 	width: 15%;
 	color: orange;
 	font-size: 2vh;
@@ -110,6 +125,7 @@
 }
 
 .detail_review_count {
+
 	width: 20%;
 	color: silver;
 	font-size: 2vh;
@@ -118,6 +134,7 @@
 }
 
 .detail_accom_location {
+
 	width: 100%;
 	color: gray;
 	font-size: 2vh;
@@ -125,6 +142,7 @@
 }
 
 .detail_accom_hashtag {
+
 	width: 100%;
 	color: gray;
 	font-size: 2vh;
@@ -132,6 +150,7 @@
 }
 
 .detail_room_info {
+
 	width: 100%;
 	color: gray;
 	font-size: 2vh;
@@ -141,26 +160,31 @@
 }
 
 .detail_room_info b {
+
 	color: black;
 	font-size: 2vh;
 	font-weight: 600;
 }
 
 .detail_room_info_coment {
+
 	margin: 2vh 0px 0px 0px;;
 }
 
 .detail_select {
+
 	width: 100%;
 	margin-top: 5vh;
 }
 
 .detail_select ul {
+
 	list-style: none;
 	margin-left: -2%;
 }
 
 .detail_select ul li {
+
 	display: inline-block;
 	color: silver;
 	font-size: 2.3vh;
@@ -171,6 +195,7 @@
 }
 
 .detail_room_select {
+
 	border: 1px solid silver;
 	border-radius: 1px;
 	margin-top: 3vh;
@@ -180,17 +205,20 @@
 }
 
 .detail_room_select_img {
+
 	width: 60%;
 	margin: 2vh 2vh 2vh 2vh;
 }
 
 .detail_room_select_img img {
+
 	width: 100%;
 	height: 35vh;
 	box-shadow: 2px 2px 2px silver;
 }
 
 .detail_room_reserve {
+
 	width: 40%;
 	height: 30vh;
 	margin: 2vh 2vh 2vh 0px;
@@ -198,17 +226,20 @@
 }
 
 .detail_room_select_name {
+
 	font-weight: bold;
 	font-size: 2.2vh;
 	margin-bottom: 1.5vh;
 }
 
 .detail_room_select_suk {
+
 	font-weight: bold;
 	font-size: 2vh;
 }
 
 .detail_room_select_price {
+
 	font-weight: bold;
 	font-size: 2.5vh;
 	box-shadow: 0 0.5px 0 silver;
@@ -216,11 +247,13 @@
 }
 
 .detail_room_select_checkin>b, .detail_room_select_checkout>b {
+
 	text-align: right;
 	display: block;
 }
 
 .room_detail_reserve_btn {
+
 	color: white;
 	background-color: #f7323f;
 	border: none;
@@ -232,16 +265,19 @@
 }
 
 .detail_suk_info{
+
 	width: 100%;
 	border: 1px solid silver;
 }
 
 #map {
+
     width: 100%;
     height: 70vh;
 }
 
 #address {
+
     width: 11%;
     padding: 1vh;
     border: 1px solid black;
@@ -256,27 +292,81 @@
 }
 
 .detail_room_count{
+
 	color:red;
 	font-size: 0.8em;
 	float: right;
 }
 
 .detail_review{
+
 	width: 80%;
 	margin-left: 10%;
 }
 
 .detail_review_result{
+	
 	width: 100%;
-	border: 3px solid orange;
-	height: 35vh;
+	margin-bottom: 5vh;
+	font-size: 0.9em;
 }
 
 .detail_review_input{
-	width: 100%;
-	border: 3px solid blue;
-	height: 25vh;
+
+	width: 80%;
 	margin-top: 10vh;
+	margin-left: 10%;
+}
+
+.detail_review_input textarea{
+
+	width: 98%;
+	height: 25vh;
+	border-radius: 5px;
+	border:none;
+	margin-top: 1vh;
+}
+
+.rate { display: inline-block;border: 0;margin-right: 15px;}
+.rate > input {display: none;}
+.rate > label {float: right;color: #ddd}
+.rate > label:before {display: inline-block;font-size: 1rem;padding-top: 0.2rem; padding-right: .2rem;margin: 0;cursor: pointer;font-family: FontAwesome;content: "\f005 ";}
+.rate .half:before {content: "\f089 "; position: absolute;padding-right: 0;}
+.rate input:checked ~ label, 
+.rate label:hover,.rate label:hover ~ label { color: #f73c32 !important;  } 
+.rate input:checked + .rate label:hover,
+.rate input input:checked ~ label:hover,
+.rate input:checked ~ .rate label:hover ~ label,  
+.rate label:hover ~ input:checked ~ label { color: #f73c32 !important;  } 
+
+.detail_review_input_submit{
+
+	width: 8vh;
+	height: 5vh;
+	border: 1px solid silver;
+	color: black;
+	font-weight: bold;
+	background-color: white;
+	border-radius: 1vh;
+	font-size: 0.8em;
+}
+
+.detail_review_input_reset{
+
+	width: 8vh;
+	height: 5vh;
+	border: 1px solid silver;
+	color: black;
+	font-weight: bold;
+	background-color: white;
+	border-radius: 1vh;
+	font-size: 0.8em;
+}
+
+.detail_review_input_submit:hover,
+.detail_review_input_reset:hover{
+
+	background-color: rgb(228, 231, 235);
 }
 </style>
 <script type="text/javascript">
@@ -422,7 +512,7 @@
 				<div class="detail_room_name">${dto.accom_name }</div>
 
 				<div class="detail_asr">
-					<div class="detail_accom_score">${dto.accom_score }</div>
+					<div class="detail_accom_score">${avgscore}</div>
 					<div class="detail_score_result"></div>
 
 					<script>
@@ -596,17 +686,114 @@
     
 	</div>
 	<div class="detail_review">
-		<div class="detail_review_result">
-		
+		<div style="margin: 10% 0px;">
+		<h3 style="border-bottom: 2px solid silver; padding-bottom: 3vh;">총 ${count }개의 리얼 리뷰!</h3>
 		</div>
 		
+		<c:forEach items="${reviewdto}" var="list">
+		<div class="detail_review_result">
+		<table class="table table-bordered" style="width: 80%; margin-left: 10%;">
+		<tr>
+				<td align="center" valign="middle" style="width: 25%;">${list.info_id }</td>
+				
+				<td align="center" valign="middle" style="width: 20%;">
+				<span>별점 ${list.review_score }</span>
+    			</td>
+    			
+    			<td align="center" valign="middle" style="width: 25%;">
+    			<span>${detail_room }</span>
+				</td>
+				
+				<td align="center" valign="middle" style="width: 30%;">
+    			<span><fmt:formatDate value="${list.review_write }" pattern="yyyy-MM-dd"/></span>
+				</td>
+		</tr>
+		
+		<tr>
+			<td colspan="4" align="center" style="padding: 5vh 3%;">
+					<div style="width: 100%;">
+					${list.review_info }
+					</div>
+			</td>
+		</tr>
+		</table>
+		</div>
+		</c:forEach>
+		
 		<div class="detail_review_input">
+		
+		<form action="review-insert" method="post">
+		<input type="hidden" name="accom_num" value="${dto.accom_num }">
+		<input type="hidden" name="info_id" value="${mdto.info_id }">
+		<input type="hidden" name="sleep" value="${sleep}">
+		<input type="hidden" name="checkin" value="${checkin}">
+		<input type="hidden" name="checkout" value="${checkout}">
+		
 		<table class="table table-bordered">
 			<tr>
-				<td style="padding: 2vh;">닉네임</td>
-				<td style="padding: 2vh; float: right;">댓글 작성 날짜</td>
-			</tr>		
+				<td align="center" valign="middle" style="width: 25%;">${mdto.info_id }</td>
+				<td align="center" valign="middle" style="width: 10%;">별점</td>
+				<td align="center" valign="middle" style="width: 25%;">
+				<div class="rate">
+                                <input type="radio" id="rating10" name="review_score" value="10"><label for="rating10" title="10점"></label>
+                                <input type="radio" id="rating9" name="review_score" value="9"><label class="half" for="rating9" title="9점"></label>
+                                <input type="radio" id="rating8" name="review_score" value="8"><label for="rating8" title="8점"></label>
+                                <input type="radio" id="rating7" name="review_score" value="7"><label class="half" for="rating7" title="7점"></label>
+                                <input type="radio" id="rating6" name="review_score" value="6"><label for="rating6" title="6점"></label>
+                                <input type="radio" id="rating5" name="review_score" value="5"><label class="half" for="rating5" title="5점"></label>
+                                <input type="radio" id="rating4" name="review_score" value="4"><label for="rating4" title="4점"></label>
+                                <input type="radio" id="rating3" name="review_score" value="3"><label class="half" for="rating3" title="3점"></label>
+                                <input type="radio" id="rating2" name="review_score" value="2"><label for="rating2" title="2점"></label>
+                                <input type="radio" id="rating1" name="review_score" value="1"><label class="half" for="rating1" title="1점"></label>
+                            </div>
+				</td>
+				<td align="center" valign="middle" style="width: 10%">예약</td>
+				<td align="center" valign="middle" style="width: 30%">${detail_room }</td>
+			</tr>
+			<tr>
+				<td colspan="5" align="center" valign="middle">
+					<textarea placeholder="멋진 후기를 댓글에 남겨주세요!" name="review_info" required="required"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" align="right" valign="middle">
+					<button type="submit" class="detail_review_input_submit">등록</button>
+					<button type="button" class="detail_review_input_reset" onclick="">취소</button>
+				</td>
+			</tr>
 		</table>
+		</form>
+		
+		<script>
+		$(".detail_review_input_submit").click(function() {
+			
+		    var selectedRating = $("input[name='review_score']:checked").length;
+
+		    var reviewInfo = $("textarea[name='review_info']").val();
+
+		    if (selectedRating > 0 && reviewInfo.trim() !== "") {
+		        alert("등록이 완료되었습니다.");
+		    } else {
+		        
+		        alert("별점을 입력하고 후기를 작성해주세요.");
+		    }
+		});
+		
+    	function resetReviewInput() {
+		        // 별점 초기화
+		        $("input[name='accom_count']").prop("checked", false);
+		        
+		        // textarea 초기화
+		        $("textarea[name='review_info']").val('');
+		    }
+		
+		    $(document).ready(function() {
+		        $(".detail_review_input_reset").click(function() {
+		            resetReviewInput();
+		        });
+		    });
+		</script>
+
 		</div>
 	</div>
 </body>

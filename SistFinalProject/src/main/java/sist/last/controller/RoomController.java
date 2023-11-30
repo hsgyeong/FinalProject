@@ -20,9 +20,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sist.last.dto.AccomDto;
 import sist.last.dto.MemberDto;
+import sist.last.dto.ReserveDto;
+import sist.last.dto.ReviewDto;
 import sist.last.dto.RoomDto;
 import sist.last.mapper.AccomMapperInter;
+import sist.last.mapper.MemberMapperInter;
+import sist.last.mapper.ReviewMapperInter;
 import sist.last.mapper.RoomMapperInter;
+import sist.last.service.ReserveService;
 
 @Controller
 public class RoomController {
@@ -31,6 +36,12 @@ public class RoomController {
     RoomMapperInter mapper;
     @Autowired
     AccomMapperInter amapper;
+    @Autowired
+    MemberMapperInter mmapper;
+    @Autowired
+    ReserveService rmapper;
+    @Autowired
+    ReviewMapperInter reviewmapper;
 
     @GetMapping("/room/room-list")
     public ModelAndView list(@RequestParam int accom_num,HttpSession session) {
@@ -62,7 +73,7 @@ public class RoomController {
     
     @GetMapping("/room/room-detail")
     public ModelAndView detail(@RequestParam int accom_num,@RequestParam int sleep,
-    		@RequestParam String checkin,@RequestParam String checkout)
+    		@RequestParam String checkin,@RequestParam String checkout, HttpSession session)
     {
     	ModelAndView model=new ModelAndView();
     
@@ -74,7 +85,10 @@ public class RoomController {
 
 	    // 이미지 파일 이름들을 콤마로 스플릿하여 리스트로 변환
 	    List<String> photoList = Arrays.asList(photoNames.split(","));
-	  
+	    
+	    String info=(String)session.getAttribute("info_id");
+	    
+	    MemberDto mdto=mmapper.getDataById(info);
 	    
 		model.addObject("list", list);
     	model.addObject("dto", dto);
@@ -82,10 +96,46 @@ public class RoomController {
     	model.addObject("sleep", sleep);
     	model.addObject("checkin", checkin);
     	model.addObject("checkout", checkout);
-
+    	model.addObject("mdto", mdto);
+    	
+    	
+    	double score=dto.getAccom_score();
+    	model.addObject("score", score);
+    	
+    	int count=reviewmapper.ReviewTotalCount(accom_num);
+    	model.addObject("count", count);
+    	
+    	double avgscore=amapper.getAverageScore(accom_num);
+    	model.addObject("avgscore", avgscore);
+    	
+    	int idx=rmapper.getMaxIdxOfReserve();
+    	ReserveDto reservedto=rmapper.getOneDataByIdOfReserve(info, idx);
+    	
+    	int room_num=reservedto.getRoom_num();
+    	model.addObject("room_num", room_num);
+    	String detail_room=mapper.getOneData(room_num).getRoom_name();
+    	model.addObject("detail_room", detail_room);
+    	
+    	List<ReviewDto> reviewdto=reviewmapper.ReviewList(accom_num);
+    	model.addObject("reviewdto", reviewdto);
+    	
     	model.setViewName("/room/roomDetail");
     	
     	return model;
+    }
+    
+    @PostMapping("/room/review-insert")
+    public String review(@ModelAttribute ReviewDto dto,@ModelAttribute AccomDto adto,
+    		@RequestParam String checkin, @RequestParam String checkout, @RequestParam int sleep,HttpSession session)
+    {
+
+    	reviewmapper.insertReview(dto);
+    	
+    	
+    	return "redirect:/room/room-detail?accom_num=" + dto.getAccom_num() +
+                "&checkin="+checkin+
+                "&checkout="+checkout+
+                "&sleep=" + sleep;
     }
 
     @GetMapping("/room/room-insert")
