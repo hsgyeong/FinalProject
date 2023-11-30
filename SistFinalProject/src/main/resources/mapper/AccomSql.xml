@@ -47,4 +47,13 @@
         where A.accom_num=#{accom_num};
   	</select>
   	
+  	<insert id="insertReview" parameterType="AccomDto">
+  		insert into accom(accom_score) values (#{accom_score})
+  	</insert>
+  	
+  	<select id="getAverageScore" parameterType="int" resultType="double">
+	    SELECT IFNULL(AVG(review_score), 0) AS average_score
+	    FROM review
+	    WHERE accom_num = #{accom_num}
+	</select>
 </mapper>
