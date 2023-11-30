@@ -103,6 +103,11 @@ public class RoomController {
     	model.addObject("checkout", checkout);
     	model.addObject("mdto", mdto);
     	
+    	//reserve 하나의 데이터 조회
+    	ReserveDto reservedto=rmapper.getOneInfoData(info);
+    	String reserve_id=reservedto.getInfo_id();
+    	
+    	
     	
     	double score=dto.getAccom_score();
     	model.addObject("score", score);
@@ -112,21 +117,6 @@ public class RoomController {
     	
     	double avgscore=amapper.getAverageScore(accom_num);
     	model.addObject("avgscore", avgscore);
-    
-    	//예약완료 받아오기
-//    	int idx=rmapper.
-//    	ReserveDto reservedto=rmapper.getOneDataByIdOfReserve(info, idx);
-//  	
-//    	int room_num=reservedto.getRoom_num();
-//   	 	model.addObject("room_num", room_num);
-//    	String detail_room=mapper.getOneData(room_num).getRoom_name();
-//    	model.addObject("detail_room", detail_room);
-//
-//    	int infocount=reviewmapper.InfoIdTotalCount(info);
-//    	model.addObject("infocount", infocount);
-    	
-//    	String reserveok=reservedto.getReserve_status();
-//    	model.addObject("reserveok", reserveok);
     	
     	List<ReviewDto> reviewdto=reviewmapper.ReviewList(accom_num);
     	model.addObject("reviewdto", reviewdto);
@@ -197,9 +187,8 @@ public class RoomController {
     public String review(@ModelAttribute ReviewDto dto,@ModelAttribute AccomDto adto,
     		@RequestParam String checkin, @RequestParam String checkout, @RequestParam int sleep,HttpSession session)
     {
-
-    	reviewmapper.insertReview(dto);
     	
+    	reviewmapper.insertReview(dto);	
     	
     	return "redirect:/room/room-detail?accom_num=" + dto.getAccom_num() +
                 "&checkin="+checkin+
