@@ -82,6 +82,9 @@ public class RoomController {
 		List<RoomDto> list = mapper.getAllData(accom_num);
 		AccomDto dto=amapper.getOneData(accom_num);
     	
+		String accom_name=dto.getAccom_name();
+		model.addObject("accom_name", accom_name);
+		
 		RoomDto rdto = list.get(0);
 		String photoNames = rdto.getRoom_photo(); // 가정: 이미지 파일 이름들을 담고 있는 문자열
 
@@ -109,10 +112,9 @@ public class RoomController {
     	
     	double avgscore=amapper.getAverageScore(accom_num);
     	model.addObject("avgscore", avgscore);
-    	
-    	
-//    	//예약완료 받아오기
-//    	int idx=rmapper.getMaxIdxOfReserve();
+    
+    	//예약완료 받아오기
+//    	int idx=rmapper.
 //    	ReserveDto reservedto=rmapper.getOneDataByIdOfReserve(info, idx);
 //  	
 //    	int room_num=reservedto.getRoom_num();
