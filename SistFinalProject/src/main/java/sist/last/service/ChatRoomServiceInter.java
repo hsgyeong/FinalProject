@@ -10,4 +10,5 @@ public interface ChatRoomServiceInter {
     public int getMaxNum();
     public void insertChatRoom(ChatDto chatDto);
     public List<ChatDto> selectChatRoom();
+    public String getSenderId(String senderid);
 }
