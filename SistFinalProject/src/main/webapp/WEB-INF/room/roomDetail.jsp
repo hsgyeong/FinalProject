@@ -707,7 +707,7 @@
     			</td>
     			
     			<td align="center" valign="middle" style="width: 25%;">
-    			<span>${ }</span>
+    			<span></span>
 				</td>
 				
 				<td align="center" valign="middle" style="width: 30%;">
@@ -750,6 +750,7 @@
 		</div>
 		</c:if>
 		
+		
 		<div class="detail_review_input" style="margin-bottom: -3vh;">
 		
 		<form action="review-insert" method="post">
@@ -758,6 +759,7 @@
 		<input type="hidden" name="sleep" value="${sleep}">
 		<input type="hidden" name="checkin" value="${checkin}">
 		<input type="hidden" name="checkout" value="${checkout}">
+		<input type="hidden" name="reserve_id" value="1">
 		
 		<table class="table table-bordered">
 			<tr>
@@ -778,7 +780,7 @@
                             </div>
 				</td>
 				<td align="center" valign="middle" style="width: 10%">예약</td>
-				<td align="center" valign="middle" style="width: 30%">${detail_room }</td>
+				<td align="center" valign="middle" style="width: 30%">방이름</td>
 			</tr>
 			<tr>
 				<td colspan="5" align="center" valign="middle">
@@ -823,6 +825,7 @@
 		</script>
 
 		</div>
+		
 	</div>
 </body>
 </html>

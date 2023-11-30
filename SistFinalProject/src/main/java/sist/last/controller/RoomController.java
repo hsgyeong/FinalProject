@@ -104,9 +104,13 @@ public class RoomController {
     	model.addObject("mdto", mdto);
     	
     	//reserve 하나의 데이터 조회
-    	ReserveDto reservedto=rmapper.getOneInfoData(info);
-    	String reserve_id=reservedto.getInfo_id();
     	
+//    	ReserveDto reservedto=rmapper.getOneInfoData(info);
+//    	String reserve_id=reservedto.getInfo_id();
+//    	String reserve_room=reservedto.getRoom_name();
+//    	
+//    	model.addObject("reserve_id", reserve_id);
+//    	model.addObject("reserve_room", reserve_room);
     	
     	
     	double score=dto.getAccom_score();

@@ -15,5 +15,6 @@ public class ReviewDto {
 	private String review_info;
 	private double review_score;
 	private int accom_num;
+	private String reserve_id;
 	private Timestamp review_write;
 }
