@@ -21,7 +21,7 @@
     	}
     	div.title-tab{
     		margin-left: 3%;
-    		font-size: 30px;
+    		font-size : 30px;
     		padding:  30px 30px 30px 30px;
     		cursor: pointer;
     	}
@@ -51,16 +51,16 @@
 	<header>
 		<div class="admin-title d-inline-flex">
 			<div class="title-tab">
-				<a href="#">숙소승인</a>
+				<a href="/admin/admin-accom-approval-page?currentPage=${currentPage }">숙소승인</a>
 			</div>
 			<div class="title-tab">
-				<a href="#">결제정보</a>
+				<a href="/admin/admin-pay-info-page?currentPage=${currentPage }">결제정보</a>
 			</div>
 			<div class="title-tab">
-				<a href="#">사업자관리</a>
+				<a href="/admin/admin-business-info-page?currentPage=${currentPage }">사업자관리</a>
 			</div>
 			<div class="title-tab">
-				<a href="#">회원관리</a>
+				<a href="/admin/admin-member-info-page?currentPage=${currentPage }">회원관리</a>
 			</div>
 		</div>
 	</header>
