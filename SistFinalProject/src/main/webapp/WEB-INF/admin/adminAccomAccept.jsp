@@ -13,6 +13,13 @@
     <title>Insert title here</title>
 </head>
 <body>
-	숙소 승인 창
+	<div align="center">
+		<h3><b>숙소승인</b></h3>
+		<table class="table table-stripped">
+			<tr>
+				<th></th>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>

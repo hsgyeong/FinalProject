@@ -10,12 +10,12 @@
         business_id, accom_name, accom_category,
         accom_photo, accom_location, accom_address,
         accom_hashtag, accom_latitude, accom_longitude,
-        accom_info
+        accom_info,accom_approval
     ) values (
         #{business_id}, #{accom_name}, #{accom_category},
         #{accom_photo}, #{accom_location}, #{accom_address},
         #{accom_hashtag}, #{accom_latitude}, #{accom_longitude},
-        #{accom_info}
+        #{accom_info},0
     )
     </insert>
 
