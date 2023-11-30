@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 
@@ -73,7 +74,8 @@ public class RoomController {
     
     @GetMapping("/room/room-detail")
     public ModelAndView detail(@RequestParam int accom_num,@RequestParam int sleep,
-    		@RequestParam String checkin,@RequestParam String checkout, HttpSession session)
+    		@RequestParam String checkin,@RequestParam String checkout, HttpSession session,
+    		@RequestParam(value = "currentPage",defaultValue = "1") int currentPage)
     {
     	ModelAndView model=new ModelAndView();
     
@@ -108,17 +110,82 @@ public class RoomController {
     	double avgscore=amapper.getAverageScore(accom_num);
     	model.addObject("avgscore", avgscore);
     	
-    	int idx=rmapper.getMaxIdxOfReserve();
-    	ReserveDto reservedto=rmapper.getOneDataByIdOfReserve(info, idx);
     	
-    	int room_num=reservedto.getRoom_num();
-    	model.addObject("room_num", room_num);
-    	String detail_room=mapper.getOneData(room_num).getRoom_name();
-    	model.addObject("detail_room", detail_room);
+//    	//예약완료 받아오기
+//    	int idx=rmapper.getMaxIdxOfReserve();
+//    	ReserveDto reservedto=rmapper.getOneDataByIdOfReserve(info, idx);
+//  	
+//    	int room_num=reservedto.getRoom_num();
+//   	 	model.addObject("room_num", room_num);
+//    	String detail_room=mapper.getOneData(room_num).getRoom_name();
+//    	model.addObject("detail_room", detail_room);
+//
+//    	int infocount=reviewmapper.InfoIdTotalCount(info);
+//    	model.addObject("infocount", infocount);
+    	
+//    	String reserveok=reservedto.getReserve_status();
+//    	model.addObject("reserveok", reserveok);
     	
     	List<ReviewDto> reviewdto=reviewmapper.ReviewList(accom_num);
     	model.addObject("reviewdto", reviewdto);
     	
+    	// 페이징
+    	int totalCount = reviewmapper.ReviewTotalCount(accom_num);
+    	int totalPage; // 총 페이지수
+    	int startPage; // 각 블럭에서 보여질 시작페이지
+    	int endPage; // 각 블럭에서 보여질 끝페이지
+    	int startNum; // db에서 가져올 글의 시작번호(mysql은 첫글이 0, 오라클은 1)
+    	int perPage = 3; // 한 페이지당 보여질 글의 갯수
+    	int perBlock = 5; // 한 블럭당 보여질 페이지 개수
+
+    	// 총페이지수 구하기
+    	// 총글의 갯수/한페이지당 보여질 개수로 나눔(7/5=1)
+    	// 나머지가 1이라도 있으면 무조건 1페이지 추가(1+1=2페이지가 필요)
+    	totalPage = totalCount / perPage + (totalCount % perPage == 0 ? 0 : 1);
+
+    	// 각 블럭당 보여야할 시작페이지
+    	// perBlock=5일 경우는 현재페이지 1~5 시작:1 끝:5
+    	// 현재페이지 13 시작:11 끝:15
+    	startPage = (currentPage - 1) / perBlock * perBlock + 1;
+
+    	endPage = startPage + perBlock - 1;
+
+    	// 총페이지가 23일 경우 마지막 블럭은 25가 아니라 23이다
+    	if (endPage > totalPage)
+    	    endPage = totalPage;
+
+    	// 각페이지에서 보여질 시작번호
+    	// 1페이지: 0, 2페이지:5 3페이지:10....
+    	startNum = (currentPage - 1) * perPage;
+
+    	// 각 페이지에서 필요한 게시글 가져오기
+    	HashMap<String, Integer> pagingMap = new HashMap<>();
+    	pagingMap.put("accom_num", accom_num);
+    	pagingMap.put("start", (currentPage - 1) * perPage);
+    	pagingMap.put("perpage", perPage);
+    	List<ReviewDto> pplist = reviewmapper.getList(pagingMap);
+
+    	// 각 페이지에 출력할 시작번호
+    	int no = totalCount - (currentPage - 1) * perPage;
+
+    	// 수정된 부분: 페이징 URL 생성
+    	String pagingUrl = "/room/room-detail?accom_num=" + accom_num +
+    	        "&checkin=" + checkin +
+    	        "&checkout=" + checkout +
+    	        "&sleep=" + sleep +
+    	        "&currentPage=";
+
+    	model.addObject("totalCount", totalCount);
+    	model.addObject("pplist", pplist);
+    	model.addObject("startPage", startPage);
+    	model.addObject("endPage", endPage);
+    	model.addObject("totalPage", totalPage);
+    	model.addObject("no", no);
+    	model.addObject("currentPage", currentPage);
+
+    	// 수정된 부분: 페이징 URL 추가
+    	model.addObject("pagingUrl", pagingUrl);
+		
     	model.setViewName("/room/roomDetail");
     	
     	return model;

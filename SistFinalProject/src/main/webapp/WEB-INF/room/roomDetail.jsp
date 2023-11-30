@@ -686,11 +686,17 @@
     
 	</div>
 	<div class="detail_review">
-		<div style="margin: 10% 0px;">
-		<h3 style="border-bottom: 2px solid silver; padding-bottom: 3vh;">총 ${count }개의 리얼 리뷰!</h3>
-		</div>
 		
-		<c:forEach items="${reviewdto}" var="list">
+		
+		
+		<div style="margin: 5vh 0px;">
+		<h3 style="border-bottom: 2px solid silver; padding-bottom: 3vh; margin-bottom: 10vh;">총 ${count }개의 리얼 리뷰!</h3>
+		</div>
+		<c:if test="${totalCount>0 }">
+		<div class="pagingbox">
+
+		<c:forEach items="${pplist}" var="list">
+		
 		<div class="detail_review_result">
 		<table class="table table-bordered" style="width: 80%; margin-left: 10%;">
 		<tr>
@@ -719,8 +725,32 @@
 		</table>
 		</div>
 		</c:forEach>
+					<ul class="pagination justify-content-center">
+					
+	    <!-- 이전 -->
+		    <c:if test="${startPage > 1 }">
+		        <li class="page-item"><a class="page-link" href="${pagingUrl}${startPage-1 }">이전</a></li>
+		    </c:if>
 		
-		<div class="detail_review_input">
+		    <c:forEach var="pp" begin="${startPage }" end="${endPage }">
+		        <c:if test="${currentPage == pp }">
+		            <li class="page-item active"><a class="page-link" href="${pagingUrl}${pp }">${pp }</a></li>
+		        </c:if>
+		
+		        <c:if test="${currentPage != pp }">
+		            <li class="page-item"><a class="page-link" href="${pagingUrl}${pp }">${pp }</a></li>
+		        </c:if>
+		    </c:forEach>
+		
+		    <!-- 다음 -->
+		    <c:if test="${endPage < totalPage }">
+		        <li class="page-item"><a class="page-link" href="${pagingUrl}${endPage+1 }">다음</a></li>
+		    </c:if>
+		</ul>
+		</div>
+		</c:if>
+		
+		<div class="detail_review_input" style="margin-bottom: -3vh;">
 		
 		<form action="review-insert" method="post">
 		<input type="hidden" name="accom_num" value="${dto.accom_num }">
@@ -763,18 +793,16 @@
 			</tr>
 		</table>
 		</form>
+
 		
 		<script>
 		$(".detail_review_input_submit").click(function() {
 			
-		    var selectedRating = $("input[name='review_score']:checked").length;
-
 		    var reviewInfo = $("textarea[name='review_info']").val();
 
-		    if (selectedRating > 0 && reviewInfo.trim() !== "") {
+		    if (reviewInfo !== "") {
 		        alert("등록이 완료되었습니다.");
 		    } else {
-		        
 		        alert("별점을 입력하고 후기를 작성해주세요.");
 		    }
 		});
