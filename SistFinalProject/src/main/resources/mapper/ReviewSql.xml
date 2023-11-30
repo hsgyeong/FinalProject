@@ -15,4 +15,13 @@
 	<select id="ReviewTotalCount" parameterType="int" resultType="int">
 		select count(*) from review where accom_num=#{accom_num}
 	</select>
+	
+	<select id="getList" parameterType="HashMap" resultType="ReviewDto">
+    	select * from review order by accom_num desc limit #{start}, #{perpage}
+	</select>
+	
+	<select id="InfoIdTotalCount" resultType="int">
+		select count(*) from review where info_id=#{info_id}
+	</select>
+	
 </mapper>
