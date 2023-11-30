@@ -7,4 +7,5 @@ public interface ReserveServiceInter {
 	public void reservingInsert(ReserveDto dto);
 	public ReserveDto getOneDataByIdOfReserve(String info_id,int idx);
 	public int getMaxIdxOfReserve();
+	public ReserveDto getOneInfoData(String info_id);
 }

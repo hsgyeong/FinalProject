@@ -14,5 +14,8 @@
  	<select id="getMaxIdxOfReserve" resultType="int">
  		select max(idx) from reservation
  	</select>
- 
+ 	
+ 	<select id="getOneInfoData" parameterType="String" resultType="reserveDto">
+ 		select * from reservation where info_id=#info_id
+ 	</select>
  </mapper>

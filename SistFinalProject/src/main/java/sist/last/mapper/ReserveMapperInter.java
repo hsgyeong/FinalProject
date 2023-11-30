@@ -12,4 +12,5 @@ public interface ReserveMapperInter {
 	public void reservingInsert(ReserveDto dto);
 	public ReserveDto getOneDataByIdOfReserve(Map<String, Object> map);
 	public int getMaxIdxOfReserve();
+	public ReserveDto getOneInfoData(String info_id);
 }

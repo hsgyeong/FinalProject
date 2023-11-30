@@ -38,4 +38,9 @@ public class ReserveService implements ReserveServiceInter {
 		return mapper.getMaxIdxOfReserve();
 	}
 
+	@Override
+	public ReserveDto getOneInfoData(String info_id) {
+		// TODO Auto-generated method stub
+		return mapper.getOneInfoData(info_id);
+	}
 }
