@@ -66,7 +66,7 @@ public class NonBookableController {
         System.out.println(checkin.size());
         System.out.println(accom_name);
         int accom_num = service.getAccomNumber(accom_name);
-        service.deleteNonBookableDateOfAccomNumber(accom_name);
+        service.deleteNonBookableDateOfAccomName(accom_name);
         for (int listIndex = 0; listIndex < checkin.size(); listIndex++) {
             System.out.println(checkin.get(listIndex) + "," + checkout.get(listIndex) + "," + accom_num);
             NonBookableDto dto = new NonBookableDto();
@@ -76,6 +76,14 @@ public class NonBookableController {
             dto.setAccom_name(accom_name);
             service.addNonBookableDate(dto);
         }
+    }
+
+    @GetMapping("/accom/all-delete")
+    public String deleteAll(@RequestParam String accom_name) {
+
+        service.deleteNonBookableDateOfAccomName(accom_name);
+
+        return "redirect:/accom/non-book";
     }
 
     private boolean isDateRangeOverlap(LocalDate newCheckin, LocalDate newCheckout, List<String> checkinList,
@@ -106,6 +114,7 @@ public class NonBookableController {
         for (NonBookableDto nonBookable : nonBookableList) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate checkout = LocalDate.parse(nonBookable.getNon_checkout(), formatter);
+            System.out.println("오늘 : " + today + ", 예약일:: " + checkout);
             if (checkout.isBefore(today)) {
                 service.deleteNonBookableDate(nonBookable.getIdx());
             }

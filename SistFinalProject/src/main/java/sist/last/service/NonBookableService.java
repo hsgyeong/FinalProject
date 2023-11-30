@@ -48,7 +48,7 @@ public class NonBookableService implements NonBookableServiceInter {
     }
 
     @Override
-    public void deleteNonBookableDateOfAccomNumber(String accom_name) {
-        mapperInter.deleteNonBookableDateOfAccomNumber(accom_name);
+    public void deleteNonBookableDateOfAccomName(String accom_name) {
+        mapperInter.deleteNonBookableDateOfAccomName(accom_name);
     }
 }

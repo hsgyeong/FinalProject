@@ -32,25 +32,25 @@
                 <button type="button" class="btn btn-outline-danger addDate">날짜 추가</button>
             </td>
             <td>
-                <h4><b>불가능 날짜</b></h4>
+                <h4 style="margin-left: 100px;"><b>불가능 날짜</b></h4>
                 <div id="div-nonDate" style="width: 400px;">
                 </div>
                 <input type="hidden" id="count">
                 <input type="hidden" id="totCount">
                 <div style="margin-left: 15%" id="setting-btn">
                     <button type="button" class="btn btn-outline-danger"
-                            onclick="checkDate()">중복 체크
+                            onclick="checkDate()">중복체크
                     </button>
                     <button type="button" class="btn btn-danger"
-                            onclick="resetDate()">다시 설정
+                            onclick="resetDate()">다시설정
                     </button>
                 </div>
+                <br>
+                <div style="margin-left: 15%" id="del-insert-btn">
+                    <button type="button" class="btn btn-danger" id="saveNonBook">등록하기</button>
+                    <button type="button" class="btn btn-outline-danger" id="allDelete">전체삭제</button>
+                </div>
                 <input type="hidden" id="checkDuplicate" value="0">
-            </td>
-        </tr>
-        <tr>
-            <td align="center" colspan="2">
-                <button type="button" class="btn btn-outline-danger" id="saveNonBook">등록하기</button>
             </td>
         </tr>
     </table>
@@ -65,7 +65,7 @@
     $("#non_checkin1").attr("min", date);
     $("#non_checkout1").attr("min", date);
     $("#setting-btn").hide();
-    $("#saveNonBook").hide();
+    $("#del-insert-btn").hide();
     $(".addDate").hide();
 
     $(".addDate").click(function () {
@@ -163,10 +163,6 @@
         if (flag == 1) {
             $("#checkDuplicate").val(0);
             $("span.nonDate").children().prop('disabled', false);
-            $("span.newNonDate").remove();
-            $("span.br").remove();
-            $("#non_checkin1").val("");
-            $("#non_checkout1").val("");
 
         }
     }
@@ -182,7 +178,7 @@
 
     $("#saveNonBook").click(function () {
         var flag = $("#checkDuplicate").val();
-        alert(flag);
+        //alert(flag);
         if (flag == 0) {
             alert("날짜를 입력 후 중복체크 눌러주세요.");
         }
@@ -200,11 +196,11 @@
                 if (countIdx == 'true') {
                     checkin.push(checkinValue);
                     checkout.push(checkoutValue);
-                    alert(checkinValue + "," + checkoutValue);
+                    //alert(checkinValue + "," + checkoutValue);
                 }
             }
             for (var i = 0; i < checkin.length; i++) {
-                alert(checkin[i]);
+                //alert(checkin[i]);
             }
             $.ajax({
                 type: "get",
@@ -220,13 +216,23 @@
         }
     })
 
+    $("#allDelete").click(function () {
+        var accom_name = $("#accomSelect").val();
+        //alert(accom_name);
+        var flag = confirm("등록된 예약 불가 날짜일을 전체 삭제하시겠습니까?");
+        if (flag) {
+            location.href = "all-delete?accom_name=" + accom_name;
+            alert("삭제 되었습니다.");
+        }
+    })
+
     $("#accomSelect").change(function () {
         $("span.newNonDate").remove();
         $("span.br").remove();
         var accom_name = $("#accomSelect").val();
         if (accom_name == 'nonSelect') {
             $("#setting-btn").hide();
-            $("#saveNonBook").hide();
+            $("#del-insert-btn").hide();
             $(".addDate").hide();
             return false;
         }
@@ -236,7 +242,7 @@
             dataType: "json",
             data: {"accom_name": accom_name},
             success: function (data) {
-                alert(data.length)
+                //alert(data.length)
                 if (data.length == 0) {
                     $("#totCount").val(1);
                     $("#count").val(1);
@@ -252,7 +258,7 @@
                     s += "</span><span class='br br1'><br><br>";
                     $("#div-nonDate").append(s);
                     $("#setting-btn").show();
-                    $("#saveNonBook").show();
+                    $("#del-insert-btn").show();
                     $(".addDate").show();
                 }
                 if (data.length > 0) {
@@ -273,7 +279,7 @@
                         s += "</span><span class='br br" + (i + 1) + "'><br><br>";
                         $("#div-nonDate").append(s);
                         $("#setting-btn").show();
-                        $("#saveNonBook").show();
+                        $("#del-insert-btn").show();
                         $(".addDate").show();
                     })
                 }

@@ -21,5 +21,5 @@ public interface NonBookableMapperInter {
 
     public void deleteNonBookableDate(String idx);
 
-    public void deleteNonBookableDateOfAccomNumber(String accom_name);
+    public void deleteNonBookableDateOfAccomName(String accom_name);
 }

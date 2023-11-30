@@ -26,7 +26,7 @@
     <delete id="deleteNonBookableDate" parameterType="String">
         delete from nonbookable where idx=#{idx}
     </delete>
-    <delete id="deleteNonBookableDateOfAccomNumber" parameterType="String">
+    <delete id="deleteNonBookableDateOfAccomName" parameterType="String">
         delete from nonbookable where accom_name = #{accom_name}
     </delete>
 </mapper>
