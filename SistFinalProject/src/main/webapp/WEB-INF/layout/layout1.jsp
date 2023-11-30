@@ -46,12 +46,13 @@
 
     div.footer {
         position: absolute;
-        bottom: 0%;
+        bottom: 0;
         width: 100%;
         /*height: 300px;*/
         border-top: 1px solid rgba(0, 0, 0, 0.08);
         background: #F5F5F5;
     }
+
 
 </style>
 <body>
@@ -67,6 +68,7 @@
     <div class="footer">
         <tiles:insertAttribute name="footer"/>
     </div>
+
 </div>
 </body>
 </html>
