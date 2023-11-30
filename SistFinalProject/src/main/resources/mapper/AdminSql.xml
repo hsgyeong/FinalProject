@@ -6,4 +6,8 @@
   	<select id="AdminloginPassCheck" parameterType="Map" resultType="int"> <!-- mybatis룰에 따라서 parameterType에 1가지만 쓰기때문 -->
 		select count(*) from admin where admin_id=#{admin_id} and admin_pass=#{admin_pass} 
 	</select>
+	
+	<update id="">
+	
+	</update>
 </mapper>
