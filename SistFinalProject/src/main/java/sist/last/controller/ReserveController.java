@@ -40,6 +40,8 @@ public class ReserveController {
 			@RequestParam String checkin,
 			@RequestParam String checkout,
 			@RequestParam int sleep,
+			@RequestParam String accom_name,
+			@RequestParam String room_name,
 			@ModelAttribute MemberDto memberDto,
 			@ModelAttribute ReserveDto reserveDto,
 			HttpSession session)
@@ -72,6 +74,8 @@ public class ReserveController {
 		model.addAttribute("checkin", checkin);
 		model.addAttribute("checkout", checkout);
 		model.addAttribute("sleep", sleep);
+		model.addAttribute("accom_name", accom_name);
+		model.addAttribute("room_name", room_name);
 		
 		return "/reservation/reserveForm";
 	}
