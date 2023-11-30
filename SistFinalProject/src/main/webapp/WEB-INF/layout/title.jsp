@@ -186,13 +186,13 @@
 <script>
 
 	$(document).ready(function(){
-		
+
 		$("#logoutBtn").click(function(){
-			
+
 			if("<%=loginok%>"==="kakao"){
-				
+
 				$.ajax({
-					
+
 					url:"/logout/kakaologout",
 					type:"get",
 					success:function(){
@@ -373,7 +373,7 @@
                                 </c:when>
                           <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'kakao'}">
                                     <li><a class="com">${memberDto.info_nickname }</a></li>
-                                </c:when>	    	
+                                </c:when>
                             </c:choose>
                         </div>
                         <c:choose>
