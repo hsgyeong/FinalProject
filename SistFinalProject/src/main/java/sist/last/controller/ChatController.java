@@ -25,11 +25,15 @@ public class ChatController {
         String loginok=(String) session.getAttribute("loginok");
         String info_id=(String) session.getAttribute("info_id");
         String business_id=(String) session.getAttribute("business_id");
+        String admin_id=(String) session.getAttribute("admin_id");
+
         // 관리자 아이디 가져오고, 관리자도 구분하여야 함.
         if (loginok==null&&info_id==null&&business_id==null){
             mv.setViewName("/login/loginForm");
-        } else if (info_id!=null||business_id!=null){
+        } else if (admin_id!=null) {
             mv.setViewName("/chat/room");
+        } else if (info_id!=null||business_id!=null){
+            mv.setViewName("/chat/chat");
         }
         return mv;
     }

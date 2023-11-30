@@ -390,30 +390,27 @@
 </header>
 
 <aside>
-    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
-            integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4" crossorigin="anonymous"></script>
-    <script>
-        Kakao.init('96ced9696af356c1a427e93050902f77'); // 사용하려는 앱의 JavaScript 키 입력
-    </script>
+<%--    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"--%>
+<%--            integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4" crossorigin="anonymous"></script>--%>
+<%--    <script>--%>
+<%--        Kakao.init('96ced9696af356c1a427e93050902f77'); // 사용하려는 앱의 JavaScript 키 입력--%>
+<%--    </script>--%>
 
-    <a id="chat-channel-button" href="javascript:chatChannel()">
-        <img src="/tool/resource/static/img/button/channel/consult/consult_small_yellow_pc.png"
-             alt="카카오톡 채널 채팅하기 버튼" />
-    </a>
-
-
-    <script>
-        function chatChannel() {
-            Kakao.Channel.chat({
-                channelPublicId: '_AwxhnG',
-            });
-        }
+<%--    <a id="chat-channel-button" href="javascript:chatChannel()">--%>
+<%--        <img src="/tool/resource/static/img/button/channel/consult/consult_small_yellow_pc.png"--%>
+<%--             alt="카카오톡 채널 채팅하기 버튼" />--%>
+<%--    </a>--%>
 
 
-    </script>
+<%--    <script>--%>
+<%--        function chatChannel() {--%>
+<%--            Kakao.Channel.chat({--%>
+<%--                channelPublicId:'_AwxhnG',--%>
+<%--            });--%>
+<%--        }--%>
 
-<%--    --%>
-<%--    --%>
+<%--    </script>--%>
+
 
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
             integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4" crossorigin="anonymous"></script>
@@ -421,18 +418,16 @@
         Kakao.init('96ced9696af356c1a427e93050902f77'); // 사용하려는 앱의 JavaScript 키 입력
     </script>
 
-    <a id="add-channel-button" href="javascript:addChannel()">
-        <img src="/tool/resource/static/img/button/channel/add/channel_add_small.png"
-             alt="카카오톡 채널 추가하기 버튼" />
-    </a>
+    <div id="chat-channel-button"></div>
 
     <script>
-        function addChannel() {
-            Kakao.Channel.addChannel({
-                channelPublicId: '_AwxhnG',
-            });
-        }
+        Kakao.Channel.createChatButton({
+            container: '#chat-channel-button',
+            channelPublicId: '_AwxhnG',
+        });
     </script>
+
+
 </aside>
 
 </body>
