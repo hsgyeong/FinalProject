@@ -179,7 +179,7 @@ String loginok = (String) session.getAttribute("loginok");
 				
 				$.ajax({
 					
-					url:"/logout/kakaounlink",
+					url:"/logout/kakaologout",
 					type:"get",
 					success:function(){
 						window.location.href="/";
@@ -326,16 +326,16 @@ String loginok = (String) session.getAttribute("loginok");
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
                                     <li><a class="nick">${memberDto.info_nickname }</a></li>
                                 </c:when>
-                                <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'kakaomember'}">
-                                    <li><a class="nick">${KakaoMemberDto.kakao_nickname }</a></li>
-                                </c:when>
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
                                     <li><a class="com">${businessDto.business_company }</a></li>
                                 </c:when>
+                          <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'kakao'}">
+                                    <li><a class="com">${memberDto.info_nickname }</a></li>
+                                </c:when>	    	
                             </c:choose>
                         </div>
                         <c:choose>
-                            <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member' || sessionScope.loginok == 'kakaomember'}">
+                            <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member' || sessionScope.loginok == 'kakao'}">
                                 <li><a href="/member/member-mytriview">내정보</a></li>
                             </c:when>
                             <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
