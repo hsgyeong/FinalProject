@@ -82,6 +82,7 @@
 
 .i {
 	display: inline-flex;
+	font-size: 23px;
 }
 
 .t {
@@ -89,7 +90,7 @@
 }
 
 .bt {
-	margin-left: 395px;
+	margin: auto;
 }
 
 h3{
@@ -143,56 +144,36 @@ body {
 			<br>
 		
 			<caption align="top" class="cap">
-				<h6><b>회원 정보 수정</b></h6>
+				<h6><b>회원 정보 수정</b></h6><br>
 			</caption>
-			
-			
-					<div class="content">
+		
 			<tr>
-				<td>		
+				<td>
+				<div class="cs"  style="margin: auto;">
+				<div class="content" style="width:480px;" align="left">		
 						아이디 &nbsp;&nbsp;&nbsp;&nbsp;
-						<span class="i">${memberDto.info_id }&nbsp;&nbsp;&nbsp;</span>
-				</td>
-			</tr>			
-			<tr>
-				<td>			
-					<br>	
+						<span class="i">${memberDto.info_id }&nbsp;&nbsp;&nbsp;</span>			
+					<br><br>	
 						 비밀번호<br>
 						<input type="password" name="info_pass" value="${memberDto.info_pass }"	
 						id="pass1" class="form-control" required="required"
-							style="width: 300px;" placeholder="비밀번호를 입력해주세요">&nbsp;&nbsp;<br>		
-				</td>
-			</tr>
-			<tr>
-				<td>				
+							style="width: 300px;" placeholder="비밀번호를 입력해주세요">&nbsp;&nbsp;<br>						
 						비밀번호 확인<br>
 						<div style="display: flex;">
 							<input type="password" name="pass2" id="pass2"
 								class="form-control" required="required" style="width: 300px;"
 								placeholder="비밀번호를 다시 입력해주세요">&nbsp;&nbsp;<br> 
 							<span class="passok" style="color: green; font-size: 12px;"></span>
-						</div>	
-				</td>
-			</tr>
-			<tr>
-				<td>			
+						</div>				
 						<br> 닉네임<br> 
 						<span class="nickch"> 
 						<input	type="text" name="info_nickname" value="${memberDto.info_nickname }" id="nick" class="form-control"
 						required="required" style="width: 330px;" placeholder="닉네임을 입력해주세요">&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn" id="nickchk" style="background-color: #f7323f; color: white; 
 							font-family: 'Jalnan'; width:30%;">중복체크</button></span>
-						<span class="nickok" style="color: green; font-size: 12px;"></span><br><br>
-				</td>
-			</tr>
-			<tr>
-				<td>			
+						<span class="nickok" style="color: green; font-size: 12px;"></span><br><br>			
 						 이름 &nbsp;&nbsp;&nbsp;&nbsp;
-						 ${memberDto.info_name }<br><br>
-				</td>
-			</tr>
-			<tr>
-				<td>				 
+						 <span class="uname">${memberDto.info_name }<br><br></span>			 
 						휴대폰<br> 
 						<select	style="width: 80px; height: 31px;" name="hp1" value="${hp1 }">
 							<option value="010" selected="selected">010</option>
@@ -205,13 +186,9 @@ body {
 						<input type="text" name="hp2" id="hp2" value="${hp2 }" class="form-conrol"	required="required" style="width: 80px;">
 						- 
 						<input type="text" name="hp3" id="hp3" value="${hp3 }" class="form-conrol"	required="required" style="width: 80px;"><br><br>
-				</td>
-			</tr>
-			<tr>
-				<td>	
 						이메일 <br> 
 				<div style="display: flex;">			
-						<input type="text" name="email1" id="email1" value="${email1}" class="form-control" required="required"	style="width: 130px;">&nbsp;
+						<input type="text" name="email1" id="email1" value="${email1}" class="form-control" required="required"	style="width: 130px; height: 32px;">&nbsp;
 						&nbsp;
 						<select style="width: 130px; height: 31px;" name="email2" id="email2" value="${email2 }" >
 							<option value="naver.com" selected="selected">naver.com</option>
@@ -219,20 +196,18 @@ body {
 							<option value="hanmail.net">hanmail.net</option>
 							<option value="nate.com">nate.com</option>
 						</select> <br><br>
-				</div>		
-				</td>
-			</tr>
-			<tr>
-				<td>			 
+				</div>					 
 						<label for="birth">생년월일</label>&nbsp;&nbsp;<span style="font-size: 12px; color: gray;">(선택사항)</span> <br> 
 						<input type="date" name="info_birth" id="birth" value="${memberDto.info_birth }">
+					</div>
+					</div>	
 				</td>
 			</tr>
-			</div>
+			
 		</table>
 		<br>
 		<br>
-		<div class="bt">
+		<div class="bt" style="text-align: center;">
 			<button type="submit" class="btn"
 				style="background-color: #f7323f; color: white; width: 200px; font-family: 'Jalnan';">회원정보 수정</button>
 		</div>
