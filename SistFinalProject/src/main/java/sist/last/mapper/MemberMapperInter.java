@@ -1,13 +1,16 @@
 package sist.last.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 import org.springframework.validation.Errors;
 
 import sist.last.dto.MemberDto;
 
+@Repository
 @Mapper
 public interface MemberMapperInter {
 
@@ -22,4 +25,13 @@ public interface MemberMapperInter {
 	public void deleteMember(String info_id);
 	public int getCouponCount(String info_id);
 	public Map<String, String> validateHandling(Errors errors);
+
+	//kakao
+	public String getAccessToken(String authorization_code) throws Exception;
+	public HashMap<String, Object> getUserInfo(String access_token) throws Throwable;
+	public MemberDto getDataByKakao(String kakao_id);
+	public void kakaoLogout(String access_token);
+	public void insertKakaoMember(MemberDto memberDto);
+	public int getSearchKakaoId(String kakao_id);
+	public MemberDto getDataByKakaoId(String loggedKakaoId);
 }

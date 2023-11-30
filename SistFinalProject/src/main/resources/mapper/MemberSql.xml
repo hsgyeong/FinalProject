@@ -12,10 +12,6 @@
  insert into info(info_id, info_name, info_nickname, info_pass, info_hp, info_email, info_birth, info_gaipday) values(#{info_id},#{info_name},#{info_nickname},#{info_pass},#{info_hp},#{info_email},#{info_birth},now())
  </insert>
  
- <insert id="kakaoInsertMember" parameterType="member">
- insert into info(kakao_id, kakao_name, kakao_gaipday)values(#{info_id}, #{info_name}, now())
- </insert>
- 
  <select id="loginPassCheck" parameterType="Map" resultType="int">
  select count(*) from info where info_id=#{info_id} and info_pass=#{info_pass}
  </select>
@@ -49,7 +45,19 @@
  </delete>
  
  <select id="getCouponCount" parameterType="String" resultType="int">
- 	select count(info_coupon) from info where info_id=#{info_id}
+ select count(info_coupon) from info where info_id=#{info_id}
+ </select>
+ 
+ <insert id="insertKakaoMember" parameterType="member">
+ insert into info values (#{info_id},"",#{info_nickname},"","","","",0,0,now())
+ </insert>
+ 
+ <select id="getSearchKakaoId" parameterType="String" resultType="int">
+ select count(*) from info where info_id = #{info_id}
+ </select>
+ 
+ <select id="getDataByKakaoId" resultType="member" parameterType="String">
+ select * from info where info_id = #{kakao_id}
  </select>
  
  </mapper>

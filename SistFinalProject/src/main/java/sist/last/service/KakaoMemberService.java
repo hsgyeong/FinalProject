@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Member;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -19,6 +20,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +30,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
-import sist.last.dto.KakaoMemberDto;
+import sist.last.dto.MemberDto;
+import sist.last.mapper.MemberMapperInter;
 
 @Service
 public class KakaoMemberService implements KakaoMemberServiceInter {
 
+	@Autowired
+	MemberMapperInter memberMapperInter;
 	
 	@Override
 	public String getAccessToken(String authorization_code) throws Exception {
@@ -99,7 +104,7 @@ public class KakaoMemberService implements KakaoMemberServiceInter {
 	public HashMap<String, Object> getUserInfo(String access_token) throws Throwable {
 		// TODO Auto-generated method stub
 		
-		HashMap<String, Object> memberInfo = new HashMap<String, Object>();
+		HashMap<String, Object> userInfo = new HashMap<String, Object>();
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		
 		try {
@@ -135,7 +140,7 @@ public class KakaoMemberService implements KakaoMemberServiceInter {
 		
 		try {
 			
-			KakaoMemberDto kakaoMemberDto = new KakaoMemberDto();
+			MemberDto memberDto = new MemberDto();
 			
 			ObjectMapper objectMapper = new ObjectMapper();
 			Map<String, Object> jsonMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {
@@ -150,18 +155,18 @@ public class KakaoMemberService implements KakaoMemberServiceInter {
 			
 			String kakao_nickname = properties.get("nickname").toString();
 			
-			memberInfo.put("kakao_nickname", kakao_nickname);  
-			memberInfo.put("kakao_id", kakao_id);
+			userInfo.put("kakao_nickname", kakao_nickname);  
+			userInfo.put("kakao_id", kakao_id);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}catch(IOException e) {
 		e.printStackTrace();
 	}
-		return memberInfo;
+		return userInfo;
 	}
 
-/*	
+
 	public void kakaoLogout(String access_token) {
 		// TODO Auto-generated method stub
 		String reqURL = "https://kapi.kakao.com/v1/user/logout";
@@ -188,8 +193,8 @@ public class KakaoMemberService implements KakaoMemberServiceInter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	} */
-	
+	} 
+/*	
 	@Override
 	public JsonNode Logout(String authorization_code) {
 		// TODO Auto-generated method stub
@@ -270,5 +275,33 @@ public class KakaoMemberService implements KakaoMemberServiceInter {
 				e.printStackTrace();
 			}
 		}
+*/
+
+	@Override
+	public MemberDto getDataByKakao(String kakao_id) {
+		// TODO Auto-generated method stub
+		
+		return memberMapperInter.getDataByKakao(kakao_id);
+	}
+
+	@Override
+	public void insertKakaoMember(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		
+		memberMapperInter.insertKakaoMember(memberDto);
+	}
+
+	@Override
+	public int getSearchKakaoId(String kakao_id) {
+		// TODO Auto-generated method stub
+		return memberMapperInter.getSearchKakaoId(kakao_id);
+	}
+
+	@Override
+	public MemberDto getDataByKakaoId(String loggedKakaoId) {
+		// TODO Auto-generated method stub
+		return memberMapperInter.getDataByKakaoId(loggedKakaoId);
+	}
+
 
 }
