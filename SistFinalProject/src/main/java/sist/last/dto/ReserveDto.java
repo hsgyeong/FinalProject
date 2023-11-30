@@ -1,5 +1,6 @@
 package sist.last.dto;
 
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -21,4 +22,5 @@ public class ReserveDto {
 	private String reserve_checkout;
 	private String reserve_status;
 	private String reserve_coupon;
+	private java.sql.Timestamp reserve_day;
 }
