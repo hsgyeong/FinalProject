@@ -5,7 +5,7 @@
 <mapper namespace="sist.last.mapper.ReviewMapperInter">
 
     <insert id="insertReview" parameterType="ReviewDto">
-	    insert into review (info_id, review_info, review_score, accom_num, review_write) values (#{info_id}, #{review_info}, #{review_score}, #{accom_num},now())
+	    insert into review (info_id, review_info, review_score, accom_num, reserve_id, review_write) values (#{info_id}, #{review_info}, #{review_score}, #{accom_num}, reserve_id, now())
 	</insert>
 	
 	<select id="ReviewList" parameterType="int" resultType="ReviewDto">
