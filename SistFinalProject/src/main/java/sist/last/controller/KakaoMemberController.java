@@ -73,8 +73,8 @@ public class KakaoMemberController {
 	 }else if(k==0)
 	 {   System.out.print("kakaoid ==== "+info_id);
 	//	if(kakao_nickname != null) { 
-			memberDto.setInfo_id(info_id);
-			memberDto.setInfo_nickname(info_nickname);
+			memberDto.setInfo_id("kakao_"+info_id);
+			memberDto.setInfo_nickname("kakao_"+info_nickname);
 		kakaoMemberService.insertKakaoMember(memberDto);
 		
 		 session.setAttribute("info_id", info_id);
