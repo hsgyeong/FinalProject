@@ -170,6 +170,24 @@
 			$("#coupon-discount").text("-"+discountper+"원");
 			$("#coupon-name").text(coupon+"% 할인쿠폰");
 		});
+		
+		
+		$(document).on("click",".btn-point",function(){
+			var inputPoint = parseInt($(".point").val());
+			var data = parseInt("${point}");
+				
+			if(inputPoint<=data)
+			{
+				var totalpay= parseInt($("b.totalpay").text());
+				var point=parseInt($(".point").val())
+					
+				$("b.totalpay").text(totalpay-point);
+			}
+			else
+			{
+				alert("보유한 포인트가 부족합니다");
+			}
+		});
 	});
 	
 	function reservechk() {
@@ -227,7 +245,9 @@
 
 			<div>
 				<span class="left-category">구매 총액</span> <span style="float: right;"><b
-					class="buypay">${rdto.room_price*sleep }</b><b>원</b></span>
+					class="buypay">
+					${rdto.room_price*sleep }</b><b>원</b>
+				</span>
 			</div>
 			<br>
 
@@ -249,7 +269,7 @@
 				<button type="button" class="btn-point">
 					포인트 사용
 				</button>
-				<span style="float: right;"> <input type="text" value="0"
+				<span style="float: right;"> <input type="text" value="${point }"
 					style="text-align: right;" class="point">&nbsp;<b>P</b>
 				</span>
 			</div>
