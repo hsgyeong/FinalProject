@@ -52,9 +52,17 @@
   	</insert>
   	
   	<select id="getAverageScore" parameterType="int" resultType="double">
-	    SELECT IFNULL(AVG(review_score), 0) AS average_score
-	    FROM review
-	    WHERE accom_num = #{accom_num}
+	    SELECT IFNULL(ROUND(AVG(review_score), 1), 0) AS average_score
+		FROM review
+		WHERE accom_num = #{accom_num};
 	</select>
 	
+	<update id="updateAccomScore" parameterType="int">
+	    UPDATE accom
+		SET accom_score = IFNULL(
+		    (SELECT ROUND(AVG(review_score), 1) FROM review WHERE accom_num = #{accom_num}),
+		    0
+		)
+		WHERE accom_num = #{accom_num};
+	</update>
 </mapper>

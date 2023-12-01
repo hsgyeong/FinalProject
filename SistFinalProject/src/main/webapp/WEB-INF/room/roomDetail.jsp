@@ -686,9 +686,7 @@
     
 	</div>
 	<div class="detail_review">
-		
-		
-		
+	
 		<div style="margin: 5vh 0px;">
 		<h3 style="border-bottom: 2px solid silver; padding-bottom: 3vh; margin-bottom: 10vh;">총 ${count }개의 리얼 리뷰!</h3>
 		</div>
@@ -707,8 +705,8 @@
     			</td>
     			
     			<td align="center" valign="middle" style="width: 25%;">
-    			<span></span>
-				</td>
+    			<span>${dto.accom_name }</span>
+    			</td>
 				
 				<td align="center" valign="middle" style="width: 30%;">
     			<span><fmt:formatDate value="${list.review_write }" pattern="yyyy-MM-dd"/></span>
@@ -749,23 +747,21 @@
 		</ul>
 		</div>
 		</c:if>
-		
-		
+		<c:if test="${info_id != null and reviewcount==0 and '예약완료'.equals(reservecheck)}">
 		<div class="detail_review_input" style="margin-bottom: -3vh;">
 		
 		<form action="review-insert" method="post">
 		<input type="hidden" name="accom_num" value="${dto.accom_num }">
-		<input type="hidden" name="info_id" value="${mdto.info_id }">
+		<input type="hidden" name="info_id" value="${info_id }">
 		<input type="hidden" name="sleep" value="${sleep}">
 		<input type="hidden" name="checkin" value="${checkin}">
 		<input type="hidden" name="checkout" value="${checkout}">
-		<input type="hidden" name="reserve_id" value="1">
 		
 		<table class="table table-bordered">
 			<tr>
-				<td align="center" valign="middle" style="width: 25%;">${mdto.info_id }</td>
+				<td align="center" valign="middle" style="width: 25%;">${info_id }</td>
 				<td align="center" valign="middle" style="width: 10%;">별점</td>
-				<td align="center" valign="middle" style="width: 25%;">
+				<td align="center" valign="middle" style="width: 25%; padding-left: 4%;">
 				<div class="rate">
                                 <input type="radio" id="rating10" name="review_score" value="10"><label for="rating10" title="10점"></label>
                                 <input type="radio" id="rating9" name="review_score" value="9"><label class="half" for="rating9" title="9점"></label>
@@ -779,8 +775,8 @@
                                 <input type="radio" id="rating1" name="review_score" value="1"><label class="half" for="rating1" title="1점"></label>
                             </div>
 				</td>
-				<td align="center" valign="middle" style="width: 10%">예약</td>
-				<td align="center" valign="middle" style="width: 30%">방이름</td>
+				<td align="center" valign="middle" style="width: 10%">숙소</td>
+				<td align="center" valign="middle" style="width: 25%">${dto.accom_name }</td>
 			</tr>
 			<tr>
 				<td colspan="5" align="center" valign="middle">
@@ -825,7 +821,7 @@
 		</script>
 
 		</div>
-		
+		</c:if>
 	</div>
 </body>
 </html>
