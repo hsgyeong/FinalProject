@@ -247,6 +247,7 @@ public class RoomController {
     	
     	reviewmapper.insertReview(dto);	
     	amapper.updateAccomScore(dto.getAccom_num());
+    	amapper.updateAccomCount(dto.getAccom_num());
     	
     	return "redirect:/room/room-detail?accom_num=" + dto.getAccom_num() +
                 "&checkin="+checkin+

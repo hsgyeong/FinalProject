@@ -105,6 +105,7 @@
         width: 80%;
         font-family: 'arial';
         font-weight: bold;
+        
     }
 
     input.search-input {
@@ -113,9 +114,20 @@
         width: 50%;
         border: none;
         color: black;
-        border-radius: 2px;
-        
+        border-radius: 4px;
+        font-size: 0.9em;
+        height: 4vh;
+        text-indent: 2%; /* 원하는 여백 크기로 조절하세요 */
+        padding-top: 3px;
     }
+    
+    /* input 요소에 직접 스타일 적용 */
+	input.search-input::placeholder {
+	    font-size: 1em;
+	    padding: 3px 1px;
+	    
+	    
+	}
 
     input.search-input:focus {
         border: none;
@@ -335,7 +347,7 @@
 
 <header>
     <div class="titlebox">
-        <a href="/"><h2>TRIVIEW</h2></a>
+        <a href="/"><h2 style="padding-top: 1vh;">TRIVIEW</h2></a>
     </div>
     <div class="select-option">
         <a><i class="bi bi-search search-active"></i></a>

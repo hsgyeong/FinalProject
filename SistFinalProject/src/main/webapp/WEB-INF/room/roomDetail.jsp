@@ -543,7 +543,7 @@
 							}
 						});
 					</script>
-					<div class="detail_review_count">리뷰 1000개</div>
+					<div class="detail_review_count">리뷰 ${count }개</div>
 				</div>
 				<div class="detail_accom_location">${dto.accom_location }</div>
 				<div class="detail_accom_hashtag">${dto.accom_hashtag }</div>

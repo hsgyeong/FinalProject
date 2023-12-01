@@ -21,5 +21,6 @@ public class AccomDto {
     private Double accom_longitude;
     private String accom_info;
     private int accom_approval;
+    private int accom_count;
 
 }

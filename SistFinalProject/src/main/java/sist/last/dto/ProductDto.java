@@ -18,4 +18,5 @@ public class ProductDto {
     private double accom_longitude;
     private int room_price;
     private double distance;
+    private int accom_count;
 }
