@@ -15,7 +15,31 @@
 		select * from accom where accom_approval=0 order by accom_num asc limit #{start},#{perpage}
 	</select>
 	
-	<select id="getTotalCount" resultType="int">
+	<select id="getAccomTotalCount" resultType="int">
 		select count(*) from accom where accom_approval=0
+	</select>
+	
+	<select id="getPaymentPagingList" parameterType="Map" resultType="reserveDto">
+		select * from reservation order by idx asc limit #{start},#{perpage}
+	</select>
+	
+	<select id="getPaymentTotalCount" resultType="int">
+		select count(*) from reservation
+	</select>
+	
+	<select id="getBusinessPagingList" parameterType="Map" resultType="business">
+		select * from businessman limit #{start},#{perpage}
+	</select>
+	
+	<select id="getBusinessTotalCount" resultType="int">
+		select count(*) from businessman
+	</select>
+	
+	<select id="getMemberPagingList" parameterType="Map" resultType="member">
+		select * from info limit #{start},#{perpage}
+	</select>
+	
+	<select id="getMemberTotalCount" resultType="int">
+		select count(*) from info
 	</select>
 </mapper>

@@ -10,9 +10,12 @@
     <select id="getAccomNumber" resultType="int" parameterType="String">
         select accom_num from accom where accom_name = #{accom_name}
     </select>
+    <select id="getNonBookableList" resultType="nonBookableDto" parameterType="String">
+        select * from nonbookable where accom_name = #{accom_name}
+    </select>
     <insert id="addNonBookableDate" parameterType="nonBookableDto">
-        insert into nonbookable (accom_num,non_checkin,non_checkout)
-        values (#{accom_num},#{non_checkin},#{non_checkout})
+        insert into nonbookable (accom_num,non_checkin,non_checkout,accom_name)
+        values (#{accom_num},#{non_checkin},#{non_checkout},#{accom_name})
     </insert>
     <select id="getNonBookableCheckin" resultType="String" parameterType="int">
         select non_checkin from nonbookable where accom_num = #{accom_num}
@@ -20,4 +23,10 @@
     <select id="getNonBookableCheckout" resultType="String" parameterType="int">
         select non_checkout from nonbookable where accom_num = #{accom_num}
     </select>
+    <delete id="deleteNonBookableDate" parameterType="String">
+        delete from nonbookable where idx=#{idx}
+    </delete>
+    <delete id="deleteNonBookableDateOfAccomName" parameterType="String">
+        delete from nonbookable where accom_name = #{accom_name}
+    </delete>
 </mapper>

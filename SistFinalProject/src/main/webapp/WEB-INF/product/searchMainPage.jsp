@@ -55,10 +55,10 @@
         position: absolute;
         width: 300px;
         background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
         overflow: hidden;
-        top: 30%; /* 추가된 부분: 상위 요소의 하단을 기준으로 위치 조정 */
+        top: 25%; /* 추가된 부분: 상위 요소의 하단을 기준으로 위치 조정 */
         left: 0; /* 추가된 부분: 상위 요소의 왼쪽을 기준으로 위치 조정 */
         z-index: 3; /* 추가된 부분: 다른 요소들보다 위에 위치하도록 함 */
     }
@@ -198,7 +198,7 @@
 
     div.sort-each-box {
         border: 1px solid gainsboro;
-        width: 33%;
+        width: 50%;
         text-align: center;
         vertical-align: middle;
         padding-top: 1vh;
@@ -329,7 +329,7 @@
                         <div class="next" onclick="nextMonth()">&#9655;</div>
                     </div>
                     <div class="days" id="calendar-days"></div>
-                    <button class="calendar-setting btn btn-outline-danger">선택 완료</button>
+                    <button class="calendar-setting btn btn-outline-danger" style="margin-left: 35%">선택 완료</button>
                 </div>
 
                 <script>
@@ -697,7 +697,14 @@
                             secondDay = firstYear + "-" + (firstMonth + 1) + "-" + firstClickDay;
                             //alert(firstDay + "," + secondDay);
                         }
+                        <c:if test="${mySurrounding!=null || sortSurrounding!=null}">
+                        location.href = "msr?selDate1=" + firstDay + "&selDate2="
+                            + secondDay + "&latitude=${latitude}&longitude=${longitude}";
+                        </c:if>
+                        <c:if test="${mySurrounding==null && sortSurrounding==null}">
                         location.href = "search-main?keyword=${keyword}&selDate1=" + firstDay + "&selDate2=" + secondDay;
+                        </c:if>
+
                     })
 
 
@@ -841,23 +848,32 @@
                     var keyword = '${keyword}';
                     var selDate1 = '${selDate1}';
                     var selDate2 = '${selDate2}';
-                    alert(selDate1 + "," + selDate2 + "," + cateArray);
+                    //alert(selDate1 + "," + selDate2 + "," + cateArray);
                     var minPrice = $("#input-left").val() * 10000;
                     var maxPrice = $("#input-right").val() * 10000;
-                    location.href = "/product/search-main?keyword=" + keyword + "&selCate=" + cateArray + "&selDate1=" + selDate1 +
-                        "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
+                    <c:if test="${mySurrounding!=null || sortSurrounding!=null}">
+                    location.href = "/product/msr?selCate=" + cateArray + "&selDate1=" +
+                        selDate1 + "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice +
+                        "&latitude=" + ${latitude} +"&longitude=" + ${longitude};
+                    </c:if>
+                    <c:if test="${mySurrounding==null && sortSurrounding==null}">
+                    location.href = "/product/search-main?keyword=" + keyword + "&selCate=" + cateArray + "&selDate1=" +
+                        selDate1 + "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
+                    </c:if>
                 })
             </script>
         </section>
     </div>
 
     <div class="search-box" style="width: 65%">
-        <div class="sort-box" style="display: flex;">
-            <div class="sort-each-box" id="sort-distance">거리순</div>
+        <div class="sort-box" style="display: flex;" align="center">
+            <c:if test="${mySurrounding==null && sortSurrounding==null}">
+                <div class="sort-each-box" id="sort-distance">거리순</div>
+            </c:if>
             <div class="sort-each-box" id="sort-low-price">낮은가격순</div>
             <div class="sort-each-box" id="sort-score">별점순</div>
         </div>
-
+        <br>
         <c:if test="${productList.size()!=null}">
 
             <c:forEach items="${productList}" var="list" varStatus="i">
@@ -944,16 +960,31 @@
                     alert("정렬할 데이터가 없습니다.");
                     return;
                 }
+                <c:if test="${mySurrounding!=null || sortSurrounding!=null}">
+                location.href = "/product/msr?sort=lowprice&selCate=" + cateArray + "&selDate1=" +
+                    selDate1 + "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice +
+                    "&latitude=" + ${latitude} +"&longitude=" + ${longitude};
+                </c:if>
+                <c:if test="${mySurrounding==null && sortSurrounding==null}">
                 location.href = "/product/search-main?sort=lowprice&keyword=" + keyword + "&selCate=" + cateArray + "&selDate1=" + selDate1 +
                     "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
+                </c:if>
+
             })
             $("#sort-score").click(function () {
                 if (${productList.size() == 0}) {
                     alert("정렬할 데이터가 없습니다.");
                     return;
                 }
+                <c:if test="${mySurrounding!=null || sortSurrounding!=null}">
+                location.href = "/product/msr?sort=score&selCate=" + cateArray + "&selDate1=" +
+                    selDate1 + "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice +
+                    "&latitude=" + ${latitude} +"&longitude=" + ${longitude};
+                </c:if>
+                <c:if test="${mySurrounding==null && sortSurrounding==null}">
                 location.href = "/product/search-main?sort=score&keyword=" + keyword + "&selCate=" + cateArray + "&selDate1=" + selDate1 +
                     "&selDate2=" + selDate2 + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
+                </c:if>
             })
 
             function settingSortDistance() {

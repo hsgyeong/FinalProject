@@ -1,6 +1,8 @@
 package sist.last.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 
 import sist.last.dto.MemberDto;
+import sist.last.dto.ReserveDto;
+import sist.last.mapper.ReserveMapperInter;
 import sist.last.service.MemberService;
 
 @Controller
@@ -23,6 +28,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService service;
+	
+	@Autowired
+	ReserveMapperInter mapper;
 	
 	@GetMapping("/member/joinform")
 	public String addform()
@@ -64,7 +72,6 @@ public class MemberController {
 	
 	
 	@PostMapping("/member/join-member")
-	@ResponseBody
 	public String insert(MemberDto memberDto,
 			@RequestParam String hp1,
 			@RequestParam String hp2,
@@ -73,7 +80,6 @@ public class MemberController {
 			@RequestParam String email2,
 			HttpSession session)
 	{
-			
 			String hp = hp1+"-"+hp2+"-"+hp3;
 			memberDto.setInfo_hp(hp);
 			
@@ -180,6 +186,22 @@ public class MemberController {
 	public String info()
 	{
 		return "/notice/triviewInfo";
+	}
+	
+	@GetMapping("/member/myreservation")
+	public String myreservation(Model model, HttpSession session)
+	{	
+		String info_id = (String)session.getAttribute("info_id");
+		
+		System.out.println(info_id);
+		
+		//list dto 에 넣어서 그걸 뽑는거. 그 안에 필요한 거 예약번호, 숙소 이름, 방이름 가져오기, 체크인, 체크아웃 
+
+		List<ReserveDto> list = mapper.getReservationDataById(info_id);
+	
+		model.addAttribute("list", list);
+		
+		return "/member/MyReservationList";
 	}
 
 }

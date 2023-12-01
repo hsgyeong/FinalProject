@@ -10,4 +10,5 @@ public class NonBookableDto {
     private int accom_num;
     private String non_checkin;
     private String non_checkout;
+    private String accom_name;
 }

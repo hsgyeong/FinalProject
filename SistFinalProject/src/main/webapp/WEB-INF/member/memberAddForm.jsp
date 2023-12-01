@@ -221,8 +221,8 @@ body {
 							style="width: 330px;" placeholder="아이디를 입력해주세요">&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn" id="idchk"
 								style="background-color: #f7323f; color: white; width:30%; font-family: 'Jalnan';">중복체크</button></span>	
-								<span class="idok" style="color: green; font-size: 12px;"></span><br>
-								<span class="validid"  style="font-size: 12px;"></span>
+								<br><span class="idok validid" style="color: green; font-size: 12px;"></span>
+							<!--<span class="validid"  style="font-size: 12px;"></span>-->
 					<br>
 						 비밀번호<br>
 						<input type="password" name="info_pass"	id="pass1" class="form-control" required="required"
@@ -242,7 +242,7 @@ body {
 						<input	type="text" name="info_nickname" id="nick" class="form-control"
 						required="required" style="width: 330px;" placeholder="닉네임을 입력해주세요">&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn" id="nickchk" style="background-color: #f7323f; color: white; 
-							font-family: 'Jalnan'; width:30%;">중복체크</button></span>
+							font-family: 'Jalnan'; width:30%;">중복체크</button></span><br>
 						<span class="nickok" style="color: green; font-size: 12px;"></span><br><br>
 						<span class="line">이름<br></span> 
 						 <input type="text" name="info_name" class="form-control" required="required" style="width: 300px;"

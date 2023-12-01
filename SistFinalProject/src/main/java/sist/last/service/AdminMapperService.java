@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sist.last.dto.AccomDto;
+import sist.last.dto.BusinessDto;
+import sist.last.dto.MemberDto;
+import sist.last.dto.ReserveDto;
 import sist.last.mapper.AdminMapperInter;
 
 @Service
@@ -45,8 +48,59 @@ public class AdminMapperService implements AdminMapperServiceInter {
 	}
 
 	@Override
-	public int getTotalCount() {
+	public int getAccomTotalCount() {
 		// TODO Auto-generated method stub
-		return mapper.getTotalCount();
+		return mapper.getAccomTotalCount();
+	}
+
+	@Override
+	public List<ReserveDto> getPaymentPagingList(int start, int perpage) {
+		// TODO Auto-generated method stub
+		Map<String, Integer> map=new HashMap<>();
+		
+		map.put("start", start);
+		map.put("perpage", perpage);
+		
+		return mapper.getPaymentPagingList(map);
+	}
+
+	@Override
+	public int getPaymentTotalCount() {
+		// TODO Auto-generated method stub
+		return mapper.getPaymentTotalCount();
+	}
+
+	@Override
+	public List<BusinessDto> getBusinessPagingList(int start, int perpage) {
+		// TODO Auto-generated method stub
+		Map<String, Integer> map=new HashMap<>();
+		
+		map.put("start", start);
+		map.put("perpage", perpage);
+		
+		return mapper.getBusinessPagingList(map);
+	}
+
+	@Override
+	public int getBusinessTotalCount() {
+		// TODO Auto-generated method stub
+		return mapper.getBusinessTotalCount();
+	}
+
+	@Override
+	public List<MemberDto> getMemberPagingList(int start, int perpage) {
+		// TODO Auto-generated method stub
+		Map<String, Integer> map=new HashMap<>();
+		
+		map.put("start", start);
+		map.put("perpage", perpage);
+		
+		return mapper.getMemberPagingList(map);
+	}
+
+	@Override
+	public int getMemberTotalCount() {
+		// TODO Auto-generated method stub
+		return mapper.getMemberTotalCount();
 	}
 }

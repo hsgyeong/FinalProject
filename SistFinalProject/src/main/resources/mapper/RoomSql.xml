@@ -33,8 +33,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		update room set room_name=#{room_name},room_price=#{room_price},room_minpeople=#{room_minpeople},room_maxpeople=#{room_maxpeople},room_location=#{room_location},
   		room_photo=#{room_photo},room_count=#{room_count},room_checkin=#{room_checkin},room_checkout=#{room_checkout} where room_num=#{room_num}
   	</update>
-  	
-  	<update id="emptyRoomCnt" parameterType="int">
-  		update room set room_count=room_count-1 where room_num=#{room_num}
-  	</update>
 </mapper>

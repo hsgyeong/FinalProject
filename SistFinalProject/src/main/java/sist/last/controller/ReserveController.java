@@ -40,6 +40,8 @@ public class ReserveController {
 			@RequestParam String checkin,
 			@RequestParam String checkout,
 			@RequestParam int sleep,
+			@RequestParam String accom_name,
+			@RequestParam String room_name,
 			@ModelAttribute MemberDto memberDto,
 			@ModelAttribute ReserveDto reserveDto,
 			HttpSession session)
@@ -72,6 +74,8 @@ public class ReserveController {
 		model.addAttribute("checkin", checkin);
 		model.addAttribute("checkout", checkout);
 		model.addAttribute("sleep", sleep);
+		model.addAttribute("accom_name", accom_name);
+		model.addAttribute("room_name", room_name);
 		
 		return "/reservation/reserveForm";
 	}
@@ -86,6 +90,8 @@ public class ReserveController {
 						  @RequestParam("room_checkin") String room_checkin,
 						  @RequestParam("room_checkout") String room_checkout,
 						  @RequestParam("coupon_name") String coupon_name,
+						  @RequestParam("accom_name") String accom_name,
+						  @RequestParam("room_name") String room_name,
 	                      @ModelAttribute ReserveDto reserveDto,
 	                      HttpSession session) {
 		String info_id=(String)session.getAttribute("info_id");
@@ -99,11 +105,11 @@ public class ReserveController {
 	    reserveDto.setReserve_checkin(room_checkin);
 	    reserveDto.setReserve_checkout(room_checkout);
 	    reserveDto.setReserve_coupon(coupon_name);
+	    reserveDto.setAccom_name(accom_name);
+	    reserveDto.setRoom_name(room_name);
 
 	    rservice.reservingInsert(reserveDto);
 	    
-	    roominter.emptyRoomCnt(room_num);
-
 	    return "Success"; // 또는 원하는 응답을 반환할 수 있습니다.
 	}
 }

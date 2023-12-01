@@ -368,6 +368,18 @@
 
 	background-color: rgb(228, 231, 235);
 }
+
+.room_detail_x_btn{
+
+	color: white;
+	background-color: gray;
+	border: none;
+	border-radius: 3px;
+	width: 100%;
+	height: 7vh;
+	margin-top: -2vh;
+	box-shadow: 2px 2px 2px silver;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -382,11 +394,6 @@
 				"font-weight" : "bold"
 			});
 		})();
-
-		// 경고 창 띄우는 함수
-		$("#detail_alert").click(function() {
-			alert('로그인 후 이용해주세요');
-		});
 
 		// 탭 클릭 시 이벤트 처리
 		$(".detail_select_1").click(function() {
@@ -555,15 +562,23 @@
 			</ul>
 		</div>
 	</div>
-
+	
 	<c:forEach items="${list }" var="rdto">
-		<div class="detail_room_select">
+	
+		<div class="detail_room_select" style="border: 1px solid black;">
 
 			<div class="detail_room_select_img">
 				<img src="../roomsave/${rdto.room_photo.split(',')[0]}" alt="">
 			</div>
 			<div class="detail_room_reserve">
-				<div class="detail_room_select_name">${rdto.room_name } <span class="detail_room_count">남은 객실 ${rdto.room_count }개</span> </div>
+				<div class="detail_room_select_name">${rdto.room_name } <span
+                    class="detail_room_count">남은 객실
+                <c:set value="${rdto.room_count}" var="roomExist"/>
+               <c:forEach items="${reserveCount}" var="reserveCount">
+                        <c:if test="${reserveCount.room_num==rdto.room_num}">
+                            <c:set value="${roomExist-1}" var="roomExist"/>
+                        </c:if>
+                    </c:forEach>${roomExist}개</span></div>
 				<div class="detail_room_select_suk">기준${rdto.room_minpeople }인 · 최대${rdto.room_maxpeople }인 / ${sleep }박</div>
 				<div class="detail_room_select_price" align="right">
 					<fmt:formatNumber value="${rdto.room_price*sleep }" />
@@ -577,19 +592,30 @@
 				</div>
 				<div align="center">
 					<br>
-					<c:if test="${sessionScope.loginok != null }">
+					
+
+					
+						<c:if test="${roomExist > 0 }">
 						<button type="button" class="room_detail_reserve_btn"
-							onclick="location.href='/reserve/reserve-form?room_num=${rdto.room_num}&checkin=${checkin }&checkout=${checkout }&sleep=${sleep }'">예약</button>
-					</c:if>
-					<c:if test="${sessionScope.loginok == null }">
+							onclick="location.href='/reserve/reserve-form?room_num=${rdto.room_num}&checkin=${checkin }&checkout=${checkout }&sleep=${sleep }&accom_name=${accom_name}&room_name=${rdto.room_name }'">예약</button>
+						</c:if>
+						
+						<c:if test="${roomExist == 0 }">
 						<button type="button" id="detail_alert"
-							class="room_detail_reserve_btn"
-							onclick="location.href='/login/loginmain'">예약</button>
-					</c:if>
+							class="room_detail_x_btn">숙소에 문의</button>
+						</c:if>
+
 				</div>
 			</div>
 		</div>
 	</c:forEach>
+	
+	<script>
+	$("#detail_alert").click(function() {
+		
+		alert("객실이 품절되었습니다 숙소에 문의해주세요");
+	})
+	</script>
 
 	<div class="detail_suk_info">
 		
@@ -686,11 +712,15 @@
     
 	</div>
 	<div class="detail_review">
-		<div style="margin: 10% 0px;">
-		<h3 style="border-bottom: 2px solid silver; padding-bottom: 3vh;">총 ${count }개의 리얼 리뷰!</h3>
+	
+		<div style="margin: 5vh 0px;">
+		<h3 style="border-bottom: 2px solid silver; padding-bottom: 3vh; margin-bottom: 10vh;">총 ${count }개의 리얼 리뷰!</h3>
 		</div>
+		<c:if test="${totalCount>0 }">
+		<div class="pagingbox">
+
+		<c:forEach items="${pplist}" var="list">
 		
-		<c:forEach items="${reviewdto}" var="list">
 		<div class="detail_review_result">
 		<table class="table table-bordered" style="width: 80%; margin-left: 10%;">
 		<tr>
@@ -701,8 +731,8 @@
     			</td>
     			
     			<td align="center" valign="middle" style="width: 25%;">
-    			<span>${detail_room }</span>
-				</td>
+    			<span>${dto.accom_name }</span>
+    			</td>
 				
 				<td align="center" valign="middle" style="width: 30%;">
     			<span><fmt:formatDate value="${list.review_write }" pattern="yyyy-MM-dd"/></span>
@@ -719,21 +749,45 @@
 		</table>
 		</div>
 		</c:forEach>
+					<ul class="pagination justify-content-center">
+					
+	    <!-- 이전 -->
+		    <c:if test="${startPage > 1 }">
+		        <li class="page-item"><a class="page-link" href="${pagingUrl}${startPage-1 }">이전</a></li>
+		    </c:if>
 		
-		<div class="detail_review_input">
+		    <c:forEach var="pp" begin="${startPage }" end="${endPage }">
+		        <c:if test="${currentPage == pp }">
+		            <li class="page-item active"><a class="page-link" href="${pagingUrl}${pp }">${pp }</a></li>
+		        </c:if>
+		
+		        <c:if test="${currentPage != pp }">
+		            <li class="page-item"><a class="page-link" href="${pagingUrl}${pp }">${pp }</a></li>
+		        </c:if>
+		    </c:forEach>
+		
+		    <!-- 다음 -->
+		    <c:if test="${endPage < totalPage }">
+		        <li class="page-item"><a class="page-link" href="${pagingUrl}${endPage+1 }">다음</a></li>
+		    </c:if>
+		</ul>
+		</div>
+		</c:if>
+		<c:if test="${info_id != null and reviewcount==0 and '예약완료'.equals(reservecheck)}">
+		<div class="detail_review_input" style="margin-bottom: -3vh;">
 		
 		<form action="review-insert" method="post">
 		<input type="hidden" name="accom_num" value="${dto.accom_num }">
-		<input type="hidden" name="info_id" value="${mdto.info_id }">
+		<input type="hidden" name="info_id" value="${info_id }">
 		<input type="hidden" name="sleep" value="${sleep}">
 		<input type="hidden" name="checkin" value="${checkin}">
 		<input type="hidden" name="checkout" value="${checkout}">
 		
 		<table class="table table-bordered">
 			<tr>
-				<td align="center" valign="middle" style="width: 25%;">${mdto.info_id }</td>
+				<td align="center" valign="middle" style="width: 25%;">${info_id }</td>
 				<td align="center" valign="middle" style="width: 10%;">별점</td>
-				<td align="center" valign="middle" style="width: 25%;">
+				<td align="center" valign="middle" style="width: 25%; padding-left: 4%;">
 				<div class="rate">
                                 <input type="radio" id="rating10" name="review_score" value="10"><label for="rating10" title="10점"></label>
                                 <input type="radio" id="rating9" name="review_score" value="9"><label class="half" for="rating9" title="9점"></label>
@@ -747,8 +801,8 @@
                                 <input type="radio" id="rating1" name="review_score" value="1"><label class="half" for="rating1" title="1점"></label>
                             </div>
 				</td>
-				<td align="center" valign="middle" style="width: 10%">예약</td>
-				<td align="center" valign="middle" style="width: 30%">${detail_room }</td>
+				<td align="center" valign="middle" style="width: 10%">숙소</td>
+				<td align="center" valign="middle" style="width: 25%">${dto.accom_name }</td>
 			</tr>
 			<tr>
 				<td colspan="5" align="center" valign="middle">
@@ -763,18 +817,16 @@
 			</tr>
 		</table>
 		</form>
+
 		
 		<script>
 		$(".detail_review_input_submit").click(function() {
 			
-		    var selectedRating = $("input[name='review_score']:checked").length;
-
 		    var reviewInfo = $("textarea[name='review_info']").val();
 
-		    if (selectedRating > 0 && reviewInfo.trim() !== "") {
+		    if (reviewInfo !== "") {
 		        alert("등록이 완료되었습니다.");
 		    } else {
-		        
 		        alert("별점을 입력하고 후기를 작성해주세요.");
 		    }
 		});
@@ -795,6 +847,7 @@
 		</script>
 
 		</div>
+		</c:if>
 	</div>
 </body>
 </html>

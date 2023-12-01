@@ -77,6 +77,9 @@
             justify-content: space-between;
             /*margin-right: auto;*/
             /*margin-left: auto;*/
+           	font-size: 15px;
+           	font-family: 'arial';
+           	
         }
 
         li.newsbox {
@@ -88,6 +91,14 @@
             display: flex;
             align-items: center;
             overflow: hidden; /* 해당 범위 넘어가는 이미지 등의 내용은 숨기기 */
+            cursor: pointer;
+        }
+        
+        .newsbox img {
+        	padding-left: 5%;
+        	padding-bottom: 1vh;
+        	max-width: 100%;
+        	max-height: 18vh;
         }
 
         a > p {
@@ -127,6 +138,7 @@
         div.textbox {
             width: 100%;
             height: 100%;
+            margin-top: 12vh;
         }
 
     </style>
@@ -136,7 +148,7 @@
 <div class="mainbox" align="center">
 
     <div class="mainad">
-        <img src="${root}/seoul.png" style="width: 100%;">
+        <img src="${root}/seoul.png" style="width: 100%; box-shadow: 10px 10px 10px silver;">
     </div>
 
     ${sessionScope.nickname}<br>
@@ -162,30 +174,54 @@
         <h3 class="newsmaintitle">TREVIEW 소식</h3>
         <div class="newssub">
             <ul class="d-inline-flex newssubul">
+            
+            
                 <li class="newsbox">
-                    <a href="#">
-                        <img src="${root}/ad.png">&nbsp;&nbsp;&nbsp;
-                        <div class="textbox">
+                    
+                        <img src="${root}/ad.png" style="margin-bottom: 2vh; margin-left: -2%;">&nbsp;&nbsp;&nbsp;
+                        <div class="textbox" style="margin-left: -8%;">
                             <p class="newstext1">TREVIEW 광고신청하기</p>
-                            <p class="newstext2">고정고객 확보,신규회원 유치 가능합니다.</p>
+                            <p class="newstext2"><b>고정고객 확보,신규회원 유치 가능합니다.</b></p>
                         </div>
 
-                    </a>
+                    
                 </li>
                 &nbsp;&nbsp;&nbsp;
                 <li class="newsbox" style="margin-right: 3%;">
-                    <a href="/accom/accom-insert">
-                        <img src="${root}/registration.png">&nbsp;&nbsp;&nbsp;
-                        <div class="textbox">
+
+                        <img src="${root}/registration.png" style="margin-top: 1vh;">&nbsp;&nbsp;&nbsp;
+                        <div class="textbox" style="margin-left: -6%;" >
                             <p class="newstext1">TREVIEW 숙소등록하기</p>
-                            <p class="newstext2">숙소 등록하고 더 많은 고객 확보하세요!</p>
+                            <p class="newstext2"><b>숙소 등록하고 더 많은 고객 확보하세요!</b></p>
                         </div>
-                    </a>
+
                 </li>
+                
+                
             </ul>
         </div>
     </div>
+	<script>
+    $(document).ready(function() {
+        // business_id 값을 가져옴
+        var businessId = "${sessionScope.business_id}";
 
+        // 숙소 등록하기 링크
+        var accomInsertLink = $("ul.newssubul li:eq(1)");
+
+        // li 클릭 이벤트
+        accomInsertLink.click(function() {
+            // business_id가 null이면 경고 메시지 표시
+            if (!businessId) {
+                alert("사업자 로그인 후 가능합니다.");
+            } else {
+                // business_id가 null이 아니면 페이지 이동
+                window.location.href = "/accom/accom-insert";
+            }
+        });
+    });
+</script>
+	
     <div></div>
 </div>
 </body>

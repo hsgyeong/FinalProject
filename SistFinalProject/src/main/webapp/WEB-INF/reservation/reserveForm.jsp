@@ -170,6 +170,24 @@
 			$("#coupon-discount").text("-"+discountper+"원");
 			$("#coupon-name").text(coupon+"% 할인쿠폰");
 		});
+		
+		
+		$(document).on("click",".btn-point",function(){
+			var inputPoint = parseInt($(".point").val());
+			var data = parseInt("${point}");
+				
+			if(inputPoint<=data)
+			{
+				var totalpay= parseInt($("b.totalpay").text());
+				var point=parseInt($(".point").val())
+					
+				$("b.totalpay").text(totalpay-point);
+			}
+			else
+			{
+				alert("보유한 포인트가 부족합니다");
+			}
+		});
 	});
 	
 	function reservechk() {
@@ -203,6 +221,8 @@
 <body>
 		<div class="left-side">
 			<input type="hidden" id="room_num" value="${rdto.room_num }">
+			<input type="hidden" id="accom_name" value="${accom_name }">
+			<input type="hidden" id="room_name" value="${room_name }">
 			<div>
 				<b>예약자 정보</b>
 			</div>
@@ -225,7 +245,9 @@
 
 			<div>
 				<span class="left-category">구매 총액</span> <span style="float: right;"><b
-					class="buypay">${rdto.room_price }</b><b>원</b></span>
+					class="buypay">
+					${rdto.room_price*sleep }</b><b>원</b>
+				</span>
 			</div>
 			<br>
 
@@ -247,7 +269,7 @@
 				<button type="button" class="btn-point">
 					포인트 사용
 				</button>
-				<span style="float: right;"> <input type="text" value="0"
+				<span style="float: right;"> <input type="text" value="${point }"
 					style="text-align: right;" class="point">&nbsp;<b>P</b>
 				</span>
 			</div>
@@ -293,16 +315,16 @@
 				<br>
 
 				<div class="right-category">체크인</div>
-				<div id="room_checkin">${checkin}&nbsp;${rdto.room_checkin }</div>
+				<div id="room_checkin">${checkin} ${rdto.room_checkin }</div>
 				<br>
 
 				<div class="right-category">체크아웃</div>
-				<div id="room_checkout">${checkout}&nbsp;${rdto.room_checkout }</div>
+				<div id="room_checkout">${checkout} ${rdto.room_checkout }</div>
 				<br>
 
 				<hr style="width: 95%; margin-left: 5px;">
 				<br> <b>총 결제 금액</b><span class="vat">(VAT포함)</span> <br> <b
-					class="totalpay">${rdto.room_price }</b><b class="totalpaywon">원</b> <br> <br>
+					class="totalpay">${rdto.room_price*sleep }</b><b class="totalpaywon">원</b> <br> <br>
 
 				<p class="explain">
 					• 해당 객실가는 세금, 봉사료가 포함된 금액입니다 <br>
@@ -330,8 +352,8 @@
 							${rdto.room_name } / ${sleep }박<br>
 							<br>
 							
-							<span style="color: #CFCFCF;">체크인</span><span style="float: right; font-weight: bold;">${checkin}&nbsp;${rdto.room_checkin }</span><br>
-							<span style="color: #CFCFCF;">체크아웃</span><span style="float: right; font-weight: bold;">${checkout}&nbsp;${rdto.room_checkout }</span>
+							<span style="color: #CFCFCF;">체크인</span><span style="float: right; font-weight: bold;">${checkin} ${rdto.room_checkin }</span><br>
+							<span style="color: #CFCFCF;">체크아웃</span><span style="float: right; font-weight: bold;">${checkout} ${rdto.room_checkout }</span>
 							<hr>
 							
 							<p>
@@ -368,6 +390,8 @@
 								    var reserve_name = $("#reserve_name").val();
 								    var reserve_hp = $("#reserve_hp").val();
 								    var coupon_name = $("#coupon-name").text();
+								    var accom_name = $("#accom_name").val();
+								    var room_name = $("#room_name").val();
 								    
 								    // 선택한 결제 방식 가져오기
 								    var selectedPaymentMethod = $("#payment").val();
@@ -384,7 +408,7 @@
 								        console.log(rsp);
 
 								        if (rsp.success) {
-								            sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name);
+								            sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name, accom_name, room_name);
 								        } else {
 								            alert("결제를 취소했습니다");
 								        }
@@ -407,7 +431,7 @@
 								    }
 								}
 								
-								function sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name) {
+								function sendPaymentData(reservationNumber, amount, room_num, room_checkin, room_checkout, reserve_name, reserve_hp, coupon_name, accom_name, room_name) {
 								    // 여기에 더 많은 데이터를 추가할 수 있습니다.
 								    
 								    var additionalData = {
@@ -419,7 +443,9 @@
 										room_checkout: room_checkout,
 										reserve_name: reserve_name,
 										reserve_hp: reserve_hp,
-										coupon_name: coupon_name
+										coupon_name: coupon_name,
+										accom_name: accom_name,
+										room_name: room_name
 								    };
 
 								    $.ajax({
