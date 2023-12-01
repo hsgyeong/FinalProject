@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import sist.last.chat.Room;
+import sist.last.dto.ChatDto;
 import sist.last.dto.ChatRoomDto;
 import sist.last.mapper.AccomMapperInter;
 import sist.last.mapper.ChatMapperInter;
 import sist.last.mapper.ChatRoomMapperInter;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller // 이 클래스가 Spring MVC의 컨트롤러 임을 나타내는 어노테이션이다.
@@ -34,16 +35,72 @@ public class ChatController {
     @GetMapping("/goChattingRoom")
     public String goChattingRoom(@RequestParam int room_num,
                                  Model model){
-        String roomName=accomMapperInter.getOneData(roomMapperInter.getChatRoom(room_num).getAccom_num());
+        String roomName=accomMapperInter.getOneData(roomMapperInter.getChatRoom(room_num).getAccom_num()).getAccom_name();
 
-        model.addAttribute("accom_num",accom_num);
+        model.addAttribute("room_num",room_num);
+        model.addAttribute("roomName",roomName);
 
-        return "/chat/chat"
+        return "/chat/chat";
     }
 
     @GetMapping("/goSellerRooms")
-    public String goSellerRooms(@RequestParam int sangidx,Model model){
-        List<ChatRoomDto> chatRoomDtoList=chatRoomMapperInter.get
+    public String goSellerRooms(@RequestParam int accom_num,Model model){
+        List<ChatRoomDto> chatRoomList=roomMapperInter.getChatRoomByAccom(accom_num);
+        String roomName=accomMapperInter.getOneData(accom_num).getAccom_name();
+
+        model.addAttribute("chatRoomList",chatRoomList);
+        model.addAttribute("roomName",roomName);
+
+        return "/chat/room";
+    }
+
+    @GetMapping("/chatting")
+    @ResponseBody
+    public List<ChatDto> chatting(@RequestParam(required = false)int room_num,
+                                  HttpSession session){
+        try {
+            Thread.sleep(100);// 0.1초 기다리기
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+
+        // 사용자의 num 받기
+        String myid=(String) session.getAttribute("myid");
+        List<ChatDto> chatList=new ArrayList<>();
+
+        for (ChatDto chatDto:chatList){
+            Date today=new Date();
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+            Date writeday=new Date();
+            try {
+                writeday=sdf.parse(chatDto.getMess_writeday().toString());
+            } catch (ParseException e){
+                e.printStackTrace();
+            }
+
+            long diffSec=(today.getTime()-writeday.getTime());
+//            diffSec-=
+
+            // 일, 시, 분, 초
+            long day=(diffSec/(60*60*24*1000L))%365;
+            long hour=(diffSec/(60*60*1000L))%24;
+            long minute=(diffSec/(60*1000L))%60;
+            long second=(diffSec/1000L)%60;
+
+            String preTime="";
+
+            if(day!=0){
+                // 하루 이상이 지났으면 일수만 표시
+                preTime=""+day+"일 전";
+            } else {
+                
+            }
+
+        }
+
+
+
     }
 
 }

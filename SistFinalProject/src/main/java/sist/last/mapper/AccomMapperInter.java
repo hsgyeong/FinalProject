@@ -17,4 +17,8 @@ public interface AccomMapperInter {
 	public void updateAccom(AccomDto dto);
 	public void insertReview(AccomDto dto);
 	public double getAverageScore(int accom_num);
+
+//	chatting 사용
+	public AccomDto getAccomName(int accom_num);
+
 }
