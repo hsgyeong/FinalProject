@@ -227,7 +227,7 @@
 
 			<div>
 				<span class="left-category">구매 총액</span> <span style="float: right;"><b
-					class="buypay">${rdto.room_price }</b><b>원</b></span>
+					class="buypay">${rdto.room_price*sleep }</b><b>원</b></span>
 			</div>
 			<br>
 
@@ -304,7 +304,7 @@
 
 				<hr style="width: 95%; margin-left: 5px;">
 				<br> <b>총 결제 금액</b><span class="vat">(VAT포함)</span> <br> <b
-					class="totalpay">${rdto.room_price }</b><b class="totalpaywon">원</b> <br> <br>
+					class="totalpay">${rdto.room_price*sleep }</b><b class="totalpaywon">원</b> <br> <br>
 
 				<p class="explain">
 					• 해당 객실가는 세금, 봉사료가 포함된 금액입니다 <br>

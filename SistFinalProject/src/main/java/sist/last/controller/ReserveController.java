@@ -110,8 +110,6 @@ public class ReserveController {
 
 	    rservice.reservingInsert(reserveDto);
 	    
-	    roominter.emptyRoomCnt(room_num);
-
 	    return "Success"; // 또는 원하는 응답을 반환할 수 있습니다.
 	}
 }
