@@ -119,6 +119,7 @@
         select A.accom_num, A.accom_name, A.accom_category, A.accom_location, A.accom_hashtag,
         A.accom_score, A.accom_latitude, A.accom_longitude, A.accom_photo, B.room_price
         FROM accom A JOIN room B ON A.accom_num = B.accom_num
+        GROUP BY A.accom_num
         order by B.room_price asc, A.accom_score desc
     </select>
 </mapper>

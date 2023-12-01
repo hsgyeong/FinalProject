@@ -17,12 +17,12 @@
     <h1>등록된 숙소가 없습니다</h1>
 </c:if>
 <c:if test="${accomList!=null}">
-    <table style="width: 600px; border: 1px solid black">
+    <table style="margin-left: 20%; width: 60%;">
         <tr>
-            <td align="center" valign="top"><b>예약 불가능 날짜 선택</b>
+            <td align=" center" valign="top"><b>예약 불가능 날짜 선택</b>
                 <br><br>
                 <h4><b>선택할 숙소</b></h4>
-                <select id="accomSelect" class="form-control" style="width: 120px;">
+                <select id="accomSelect" class="form-control">
                     <option value="nonSelect">선택해주세요</option>
                     <c:forEach var="list" items="${accomList}" varStatus="i">
                         <option value="${list}">${list}</option>

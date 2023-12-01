@@ -112,18 +112,53 @@ public class ProductController {
     @GetMapping("/product/msr")
     public String currentLocationSortProduct(@RequestParam double latitude,
                                              @RequestParam double longitude,
+                                             @RequestParam(required = false) String selDate1,
+                                             @RequestParam(required = false) String selDate2,
+                                             @RequestParam(required = false) String minPrice,
+                                             @RequestParam(required = false) String maxPrice,
+                                             @RequestParam(required = false) String sort,
+                                             @RequestParam(required = false) String selCate,
                                              Model model) {
+        model.addAttribute("latitude", latitude);
+        model.addAttribute("longitude", longitude);
+        model.addAttribute("mySurrounding", "yes");
+        categoryList = new ArrayList<>();
         userLat = latitude;
         userLong = longitude;
+        if (selDate1 != null) {
+            selectDate1 = selDate1;
+            selectDate2 = selDate2;
+        }
+        if (selCate == "") {
+            selCate = null;
+        }
         List<ProductDto> allProducts = pService.getAllProduct();
         isSelDateNull(null);
         processDateSelection(selectDate1, selectDate2, model);
         allProducts = compareLimitDate(allProducts, selectDate1, selectDate2);
         sortDistanceOfProduct(allProducts);
         allProducts = exceptLongDistance(allProducts);
-        model.addAttribute("mySurrounding", "yes");
+        if (selCate != null) {
+            String[] splitCategory = selCate.split(",");
+            for (String s : splitCategory) {
+                categoryList.add(s.trim());
+                model.addAttribute("selCate", categoryList);
+            }
+            allProducts = compareSelectCategory(allProducts);
+        }
+        if (sort != null) {
+            model.addAttribute("sort", sort);
+            //System.out.println(products.size() + " 개 의 데이터");
+            compareMySurroundingSort(sort, model, minPrice, maxPrice, allProducts);
+            return "/product/searchMainPage";
+        }
+        if (minPrice != null) {
+            //System.out.println("여기까진 들어감");
+            System.out.println(allProducts.size() + " 개 의 데이터");
+            processPriceSelection(minPrice, maxPrice, model, allProducts);
+            return "/product/searchMainPage";
+        }
         model.addAttribute("productList", allProducts);
-
         return "/product/searchMainPage";
     }
 
@@ -137,6 +172,28 @@ public class ProductController {
             }
         }
         return exceptProduct;
+    }
+
+    private void compareMySurroundingSort(String sort, Model model,
+                                          String minPrice, String maxPrice,
+                                          List<ProductDto> products) {
+        System.out.println("숙소 갯수 : " + products.size());
+        products = settingPrice(minPrice, maxPrice, model, products);
+        mySurroundingSort(products, sort);
+        assert products != null;
+        for (ProductDto p : products) {
+            System.out.println("방가격: " + p.getRoom_price());
+        }
+        model.addAttribute("productList", products);
+    }
+
+    private void mySurroundingSort(List<ProductDto> products, String sort) {
+        if (sort.equals("lowprice")) {
+            Collections.sort(products, Comparator.comparing(ProductDto::getRoom_price));
+        }
+        if (sort.equals("score")) {
+            Collections.sort(products, Comparator.comparing(ProductDto::getAccom_score));
+        }
     }
 
     private List<ProductDto> searchCompareKeyword(String keyword) {
@@ -206,18 +263,25 @@ public class ProductController {
     private void processPriceSelection(String minPrice, String maxPrice,
                                        Model model, List<ProductDto> products) {
         System.out.println("저장됨");
+        products = settingPrice(minPrice, maxPrice, model, products);
+
+        model.addAttribute("productList", products);
+    }
+
+    private List<ProductDto> settingPrice(String minPrice, String maxPrice,
+                                          Model model, List<ProductDto> products) {
         int integerMinPrice = Integer.parseInt(minPrice);
         int integerMaxPrice = Integer.parseInt(maxPrice);
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
         System.out.println("min:" + integerMinPrice + ", max:" + integerMaxPrice);
         if (integerMaxPrice == 300000) {
-            products = selectLimitMinPrice(integerMinPrice, products);
+            return selectLimitMinPrice(integerMinPrice, products);
         }
         if (integerMaxPrice != 300000) {
-            products = selectLimitPrice(integerMinPrice, integerMaxPrice, products);
+            return selectLimitPrice(integerMinPrice, integerMaxPrice, products);
         }
-        model.addAttribute("productList", products);
+        return null;
     }
 
     private void compareSort(String sort, Model model, String minPrice,
@@ -503,6 +567,4 @@ public class ProductController {
 
         return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
-
-
 }
