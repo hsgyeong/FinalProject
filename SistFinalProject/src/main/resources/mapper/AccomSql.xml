@@ -55,7 +55,8 @@
 	    SELECT IFNULL(ROUND(AVG(review_score), 1), 0) AS average_score
 		FROM review
 		WHERE accom_num = #{accom_num};
-	</select>
+	</select>	
+	
 	<update id="updateAccomScore" parameterType="int">
 	    UPDATE accom
 		SET accom_score = IFNULL(
@@ -63,5 +64,13 @@
 		    0
 		)
 		WHERE accom_num = #{accom_num};
+	</update>
+	
+		<update id="updateAccomCount" parameterType="int">
+	    UPDATE accom
+	    SET accom_count = (
+	        SELECT COUNT(*) FROM review WHERE accom_num = #{accom_num}
+	    )
+	    WHERE accom_num = #{accom_num};
 	</update>
 </mapper>

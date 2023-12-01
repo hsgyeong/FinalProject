@@ -47,6 +47,7 @@ public class ProductController {
                                  @RequestParam(required = false) String selCate,
                                  @RequestParam(required = false) String latitude,
                                  @RequestParam(required = false) String longitude) {
+    	
         System.out.println("keyword : " + keyword);
         if (keyword.isEmpty()) {
             model.addAttribute("sortSurrounding", "yes");
@@ -105,7 +106,7 @@ public class ProductController {
                 return "/product/searchMainPage";
             }
         }
-
+        
         return "/product/searchMainPage";
     }
 
@@ -132,6 +133,8 @@ public class ProductController {
         if (selCate == "") {
             selCate = null;
         }
+
+    	
         List<ProductDto> allProducts = pService.getAllProduct();
         isSelDateNull(null);
         processDateSelection(selectDate1, selectDate2, model);
@@ -159,6 +162,7 @@ public class ProductController {
             return "/product/searchMainPage";
         }
         model.addAttribute("productList", allProducts);
+    	
         return "/product/searchMainPage";
     }
 

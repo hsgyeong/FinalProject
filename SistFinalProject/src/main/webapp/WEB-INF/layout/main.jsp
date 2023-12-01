@@ -18,6 +18,7 @@
             /*height: 300vh;*/
             /*border: 3px solid red;*/
             /*margin: 6vh 17.5%;*/
+            margin-top: 2vh;
         }
 
         .mainad {
@@ -36,7 +37,9 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 50px;
+            
         }
+
 
         div.maincategory img {
             width: 100px;
@@ -131,7 +134,7 @@
         p.newstext1 {
             color: #f7323f;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 16px;
             margin-bottom: 5px;
         }
 
@@ -171,7 +174,7 @@
     </div>
 
     <div class="newsmain">
-        <h3 class="newsmaintitle">TREVIEW 소식</h3>
+        <h3 class="newsmaintitle" style="margin-bottom: 7vh;">TREVIEW 소식</h3>
         <div class="newssub">
             <ul class="d-inline-flex newssubul">
             

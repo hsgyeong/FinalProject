@@ -18,8 +18,10 @@
     <title>Insert title here</title>
 </head>
 <style type="text/css">
+
     .amount-bar-wrap {
         font-weight: bold;
+        
     }
 
     div.btn-date {
@@ -34,6 +36,7 @@
         padding: 20px;
         margin: 30px;
         border: 1px solid gainsboro;
+
     }
 
     div.search-box {
@@ -229,6 +232,7 @@
     .accom-info {
         width: 100%;
         height: 160px;
+        
     }
 
     .room-amount {
@@ -256,7 +260,7 @@
     }
 
     .detail_accom_score {
-        width: 10%;
+        width: 15%;
         border-radius: 5px;
         color: white;
         background-color: orange;
@@ -265,7 +269,7 @@
     }
 
     .detail_score_result {
-        width: 15%;
+        width: 25%;
         color: orange;
         font-size: 2vh;
         font-weight: 650;
@@ -274,13 +278,16 @@
     }
 
     .detail_review_count {
-        width: 20%;
+        width: 35%;
         color: silver;
         font-size: 2vh;
         font-weight: 500;
         margin-left: 0.5vh;
     }
-
+	.search_list_none{
+		list-style: none;
+		margin-left: -11%;
+	}
 </style>
 <body>
 <script type="text/javascript">
@@ -296,18 +303,18 @@
 </script>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 <c:if test="${mySurrounding==null && sortSurrounding==null}">
-    <caption><b style="font-size: 40px; font-family: 'NanumSquare', serif;">검색 : '${keyword}'</b></caption>
+    <caption><b style="font-size: 40px; width: 120%; margin-left:-10%; font-family: 'NanumSquare', serif;">검색 : '${keyword}'</b></caption>
 </c:if>
 <c:if test="${mySurrounding!=null || sortSurrounding!=null}">
     <caption><b style="font-size: 40px; font-family: 'NanumSquare', serif;">'내 근처'</b></caption>
 </c:if>
 <br><br>
-<div style="width: 100%; border: 2px solid gray;" class="d-inline-flex">
+<div style="width: 120%; margin-left:-10%; border: 2px solid gray;" class="d-inline-flex">
     <div class="filter-border-box" style="width: 33%">
         <div class="filter-box">
             <section class="date-wrap">
                 <h4><b>날짜</b></h4>
-                <div class="btn-date d-inline-flex">
+                <div class="btn-date d-inline-flex" style="width: 100%;">
                     <i class="bi bi-calendar-check" style="margin-right: 10px;"></i>
                     <span class="date-view">
                             <c:if test="${firstYear==null}">
@@ -716,7 +723,7 @@
             <section class="Type-of-accom">
                 <h5><b>숙소 유형</b></h5>
                 <ul>
-                    <li style="line-height: 2" class="d-inline-flex">
+                    <li style="line-height: 2" class="d-inline-flex search_list_none">
                         <input type="checkbox" style="margin-right: 10px;"
                                value="모텔" name="category"
                         <c:forEach items="${selCate}" var="cate" varStatus="i">
@@ -727,7 +734,7 @@
                         <span class="category">모텔</span>
                     </li>
                     <br>
-                    <li style="line-height: 2" class="d-inline-flex">
+                    <li style="line-height: 2" class="d-inline-flex search_list_none">
                         <input type="checkbox" style="margin-right: 10px;"
                                value="호텔" name="category"
                         <c:forEach items="${selCate}" var="cate" varStatus="i">
@@ -738,7 +745,7 @@
                         <span class="category">호텔</span>
                     </li>
                     <br>
-                    <li style="line-height: 2" class="d-inline-flex">
+                    <li style="line-height: 2" class="d-inline-flex search_list_none">
                         <input type="checkbox" style="margin-right: 10px;"
                                value="펜션" name="category"
                         <c:forEach items="${selCate}" var="cate" varStatus="i">
@@ -838,7 +845,7 @@
         <br>
         <section class="setting-btn-box">
             <h6><b>상세 조건</b></h6>
-            <button type="button" class="btn btn-outline-danger setting-btn" style="width: 200px;">적용</button>
+            <button type="button" class="btn btn-outline-danger setting-btn" style="width: 100%;">적용</button>
             <script type="text/javascript">
                 $(".setting-btn").click(function () {
                     var cateArray = $('input:checkbox[name=category]:checked').map(function () {
@@ -878,8 +885,8 @@
 
             <c:forEach items="${productList}" var="list" varStatus="i">
                 <div class="accom-list" idx="${list.accom_num}">
-                    <div class="accom-image">
-                        <img src="../accomsave/${list.accom_photo}" style="width: 80px; height: 200px;">
+                    <div class="accom-image" style="width: 60%;">
+                        <img src="../accomsave/${list.accom_photo}" style="width: 100%;">
                     </div>
                     <div class="info-container">
                         <div class="accom-info">
@@ -906,10 +913,10 @@
                                         }
                                     });
                                 </script>
-                                <div class="detail_review_count">리뷰 1000개</div>
+                                <div class="detail_review_count">${list.accom_count }개</div>
                             </div>
-                            <div class="detail_accom_location">${list.accom_location }</div>
-                            <div class="detail_accom_hashtag">${list.accom_hashtag }</div>
+                            <div class="detail_accom_location" style="font-size: 0.9em;">${list.accom_location }</div>
+                            <div class="detail_accom_hashtag" style="font-size:0.9em;">${list.accom_hashtag }</div>
                             <c:if test="${sort=='distance'||mySurrounding!=null}">
                                 <c:if test="${list.distance<1000}">
                                     <fmt:formatNumber value="${list.distance}" pattern="###"/>m
@@ -1085,5 +1092,6 @@
     <input type="hidden" id="accom_latitude">
     <input type="hidden" id="accom_longitude">
 </div>
+
 </body>
 </html>
