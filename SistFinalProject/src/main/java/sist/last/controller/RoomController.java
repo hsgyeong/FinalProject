@@ -92,7 +92,6 @@ public class RoomController {
 	    List<String> photoList = Arrays.asList(photoNames.split(","));
 	    
 	    String info=(String)session.getAttribute("info_id");
-	    
 	    MemberDto mdto=mmapper.getDataById(info);
 	    
 		model.addObject("list", list);
@@ -112,7 +111,44 @@ public class RoomController {
 //    	model.addObject("reserve_id", reserve_id);
 //    	model.addObject("reserve_room", reserve_room);
     	
+//    	int reviewcount=reviewmapper.InfoIdTotalCount(info);
+//    	model.addObject("reviewcount", reviewcount);
     	
+    	//회원 로그인 세션이 null이 아니면 reviewcount 조회
+    	if(info!=null) {
+    		
+    		int reviewcount=reviewmapper.InfoIdTotalCount(info);
+        	model.addObject("reviewcount", reviewcount);
+        	
+        	//리뷰의 갯수가 0개면 세션에 저장된 info_id로 reservedto 하나의 데이터 조회
+        	if(reviewcount==0) {
+        		
+        		ReserveDto reservedto=rmapper.getOneInfoData(info);
+        		
+        		if(reservedto!=null) {
+        			
+        			String reservecheck=reservedto.getReserve_status();
+                	
+                	model.addObject("reservecheck", reservecheck);
+        		}
+        		else {
+        			
+        			System.out.println("dto값이 null로 반환됨");
+        		}
+            	
+        	}
+        	
+        	else {
+        		System.out.println("리뷰 카운트가 1개 이상임");
+        	}
+        	
+    	}
+    	
+    	else {
+    		
+    		System.out.println("회원 로그인 세션이 없음");
+    	}
+
     	double score=dto.getAccom_score();
     	model.addObject("score", score);
     	
@@ -193,6 +229,7 @@ public class RoomController {
     {
     	
     	reviewmapper.insertReview(dto);	
+    	amapper.updateAccomScore(dto.getAccom_num());
     	
     	return "redirect:/room/room-detail?accom_num=" + dto.getAccom_num() +
                 "&checkin="+checkin+

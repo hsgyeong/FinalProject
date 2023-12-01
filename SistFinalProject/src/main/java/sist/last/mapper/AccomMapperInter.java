@@ -18,4 +18,5 @@ public interface AccomMapperInter {
 	public void insertReview(AccomDto dto);
 	public double getAverageScore(int accom_num);
 	public void InsertAccomScore(AccomDto dto);
+	public void updateAccomScore(int accom_num);
 }
