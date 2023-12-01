@@ -368,6 +368,18 @@
 
 	background-color: rgb(228, 231, 235);
 }
+
+.room_detail_x_btn{
+
+	color: white;
+	background-color: gray;
+	border: none;
+	border-radius: 3px;
+	width: 100%;
+	height: 7vh;
+	margin-top: -2vh;
+	box-shadow: 2px 2px 2px silver;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -382,11 +394,6 @@
 				"font-weight" : "bold"
 			});
 		})();
-
-		// 경고 창 띄우는 함수
-		$("#detail_alert").click(function() {
-			alert('로그인 후 이용해주세요');
-		});
 
 		// 탭 클릭 시 이벤트 처리
 		$(".detail_select_1").click(function() {
@@ -555,15 +562,23 @@
 			</ul>
 		</div>
 	</div>
-
+	
 	<c:forEach items="${list }" var="rdto">
-		<div class="detail_room_select">
+	
+		<div class="detail_room_select" style="border: 1px solid black;">
 
 			<div class="detail_room_select_img">
 				<img src="../roomsave/${rdto.room_photo.split(',')[0]}" alt="">
 			</div>
 			<div class="detail_room_reserve">
-				<div class="detail_room_select_name">${rdto.room_name } <span class="detail_room_count">남은 객실 ${rdto.room_count }개</span> </div>
+				<div class="detail_room_select_name">${rdto.room_name } <span
+                    class="detail_room_count">남은 객실
+                <c:set value="${rdto.room_count}" var="roomExist"/>
+               <c:forEach items="${reserveCount}" var="reserveCount">
+                        <c:if test="${reserveCount.room_num==rdto.room_num}">
+                            <c:set value="${roomExist-1}" var="roomExist"/>
+                        </c:if>
+                    </c:forEach>${roomExist}개</span></div>
 				<div class="detail_room_select_suk">기준${rdto.room_minpeople }인 · 최대${rdto.room_maxpeople }인 / ${sleep }박</div>
 				<div class="detail_room_select_price" align="right">
 					<fmt:formatNumber value="${rdto.room_price*sleep }" />
@@ -577,19 +592,30 @@
 				</div>
 				<div align="center">
 					<br>
-					<c:if test="${sessionScope.loginok != null }">
+					
+
+					
+						<c:if test="${rdto.room_count > 0 }">
 						<button type="button" class="room_detail_reserve_btn"
 							onclick="location.href='/reserve/reserve-form?room_num=${rdto.room_num}&checkin=${checkin }&checkout=${checkout }&sleep=${sleep }&accom_name=${accom_name}&room_name=${rdto.room_name }'">예약</button>
-					</c:if>
-					<c:if test="${sessionScope.loginok == null }">
+						</c:if>
+						
+						<c:if test="${rdto.room_count == 0 }">
 						<button type="button" id="detail_alert"
-							class="room_detail_reserve_btn"
-							onclick="location.href='/login/loginmain'">예약</button>
-					</c:if>
+							class="room_detail_x_btn">숙소에 문의</button>
+						</c:if>
+
 				</div>
 			</div>
 		</div>
 	</c:forEach>
+	
+	<script>
+	$("#detail_alert").click(function() {
+		
+		alert("객실이 품절되었습니다");
+	})
+	</script>
 
 	<div class="detail_suk_info">
 		

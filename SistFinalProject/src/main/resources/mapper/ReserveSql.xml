@@ -22,4 +22,7 @@
  		select * from reservation where info_id=#{info_id}
  	</select>
  	
+ 	<select id="getReserveCountOfRoomNumber" parameterType="int" resultType="reserveDto">
+        select room_num,reserve_checkin,reserve_checkout from reservation where room_num=#{room_num}
+    </select>
  </mapper>
