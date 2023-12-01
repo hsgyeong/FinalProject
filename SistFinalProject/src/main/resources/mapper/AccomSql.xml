@@ -56,5 +56,4 @@
 	    FROM review
 	    WHERE accom_num = #{accom_num}
 	</select>
-	
 </mapper>

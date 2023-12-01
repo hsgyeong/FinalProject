@@ -295,11 +295,11 @@
 				<br>
 
 				<div class="right-category">체크인</div>
-				<div id="room_checkin">${checkin}&nbsp;${rdto.room_checkin }</div>
+				<div id="room_checkin">${checkin} ${rdto.room_checkin }</div>
 				<br>
 
 				<div class="right-category">체크아웃</div>
-				<div id="room_checkout">${checkout}&nbsp;${rdto.room_checkout }</div>
+				<div id="room_checkout">${checkout} ${rdto.room_checkout }</div>
 				<br>
 
 				<hr style="width: 95%; margin-left: 5px;">
@@ -332,8 +332,8 @@
 							${rdto.room_name } / ${sleep }박<br>
 							<br>
 							
-							<span style="color: #CFCFCF;">체크인</span><span style="float: right; font-weight: bold;">${checkin}&nbsp;${rdto.room_checkin }</span><br>
-							<span style="color: #CFCFCF;">체크아웃</span><span style="float: right; font-weight: bold;">${checkout}&nbsp;${rdto.room_checkout }</span>
+							<span style="color: #CFCFCF;">체크인</span><span style="float: right; font-weight: bold;">${checkin} ${rdto.room_checkin }</span><br>
+							<span style="color: #CFCFCF;">체크아웃</span><span style="float: right; font-weight: bold;">${checkout} ${rdto.room_checkout }</span>
 							<hr>
 							
 							<p>
