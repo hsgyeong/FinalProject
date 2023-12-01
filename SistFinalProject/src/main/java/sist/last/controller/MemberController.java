@@ -1,6 +1,8 @@
 package sist.last.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -189,11 +191,15 @@ public class MemberController {
 	@GetMapping("/member/myreservation")
 	public String myreservation(Model model, HttpSession session)
 	{	
-		String reserve_id = (String)session.getAttribute("info_id");
+		String info_id = (String)session.getAttribute("info_id");
 		
-		ReserveDto reserveDto = mapper.getReservationDataById(reserve_id);
+		System.out.println(info_id);
 		
-		model.addAttribute("reserveDto", reserveDto);
+		//list dto 에 넣어서 그걸 뽑는거. 그 안에 필요한 거 예약번호, 숙소 이름, 방이름 가져오기, 체크인, 체크아웃 
+
+		List<ReserveDto> list = mapper.getReservationDataById(info_id);
+	
+		model.addAttribute("list", list);
 		
 		return "/member/MyReservationList";
 	}
