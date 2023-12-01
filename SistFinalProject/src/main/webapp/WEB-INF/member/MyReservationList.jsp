@@ -11,6 +11,38 @@
           rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <title>Insert title here</title>
+    <script type="text/javascript">
+$(document).ready(function(){
+	
+	$(".room_detail_reserve_btn").click(function(){
+		
+		var reserve_id = $("#reserve-cancle").val();
+		
+		var ans = confirm("예약 취소하시겠습니까?");
+		//alert(reserve_id);		
+		if(ans){
+	
+	$.ajax({
+		
+		type:"get",
+		url:"update-reserve",
+		dataType:"html",
+		data:{"reserve_id":reserve_id},
+		success:function(res){
+			
+			alert("예약 취소되었습니다.");
+			history.back();
+			
+		}
+		
+	})
+		
+	}
+	
+})
+
+})
+</script>
     <style type="text/css">
     .reserve_checkin, .reserve_checkout {
     font-weight: bold;
@@ -28,9 +60,9 @@
 	margin: auto;
     }
     
-    .list {
+    .reservelist {
     border: 1px solid silver;
-	border-radius: 1px;
+	border-radius: 5px;
     }
     
     .detail_room_reserve {
@@ -57,52 +89,20 @@
     }
     </style>
 </head>
-<script type="text/javascript">
-$(document).ready(function(){
-	
-	$(".room_detail_reserve_btn").click(function(){
-		
-		var reserve_id = $("#reserve-cancle").val();
-		
-		var ans = confirm("예약 취소하시겠습니까?");
-		//alert(reserve_id);		
-		if(ans){
-	
-	$.ajax({
-		
-		type:"get",
-		url:"update-reserve",
-		dataType:"html",
-		data:{"reserve_id":reserve_id},
-		success:function(res){
-			
-			alert("예약 취소되었습니다.");
-			history.back();
-			
-		}
-		
-	})
-		
-	});
-	
-})
-
-</script>
 <body>
-
 <h4><b>예약내역</b></h4>
 <br><br><br>
+<table class="table table-bordered reservelist">
 <c:forEach items="${list }" var="reserveDto">
-		<table class="table table-bordered list">
+		
 		
 		<div class="detail_room_select">
-		
 			<div class="detail_room_reserve">
 			<div class="reserve_list">
 				
-				 <div class="reserve_accom">예약자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${reserveDto.reserve_name }</span> </div><br>
+				 <div class="reserve_accom"><span>예약자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${reserveDto.reserve_name }</span> </div><br>
 			
-				<div class="reserve_room">숙소타입&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${reserveDto.room_name }</span> </div><br>
+				<div class="reserve_room"><span>숙소타입&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${reserveDto.room_name }</span> </div><br>
 				
 				<div class="reserve_checkin">체크인</div>
 				${reserveDto.reserve_checkin }
@@ -117,24 +117,18 @@ $(document).ready(function(){
 				
 				<br>
 				<div class="status" style="color:green">${reserveDto.reserve_status }</div>
-				<!--  <div class="detail_room_select_checkin">
-					입실시간 <b>${rdto.room_checkin }시부터</b>
-				</div>
-				<div class="detail_room_select_checkout">
-					퇴실시간 <b>익일 ${rdto.room_checkout }시</b>
-				</div>-->
+				
 				<div align="center">
 					<br>
 						<button type="button" class="room_detail_reserve_btn" id="reserve-cancle"
 						value="${reserveDto.reserve_id}">예약취소</button>
 				</div>
-				
 			</div>
 			</div>
 			
 		</div>
-		</table>
+		
 	</c:forEach>
-
+</table>
 </body>
 </html>

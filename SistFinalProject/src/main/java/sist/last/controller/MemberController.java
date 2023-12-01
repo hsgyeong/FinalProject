@@ -204,4 +204,12 @@ public class MemberController {
 		return "/member/MyReservationList";
 	}
 
+	@GetMapping("update-reserve")
+	public String reserveUpdate(ReserveDto reserveDto)
+	{
+		
+		
+		return "/member/MyReservationList";
+	}
+	
 }
