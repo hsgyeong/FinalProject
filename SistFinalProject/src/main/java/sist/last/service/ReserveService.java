@@ -1,6 +1,7 @@
 package sist.last.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,9 @@ public class ReserveService implements ReserveServiceInter {
 		// TODO Auto-generated method stub
 		return mapper.getReservationDataById(reserve_id);
 	}
-
+	
+	@Override
+    public List<ReserveDto> getReserveCountOfRoomNumber(int room_num) {
+        return mapper.getReserveCountOfRoomNumber(room_num);
+    }
 }

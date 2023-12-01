@@ -3,6 +3,9 @@ package sist.last.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -88,6 +91,16 @@ public class RoomController {
 		String accom_name=dto.getAccom_name();
 		model.addObject("accom_name", accom_name);
 		
+		List<ReserveDto> countList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            List<ReserveDto> reserveDate = rmapper.getReserveCountOfRoomNumber(list.get(i).getRoom_num());
+            for (ReserveDto reserve : reserveDate) {
+                if (duplicateDate(reserve, checkin, checkout)) {
+                    countList.add(reserve);
+                }
+            }
+        }
+        
 		RoomDto rdto = list.get(0);
 		String photoNames = rdto.getRoom_photo(); // 가정: 이미지 파일 이름들을 담고 있는 문자열
 
@@ -104,6 +117,7 @@ public class RoomController {
     	model.addObject("checkin", checkin);
     	model.addObject("checkout", checkout);
     	model.addObject("mdto", mdto);
+    	model.addObject("reserveCount", countList);
     	
     	//reserve 하나의 데이터 조회
     	
@@ -376,5 +390,26 @@ public class RoomController {
         return "redirect:/room/room-list?accom_num="+dto.getAccom_num();
     }
 
-
+    private boolean duplicateDate(ReserveDto reserveData,
+            String checkin, String checkout) {
+    	
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
+		LocalDate checkinDate = LocalDate.parse(checkin, formatter);
+		LocalDate checkoutDate = LocalDate.parse(checkout, formatter);
+		String[] splitCheckin = reserveData.getReserve_checkin().split(" ");
+		String[] splitCheckout = reserveData.getReserve_checkout().split(" ");
+		System.out.println("체크인 : " + splitCheckin[0] + ", 체크아웃 : " + splitCheckout[0]);
+		LocalDate existingCheckin = LocalDate.parse(splitCheckin[0], formatter);
+		LocalDate existingCheckout = LocalDate.parse(splitCheckout[0], formatter);
+		
+		// 새로운 체크인 날짜가 기존 기간에 포함되거나
+		// 새로운 체크아웃 날짜가 기존 기간에 포함되는 경우 중복으로 처리
+		if ((existingCheckin.isBefore(checkoutDate) || existingCheckin.isEqual(checkoutDate)) &&
+		(existingCheckout.isAfter(checkinDate) || existingCheckout.isEqual(checkinDate))) {
+		System.out.println("중복발생");
+		return true; // 중복이 발생했음
+		}
+		System.out.println("중복발생x");
+		return false; // 중복이 없음
+	}
 }

@@ -23,4 +23,5 @@ public class ReserveDto {
 	private String reserve_status;
 	private String reserve_coupon;
 	private java.sql.Timestamp reserve_day;
+	private int count;
 }

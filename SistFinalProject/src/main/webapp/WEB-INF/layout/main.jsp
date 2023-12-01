@@ -162,6 +162,8 @@
         <h3 class="newsmaintitle">TREVIEW 소식</h3>
         <div class="newssub">
             <ul class="d-inline-flex newssubul">
+            
+            
                 <li class="newsbox">
                     <a href="#">
                         <img src="${root}/ad.png">&nbsp;&nbsp;&nbsp;
@@ -182,10 +184,28 @@
                         </div>
                     </a>
                 </li>
+                
+                
             </ul>
         </div>
     </div>
 
+	<script>
+    $(document).ready(function() {
+        var businessId = "${sessionScope.business_id}";
+		alert(businessId);
+        // 숙소 등록하기 링크
+        var accomLink = $("li.newsbox:eq(1) a");
+        accomLink.click(function(e) {
+            if (businessId === null) {
+                e.preventDefault(); // 링크 이동을 막음
+                alert("로그인 후 숙소 등록이 가능합니다.");
+            }
+            // business_id가 null이 아니면 링크 이동
+        });
+    });
+	</script>
+	
     <div></div>
 </div>
 </body>
