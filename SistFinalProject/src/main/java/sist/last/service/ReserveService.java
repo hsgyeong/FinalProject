@@ -43,4 +43,9 @@ public class ReserveService implements ReserveServiceInter {
 		// TODO Auto-generated method stub
 		return mapper.getOneInfoData(info_id);
 	}
+	public ReserveDto getReservationDataById(String reserve_id) {
+		// TODO Auto-generated method stub
+		return mapper.getReservationDataById(reserve_id);
+	}
+
 }

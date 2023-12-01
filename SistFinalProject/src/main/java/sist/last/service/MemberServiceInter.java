@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.validation.Errors;
 
 import sist.last.dto.MemberDto;
+import sist.last.dto.ReserveDto;
 
 public interface MemberServiceInter {
 

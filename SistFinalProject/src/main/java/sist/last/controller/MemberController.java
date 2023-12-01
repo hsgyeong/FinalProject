@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 
 import sist.last.dto.MemberDto;
+import sist.last.dto.ReserveDto;
+import sist.last.mapper.ReserveMapperInter;
 import sist.last.service.MemberService;
 
 @Controller
@@ -23,6 +26,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService service;
+	
+	@Autowired
+	ReserveMapperInter mapper;
 	
 	@GetMapping("/member/joinform")
 	public String addform()
@@ -64,7 +70,6 @@ public class MemberController {
 	
 	
 	@PostMapping("/member/join-member")
-	@ResponseBody
 	public String insert(MemberDto memberDto,
 			@RequestParam String hp1,
 			@RequestParam String hp2,
@@ -73,7 +78,6 @@ public class MemberController {
 			@RequestParam String email2,
 			HttpSession session)
 	{
-			
 			String hp = hp1+"-"+hp2+"-"+hp3;
 			memberDto.setInfo_hp(hp);
 			
@@ -180,6 +184,18 @@ public class MemberController {
 	public String info()
 	{
 		return "/notice/triviewInfo";
+	}
+	
+	@GetMapping("/member/myreservation")
+	public String myreservation(Model model, HttpSession session)
+	{	
+		String reserve_id = (String)session.getAttribute("info_id");
+		
+		ReserveDto reserveDto = mapper.getReservationDataById(reserve_id);
+		
+		model.addAttribute("reserveDto", reserveDto);
+		
+		return "/member/MyReservationList";
 	}
 
 }

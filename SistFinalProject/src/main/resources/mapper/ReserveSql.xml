@@ -18,4 +18,8 @@
  	<select id="getOneInfoData" parameterType="String" resultType="reserveDto">
  		select * from reservation where info_id = #{info_id}
  	</select>
+ 	<select id="getReservationDataById" parameterType="String" resultType="reserveDto">
+ 		select * from reservation where info_id=#{info_id}
+ 	</select>
+ 	
  </mapper>

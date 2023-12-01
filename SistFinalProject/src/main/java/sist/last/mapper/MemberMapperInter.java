@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.validation.Errors;
 
 import sist.last.dto.MemberDto;
+import sist.last.dto.ReserveDto;
 
 @Repository
 @Mapper
@@ -25,6 +26,8 @@ public interface MemberMapperInter {
 	public void deleteMember(String info_id);
 	public int getCouponCount(String info_id);
 	public Map<String, String> validateHandling(Errors errors);
+	
+	public ReserveDto getReservationDataById(String info_id);
 
 	//kakao
 	public String getAccessToken(String authorization_code) throws Exception;
