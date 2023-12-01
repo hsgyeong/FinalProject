@@ -153,7 +153,8 @@
 		<td>
 	<span style="font-size: 25px;"><b>예약내역</b></span><br><br><br>
 	<div>
-	<a class="booking" style="margin-bottom: 15px;"><span style="margin-right: 10px;"><i class="bi bi-house-door"></i>&nbsp;&nbsp;국내숙소</span><span><i class="bi bi-caret-right-fill" style=" float: right;"></i></span></a>
+	<a class="booking" style="margin-bottom: 15px;"
+	onclick="location.href='/member/myreservation'"><span style="margin-right: 10px;"><i class="bi bi-house-door"></i>&nbsp;&nbsp;국내숙소</span><span><i class="bi bi-caret-right-fill" style=" float: right;"></i></span></a>
 	<br><br>
 	<a class="insurance" style="margin-bottom: 15px;"><span style="margin-right: 10px;"><i class="bi bi-suitcase2-fill"></i>&nbsp;&nbsp;여행자보험</span><span><i class="bi bi-caret-right-fill" style="float: right;"></i></span></a>
 	<br><br>

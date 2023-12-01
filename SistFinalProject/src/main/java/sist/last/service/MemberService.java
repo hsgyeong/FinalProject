@@ -12,6 +12,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
 import sist.last.dto.MemberDto;
+import sist.last.dto.ReserveDto;
 import sist.last.mapper.MemberMapperInter;
 
 @Service
@@ -70,7 +71,6 @@ public class MemberService implements MemberServiceInter {
 	@Override
 	public void updateMember(MemberDto memberDto) {
 		// TODO Auto-generated method stub
-		
 		mapperInter.updateMember(memberDto);
 	}
 
