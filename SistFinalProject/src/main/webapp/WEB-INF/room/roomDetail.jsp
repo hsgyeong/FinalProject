@@ -595,12 +595,12 @@
 					
 
 					
-						<c:if test="${rdto.room_count > 0 }">
+						<c:if test="${roomExist > 0 }">
 						<button type="button" class="room_detail_reserve_btn"
 							onclick="location.href='/reserve/reserve-form?room_num=${rdto.room_num}&checkin=${checkin }&checkout=${checkout }&sleep=${sleep }&accom_name=${accom_name}&room_name=${rdto.room_name }'">예약</button>
 						</c:if>
 						
-						<c:if test="${rdto.room_count == 0 }">
+						<c:if test="${roomExist == 0 }">
 						<button type="button" id="detail_alert"
 							class="room_detail_x_btn">숙소에 문의</button>
 						</c:if>
@@ -613,7 +613,7 @@
 	<script>
 	$("#detail_alert").click(function() {
 		
-		alert("객실이 품절되었습니다");
+		alert("객실이 품절되었습니다 숙소에 문의해주세요");
 	})
 	</script>
 

@@ -103,13 +103,18 @@
         display: flex;
         align-items: center;
         width: 80%;
+        font-family: 'arial';
+        font-weight: bold;
     }
 
     input.search-input {
-        background: #f7323f;
+        background: opacity;
         position: relative;
-        width: 80%;
+        width: 50%;
         border: none;
+        color: black;
+        border-radius: 2px;
+        
     }
 
     input.search-input:focus {
