@@ -28,6 +28,7 @@ import sist.last.mapper.AccomMapperInter;
 import sist.last.mapper.MemberMapperInter;
 import sist.last.mapper.ReviewMapperInter;
 import sist.last.mapper.RoomMapperInter;
+import sist.last.service.BusinessService;
 import sist.last.service.ReserveService;
 
 @Controller
@@ -43,6 +44,8 @@ public class RoomController {
     ReserveService rmapper;
     @Autowired
     ReviewMapperInter reviewmapper;
+    @Autowired
+    BusinessService businessService;
 
     @GetMapping("/room/room-list")
     public ModelAndView list(@RequestParam int accom_num,HttpSession session) {
@@ -238,11 +241,20 @@ public class RoomController {
     }
 
     @GetMapping("/room/room-insert")
-    public String roominsertform(@RequestParam String accom_num,Model model) {
+    public String roominsertform(@RequestParam int accom_num,Model model) {
     	
-    	model.addAttribute("accom_num", accom_num);
+    	int approval=amapper.getOneData(accom_num).getAccom_approval();
     	
-        return "/room/roomInsert";
+    	if(approval==1)
+    	{
+    		model.addAttribute("accom_num", accom_num);
+    	
+    		return "/room/roomInsert";
+    	}
+    	else
+    	{
+    		return "/room/roomFail";
+    	}
     }
 
     @PostMapping("/room/insert")
