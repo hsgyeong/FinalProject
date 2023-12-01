@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sist.last.mapper.ChatMapperInter">
-	<select id="maxNumOfChat" resultType="int">
-        select max(chatnum) from chat
+    <select id="getAllChatByRoom" parameterType="int" resultType="chatDto">
+        select * from chat where room_num=#{room_num}
     </select>
-	<select id="getAllDataOfChat" parameterType="int" resultType="chatDto">
-        select * from chat where roomnumber=#{roomnumber} order by chatnum desc
+    <select id="insertChat" parameterType="chatDto">
+        insert into chat values (null,#{room_num},#{sender_id},#{receiver_id},#{mess_content},now())
     </select>
-    <insert id="insertChat" parameterType="chatDto">
-        insert into chat values(null,#{roomnumber},#{senderid},#{receiverid},#{chatcontent},now())
-    </insert>
+    <delete id="deleteChat" parameterType="String">
+        delete from chat where mess_num=#{mess_num}
+    </delete>
+    <select id="getMaxNumByChat" resultType="int">
+        select max(mess_num) from chat
+    </select>
+    <select id="deleteChatByChatRoom" parameterType="room_num">
+        delete from chat where room_num=#{room_num}
+    </select>
 </mapper>

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import sist.last.chat.Room;
 import sist.last.dto.ChatRoomDto;
 import sist.last.mapper.AccomMapperInter;
+import sist.last.mapper.ChatMapperInter;
 import sist.last.mapper.ChatRoomMapperInter;
 
 import javax.servlet.http.HttpSession;
@@ -25,14 +26,15 @@ public class ChatController {
 
     @Autowired
     AccomMapperInter accomMapperInter;
-
     @Autowired
-    ChatRoomMapperInter chatRoomMapperInter;
+    ChatRoomMapperInter roomMapperInter;
+    @Autowired
+    ChatMapperInter chatMapperInter;
 
     @GetMapping("/goChattingRoom")
-    public String goChattingRoom(@RequestParam int accom_num,
+    public String goChattingRoom(@RequestParam int room_num,
                                  Model model){
-        String roomname=accomMapperInter.getOneData(accom_num);
+        String roomName=accomMapperInter.getOneData(roomMapperInter.getChatRoom(room_num).getAccom_num());
 
         model.addAttribute("accom_num",accom_num);
 
