@@ -53,20 +53,21 @@ public class KakaoMemberController {
 	 
 	 Map<String, Integer> map = new HashMap<>();
 	
-	 int k = kakaoMemberService.getSearchKakaoId(info_id);
+	 int k = kakaoMemberService.getSearchKakaoId("kakao_"+info_id);
 	 map.put("count", k);
 	 System.out.println(k);
 	 
 	 if(k==1) {
+		 System.out.println("별명:"+info_nickname);
 		 System.out.println("kakaoid == "+info_id);
 		 session.setAttribute("info_nickname", info_nickname);
 		 session.setAttribute("info_id", info_id);
 		 session.setAttribute("access_token", access_token);
 		 session.setAttribute("loginok", "kakao");	 
 		 
-		 String loggedKakaoId = (String) session.getAttribute(info_id);
+		 String loggedKakaoId = (String) session.getAttribute("info_id");
 		 MemberDto loggedInMember = memberMapperInter.getDataByKakaoId(loggedKakaoId);
-		 
+		 System.out.println(loggedKakaoId);
 		 System.out.println(loggedInMember);
 	
 	 }else if(k==0)
@@ -89,7 +90,7 @@ public class KakaoMemberController {
 	 e.printStackTrace();
  } 
  
-	 return "/";
+	 return "redirect:/";
 
  }
 
