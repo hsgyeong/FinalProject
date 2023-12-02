@@ -14,5 +14,4 @@ public class SistFinalProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SistFinalProjectApplication.class, args);
 	}
-
 }

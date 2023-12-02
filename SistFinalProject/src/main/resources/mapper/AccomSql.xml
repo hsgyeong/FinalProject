@@ -41,21 +41,21 @@
         accom_latitude=#{accom_latitude}, accom_longitude=#{accom_longitude}
         where accom_num=#{accom_num}
     </update>
-    
+
       	<select id="selectjoin" parameterType="int" resultType="productDto">
   		select * FROM accom A JOIN room B ON A.accom_num = B.accom_num
         where A.accom_num=#{accom_num};
   	</select>
-  	
+
   	<insert id="insertReview" parameterType="AccomDto">
   		insert into accom(accom_score) values (#{accom_score})
   	</insert>
-  	
+
   	<select id="getAverageScore" parameterType="int" resultType="double">
 	    SELECT IFNULL(ROUND(AVG(review_score), 1), 0) AS average_score
 		FROM review
 		WHERE accom_num = #{accom_num};
-	</select>	
+	</select>
 	
 	<update id="updateAccomScore" parameterType="int">
 	    UPDATE accom
@@ -73,4 +73,11 @@
 	    )
 	    WHERE accom_num = #{accom_num};
 	</update>
+
+    <!-- chatting   -->
+    <select id="getAccomName" parameterType="int" resultType="AccomDto">
+        select * from accom where accom_num=#{accom_num}
+    </select>
+
+
 </mapper>
