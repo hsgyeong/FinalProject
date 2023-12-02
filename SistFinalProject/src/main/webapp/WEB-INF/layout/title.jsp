@@ -396,7 +396,7 @@
                                     <li><a class="com">${businessDto.business_company }</a></li>
                                 </c:when>
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'kakao'}">
-                                    <li><a class="com">${memberDto.info_nickname }</a></li>
+                                    <li><a class="com">${sessionScope.info_nickname }</a></li>
                                 </c:when>
                             </c:choose>
                         </div>
