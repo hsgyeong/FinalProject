@@ -204,10 +204,12 @@ public class MemberController {
 		return "/member/MyReservationList";
 	}
 
-	@GetMapping("update-reserve")
-	public String reserveUpdate(ReserveDto reserveDto)
+	@PostMapping("/member/update-reserve")
+	public String reserveUpdate(@ModelAttribute ReserveDto dto, Model model)
 	{
+		mapper.updateReserveStatus(dto);
 		
+		model.addAttribute(dto);
 		
 		return "/member/MyReservationList";
 	}

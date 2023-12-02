@@ -17,6 +17,7 @@ $(document).ready(function(){
 	$(".room_detail_reserve_btn").click(function(){
 		
 		var reserve_id = $("#reserve-cancle").val();
+		var reserve_status = "예약취소";
 		
 		var ans = confirm("예약 취소하시겠습니까?");
 		//alert(reserve_id);		
@@ -24,10 +25,13 @@ $(document).ready(function(){
 	
 	$.ajax({
 		
-		type:"get",
+		type:"post",
 		url:"update-reserve",
 		dataType:"html",
-		data:{"reserve_id":reserve_id},
+		data:{
+			"reserve_id":reserve_id,
+			"reserve_status":reserve_status
+		},
 		success:function(res){
 			
 			alert("예약 취소되었습니다.");
@@ -55,20 +59,25 @@ $(document).ready(function(){
     }
     
     .detail_room_select {
-     border: 1px solid silver;
 	border-radius: 1px;
 	margin: auto;
     }
     
     .reservelist {
-    border: 1px solid silver;
+
 	border-radius: 5px;
+	width:800px;
+    height:400px;
+    
     }
     
     .detail_room_reserve {
-    margin-top: 30px;
-    margin-left: 50px;
-    
+    margin: auto;
+	border-radius: 5px;
+	width:800px;
+    height:600px;
+    margin-top: 50px;
+ 
     }
     
     .room_detail_reserve_btn {
@@ -76,15 +85,24 @@ $(document).ready(function(){
 	background-color: #f7323f;
 	border: none;
 	border-radius: 3px;
-	width: 100%;
+	width: 400px;
 	height: 7vh;
-	margin-top: -2vh;
 	box-shadow: 2px 2px 2px silver;
     }
     
     .reserve_list {
     width:800px;
-    float: right;
+    height:300px;
+    margin-top: 50px;
+    margin-left: 80px;
+    float:right;
+    }
+    
+    .cancel_bt {
+    text-align: center;
+    }
+    
+    #roomimg {
     
     }
     </style>
@@ -97,28 +115,31 @@ $(document).ready(function(){
 		
 		
 		<div class="detail_room_select">
-			<div class="detail_room_reserve">
+			<div class="detail_room_reserve" style="display: flex;">
+			<div class="img" style="float:left">
+			<img alt="" src="../roomsave/20231122112246_urban-20230228144115810458.jpg"
+			style="width:400px; height: 380px; margin-top: 50px;" id="roomimg">
+			</div>
 			<div class="reserve_list">
 				
-				 <div class="reserve_accom"><span>예약자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${reserveDto.reserve_name }</span> </div><br>
+				 <div class="reserve_accom">예약자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 20px;">${reserveDto.reserve_name }</span> </div><br>
 			
-				<div class="reserve_room"><span>숙소타입&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${reserveDto.room_name }</span> </div><br>
+				<div class="reserve_room">숙소타입&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 20px;">${reserveDto.room_name }</span> </div><br>
 				
-				<div class="reserve_checkin">체크인</div>
-				${reserveDto.reserve_checkin }
+				<div class="reserve_checkin" style="margin-bottom: 10px;">체크인</div>
+				<span style="font-size: 20px;">${reserveDto.reserve_checkin }</span>
 				
-				<br><div class="reserve_checkout"><br>체크아웃</div>
-				${reserveDto.reserve_checkout }<br>
-			
+				<br><div class="reserve_checkout"  style="margin-bottom: 10px;"><br>체크아웃</div>
+				<span style="font-size: 20px;">${reserveDto.reserve_checkout }</span><br>
+				<br>			
 				<div class="reserve_amount">
-					<br><fmt:formatNumber value="${reserveDto.reserve_amount }" />
-					원
+				결제금액&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 20px;"><fmt:formatNumber value="${reserveDto.reserve_amount }"/>원</span>
 				</div>
 				
 				<br>
-				<div class="status" style="color:green">${reserveDto.reserve_status }</div>
+				<div class="status" style="color:green; font-size: 30px; font-weight: bold;">${reserveDto.reserve_status }</div>
 				
-				<div align="center">
+				<div class="cancel_bt" align="center">
 					<br>
 						<button type="button" class="room_detail_reserve_btn" id="reserve-cancle"
 						value="${reserveDto.reserve_id}">예약취소</button>

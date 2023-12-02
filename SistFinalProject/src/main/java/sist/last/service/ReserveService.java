@@ -55,5 +55,11 @@ public class ReserveService implements ReserveServiceInter {
 		// TODO Auto-generated method stub
 		return mapper.getReservationDataById(info_id);
 	}
+
+	@Override
+	public void updateReserveStatus(ReserveDto dto) {
+		// TODO Auto-generated method stub
+		mapper.updateReserveStatus(dto);
+	}
 	
 }

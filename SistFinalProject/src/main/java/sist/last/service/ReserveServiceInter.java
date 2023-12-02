@@ -12,4 +12,6 @@ public interface ReserveServiceInter {
 	public ReserveDto getOneInfoData(String info_id);
 	public List<ReserveDto> getReserveCountOfRoomNumber(int room_num);
 	public List<ReserveDto> getReservationDataById(String info_id);
+
+	public void updateReserveStatus(ReserveDto dto);
 }

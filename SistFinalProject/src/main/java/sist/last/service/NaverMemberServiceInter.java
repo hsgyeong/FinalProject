@@ -1,10 +1,12 @@
 package sist.last.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 public interface NaverMemberServiceInter {
 
-	public String getAccessToken(String code, String state) throws JsonProcessingException;
+	public String getAccessToken(String type) throws URISyntaxException, MalformedURLException, UnsupportedEncodingException;
 		
 		
 	

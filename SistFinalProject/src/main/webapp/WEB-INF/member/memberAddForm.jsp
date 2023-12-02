@@ -18,6 +18,7 @@
 <script type="text/javascript">
 	$(function() {
 		
+		
 		function ValidId(id){
 			var idRegex = /^[a-z0-9]{4,12}$/;
 			return idRegex.test(id);
@@ -80,6 +81,12 @@
 
 			}
 		})
+		
+		$("#hp2, #hp3").on("input", function(){
+			
+			var hpnum = $(this).val().replace(/[^0-9]/g,'');
+			$(this).val(hpnum);
+		});
 
 		$("#pass1").keyup(function(){
 			
@@ -112,6 +119,26 @@
 			}
 
 		});
+		
+		$("#joinForm").submit(function(e){
+			
+			var pass1 = $("#pass1").val();
+			var pass2 = $("#pass2").val();
+			
+			if(!ValidPassword(pass1)){
+				alert("유효하지 않은 비밀번호입니다. 다시 입력해주세요.");
+				
+				e.preventDefault();
+				
+				return;
+			}
+			
+			if(pass1 !== pass2) {
+				alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+				
+			 	e.preventDefault();
+			}
+		})
 		
 		$("#nickchk").click(function() {
 

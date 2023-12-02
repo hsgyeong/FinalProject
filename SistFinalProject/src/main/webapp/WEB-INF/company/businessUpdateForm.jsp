@@ -32,6 +32,12 @@
 
 			}
 		})
+		
+			$("#hp2, #hp3").on("input", function(){
+			
+			var hpnum = $(this).val().replace(/[^0-9]/g,'');
+			$(this).val(hpnum);
+		});
 
 		$("#pass2").keyup(function() {
 			var pass1 = $("#pass1").val();
@@ -46,6 +52,26 @@
 
 			}
 
+		})
+		
+		$("#updateBusiness").submit(function(e){
+			
+			var pass1 = $("#pass1").val();
+			var pass2 = $("#pass2").val();
+			
+			if(!ValidPassword(pass1)){
+				alert("유효하지 않은 비밀번호입니다. 다시 입력해주세요.");
+				
+				e.preventDefault();
+				
+				return;
+			}
+			
+			if(pass1 !== pass2) {
+				alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+				
+			 	e.preventDefault();
+			}
 		})
 
 	});
@@ -106,7 +132,7 @@ body {
 </style>
 </head>
 <body>
-	<form action="update-business" method="post">
+	<form action="update-business" method="post" id="updateBusiness">
 	<input type="hidden" name="business_id" value="${businessDto.business_id }">
 		<table class="tb">
 			<h3><a href="/"	class="t" style="font-family: 'Jalnan'; text-align: center;

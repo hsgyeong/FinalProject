@@ -1,4 +1,4 @@
-package sist.last.controller;
+/*package sist.last.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,10 +13,13 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,7 +91,7 @@ public class NaverMemberController {
 		{
 			System.out.println("에러발생에러발생에러발생에러발생에러발생에러발생");
 		}
-	/*	ObjectMapper objectMapper = new ObjectMapper();
+		ObjectMapper objectMapper = new ObjectMapper();
 		
 		Map<String, Object> jsonMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>(){
 		});
@@ -99,7 +102,7 @@ public class NaverMemberController {
 		System.out.println(refresh_token);
 		
 		br.close();
-		bw.close(); */
+		bw.close(); 
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -108,4 +111,13 @@ public class NaverMemberController {
 	}
 	
 	
+	@GetMapping()
+	public void neverLoin(HttpServletRequest request, HttpServletResponse response)
+	{
+	
+	}
+	
+	
+	
 }
+*/
