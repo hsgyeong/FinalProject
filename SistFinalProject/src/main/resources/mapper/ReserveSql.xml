@@ -26,5 +26,9 @@
  	<select id="getReserveCountOfRoomNumber" parameterType="int" resultType="reserveDto">
         select room_num,reserve_checkin,reserve_checkout from reservation where room_num=#{room_num}
     </select>
+    
+    <update id="updateReserveStatus" parameterType="reserveDto">
+    	update reservation set reserve_status=#{reserve_status} where reserve_id=#{reserve_id}
+    </update>
 
  </mapper>

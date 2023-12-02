@@ -1,12 +1,14 @@
 package sist.last.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface NaverMemberMapperInter {
 
-	public String getAccessToken(String code, String state) throws JsonProcessingException;
+	public String getAccessToken(String type) throws URISyntaxException, MalformedURLException, UnsupportedEncodingException;
 	
 }

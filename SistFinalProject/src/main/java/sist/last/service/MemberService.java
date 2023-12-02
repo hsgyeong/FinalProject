@@ -101,5 +101,4 @@ public class MemberService implements MemberServiceInter {
 		return validatorResult;
 	}
 
-
 }

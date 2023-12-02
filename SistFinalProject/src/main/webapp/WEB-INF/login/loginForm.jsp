@@ -266,7 +266,7 @@ if(cookies != null) {
 					<img alt="" src="../loginsave/kakao.png" style="cursor: pointer; width:145px;height:40px;">
 					</a>
 					&nbsp;&nbsp;&nbsp;
-					<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=HGSZO2Y2v6oIfhPXDCxu&redirect_uri=http://localhost:9000/login/naver-member">
+					<a href="/login/naver-login">
 					<img alt="" src="../loginsave/naver.png" style="cursor: pointer; width:145px;height:40px;">
 					</a>
 					</div>

@@ -33,7 +33,29 @@
 
 			}
 		})
+		
+		$("#hp2, #hp3").on("input", function(){
+			
+			var hpnum = $(this).val().replace(/[^0-9]/g,'');
+			$(this).val(hpnum);
+		});
 
+		$("#pass1").keyup(function(){
+			
+			var pass1=$(this).val();
+			var validPass = ValidPassword(pass1);
+			if(validPass){
+				$("span.passvalid").text("");		
+			}else{
+				$("span.passvalid").text("비밀번호는 8~12자리의 영소문자 또는 대문자, 숫자, 특수문자를 포함해야합니다.").css("color","red");
+			}
+		})
+		
+			function ValidPassword(password) {
+			var passwords = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/;
+			return passwords.test(password);
+		}
+		
 		$("#pass2").keyup(function() {
 			var pass1 = $("#pass1").val();
 			var pass2 = $("#pass2").val();
@@ -47,6 +69,26 @@
 
 			}
 
+		})
+		
+		$("#updateForm").submit(function(e){
+			
+			var pass1 = $("#pass1").val();
+			var pass2 = $("#pass2").val();
+			
+			if(!ValidPassword(pass1)){
+				alert("유효하지 않은 비밀번호입니다. 다시 입력해주세요.");
+				
+				e.preventDefault();
+				
+				return;
+			}
+			
+			if(pass1 !== pass2) {
+				alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+				
+			 	e.preventDefault();
+			}
 		})
 
 		$("#nickchk").click(function() {
@@ -133,7 +175,7 @@ body {
 </style>
 </head>
 <body>
-	<form action="update-member" method="post" >
+	<form action="update-member" method="post" id="updateForm">
 	<input type="hidden" name="info_id" value="${memberDto.info_id}">
 		<table class="tb">
 			<h3>
@@ -157,7 +199,10 @@ body {
 						 비밀번호<br>
 						<input type="password" name="info_pass" value="${memberDto.info_pass }"	
 						id="pass1" class="form-control" required="required"
-							style="width: 300px;" placeholder="비밀번호를 입력해주세요">&nbsp;&nbsp;<br>						
+							style="width: 300px;" placeholder="비밀번호를 입력해주세요">
+								<span class="passvalid" style="font-size: 12px;"></span>
+							&nbsp;&nbsp;<br>
+									
 						비밀번호 확인<br>
 						<div style="display: flex;">
 							<input type="password" name="pass2" id="pass2"
@@ -170,7 +215,7 @@ body {
 						<input	type="text" name="info_nickname" value="${memberDto.info_nickname }" id="nick" class="form-control"
 						required="required" style="width: 330px;" placeholder="닉네임을 입력해주세요">&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn" id="nickchk" style="background-color: #f7323f; color: white; 
-							font-family: 'Jalnan'; width:30%;">중복체크</button></span>
+							font-family: 'Jalnan'; width:30%;">중복체크</button></span><br>
 						<span class="nickok" style="color: green; font-size: 12px;"></span><br><br>			
 						 이름 &nbsp;&nbsp;&nbsp;&nbsp;
 						 <span class="uname">${memberDto.info_name }<br><br></span>			 
