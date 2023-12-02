@@ -10,7 +10,7 @@ public interface ChatMapperInter {
 
     public List<ChatDto> getAllChatByRoom(int room_num);
     public void insertChat(ChatDto chatDto);
-    public void deleteChat(String mess_num);
+    public void deleteChat(int mess_num);
     public int getMaxNumByChat();
     public void deleteChatByChatRoom(int room_num);
 

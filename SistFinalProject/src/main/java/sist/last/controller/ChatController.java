@@ -3,10 +3,8 @@ package sist.last.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import sist.last.chat.Room;
 import sist.last.dto.ChatDto;
@@ -16,6 +14,8 @@ import sist.last.mapper.ChatMapperInter;
 import sist.last.mapper.ChatRoomMapperInter;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -94,13 +94,43 @@ public class ChatController {
                 // 하루 이상이 지났으면 일수만 표시
                 preTime=""+day+"일 전";
             } else {
-                
+                if (hour!=0){
+                    // 1분 이상 지났으면 분만 표시
+                    preTime=""+minute+"분 전";
+                } else {
+                    // 1분 미만 방금전 표시
+                    preTime="방금 전";
+                }
             }
-
+            chatDto.setMess_time(preTime);
         }
+        return chatList;
+    }
 
+    @PostMapping("/fileupload")
+    @ResponseBody
+    public Map<String,String> fileUpload(@RequestParam MultipartFile upload,
+                                         HttpSession session){
+        Map<String,String> map=new HashMap<>();
 
+        // 저장 경로
+        String path=session.getServletContext().getRealPath("/chatsave");
 
+        // 파일 이름
+        String fileName=upload.getOriginalFilename();
+
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddhhmmss");
+
+        String uploadName="msg_"+sdf.format(new Date())+fileName; // 저장할 파일명
+
+        try {
+            upload.transferTo(new File(path+"/"+uploadName));
+        } catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+        }
+        map.put("upload",uploadName);
+
+        return map;
     }
 
 }

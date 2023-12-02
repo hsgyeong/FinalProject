@@ -6,7 +6,7 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <meta charset="UTF-8">
-    <title>Room</title>
+    <title>ChatRoom</title>
     <style>
         *{
             margin:0;
@@ -75,49 +75,35 @@
 </head>
 
 <script type="text/javascript">
+    function goChatting(room_num){
+        location.href="/goChattingRoom?room_num="+room_num;
+    }
 
 
 </script>
 <body>
-<div class="container">
-    <h1>채팅방</h1>
-    <div id="roomContainer" class="roomContainer">
-        <table id="roomList" class="roomList">
-            <tr>
-                <th class="num">번호</th>
-                <th class="room">고객 ID</th>
-                <th>chatting 생성 날짜</th>
-                <th class="go"></th>
-            </tr>
-            <c:if test="${sessionScope.admin_id!=null}">
-                <c:forEach var="chatRoomDto" items="${chatRoomDtoList}" varStatus="i">
+    <div class="container">
+        <h1>채팅방</h1>
+        <div id="roomContainer" class="roomContainer">
+            <table id="roomList" class="roomList"></table>
+        </div>
+        <div class="container">
+            <table class="table_bordered w-75" style="text-align: center">
+                <tr>
+                    <th class="num">순서</th>
+                    <th class="room">방 이름</th>
+                    <th class="go"></th>
+                </tr>
+
+                <c:forEach var="chatRoom" items="${chatRoomList}" varStatus="idx">
                     <tr>
-                        <td>
-                            ${chatRoomDto.roomnumber}
-                        </td>
-                        <td>
-                            ${chatRoomDto.senderid}
-                        </td>
-                        <td>
-                            ${chatRoomDto.roomcreateday}
-                        </td>
+                        <td class="num">${idx.count}</td>
+                        <td class="room"><b>${accom_name}_#{chatRoom.room_num}</b></td>
+                        <td class="go"><button type="button" id="goRoomBtn" onclick="goChatting(${chatRoom.room_num})" accomNum="${chatRoom.accom_num}" >참여</button> </td>
                     </tr>
                 </c:forEach>
-            </c:if>
-
-        </table> <%-- 채팅방목록은 여기에 표시됩니다. 방은 서버 응답을 기반으로 JavaScript를 사용하여 동적으로 채워집니다. --%>
+            </table>
+        </div>
     </div>
-    <div>
-        <table class="inputTable">
-            <tr>
-                <th>방 제목</th>
-                <th><input type="text" name="roomName" id="roomName"></th>
-                <th><button id="createRoom">방 만들기</button></th>
-            </tr>
-        </table>
-    </div>
-</div>
-
-
 </body>
 </html>

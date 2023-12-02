@@ -14,6 +14,8 @@ public class ChatDto {
     private String receiver_id;
     private String mess_content;
     private Timestamp mess_writeday;
+
+    private String mess_time;
 //    private int chatNum;
 //    private int roomNumber;
 //    private String senderId;
