@@ -21,9 +21,10 @@ public class NaverMemberService implements NaverMemberServiceInter {
 	public String getAccessToken(String type)
 			throws URISyntaxException, MalformedURLException, UnsupportedEncodingException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
-	
+
+
 
 
 }*/
