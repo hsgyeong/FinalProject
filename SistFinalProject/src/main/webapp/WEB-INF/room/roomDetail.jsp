@@ -473,6 +473,9 @@
 				data:{"accom_num":accom_num},
 				dataType:"html",
 				success:function (res){
+					alert(res.accom_num); // 여기가 문제. 즉
+					alert(res);
+					alert(accom_num);
 					if (res==0){
 						alert("자신이 판매하는 상품은 구매할 수 없습니다.");
 						location.href="/chat/goSellerRooms?accom_num="+accom_num;

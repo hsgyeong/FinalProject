@@ -44,12 +44,16 @@ public class ChatController {
     }
 
     @GetMapping("/goSellerRooms")
-    public String goSellerRooms(@RequestParam int accom_num,Model model){
+    public String goSellerRooms(@RequestParam int accom_num,
+                                @RequestParam int room_num,
+                                Model model){
         List<ChatRoomDto> chatRoomList=roomMapperInter.getChatRoomByAccom(accom_num);
         String roomName=accomMapperInter.getOneData(accom_num).getAccom_name();
 
         model.addAttribute("chatRoomList",chatRoomList);
         model.addAttribute("roomName",roomName);
+        model.addAttribute("accom_num",accom_num);
+        model.addAttribute("room_num",room_num);
 
         return "/chat/room";
     }
@@ -137,6 +141,8 @@ public class ChatController {
     @ResponseBody
     public int createRoom(@RequestParam int accom_num,
                           HttpSession session){
+
+//        System.out.println(accom_num);
 
 
         String sender_id=(String) session.getAttribute("info_id");

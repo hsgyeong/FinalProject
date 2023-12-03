@@ -253,6 +253,7 @@
             $("div.search-input-box").show();
             $("div.select-box").hide();
             $("i.search-active").show().animate({"marginLeft": "70px"}, 500);
+            $(".search-input").focus();
             $(this).hide();
         });
 
