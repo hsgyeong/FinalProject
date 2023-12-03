@@ -32,22 +32,12 @@ public class ChatController {
     @Autowired
     ChatMapperInter chatMapperInter;
 
-    @GetMapping("/goChattingRoom")
-    public String goChattingRoom(@RequestParam int room_num,
-                                 Model model){
-        String roomName=accomMapperInter.getOneData(roomMapperInter.getChatRoom(room_num).getAccom_num()).getAccom_name();
 
-        model.addAttribute("room_num",room_num);
-        model.addAttribute("roomName",roomName);
-
-        return "/chat/chat";
-    }
 
     @PostMapping("/createRoom")
     @ResponseBody
     public int createRoom(@RequestParam int accom_num,
                           HttpSession session){
-
         String sender_id=(String) session.getAttribute("info_id");
 
         // 판매자의 user_num을 찾을 수 있도록 수정해야 됨
@@ -79,22 +69,34 @@ public class ChatController {
     }
 
     @GetMapping("/goSellerRooms")
-    public String goSellerRooms(@RequestParam int accom_num,
+    public ModelAndView goSellerRooms(@RequestParam int accom_num,
                                 @RequestParam int room_num,
                                 Model model){
-        System.out.println("goSEllerRooms"+accom_num);
-        System.out.println("goSEllerRooms"+room_num);
+        ModelAndView mv=new ModelAndView();
 
         List<ChatRoomDto> chatRoomList=roomMapperInter.getChatRoomByAccom(accom_num);
 
         String roomName=accomMapperInter.getOneData(accom_num).getAccom_name();
 
-        model.addAttribute("chatRoomList",chatRoomList);
-        model.addAttribute("roomName",roomName);
-        model.addAttribute("accom_num",accom_num);
-        model.addAttribute("room_num",room_num);
+        mv.addObject("chatRoomList",chatRoomList);
+        mv.addObject("roomName",roomName);
+        mv.addObject("accom_num",accom_num);
+        mv.addObject("room_num",room_num);
 
-        return "/chat/room";
+        mv.setViewName("/chat/room");
+
+        return mv;
+    }
+
+    @GetMapping("/goChattingRoom")
+    public String goChattingRoom(@RequestParam int room_num,
+                                 Model model){
+        String roomName=accomMapperInter.getOneData(roomMapperInter.getChatRoom(room_num).getAccom_num()).getAccom_name();
+
+        model.addAttribute("room_num",room_num);
+        model.addAttribute("roomName",roomName);
+
+        return "/chat/chat";
     }
 
     @GetMapping("/chatting")

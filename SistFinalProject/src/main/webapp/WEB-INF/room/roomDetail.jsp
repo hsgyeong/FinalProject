@@ -465,7 +465,7 @@
 	// 	채팅 채팅 채팅
 		$("#createRoomBtn").click(function (){
 			var accom_num=$(this).attr("accom_num");
-			alert(accom_num);
+			// alert(accom_num);
 
 			$.ajax({
 				type:"post",
@@ -474,8 +474,8 @@
 				dataType:"html",
 				success:function (res){ // 여기서 res == room_num 입니다.
 					// alert("1"+res.accom_num); // 여기가 문제. 즉
-					alert("2"+res);
-					alert(accom_num);
+					// alert("2"+res);
+					// alert(accom_num);
 					if (res==0){
 						alert("자신이 판매하는 상품은 구매할 수 없습니다.");
 						location.href="/chat/goSellerRooms?accom_num="+accom_num;

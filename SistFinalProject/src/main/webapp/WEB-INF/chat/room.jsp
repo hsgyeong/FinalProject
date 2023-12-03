@@ -71,6 +71,9 @@
             width: 330px;
             height: 25px;
         }
+        table{
+            border: 2px solid pink;
+        }
     </style>
 </head>
 
@@ -82,26 +85,24 @@
 
 </script>
 <body>
+<h1>울고 싶지 않아~</h1>
     <div class="container">
         <h1>채팅방</h1>
         <div id="roomContainer" class="roomContainer">
-            <table id="roomList" class="roomList"></table>
-        </div>
-        <div class="container">
-            <table class="table_bordered w-75" style="text-align: center">
+            <table id="roomList" class="roomList">
                 <tr>
-                    <th class="num">순서</th>
-                    <th class="room">방 이름</th>
-                    <th class="go"></th>
+                    <th class="num" width="150">순서</th>
+                    <th class="room" width="250">방 이름</th>
+                    <th class="go"width="100"></th>
                 </tr>
-
                 <c:forEach var="chatRoom" items="${chatRoomList}" varStatus="idx">
                     <tr>
                         <td class="num">${idx.count}</td>
-                        <td class="room"><b>${roomName}_#{chatRoom.room_num}</b></td>
-                        <td class="go"><button type="button" id="goRoomBtn" onclick="goChatting(${chatRoom.room_num})" accomNum="${chatRoom.accom_num}" >참여</button> </td>
+                        <td class="room"><b>${roomName}_${chatRoom.room_num}</b></td>
+                        <td class="go"><button type="button" id="goRoomBtn" onclick="goChatting(${chatRoom.room_num})" accom_num="${chatRoom.accom_num}" >참여</button> </td>
                     </tr>
                 </c:forEach>
+
             </table>
         </div>
     </div>
