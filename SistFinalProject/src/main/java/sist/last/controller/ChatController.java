@@ -133,5 +133,42 @@ public class ChatController {
         return map;
     }
 
+    @PostMapping("/createRoom")
+    @ResponseBody
+    public int createRoom(@RequestParam int accom_num,
+                          HttpSession session){
+
+
+        String sender_id=(String) session.getAttribute("info_id");
+
+        // 판매자의 user_num을 찾을 수 있도록 수정해야 됨
+        String business_id="test2";
+
+        // 현재 채팅을 보내려는 사용자가 판매자이면 방을 생성할 수 없음
+        if(sender_id.equals(business_id)){
+            return 0;
+        } else {
+            // 기존에 존재하는 채팅방이라면 그곳으로 이동
+            Map<String,Object>map=new HashMap<>();
+            map.put("sender_id",sender_id);
+            map.put("accom_num",accom_num);
+            String room=roomMapperInter.checkChatRoom(map);
+            System.out.println(room);
+
+            if (room!=null){
+                return Integer.parseInt(room);
+            } else { // 없다면 새로 방 생성후 생성된 방으로 이동
+                ChatRoomDto chatRoomDto=new ChatRoomDto();
+                chatRoomDto.setAccom_num(accom_num);
+                chatRoomDto.setSender_id(sender_id);
+                chatRoomDto.setReceiver_id(business_id);
+                roomMapperInter.insertRoom(chatRoomDto);
+                return roomMapperInter.getMaxNum();
+
+            }
+
+        }
+    }
+
 }
 

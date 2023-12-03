@@ -378,7 +378,6 @@
             <ul>
                 <li><a href="#">공지사항</a></li>
                 <li><a href="/notice/event">이벤트</a></li>
-                <li><a href="/chat/room1">1:1문의</a></li>
                 <li><a href="#">약관 및 정책</a></li>
                 <li><a href="#">공지사항</a></li>
             </ul>

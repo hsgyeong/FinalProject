@@ -380,6 +380,13 @@
 	margin-top: -2vh;
 	box-shadow: 2px 2px 2px silver;
 }
+.createChatRoomBtn{
+	position: fixed;
+	bottom: 100px;
+	right: 100px;
+
+}
+
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -454,6 +461,29 @@
 			$(".detail_suk_info").hide();
 			$(".detail_review").show();
 		});
+
+	// 	채팅 채팅 채팅
+		$("#createRoomBtn").click(function (){
+			var accom_num=$(this).attr("accom_num");
+			alert(accom_num);
+
+			$.ajax({
+				type:"post",
+				url:"/chat/createRoom",
+				data:{"accom_num":accom_num},
+				dataType:"html",
+				success:function (res){
+					if (res==0){
+						alert("자신이 판매하는 상품은 구매할 수 없습니다.");
+						location.href="/chat/goSellerRooms?accom_num="+accom_num;
+					} else {
+						location.href="/chat/goSellerRooms?room_num="+res;
+					}
+				}
+			});
+
+		});
+
 	});
 </script>
 <body>
@@ -849,5 +879,9 @@
 		</div>
 		</c:if>
 	</div>
+
+<div class="createChatRoomBtn">
+	<button class="btn btn-dark" id="createRoomBtn" accom_num="${dto.accom_num}" >숙소에 문의</button>
+</div>
 </body>
 </html>
