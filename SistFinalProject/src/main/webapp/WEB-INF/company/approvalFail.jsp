@@ -14,7 +14,7 @@
     <script>
     $(function(){
     	
-    	alert("승인어쩌구 사업자입니다.");
+    	alert("관리자의 승인이 필요한 사업자입니다.");
     	history.back();
     })
     </script>

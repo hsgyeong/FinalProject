@@ -148,7 +148,7 @@ public class LoginController {
             return "redirect:/";
         } else if(approval == 0){
         	
-        	return "/business/approval-fail";
+        	return "/company/approvalFail";
         }else{
 
             return "/login/loginFail";

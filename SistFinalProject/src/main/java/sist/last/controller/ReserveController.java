@@ -37,6 +37,7 @@ public class ReserveController {
 	
 	@GetMapping("/reserve/reserve-form")
 	public String form(Model model,@RequestParam int room_num,
+			@RequestParam int accom_num,
 			@RequestParam String checkin,
 			@RequestParam String checkout,
 			@RequestParam int sleep,
@@ -76,6 +77,7 @@ public class ReserveController {
 		model.addAttribute("sleep", sleep);
 		model.addAttribute("accom_name", accom_name);
 		model.addAttribute("room_name", room_name);
+		model.addAttribute("accom_num", accom_num);
 		
 		return "/reservation/reserveForm";
 	}
@@ -87,6 +89,7 @@ public class ReserveController {
 						  @RequestParam("reserve_hp") String reserve_hp,
 						  @RequestParam("amount") int amount,
 						  @RequestParam("room_num") int room_num,
+						  @RequestParam("accom_num") int accom_num,
 						  @RequestParam("room_checkin") String room_checkin,
 						  @RequestParam("room_checkout") String room_checkout,
 						  @RequestParam("coupon_name") String coupon_name,
@@ -107,6 +110,7 @@ public class ReserveController {
 	    reserveDto.setReserve_coupon(coupon_name);
 	    reserveDto.setAccom_name(accom_name);
 	    reserveDto.setRoom_name(room_name);
+	    reserveDto.setAccom_num(accom_num);
 
 	    rservice.reservingInsert(reserveDto);
 	    
