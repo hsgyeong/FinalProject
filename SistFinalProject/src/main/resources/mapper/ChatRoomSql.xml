@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="checkChatRoom" parameterType="Map" resultType="String">
-        select * from chatroom where accom_num=#{accom_num} and sender_id=#{sender_id}
+        select room_num from chatroom where accom_num=#{accom_num} and sender_id=#{sender_id}
     </select>
     <insert id="insertRoom" parameterType="chatRoomDto">
         insert into chatroom values(null,#{accom_num},#{sender_id},#{receiver_id},now())
@@ -31,6 +31,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     <select id="getChatRoomByAccom" parameterType="int" resultType="chatRoomDto">
         select * from chatroom where accom_num=#{accom_num} order by room_num desc
+    </select>
+    <select id="getChatRoomByAccomAndSender" parameterType="Map" resultType="int">
+        select room_num from chatroom where accom_num=#{accom_num} and sender_id=#{sender_id}
     </select>
 
 

@@ -40,7 +40,6 @@ public class ChatController {
                           HttpSession session){
         String info_id=(String) session.getAttribute("info_id");
         String business_id=(String)session.getAttribute("business_id");
-
         String sender_id = null;
 
         if (info_id!=null){
@@ -72,28 +71,63 @@ public class ChatController {
                 chatRoomDto.setReceiver_id(receiver_id);
                 roomMapperInter.insertRoom(chatRoomDto);
                 return roomMapperInter.getMaxNum();
-
             }
-
         }
     }
 
     @GetMapping("/goSellerRooms")
     public ModelAndView goSellerRooms(@RequestParam int accom_num,
                                 @RequestParam int room_num,
-                                Model model){
+                                Model model,
+                                      HttpSession session){
         ModelAndView mv=new ModelAndView();
 
+        String info_id=(String)session.getAttribute("info_id");
+        String business_id=(String)session.getAttribute("business_id");
+        String myid=(String) session.getAttribute("myid");
+        String sender_id=null;
+
+        if (info_id!=null){
+            sender_id=info_id;
+        } else if (business_id!=null) {
+            sender_id=business_id;
+        } else if (myid!=null) {
+            sender_id=myid;
+        }
+
+        // list에 담아서 보내고.. 그걸 반복문으로 돌려서 찾는다.
+
         List<ChatRoomDto> chatRoomList=roomMapperInter.getChatRoomByAccom(accom_num);
+        Map<String,Object>map=new HashMap<>();
+        map.put("accom_num",accom_num);
+        map.put("sender_id",sender_id);
+        System.out.println(accom_num);
+        System.out.println(room_num);
+//        room_num=roomMapperInter.getChatRoomByAccomAndSender(map).getRoom_num();
+        room_num=roomMapperInter.getChatRoomByAccomAndSender(map);
 
-        String roomName=accomMapperInter.getOneData(accom_num).getAccom_name();
 
-        mv.addObject("chatRoomList",chatRoomList);
-        mv.addObject("roomName",roomName);
-        mv.addObject("accom_num",accom_num);
-        mv.addObject("room_num",room_num);
+        // goSellerRoom : 비지니스 아이디 막아버리고.
+        // 비지니스 아이디 아닐때 뜨게 하고
+        // 비지니스 아이디의 경우 list 뜨게 하기.
 
-        mv.setViewName("/chat/room");
+//        String roomName=accomMapperInter.getOneData(accom_num).getAccom_name();
+
+        String roomName=accomMapperInter.getOneData(roomMapperInter.getChatRoom(room_num).getAccom_num()).getAccom_name();
+
+//        mv.addObject("chatRoomList",chatRoomList);
+//        mv.addObject("roomName",roomName);
+//        mv.addObject("accom_num",accom_num);
+//        mv.addObject("room_num",room_num);
+//        mv.addObject("sender_id",sender_id);
+//        room_num=chatRoomDto.getRoom_num();
+        System.out.println("이게 맞나?"+room_num);
+
+
+        model.addAttribute("room_num",room_num);
+        model.addAttribute("roomName",roomName);
+
+        mv.setViewName("/chat/chat");
 
         return mv;
     }
@@ -107,8 +141,8 @@ public class ChatController {
         model.addAttribute("room_num",room_num);
         model.addAttribute("roomName",roomName);
 
-        System.out.println(room_num);
-        System.out.println(roomName);
+//        System.out.println(room_num);
+//        System.out.println(roomName);
 
         return "/chat/chat";
     }
@@ -168,15 +202,15 @@ public class ChatController {
                 // 하루 이상이 지났으면 일수만 표시
                 preTime=""+day+"일 전";
             } else {
-                if (hour!=0){
-                    // 1분 이상 지났으면 분만 표시
-                    preTime=""+minute+"분 전";
+                if(hour!=0) {
+                    //1시간 이상이 지났으면 시(hour)만 표시
+                    preTime=""+hour+"시간 전";
                 } else {
-                    if (minute!=0){
+                    if(minute!=0) {
                         //1분 이상이 지났으면 분만 표시
                         preTime=""+minute+"분 전";
-                    } else {
-                        // 1분 미만 방금전 표시
+                    }else {
+                        //1분 미만 초만 표시
                         preTime="방금 전";
                     }
                 }

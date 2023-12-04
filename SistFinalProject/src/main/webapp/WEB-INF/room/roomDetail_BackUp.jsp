@@ -462,7 +462,7 @@
 			$(".detail_review").show();
 		});
 
-		// 채팅 채팅 채팅
+	// 	채팅 채팅 채팅
 		$("#createRoomBtn").click(function (){
 			var accom_num=$(this).attr("accom_num");
 			// alert(accom_num);
@@ -474,12 +474,13 @@
 				data:{"accom_num":accom_num},
 				dataType:"html",
 				success:function (res){ // 여기서 res == room_num 입니다.
+					alert(res);
 					// alert("1"+res.accom_num); // 여기가 문제. 즉
 					// alert("2"+res);
 					// alert(accom_num);
 					if (res==0){
 						alert("자신이 판매하는 상품은 구매할 수 없습니다.");
-						// location.href="/chat/goSellerRooms?accom_num="+accom_num;
+						location.href="/chat/goSellerRooms?accom_num="+accom_num;
 					} else if (res!=null){
 						// location.href="/chat/goSellerRooms?room_num="+res;
 						location.href="/chat/goSellerRooms?room_num="+res+"&accom_num="+accom_num;
@@ -886,7 +887,6 @@
 	</div>
 
 <div class="createChatRoomBtn">
-<%--	<button class="btn btn-dark" id="createRoomBtn" accom_num="${dto.accom_num}" onclick="location.href='/chat/createRoom'">숙소에 문의</button>--%>
 	<button class="btn btn-dark" id="createRoomBtn" accom_num="${dto.accom_num}" >숙소에 문의</button>
 </div>
 </body>

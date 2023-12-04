@@ -82,6 +82,18 @@
 %>
 
 <script type="text/javascript">
+    <%--$(function (){--%>
+    <%--   infoCheck();--%>
+    <%--});--%>
+
+    <%--function infoCheck(${chatRoomList}.room_num){--%>
+    <%--    --%>
+
+    <%--}--%>
+
+    // mv.addObject("roomName",roomName);
+    // mv.addObject("accom_num",accom_num);
+    // mv.addObject("room_num",room_num);
 
     function goChatting(room_num,accom_num,roomName){
 
