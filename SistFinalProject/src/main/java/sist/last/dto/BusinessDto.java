@@ -8,6 +8,7 @@ import lombok.Data;
 @Alias("business")
 public class BusinessDto {
 
+	private int idx;
 	private String business_id;
 	private String business_pass;
 	private String business_name;

@@ -20,6 +20,7 @@ import sist.last.dto.MemberDto;
 import sist.last.dto.ReserveDto;
 import sist.last.mapper.AccomMapperInter;
 import sist.last.service.AdminMapperService;
+import sist.last.service.BusinessService;
 
 @Controller
 public class AdminController {
@@ -29,6 +30,9 @@ public class AdminController {
 	
 	@Autowired
 	AccomMapperInter accomInter;
+	
+	@Autowired
+	BusinessService businessService;
 	
 	@GetMapping("/admin/admin-accom-approval-page")
 	public ModelAndView adminStart(@RequestParam(value = "currentPage",defaultValue = "1") int currentPage)
@@ -263,6 +267,30 @@ public class AdminController {
 		model.setViewName("/2/admin/adminBusinessManage");
 		
 		return model;
+	}
+	
+	@GetMapping("/admin/admin-business-approval")
+	public ModelAndView adminBApproval(@RequestParam int idx)
+	{
+		ModelAndView model=new ModelAndView();
+		
+		String business_id=adminService.getBusinessId(idx).getBusiness_id();
+		
+		adminService.adminApprovalOfBussiness(business_id);
+		
+		model.setViewName("redirect:admin-business-info-page");
+		
+		return model;
+	}
+	
+	@GetMapping("/admin/admin-business-deny")
+	public String Bdelete(@RequestParam int idx) {
+		
+		String business_id=adminService.getBusinessId(idx).getBusiness_id();
+		
+	    businessService.deleteBusiness(business_id);
+			
+		return "redirect:admin-business-info-page";
 	}
 	
 	@GetMapping("/admin/admin-member-info-page")
