@@ -38,13 +38,23 @@ public class ChatController {
     @ResponseBody
     public int createRoom(@RequestParam int accom_num,
                           HttpSession session){
-        String sender_id=(String) session.getAttribute("info_id");
+        String info_id=(String) session.getAttribute("info_id");
+        String business_id=(String)session.getAttribute("business_id");
+
+        String sender_id = null;
+
+        if (info_id!=null){
+            sender_id=info_id;
+        } else if (business_id!=null) {
+            sender_id=business_id;
+        }
 
         // 판매자의 user_num을 찾을 수 있도록 수정해야 됨
-        String business_id="test2";
+//        String business_id="test2";
+        String receiver_id=accomMapperInter.getOneData(accom_num).getBusiness_id();
 
         // 현재 채팅을 보내려는 사용자가 판매자이면 방을 생성할 수 없음
-        if(sender_id.equals(business_id)){
+        if(sender_id.equals(receiver_id)){
             return 0;
         } else {
             // 기존에 존재하는 채팅방이라면 그곳으로 이동
@@ -59,7 +69,7 @@ public class ChatController {
                 ChatRoomDto chatRoomDto=new ChatRoomDto();
                 chatRoomDto.setAccom_num(accom_num);
                 chatRoomDto.setSender_id(sender_id);
-                chatRoomDto.setReceiver_id(business_id);
+                chatRoomDto.setReceiver_id(receiver_id);
                 roomMapperInter.insertRoom(chatRoomDto);
                 return roomMapperInter.getMaxNum();
 
@@ -97,6 +107,9 @@ public class ChatController {
         model.addAttribute("room_num",room_num);
         model.addAttribute("roomName",roomName);
 
+        System.out.println(room_num);
+        System.out.println(roomName);
+
         return "/chat/chat";
     }
 
@@ -109,21 +122,25 @@ public class ChatController {
         } catch (InterruptedException e){
             e.printStackTrace();
         }
+//        System.out.println("chatting 번호 확인"+room_num);
 
         // 사용자의 num 받기
         String info_id=(String)session.getAttribute("info_id");
         String business_id=(String)session.getAttribute("business_id"); 
         String myid=(String) session.getAttribute("myid");
-        
+        String sender_id=null;
+
         if (info_id!=null){
-            myid=info_id;
+            sender_id=info_id;
         } else if (business_id!=null) {
-            myid=business_id;
+            sender_id=business_id;
         } else if (myid!=null) {
-            myid=myid;
+            sender_id=myid;
         }
 
         List<ChatDto> chatList=new ArrayList<>();
+
+        chatList=chatMapperInter.getAllChatByRoom(room_num);
 
         for (ChatDto chatDto:chatList){
             Date today=new Date();

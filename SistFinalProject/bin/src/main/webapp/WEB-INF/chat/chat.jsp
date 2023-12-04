@@ -52,7 +52,7 @@
     var ws;
 
     function wsOpen(){
-        ws=new WebSocket("ws://"+location.host+"/chating");
+        ws=new WebSocket("ws://"+location.host+"/chat/chating"); // config랑 똑같이 맞춰줘야 함
         wsEvt();
     }
     function wsEvt(){

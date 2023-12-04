@@ -8,11 +8,11 @@
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-    <script type="text/javascript" src="/messagejscss/emoji_jk.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://kit.fontawesome.com/16085d762f.js"
             crossorigin="anonymous"></script>
     <link href="/messagejscss/emoji_jk.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/messagejscss/emoji_jk.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -134,9 +134,10 @@
             url:"/chat/chatting",
             data:{"room_num":room_num},
             success:function (res){
+                alert("res확인"+res);
                 var chatContent="";
                 $.each(res,function (i,ele){
-                   if (ele.sender_id=="${sessionScope.myid}"){
+                   if (ele.sender_id=="${sessionScope.info_id}"||ele.sender_id=="${sessionScope.business_id}"){
                        chatContent+="<p class='me' style='text-align: right;'>("+ele.mess_time+")&nbsp;&nbsp;나:"+ele.mess_content+"</p>";
                    } else {
                        chatContent+="<p class='others' style='text-align: left;'>("+ele.mess_time+")&nbsp;&nbsp;상대:"+ele.mess_content+"</p>";
@@ -158,7 +159,7 @@
     }
 
     // 웹소켓 오픈
-    function weOpen(){
+    function wsOpen(){
         ws=new WebSocket("ws://"+location.host+"/chat/chating");
         wsEvt();
     }
@@ -268,7 +269,9 @@
 
 
 </script>
-<body>
+<body><h1>킹갓연주</h1>
+
+
 <div>
     <h1>${roomName} 문의</h1>
     <input type="hidden" id="room_num" value="${room_num}">
@@ -282,8 +285,10 @@
     <div class="messagefooter">
         <%--     이모지 시작       --%>
         <div class="chatemoji">
-<%--            <img class="emoji_pickup" id="emoji_pickup_before" src="/ad.png" style="width: 50px;">--%>
-<%--            <img class="emoji_pickup" id="emoji_pickup_after" src="/dabang.png" style="width: 50px;">--%>
+            <img class="emoji_pickup" id="emoji_pickup_before"
+                 src="/messagejscss/img/emoji/1f642.png"> <img
+                class="emoji_pickup" id="emoji_pickup_after"
+                src="/messagejscss/img/emoji/1f600.png">
 
             <div id="emoji_popup">
 <%--                emoji popup div start --%>
