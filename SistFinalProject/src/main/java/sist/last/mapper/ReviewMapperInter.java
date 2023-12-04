@@ -14,6 +14,7 @@ public interface ReviewMapperInter {
 	public List<ReviewDto> ReviewList(int accom_num);
 	public int ReviewTotalCount(int accom_num);
 	public List<ReviewDto> getList(HashMap<String, Integer> map);
-	public int InfoIdTotalCount(String info_id);
+//	public int InfoIdTotalCount(String info_id);
+	public int InfoIdTotalCount(String info_id, int accom_num);
 	
 }

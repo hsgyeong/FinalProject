@@ -20,8 +20,12 @@
     	select * from review order by accom_num desc limit #{start}, #{perpage}
 	</select>
 	
-	<select id="InfoIdTotalCount" resultType="int" parameterType="String">
-		SELECT COUNT(*) AS review_count FROM review WHERE info_id = #{info_id}
-	</select>
+	<select id="InfoIdTotalCount" resultType="int" parameterType="map">
+    SELECT COUNT(*) AS review_count FROM review
+    WHERE info_id = #{info_id}
+    <if test="accom_num != null">
+        AND accom_num = #{accom_num}
+    </if>
+</select>
 	
 </mapper>

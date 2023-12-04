@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,38 +121,34 @@ public class RoomController {
     	model.addObject("mdto", mdto);
     	model.addObject("reserveCount", countList);
     	
-    	//reserve 하나의 데이터 조회
-    	
-//    	ReserveDto reservedto=rmapper.getOneInfoData(info);
-//    	String reserve_id=reservedto.getInfo_id();
-//    	String reserve_room=reservedto.getRoom_name();
-//    	
-//    	model.addObject("reserve_id", reserve_id);
-//    	model.addObject("reserve_room", reserve_room);
-    	
-//    	int reviewcount=reviewmapper.InfoIdTotalCount(info);
-//    	model.addObject("reviewcount", reviewcount);
     	
     	//회원 로그인 세션이 null이 아니면 reviewcount 조회
     	if(info!=null) {
+    	
+    		int reviewcount = reviewmapper.InfoIdTotalCount(info, accom_num);
     		
-    		int reviewcount=reviewmapper.InfoIdTotalCount(info);
         	model.addObject("reviewcount", reviewcount);
         	
-        	//리뷰의 갯수가 0개면 세션에 저장된 info_id로 reservedto 하나의 데이터 조회
+        	//세션에 저장된 info_id로 reservedto 하나의 데이터 조회
         	if(reviewcount==0) {
         		
-        		ReserveDto reservedto=rmapper.getOneInfoData(info);
-        		
-        		if(reservedto!=null) {
-        			
-        			String reservecheck=reservedto.getReserve_status();
-                	
-                	model.addObject("reservecheck", reservecheck);
-        		}
-        		else {
-        			
-        			System.out.println("dto값이 null로 반환됨");
+        		List<ReserveDto> reservedto=rmapper.getOneInfoData(info, accom_num);
+
+        		if (reservedto.size() != 0) {
+        		    boolean flag = false;
+        		    for (int i = 0; i < reservedto.size(); i++) {
+        		        if (reservedto.get(i).getReserve_status().equals("예약완료") && reservedto.get(i).getAccom_num(accom_num)) {
+        		            model.addObject("reservecheck", "예약완료");
+        		            flag = true;
+        		            break;
+        		        }
+        		    }
+        		    if (!flag) {
+        		        model.addObject("reservecheck", "예약취소");
+        		        System.out.println("예약취소");
+        		    }
+        		} else {
+        		    System.out.println("dto값이 null로 반환됨");
         		}
             	
         	}

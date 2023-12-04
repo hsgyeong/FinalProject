@@ -16,4 +16,5 @@ public interface RoomMapperInter {
 	public void deleteRoom(int room_num);
 	public RoomDto getOneData(int room_num);
 	public void updateRoom(RoomDto dto);
+	public int getAccomByRoom(int accom_num);
 }

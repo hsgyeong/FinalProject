@@ -747,7 +747,7 @@
 	<div class="detail_review">
 	
 		<div style="margin: 5vh 0px;">
-		<h3 style="border-bottom: 2px solid silver; padding-bottom: 3vh; margin-bottom: 10vh;">총 ${count }개의 리얼 리뷰!</h3>
+		<h3 style="border-bottom: 2px solid silver; padding-bottom: 3vh; margin-bottom: 10vh;">총 ${count }개의 리얼 리뷰</h3>
 		</div>
 		<c:if test="${totalCount>0 }">
 		<div class="pagingbox">
@@ -806,6 +806,7 @@
 		</ul>
 		</div>
 		</c:if>
+		
 		<c:if test="${info_id != null and reviewcount==0 and '예약완료'.equals(reservecheck)}">
 		<div class="detail_review_input" style="margin-bottom: -3vh;">
 		
