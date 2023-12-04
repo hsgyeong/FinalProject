@@ -208,7 +208,7 @@
 </style>
 
 <script>
-
+	//alert('${sessionScope.business_id}');
     $(document).ready(function () {
 
         $("#logoutBtn").click(function () {
@@ -360,7 +360,14 @@
         <div class="select-box">
             <ul class="select-ul d-inline-flex">
                 <li class="select-li"><a onclick="settingLocation()" id="my-surroundings">내주변</a></li>
-                <li class="select-li"><a href="#">예약내역</a></li>
+                  <c:choose>
+                   <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
+                   <li class="select-li"><a href="/member/myreservation">예약내역</a></li>
+                    </c:when>
+                     <c:when test="${sessionScope.loginok == null || sessionScope.loginok != 'member'}">
+                       <li class="select-li"><a href="#">예약내역</a></li>
+                      </c:when>
+                	</c:choose>
                 <li class="select-li"><a href="#" id="see_more">더보기</a></li>
                 <c:if test="${sessionScope.loginok==null}">
                     <li class="select-li"><a href="/login/loginmain">로그인</a></li>
