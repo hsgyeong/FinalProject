@@ -21,5 +21,6 @@ public interface MemberServiceInter {
 	public void deleteMember(String info_id);
 	public int getCouponCount(String info_id);
 	public Map<String, String> validateHandling(Errors errors);
+	public String getPasswordById(String info_id);
 	
 }
