@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.chatting-box{
+    border: 2px solid #f7323f;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 100px;
+}
+
+.container h1 {
+    text-align: left;
+    padding: 5px 5px 5px 15px;
+    color: #FFBB00;
+    border-left: 3px solid #FFBB00;
+    margin-bottom: 20px;
+}
+
+div.chatlist{
+    width: 100%;
+}
+
+.room-name-box{
+    width: 100%;
+    color: #f7323f;
+}
+
+.chating {
+    /*background-color: #000;*/
+    width: 100%;
+    height: 500px;
+    overflow: auto;
+}
+
+.chating .me {
+    color: #F6F6F6;
+    text-align: right;
+}
+
+.chating .others {
+    color: #FFE400;
+    text-align: left;
+}
+div.chatinputbox{
+    width: 100%;
+}
+
+input{
+    width: 95%;
+    height: 25px;
+}
+
+#yourMsg {
+    display: none;
+}
+
+.msgImg {
+    width: 200px;
+    height: 125px;
+}
+
+.clearBoth {
+    clear: both;
+}
+
+.img {
+    float: right;
+}
+.messagefilepreview {
+    position: inherit;
+    background: white;
+    box-shadow: 0px 0px 10px lightgray;
+    border-bottom: 1px solid lightgray;
+    width: 100%;
+    height: 100px;
+    display: inline-flex;
+    align-items: center;
+    bottom: 0;
+    margin-bottom: 55px;
+    z-index: 5;
+    /* display: none; */
+}
+
+.messagefilepreview div {
+    height: 75px;
+    margin: 0 auto;
+    margin-left: 15px;
+    display: inline-flex;
+    align-items: flex-end;
+}
+
+.messagefilepreview img {
+    height: 75px;
+}
+
+.messagefilepreview span {
+    cursor: pointer;
+}
+
+div.chatemoji{
+    vertical-align: center;
+}
+.emoji_i{
+    font-size: 2em;
+}
+
+#sendBtn{
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
