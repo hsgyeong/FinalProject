@@ -200,25 +200,29 @@
 </script>
 <body>
 
-<div>
+<div class="chatting-box">
     <div class="room-name-box">
-        <h1 class="room-name">${roomName} 문의</h1>
+        <h1 class="room-name">${roomName} 문의하기</h1>
     </div>
 
     <input type="hidden" id="room_num" value="${room_num}">
     <%--    채팅이 보이는 구간    --%>
     <div class="chatlist">
-        <div id="chatShow" class="chating w-75"></div>
+        <div id="chatShow" class="chating"></div>
     </div>
     <div class="messagefilepreview"></div>
 
     <div class="messagefooter">
         <%--     이모지 시작       --%>
-        <div class="chatemoji">
-            <img class="emoji_pickup" id="emoji_pickup_before"
-                 src="/messagejscss/img/emoji/1f642.png"> <img
-                class="emoji_pickup" id="emoji_pickup_after"
-                src="/messagejscss/img/emoji/1f600.png">
+        <div class="chatemoji d-inline-flex">
+            <%-- 이모지 버튼 --%>
+            <i class="bi bi-emoji-smile emoji_pickup emoji_i" id="emoji_pickup_before"></i>
+            <i class="bi bi-emoji-smile-fill emoji_pickup emoji_i" id="emoji_pickup_after"></i>&nbsp;&nbsp;
+<%--            <img class="emoji_pickup" id="emoji_pickup_before" src="/messagejscss/img/emoji/1f642.png">--%>
+<%--            <img class="emoji_pickup" id="emoji_pickup_after" src="/messagejscss/img/emoji/1f600.png">--%>
+            <%-- 첨부파일 버튼 --%>
+            <input type="file" accept="image/jpeg,.png,.gif,.jpg" id="msgfileupload" style="display: none;">
+            <i class="bi bi-image chatuploadicon" style="font-size: 2em;"></i>
 
             <div id="emoji_popup">
 <%--                emoji popup div start --%>
@@ -268,14 +272,12 @@
         </div>
 <%--        이모지 끝 --%>
 <%--        사진 올리기 --%>
-        <div class="chatupload">
-            <input type="file" accept="image/jpeg,.png,.gif,.jpg" id="msgfileupload" style="display: none;">
-            <i class="bi bi-image chatuploadicon" style="font-size: 2em;"></i>
-        </div>
-        <div class="chatinputbox">
-            <input type="text" id="chatting" placeholder="채팅 입력">
-        </div>
+        <br>
+        <div class="chatinputbox d-inline-flex">
+            <input type="text" id="chatting" placeholder="채팅 입력">&nbsp;&nbsp;
             <i class="bi bi-send" onclick="send()" id="sendBtn"></i>
+        </div>
+
     </div>
 </div>
 
