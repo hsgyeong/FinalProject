@@ -79,7 +79,7 @@
 
 <script type="text/javascript">
     function goChatting(room_num){
-        location.href="/goChattingRoom?room_num="+room_num;
+        location.href="goChattingRoom?room_num="+room_num;
     }
 
 

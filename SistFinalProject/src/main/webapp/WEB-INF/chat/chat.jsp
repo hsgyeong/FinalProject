@@ -169,7 +169,7 @@
         }
 
         // 메시지가 잘 들어왔을 때 실행하는 내용
-        ws.onmessage = function (data){
+        ws.onmessage = function (data){ // handler 에서 메시지 보내는게 완료 되면 여기로 넘어온다.
             var msg=data.data;
             var msgJson=JSON.parse(msg);
 
@@ -195,16 +195,32 @@
         var msg=$("#chatting").val();
         var mynum="${sessionScope.myid}";
 
+        var info_id="${sessionScope.info_id}";
+        var business_id="${sessionScope.business_id}";
+        var myid="${sessionScope.myid}";
+
+        if (info_id!=null){
+            myid=info_id
+        } else if (business_id!=null) {
+            myid=business_id;
+        } else if (myid!=null) {
+            myid=myid;
+        }
+
+        // alert(myid);
+
         // 만약 사진을 선택하지 않았다면
         if (!$("#msgfileupload").val()){
             // 글만 작성 했을 때
             if (msg!=""){
-                ws.send(JSON.stringify({
+                alert(msg);
+                ws.send(JSON.stringify({ // handler로 보내는 ajax. ws 라는게 websocket 서버로 보내는 역할
+                    // handleTextMessage method로 보내는 것.
                     "room_num" : room_num,
                     "msg" : msg,
-                    "mynum" : mynum,
+                    "myid" : myid,
                     "type" : "chat"
-                }))
+                }));
             } else { // 아무것도 작성하지 않을 때
                 alert("메시지를 입력해 주세요.");
             }
@@ -254,7 +270,7 @@
 </script>
 <body>
 <div>
-    <h1>${roomName}의 채팅방</h1>
+    <h1>${roomName} 문의</h1>
     <input type="hidden" id="room_num" value="${room_num}">
 
     <%--    채팅이 보이는 구간    --%>
@@ -266,8 +282,8 @@
     <div class="messagefooter">
         <%--     이모지 시작       --%>
         <div class="chatemoji">
-            <img class="emoji_pickup" id="emoji_pickup_before" src="/ad.png">
-            <img class="emoji_pickup" id="emoji_pickup_after" src="/dabang.png">
+<%--            <img class="emoji_pickup" id="emoji_pickup_before" src="/ad.png" style="width: 50px;">--%>
+<%--            <img class="emoji_pickup" id="emoji_pickup_after" src="/dabang.png" style="width: 50px;">--%>
 
             <div id="emoji_popup">
 <%--                emoji popup div start --%>

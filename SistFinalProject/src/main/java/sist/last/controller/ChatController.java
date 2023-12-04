@@ -89,6 +89,7 @@ public class ChatController {
     }
 
     @GetMapping("/goChattingRoom")
+
     public String goChattingRoom(@RequestParam int room_num,
                                  Model model){
         String roomName=accomMapperInter.getOneData(roomMapperInter.getChatRoom(room_num).getAccom_num()).getAccom_name();
@@ -110,7 +111,18 @@ public class ChatController {
         }
 
         // 사용자의 num 받기
+        String info_id=(String)session.getAttribute("info_id");
+        String business_id=(String)session.getAttribute("business_id"); 
         String myid=(String) session.getAttribute("myid");
+        
+        if (info_id!=null){
+            myid=info_id;
+        } else if (business_id!=null) {
+            myid=business_id;
+        } else if (myid!=null) {
+            myid=myid;
+        }
+
         List<ChatDto> chatList=new ArrayList<>();
 
         for (ChatDto chatDto:chatList){
