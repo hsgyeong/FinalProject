@@ -130,7 +130,7 @@ public class SocketHandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
         String msg=message.getPayload();
-        System.out.println("gdgd"+msg);
+//        System.out.println("gdgd"+msg);
         JSONObject ob=new JSONObject(msg);
 
         // 메시지 구분(보낸사람:내용), default로 채팅방에 receiver는 숙소 주인이 되고, sender는 구매자가 됨

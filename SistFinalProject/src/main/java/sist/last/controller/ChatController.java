@@ -172,18 +172,19 @@ public class ChatController {
                     // 1분 이상 지났으면 분만 표시
                     preTime=""+minute+"분 전";
                 } else {
-                    // 1분 미만 방금전 표시
-                    preTime="방금 전";
+                    if (minute!=0){
+                        //1분 이상이 지났으면 분만 표시
+                        preTime=""+minute+"분 전";
+                    } else {
+                        // 1분 미만 방금전 표시
+                        preTime="방금 전";
+                    }
                 }
             }
             chatDto.setMess_time(preTime);
         }
         return chatList;
     }
-
-
-
-
 
     @PostMapping("/fileupload")
     @ResponseBody
