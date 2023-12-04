@@ -223,6 +223,7 @@
 			<input type="hidden" id="room_num" value="${rdto.room_num }">
 			<input type="hidden" id="accom_name" value="${accom_name }">
 			<input type="hidden" id="room_name" value="${room_name }">
+			
 			<div>
 				<b>예약자 정보</b>
 			</div>

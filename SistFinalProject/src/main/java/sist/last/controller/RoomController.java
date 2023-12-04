@@ -136,7 +136,7 @@ public class RoomController {
         		if (reservedto.size() != 0) {
         		    boolean flag = false;
         		    for (int i = 0; i < reservedto.size(); i++) {
-        		        if (reservedto.get(i).getReserve_status().equals("예약완료") && reservedto.get(i).getAccom_num(accom_num)) {
+        		        if (reservedto.get(i).getReserve_status().equals("예약완료") && reservedto.get(i).getAccom_num()== accom_num) {
         		            model.addObject("reservecheck", "예약완료");
         		            flag = true;
         		            break;
