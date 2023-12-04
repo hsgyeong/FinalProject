@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div align="center">
-		<h3><b>사업자관리</b></h3>
+		<h3><b>회원관리</b></h3>
 		<table class="table table-stripped">
 			<tr align="center" valign="middle">
 				<th width="150">아이디</th>
