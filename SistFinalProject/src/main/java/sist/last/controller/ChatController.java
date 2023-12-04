@@ -32,7 +32,74 @@ public class ChatController {
     @Autowired
     ChatMapperInter chatMapperInter;
 
+
+
+    @PostMapping("/createRoom")
+    @ResponseBody
+    public int createRoom(@RequestParam int accom_num,
+                          HttpSession session){
+        String info_id=(String) session.getAttribute("info_id");
+        String business_id=(String)session.getAttribute("business_id");
+
+        String sender_id = null;
+
+        if (info_id!=null){
+            sender_id=info_id;
+        } else if (business_id!=null) {
+            sender_id=business_id;
+        }
+
+        // 판매자의 user_num을 찾을 수 있도록 수정해야 됨
+//        String business_id="test2";
+        String receiver_id=accomMapperInter.getOneData(accom_num).getBusiness_id();
+
+        // 현재 채팅을 보내려는 사용자가 판매자이면 방을 생성할 수 없음
+        if(sender_id.equals(receiver_id)){
+            return 0;
+        } else {
+            // 기존에 존재하는 채팅방이라면 그곳으로 이동
+            Map<String,Object>map=new HashMap<>();
+            map.put("sender_id",sender_id);
+            map.put("accom_num",accom_num);
+            String room=roomMapperInter.checkChatRoom(map);
+
+            if (room!=null){
+                return Integer.parseInt(room);
+            } else { // 없다면 새로 방 생성후 생성된 방으로 이동
+                ChatRoomDto chatRoomDto=new ChatRoomDto();
+                chatRoomDto.setAccom_num(accom_num);
+                chatRoomDto.setSender_id(sender_id);
+                chatRoomDto.setReceiver_id(receiver_id);
+                roomMapperInter.insertRoom(chatRoomDto);
+                return roomMapperInter.getMaxNum();
+
+            }
+
+        }
+    }
+
+    @GetMapping("/goSellerRooms")
+    public ModelAndView goSellerRooms(@RequestParam int accom_num,
+                                @RequestParam int room_num,
+                                Model model){
+        ModelAndView mv=new ModelAndView();
+
+        List<ChatRoomDto> chatRoomList=roomMapperInter.getChatRoomByAccom(accom_num);
+
+        String roomName=accomMapperInter.getOneData(accom_num).getAccom_name();
+
+        mv.addObject("chatRoomList",chatRoomList);
+        mv.addObject("roomName",roomName);
+        mv.addObject("accom_num",accom_num);
+        mv.addObject("room_num",room_num);
+
+        mv.setViewName("/chat/room");
+
+        return mv;
+    }
+
     @GetMapping("/goChattingRoom")
+
     public String goChattingRoom(@RequestParam int room_num,
                                  Model model){
         String roomName=accomMapperInter.getOneData(roomMapperInter.getChatRoom(room_num).getAccom_num()).getAccom_name();
@@ -40,22 +107,10 @@ public class ChatController {
         model.addAttribute("room_num",room_num);
         model.addAttribute("roomName",roomName);
 
+        System.out.println(room_num);
+        System.out.println(roomName);
+
         return "/chat/chat";
-    }
-
-    @GetMapping("/goSellerRooms")
-    public String goSellerRooms(@RequestParam int accom_num,
-                                @RequestParam int room_num,
-                                Model model){
-        List<ChatRoomDto> chatRoomList=roomMapperInter.getChatRoomByAccom(accom_num);
-        String roomName=accomMapperInter.getOneData(accom_num).getAccom_name();
-
-        model.addAttribute("chatRoomList",chatRoomList);
-        model.addAttribute("roomName",roomName);
-        model.addAttribute("accom_num",accom_num);
-        model.addAttribute("room_num",room_num);
-
-        return "/chat/room";
     }
 
     @GetMapping("/chatting")
@@ -67,10 +122,25 @@ public class ChatController {
         } catch (InterruptedException e){
             e.printStackTrace();
         }
+//        System.out.println("chatting 번호 확인"+room_num);
 
         // 사용자의 num 받기
+        String info_id=(String)session.getAttribute("info_id");
+        String business_id=(String)session.getAttribute("business_id"); 
         String myid=(String) session.getAttribute("myid");
+        String sender_id=null;
+
+        if (info_id!=null){
+            sender_id=info_id;
+        } else if (business_id!=null) {
+            sender_id=business_id;
+        } else if (myid!=null) {
+            sender_id=myid;
+        }
+
         List<ChatDto> chatList=new ArrayList<>();
+
+        chatList=chatMapperInter.getAllChatByRoom(room_num);
 
         for (ChatDto chatDto:chatList){
             Date today=new Date();
@@ -111,6 +181,10 @@ public class ChatController {
         return chatList;
     }
 
+
+
+
+
     @PostMapping("/fileupload")
     @ResponseBody
     public Map<String,String> fileUpload(@RequestParam MultipartFile upload,
@@ -137,44 +211,28 @@ public class ChatController {
         return map;
     }
 
-    @PostMapping("/createRoom")
-    @ResponseBody
-    public int createRoom(@RequestParam int accom_num,
-                          HttpSession session){
-
-//        System.out.println(accom_num);
-
-
-        String sender_id=(String) session.getAttribute("info_id");
-
-        // 판매자의 user_num을 찾을 수 있도록 수정해야 됨
-        String business_id="test2";
-
-        // 현재 채팅을 보내려는 사용자가 판매자이면 방을 생성할 수 없음
-        if(sender_id.equals(business_id)){
-            return 0;
-        } else {
-            // 기존에 존재하는 채팅방이라면 그곳으로 이동
-            Map<String,Object>map=new HashMap<>();
-            map.put("sender_id",sender_id);
-            map.put("accom_num",accom_num);
-            String room=roomMapperInter.checkChatRoom(map);
-            System.out.println(room);
-
-            if (room!=null){
-                return Integer.parseInt(room);
-            } else { // 없다면 새로 방 생성후 생성된 방으로 이동
-                ChatRoomDto chatRoomDto=new ChatRoomDto();
-                chatRoomDto.setAccom_num(accom_num);
-                chatRoomDto.setSender_id(sender_id);
-                chatRoomDto.setReceiver_id(business_id);
-                roomMapperInter.insertRoom(chatRoomDto);
-                return roomMapperInter.getMaxNum();
-
-            }
-
-        }
-    }
+//    @PostMapping("/loginCheckForChat")
+//    public ModelAndView loginCheckForChat(HttpSession session,
+//                                          @RequestParam int accom_num){
+//        // sender_id == info 일때,
+//        // sender_id == business 일때,
+//        // 위 두가지 모두 상황 보고 넘겨줘야 한다.
+//
+//        ModelAndView mv=new ModelAndView();
+//
+//        String info_id=(String) session.getAttribute("info_id");
+//        String business_id=(String) session.getAttribute("business_id");
+//
+//        if (info_id==null && business_id==null){
+//            mv.setViewName("/login/loginForm");
+//        } else if (info_id!=null && business_id==null) {
+//            mv.addObject("sender_id",info_id);
+//        } else if (info_id==null && business_id!=null) {
+//            mv.addObject("sender_id",business_id);
+//        }
+//        return mv;
+//
+//    }
 
 }
 

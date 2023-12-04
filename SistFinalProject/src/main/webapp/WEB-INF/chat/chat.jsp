@@ -8,11 +8,11 @@
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-    <script type="text/javascript" src="/messagejscss/emoji_jk.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://kit.fontawesome.com/16085d762f.js"
             crossorigin="anonymous"></script>
     <link href="/messagejscss/emoji_jk.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/messagejscss/emoji_jk.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -134,9 +134,10 @@
             url:"/chat/chatting",
             data:{"room_num":room_num},
             success:function (res){
+                alert("res확인"+res);
                 var chatContent="";
                 $.each(res,function (i,ele){
-                   if (ele.sender_id=="${sessionScope.myid}"){
+                   if (ele.sender_id=="${sessionScope.info_id}"||ele.sender_id=="${sessionScope.business_id}"){
                        chatContent+="<p class='me' style='text-align: right;'>("+ele.mess_time+")&nbsp;&nbsp;나:"+ele.mess_content+"</p>";
                    } else {
                        chatContent+="<p class='others' style='text-align: left;'>("+ele.mess_time+")&nbsp;&nbsp;상대:"+ele.mess_content+"</p>";
@@ -158,7 +159,7 @@
     }
 
     // 웹소켓 오픈
-    function weOpen(){
+    function wsOpen(){
         ws=new WebSocket("ws://"+location.host+"/chat/chating");
         wsEvt();
     }
@@ -169,7 +170,7 @@
         }
 
         // 메시지가 잘 들어왔을 때 실행하는 내용
-        ws.onmessage = function (data){
+        ws.onmessage = function (data){ // handler 에서 메시지 보내는게 완료 되면 여기로 넘어온다.
             var msg=data.data;
             var msgJson=JSON.parse(msg);
 
@@ -195,16 +196,32 @@
         var msg=$("#chatting").val();
         var mynum="${sessionScope.myid}";
 
+        var info_id="${sessionScope.info_id}";
+        var business_id="${sessionScope.business_id}";
+        var myid="${sessionScope.myid}";
+
+        if (info_id!=null){
+            myid=info_id
+        } else if (business_id!=null) {
+            myid=business_id;
+        } else if (myid!=null) {
+            myid=myid;
+        }
+
+        // alert(myid);
+
         // 만약 사진을 선택하지 않았다면
         if (!$("#msgfileupload").val()){
             // 글만 작성 했을 때
             if (msg!=""){
-                ws.send(JSON.stringify({
+                alert(msg);
+                ws.send(JSON.stringify({ // handler로 보내는 ajax. ws 라는게 websocket 서버로 보내는 역할
+                    // handleTextMessage method로 보내는 것.
                     "room_num" : room_num,
                     "msg" : msg,
-                    "mynum" : mynum,
+                    "myid" : myid,
                     "type" : "chat"
-                }))
+                }));
             } else { // 아무것도 작성하지 않을 때
                 alert("메시지를 입력해 주세요.");
             }
@@ -252,9 +269,11 @@
 
 
 </script>
-<body>
+<body><h1>킹갓연주</h1>
+
+
 <div>
-    <h1>${roomName}의 채팅방</h1>
+    <h1>${roomName} 문의</h1>
     <input type="hidden" id="room_num" value="${room_num}">
 
     <%--    채팅이 보이는 구간    --%>
@@ -266,8 +285,10 @@
     <div class="messagefooter">
         <%--     이모지 시작       --%>
         <div class="chatemoji">
-            <img class="emoji_pickup" id="emoji_pickup_before" src="/ad.png">
-            <img class="emoji_pickup" id="emoji_pickup_after" src="/dabang.png">
+            <img class="emoji_pickup" id="emoji_pickup_before"
+                 src="/messagejscss/img/emoji/1f642.png"> <img
+                class="emoji_pickup" id="emoji_pickup_after"
+                src="/messagejscss/img/emoji/1f600.png">
 
             <div id="emoji_popup">
 <%--                emoji popup div start --%>

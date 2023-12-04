@@ -130,23 +130,24 @@ public class SocketHandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
         String msg=message.getPayload();
+        System.out.println("gdgd"+msg);
         JSONObject ob=new JSONObject(msg);
 
         // 메시지 구분(보낸사람:내용), default로 채팅방에 receiver는 숙소 주인이 되고, sender는 구매자가 됨
-        String mynum=ob.getString("mynum"); // 보낸사람
+        String myid=ob.getString("myid"); // 보낸사람
         int room_num=ob.getInt("room_num"); // 그룹
         String receiver=roomMapperInter.getChatRoom(room_num).getReceiver_id(); // 받는사람 num
         String content=ob.getString("msg"); // 내용
         String type=ob.getString("type");
 
-        if (mynum.equals(receiver)){ // 판매자가 채팅창에 들어올 때, 즉 구매자각 판매자의 메시지를 받는 사람이 됨.
+        if (myid.equals(receiver)){ // 판매자가 채팅창에 들어올 때, 즉 구매자각 판매자의 메시지를 받는 사람이 됨.
             receiver=roomMapperInter.getChatRoom(room_num).getSender_id();
         }
 
         // 메시지 저장
         ChatDto chatDto=new ChatDto();
 
-        String user_id=mynum;
+        String user_id=myid;
         chatDto.setSender_id(user_id);
         chatDto.setReceiver_id(receiver);
         chatDto.setRoom_num(room_num);

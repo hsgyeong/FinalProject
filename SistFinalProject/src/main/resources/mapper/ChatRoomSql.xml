@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select * from chatroom where sender_id=#{sender_id}
     </select>
     <select id="getChatRoomByAccom" parameterType="int" resultType="chatRoomDto">
-        select * from chatroom where room_num=#{room_num}
+        select * from chatroom where accom_num=#{accom_num} order by room_num desc
     </select>
 
 
