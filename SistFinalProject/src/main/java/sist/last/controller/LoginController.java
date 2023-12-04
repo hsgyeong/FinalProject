@@ -39,8 +39,8 @@ public class LoginController {
         if (loginok == null) {
             return "/login/loginForm";
         } else {
-            String info_id = (String) session.getAttribute("info_id");
-            String business_id = (String) session.getAttribute("business_id");
+            String info_id = (String)session.getAttribute("info_id");
+            String business_id = (String)session.getAttribute("business_id");
             //String info_nickname = service.getNickname(info_id);
             //model.addAttribute("myid", myid);
             //model.addAttribute("info_nickname", info_nickname);
@@ -85,9 +85,9 @@ public class LoginController {
 
             session.setMaxInactiveInterval(60 * 60 * 8);
 
-            Cookie cookie = new Cookie("infoId", info_id);
+      /*     Cookie cookie = new Cookie("infoId", info_id);
             cookie.setMaxAge(60 * 60 * 24 * 30);
-            response.addCookie(cookie);
+            response.addCookie(cookie); */
 
             session.setAttribute("info_id", info_id);
             session.setAttribute("loginok", "member");
@@ -129,9 +129,9 @@ public class LoginController {
             	
                 session.setMaxInactiveInterval(60 * 60 * 8);
 
-                Cookie cookie = new Cookie("businessId", business_id);
+          /*      Cookie cookie = new Cookie("businessId", business_id);
                 cookie.setMaxAge(60 * 60 * 24 * 30);
-                response.addCookie(cookie);
+                response.addCookie(cookie);  */
 
                 session.setAttribute("business_id", business_id);
                 session.setAttribute("loginok", "business");
@@ -161,26 +161,16 @@ public class LoginController {
 
     @GetMapping("/login/logout")
     public String logout(HttpSession session, HttpServletResponse response) {
-        String loginok = (String) session.getAttribute("loginok");
+        String loginok = (String)session.getAttribute("loginok");
         //System.out.println("hello");
 
         if (loginok != null) {
 
-            if (session.getAttribute("info_id") != null) {
-                session.removeAttribute("info_id");
-            } else if (session.getAttribute("business_id") != null) {
-                session.removeAttribute("business_id");
-            } else if (session.getAttribute("admin_id") != null) {
-                session.removeAttribute("admin_id");
-            }
-
-        }
-
         session.removeAttribute("loginok");
-        session.removeAttribute("userId");
-        session.removeAttribute("kakao_nickname");
-        //session.removeAttribute("myid");
 
+        session.removeAttribute("kakao_nickname");
+    
+        }
         return "redirect:/";
     }
 
