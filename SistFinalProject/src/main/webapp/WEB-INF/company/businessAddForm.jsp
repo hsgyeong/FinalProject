@@ -205,13 +205,13 @@ body {
 </style>
 </head>
 <body>
-	<form action="join-business" method="post" id="joinBusiness">
-		<table class="tb">
-			<h3><a href="/"	class="t" style="font-family: 'Jalnan'; text-align: center;
-					margin-top: 20px; color: #f7323f; cursor:pointer; text-decoration: none;
- 					outline: none;">TRIVIEW</a></h3>
+		<h3><a href="/"	class="t" style="font-family: 'Jalnan'; text-align: center;
+			margin-top: 20px; color: #f7323f; cursor:pointer; text-decoration: none;
+ 			outline: none;">TRIVIEW</a></h3>
 			<br>
 		
+	<form action="join-business" method="post" id="joinBusiness">
+		<table class="tb">
 			<caption align="top" class="cap">
 				<h6><b>회원가입</b></h6><br>
 			</caption>
