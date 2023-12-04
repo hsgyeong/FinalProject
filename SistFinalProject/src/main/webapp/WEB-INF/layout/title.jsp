@@ -281,6 +281,10 @@
         $("input.search-input").keydown(function (key) {
             if (key.keyCode === 13) {
                 const searchText = $(this).val();
+                if (searchText.trim().length == 0) {
+                    alert("검색하고 싶은 내용을 입력해주세요.")
+                    return false;
+                }
                 searchActive(searchText);
             }
         });
