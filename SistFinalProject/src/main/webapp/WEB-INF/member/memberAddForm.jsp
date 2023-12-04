@@ -34,7 +34,6 @@
 			}
 		})
 		
-
 		$("#idchk").click(function() {
 
 			var id = $("#id").val();
@@ -45,24 +44,18 @@
 				type : "get",
 				dataType : "json",
 				url : "idcheck",
-				data : {
-					"info_id" : id
-				},
+				data : {"info_id" : id},
 				success : function(res) {
 					//alert(id);
 					if (res.count == 0) {
-
 						alert("사용 가능한 아이디입니다.");
 						$("span.idok").text("사용 가능한 아이디입니다.").css("color","green");
 					} else {
-
 						alert("사용중인 아이디입니다. 다시 입력해주세요.");
 						$("span.idok").text("사용중인 아이디입니다.").css("color","red");
 					}
-
 				}
 			})
-
 		});
 		
 		$("#joinForm").submit(function(e){
