@@ -111,14 +111,18 @@ $(document).ready(function(){
 <h4><b>예약내역</b></h4>
 <br><br><br>
 <table class="table table-bordered reservelist">
-<c:forEach items="${list }" var="reserveDto">
-		
+<c:forEach items="${list }" var="reserveDto" varStatus="i">
+												<!-- i.count는 몇번쨰인지 알려줌. varStatus는 첫번째가 0번째임  -->
 		
 		<div class="detail_room_select">
 			<div class="detail_room_reserve" style="display: flex;">
 			<div class="img" style="float:left">
-			<img alt="" src="../roomsave/20231122112246_urban-20230228144115810458.jpg"
+			<c:forEach items="${photoList }" var="photo" varStatus="j">  <!-- list의 순번과 photoList의 순번이 같을때 일치하는 photo출력  -->
+			<c:if test="${i.count==j.count }">
+			<img alt="" src="../roomsave/${photo }"
 			style="width:400px; height: 380px; margin-top: 50px;" id="roomimg">
+			</c:if>
+			</c:forEach>
 			</div>
 			<div class="reserve_list">
 				

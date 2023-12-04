@@ -3,6 +3,7 @@ package sist.last.service;
 import java.util.List;
 
 import sist.last.dto.ReserveDto;
+import sist.last.dto.RoomDto;
 
 public interface ReserveServiceInter {
 
@@ -14,4 +15,5 @@ public interface ReserveServiceInter {
 	public List<ReserveDto> getReservationDataById(String info_id);
 
 	public void updateReserveStatus(ReserveDto dto);
+	public String getPhoto(String room_num);
 }

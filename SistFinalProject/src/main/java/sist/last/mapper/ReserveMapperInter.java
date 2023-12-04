@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import sist.last.dto.ReserveDto;
+import sist.last.dto.RoomDto;
 
 @Mapper
 public interface ReserveMapperInter {
@@ -17,5 +18,6 @@ public interface ReserveMapperInter {
 	public List<ReserveDto> getReserveCountOfRoomNumber(int room_num);
 	public List<ReserveDto> getReservationDataById(String info_id);
 	public void updateReserveStatus(ReserveDto dto);
+	public String getPhoto(String room_num);
 	
 }
