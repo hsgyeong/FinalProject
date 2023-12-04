@@ -17,7 +17,7 @@
 	</select>
 	
 	<select id="getList" parameterType="HashMap" resultType="ReviewDto">
-    	select * from review order by accom_num desc limit #{start}, #{perpage}
+    	select * from review where accom_num=#{accom_num} order by accom_num desc limit #{start}, #{perpage}
 	</select>
 	
 	<select id="InfoIdTotalCount" resultType="int" parameterType="map">

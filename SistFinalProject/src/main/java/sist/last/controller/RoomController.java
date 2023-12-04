@@ -211,6 +211,7 @@ public class RoomController {
     	pagingMap.put("start", (currentPage - 1) * perPage);
     	pagingMap.put("perpage", perPage);
     	List<ReviewDto> pplist = reviewmapper.getList(pagingMap);
+    	System.out.println(pagingMap);
 
     	// 각 페이지에 출력할 시작번호
     	int no = totalCount - (currentPage - 1) * perPage;
