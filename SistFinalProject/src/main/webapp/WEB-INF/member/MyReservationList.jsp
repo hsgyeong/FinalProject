@@ -47,113 +47,96 @@ $(document).ready(function(){
 
 })
 </script>
-    <style type="text/css">
-    .reserve_checkin, .reserve_checkout {
-    font-weight: bold;
-	font-size: 2vh;
-    }
-    
-    .reserve_status {
-    font-weight: bold;
-    
-    }
-    
-    .detail_room_select {
-	border-radius: 1px;
-	margin: auto;
-    }
-    
-    .reservelist {
+<style type="text/css">
+.room_detail_reserve_btn{
 
-	border-radius: 5px;
-	width:800px;
-    height:400px;
-    
-    }
-    
-    .detail_room_reserve {
-    margin: auto;
-	border-radius: 5px;
-	width:800px;
-    height:600px;
-    margin-top: 50px;
- 
-    }
-    
-    .room_detail_reserve_btn {
-    color: white;
-	background-color: #f7323f;
-	border: none;
-	border-radius: 3px;
-	width: 400px;
-	height: 7vh;
-	box-shadow: 2px 2px 2px silver;
-    }
-    
-    .reserve_list {
-    width:800px;
-    height:300px;
-    margin-top: 50px;
-    margin-left: 80px;
-    float:right;
-    }
-    
-    .cancel_bt {
-    text-align: center;
-    }
-    
-    #roomimg {
-    
-    }
-    </style>
+	width: 13vh;
+	height: 6vh;
+	border: 1px solid silver;
+	color: white;
+	font-weight: bold;
+	font-size: 0.85em;
+	background-color: #FF3333;
+	border-radius: 1vh;
+	
+}
+
+.room_detail_reserve_btn:hover {
+            background-color: #e00000;
+        }
+</style>
 </head>
 <body>
 <h4><b>예약내역</b></h4>
-<br><br><br>
-<table class="table table-bordered reservelist">
+<br>
+<div style="display: flex; flex-wrap: wrap; width: 100%;
+            justify-content: space-between;">
 <c:forEach items="${list }" var="reserveDto" varStatus="i">
 												<!-- i.count는 몇번쨰인지 알려줌. varStatus는 첫번째가 0번째임  -->
 		
-		<div class="detail_room_select">
-			<div class="detail_room_reserve" style="display: flex;">
-			<div class="img" style="float:left">
-			<c:forEach items="${photoList }" var="photo" varStatus="j">  <!-- list의 순번과 photoList의 순번이 같을때 일치하는 photo출력  -->
-			<c:if test="${i.count==j.count }">
-			<img alt="" src="../roomsave/${photo }"
-			style="width:400px; height: 380px; margin-top: 50px;" id="roomimg">
-			</c:if>
-			</c:forEach>
-			</div>
-			<div class="reserve_list">
-				
-				 <div class="reserve_accom">예약자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 20px;">${reserveDto.reserve_name }</span> </div><br>
+		
+			<div>
+			<table class="table table-bordered" style="width: 55vh; margin: 3vh 3vh;
+            float: left;">
 			
-				<div class="reserve_room">숙소타입&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 20px;">${reserveDto.room_name }</span> </div><br>
-				
-				<div class="reserve_checkin" style="margin-bottom: 10px;">체크인</div>
-				<span style="font-size: 20px;">${reserveDto.reserve_checkin }</span>
-				
-				<br><div class="reserve_checkout"  style="margin-bottom: 10px;"><br>체크아웃</div>
-				<span style="font-size: 20px;">${reserveDto.reserve_checkout }</span><br>
-				<br>			
-				<div class="reserve_amount">
-				결제금액&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 20px;"><fmt:formatNumber value="${reserveDto.reserve_amount }"/>원</span>
-				</div>
-				
-				<br>
-				<div class="status" style="color:green; font-size: 30px; font-weight: bold;">${reserveDto.reserve_status }</div>
-				
-				<div class="cancel_bt" align="center">
-					<br>
-						<button type="button" class="room_detail_reserve_btn" id="reserve-cancle"
-						value="${reserveDto.reserve_id}">예약취소</button>
-				</div>
-			</div>
-			</div>
 			
+				<tr>
+					<td align="center" valign="middle" colspan="2">${reserveDto.accom_name } / ${reserveDto.room_name }</td>
+				</tr>
+				
+				<tr>
+					<td align="center" valign="middle">예약자</td>
+					<td align="center" valign="middle">${reserveDto.reserve_name }</td>
+				</tr>
+				
+				<tr>
+					<td align="center" valign="middle">숙소타입</td>
+					<td align="center" valign="middle">${reserveDto.room_name }</td>
+				</tr>
+				
+				<tr>
+					<td align="center" valign="middle">체크인</td>
+					<td align="center" valign="middle">${reserveDto.reserve_checkin }</td>
+				</tr>
+				
+				<tr>
+					<td align="center" valign="middle">체크아웃</td>
+					<td align="center" valign="middle">${reserveDto.reserve_checkout }</td>
+				</tr>
+				
+				<tr>
+					<td align="center" valign="middle">결제금액</td>
+					<td align="center" valign="middle">
+						<fmt:formatNumber value="${reserveDto.reserve_amount }"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td align="center" valign="middle">쿠폰할인</td>
+					<td align="center" valign="middle">${reserveDto.reserve_coupon }</td>
+				</tr>
+				
+				<tr>
+					<td align="center" valign="middle">현재상태</td>
+					<td align="center" valign="middle">${reserveDto.reserve_status }</td>
+				</tr>
+				
+				<tr>
+					<td align="center" valign="middle">결제일</td>
+					<td align="center" valign="middle">
+						<fmt:formatDate value="${reserveDto.reserve_day }" pattern="yyyy-MM-dd"/>
+					</td>
+				</tr>
+				<c:if test="${reserveDto.reserve_status eq '예약완료' }">
+				<tr>
+					<td align="right" valign="middle" colspan="2"><button type="button" class="room_detail_reserve_btn" id="reserve-cancle"
+						value="${reserveDto.reserve_id}">예약취소</button></td>
+				</tr>
+				</c:if>
+			</table>
 		</div>
 		
 	</c:forEach>
-</table>
+	</div>
 </body>
 </html>
