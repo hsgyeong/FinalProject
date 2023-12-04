@@ -25,6 +25,7 @@ public interface AccomMapperInter {
 
 //	chatting 사용
 	public AccomDto getAccomName(int accom_num);
+	public List<AccomDto> getAccomDataById(String business_id);
 // chatting 사용 끝
 
 

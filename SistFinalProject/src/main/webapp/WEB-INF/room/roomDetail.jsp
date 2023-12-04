@@ -465,24 +465,28 @@
 		// 채팅 채팅 채팅
 		$("#createRoomBtn").click(function (){
 			var accom_num=$(this).attr("accom_num");
+			var accom_name=$(this).attr("accom_name");
 			// alert(accom_num);
 
 
 			$.ajax({
 				type:"post",
 				url:"/chat/createRoom",
-				data:{"accom_num":accom_num},
+				data:{"accom_num":accom_num,"accom_name":accom_name},
 				dataType:"html",
 				success:function (res){ // 여기서 res == room_num 입니다.
 					// alert("1"+res.accom_num); // 여기가 문제. 즉
 					// alert("2"+res);
 					// alert(accom_num);
-					if (res==0){
-						alert("자신이 판매하는 상품은 구매할 수 없습니다.");
-						// location.href="/chat/goSellerRooms?accom_num="+accom_num;
+					if (res=='logingogo') {
+						alert("로그인이 필요한 메뉴 입니다.");
+						location.href = "/login/loginmain";
+					}else if (res=='infogogo'){
+						alert("개인 회원만 사용 가능한 메뉴입니다.")
 					} else if (res!=null){
+						res=parseInt(res);
 						// location.href="/chat/goSellerRooms?room_num="+res;
-						location.href="/chat/goSellerRooms?room_num="+res+"&accom_num="+accom_num;
+						location.href="/chat/goSellerRooms?room_num="+res+"&accom_num="+accom_num+"&accom_name="+accom_name;
 					}
 				}
 			});
@@ -887,7 +891,7 @@
 
 <div class="createChatRoomBtn">
 <%--	<button class="btn btn-dark" id="createRoomBtn" accom_num="${dto.accom_num}" onclick="location.href='/chat/createRoom'">숙소에 문의</button>--%>
-	<button class="btn btn-dark" id="createRoomBtn" accom_num="${dto.accom_num}" >숙소에 문의</button>
+	<button class="btn btn-dark" id="createRoomBtn" accom_num="${dto.accom_num}" accom_name="${dto.accom_name}" >숙소에 문의</button>
 </div>
 </body>
 </html>

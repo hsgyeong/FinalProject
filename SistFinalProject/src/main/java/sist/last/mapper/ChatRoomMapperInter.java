@@ -19,5 +19,7 @@ public interface ChatRoomMapperInter {
     public List<ChatRoomDto> getChatRoomByUser(String sender_id); // user 아이디에 대한 채팅방의 리스트
     public List<ChatRoomDto> getChatRoomByAccom(int accom_num);
     public int getChatRoomByAccomAndSender(Map<String,Object>map);
+    public List<ChatRoomDto> getChatRoomListByReceiverId(String receiver_id);
+    public String getChatRoomNameByAccomAndSender(Map<String,Object>map);
 
 }

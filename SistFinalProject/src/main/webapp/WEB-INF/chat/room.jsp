@@ -105,7 +105,7 @@
                 <c:forEach var="chatRoom" items="${chatRoomList}" varStatus="idx">
                     <tr>
                         <td class="num">${idx.count}</td>
-                        <td class="room"><b>${roomName}_${chatRoom.room_num}</b></td>
+                        <td class="room"><b>${chatRoom.accom_name}_${chatRoom.room_num}</b></td>
                         <td class="go"><button type="button" id="goRoomBtn" onclick="goChatting(${chatRoom.room_num})" accom_num="${chatRoom.accom_num}" >참여</button> </td>
                     </tr>
                 </c:forEach>

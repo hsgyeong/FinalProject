@@ -35,24 +35,26 @@ div.chatlist{
     word-wrap: break-word;
 }
 .chating .me-box{
+    vertical-align: center;
     text-align: right;
-    max-width: 70%;
+    max-width: 100%;
     border-radius: 5px;
     background-color: #FFE400;
     padding: 0 10px 0 10px;
-    margin: 2px 2px 2px 2px;
+    margin: 5px 2px 5px 2px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .chating .others-box{
+    vertical-align: center;
     text-align: left;
-    max-width: 70%;
+    max-width: 100%;
     border-radius: 5px;
     background-color: #f7323f;
     padding: 0 10px 0 10px;
-    margin: 2px 2px 2px 2px;
+    margin: 5px 2px 5px 2px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

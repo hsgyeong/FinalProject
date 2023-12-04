@@ -14,6 +14,7 @@ public class ChatRoomDto {
 //    private Timestamp roomCreateDay;
     private int room_num;
     private int accom_num;
+    private String accom_name;
     private String sender_id;
     private String receiver_id;
     private Timestamp room_createday;

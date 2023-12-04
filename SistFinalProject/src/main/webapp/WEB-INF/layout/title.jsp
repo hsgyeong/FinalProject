@@ -410,6 +410,7 @@
                             </c:when>
                             <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
                                 <li><a href="/accom/non-book">예약불가날짜</a></li>
+                                <li><a href="/chat/chatlist">채팅목록</a></li>
                                 <li><a href="/business/business-mytriview">내정보</a></li>
                             </c:when>
                         </c:choose>
