@@ -115,12 +115,16 @@
 			return passwords.test(password);
 		}
 		
-		$("#pass2").keyup(function() {
+	/*	$("#pass2").keyup(function() {
 			var pass1 = $("#pass1").val();
 			var pass2 = $("#pass2").val();
+			
+			var passval = $("span.passvalid").text("");
 		
 			//alert(pass1+","+pass2)
-			if (pass1 == pass2) {
+			
+			
+			if (pass1 == pass2 && ValidPassword(pass1)) {
 				$("span.passok").text("비밀번호가 일치합니다.").css("color","green");
 				
 			} else {
@@ -129,7 +133,32 @@
 
 			}
 
-		});
+		}); */
+		
+		$("#pass2").keyup(function() {
+			var pass1 = $("#pass1").val();
+			var pass2 = $("#pass2").val();
+			
+			var passval = $("span.passvalid").text();
+		
+			//alert(pass1+","+pass2)
+			
+			if(passval=="비밀번호는 8~12자리의 영소문자 또는 대문자, 숫자, 특수문자를 포함해야합니다.")
+			{
+				$("span.passok").text("");
+			}else{
+				
+			if (pass1 == pass2 && ValidPassword(pass1)) {
+				$("span.passok").text("비밀번호가 일치합니다.").css("color","green");
+				
+			} else {
+				$("span.passok").text("비밀번호가 일치하지 않습니다.").css("color","red");
+				$("#pass2").focus();
+				
+				}
+			}
+		}); 
+		
 		
 		$("#joinForm").submit(function(e){
 			
