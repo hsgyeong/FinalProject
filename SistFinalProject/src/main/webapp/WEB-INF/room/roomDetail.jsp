@@ -757,6 +757,7 @@
 		<c:forEach items="${pplist}" var="list">
 		
 		<c:if test="${list.accom_num == dto.accom_num }">
+		
 		<div class="detail_review_result">
 		
 		<table class="table table-bordered" style="width: 80%; margin-left: 10%;">
