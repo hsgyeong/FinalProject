@@ -118,9 +118,8 @@ a:hover {
 			
             <table class="table table-bordered">
 	            <tr>
-	                <td align="center" style="width: 10%; height: 5vh;">No</td>
-	                <td align="center" style="width: 20%; height: 5vh;">이름</td>
 	                <td align="center" style="width: 10%; height: 5vh;">종류</td>
+	                <td align="center" style="width: 20%; height: 5vh;">이름</td>
 	                <td align="center" style="width: 20%; height: 5vh;">사진</td>
 	                <td align="center" style="width: 20%; height: 5vh;">위치</td>
 	                <td align="center" style="width: 20%; height: 5vh;">수정 & 삭제</td>
@@ -131,13 +130,13 @@ a:hover {
 	        <c:forEach var="dto" items="${list}" varStatus="i">
 	        <c:if test="${dto.business_id eq sessionScope.business_id}">
                 <tr>
-                    <td align="center" valign="middle" style="width: 10%; height: 15vh;">${i.count }</td>
+                    <td align="center" valign="middle" style="width: 10%; height: 15vh;">${dto.accom_category }</td>
                     <td align="center" valign="middle" style="width: 20%; height: 15vh;">
                     <a href="/room/room-list?accom_num=${dto.accom_num }" style="color: black;">${dto.accom_name }
                     </a>
                     </td>
-                    <td align="center" valign="middle" style="width: 10%; height: 15vh;">${dto.accom_category }</td>
-                    <td align="center" valign="middle" style="width: 20%; height: 15vh;">
+                                        
+<td align="center" valign="middle" style="width: 20%; height: 15vh;">
                         <img src="../accomsave/${dto.accom_photo}" alt="">
                     </td>
                     <td align="center" valign="middle" style="width: 20%; height: 15vh;">${dto.accom_location }&nbsp;${dto.accom_address }</td>
