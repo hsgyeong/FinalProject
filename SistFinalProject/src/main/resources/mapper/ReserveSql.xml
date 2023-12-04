@@ -15,9 +15,9 @@
  		select max(idx) from reservation
  	</select>
  	
- 	<select id="getOneInfoData" parameterType="String" resultType="reserveDto">
- 		select * from reservation where info_id = #{info_id}
- 	</select>
+ 	<select id="getOneInfoData" parameterType="Map" resultType="reserveDto">
+	    SELECT * FROM reservation WHERE info_id = #{info_id} AND accom_num = #{accom_num};
+	</select>
  	
  	<select id="getReservationDataById" parameterType="String" resultType="reserveDto">
  		select * from reservation where info_id=#{info_id}
