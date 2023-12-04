@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sist.last.dto.ReserveDto;
+import sist.last.dto.RoomDto;
 import sist.last.mapper.ReserveMapperInter;
 
 @Service
@@ -60,6 +61,12 @@ public class ReserveService implements ReserveServiceInter {
 	public void updateReserveStatus(ReserveDto dto) {
 		// TODO Auto-generated method stub
 		mapper.updateReserveStatus(dto);
+	}
+
+	@Override
+	public String getPhoto(String room_num) {
+		// TODO Auto-generated method stub
+		return mapper.getPhoto(room_num);
 	}
 	
 }

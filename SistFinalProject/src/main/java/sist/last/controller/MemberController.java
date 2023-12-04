@@ -20,6 +20,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import sist.last.dto.MemberDto;
 import sist.last.dto.ReserveDto;
+import sist.last.dto.RoomDto;
 import sist.last.mapper.ReserveMapperInter;
 import sist.last.service.MemberService;
 
@@ -192,14 +193,28 @@ public class MemberController {
 	public String myreservation(Model model, HttpSession session)
 	{	
 		String info_id = (String)session.getAttribute("info_id");
-		
+
+		//System.out.println(room_num);
 		System.out.println(info_id);
 		
 		//list dto 에 넣어서 그걸 뽑는거. 그 안에 필요한 거 예약번호, 숙소 이름, 방이름 가져오기, 체크인, 체크아웃 
 
-		List<ReserveDto> list = mapper.getReservationDataById(info_id);
+		List<ReserveDto> list = mapper.getReservationDataById(info_id);  //리스트에서 0번쨰에 있는 데이터 나옴 그중에 room_num 존재 그 roomㅜㅕㅡdmf 랙ansd ksdptj rkwudha 개ㅐㅡnum에 대한 사진 조회. 그 사진을 photolist에 넣음 
+		List<String>photoList = new ArrayList<>();
+		
+		for(ReserveDto reserve:list) {  //list의 수만큼 반복. reserve 가 결국 i가 됨
+			
+			int room_num = reserve.getRoom_num(); //첫번째 for문에서 뽑음
+			String photo = mapper.getPhoto(room_num+"");
+			
+			photoList.add(photo);
+	
+		}
+		//list만큼 for문 
+		
 	
 		model.addAttribute("list", list);
+		model.addAttribute("photoList", photoList);
 		
 		return "/member/MyReservationList";
 	}

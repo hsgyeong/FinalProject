@@ -254,11 +254,10 @@ $(document).ready(function(){
 			}
 			})
 		
-		
 	$("#deleteModal").hide();	
 	
 	setTimeout(function(){
-	alert("안녕히가세요!");
+	alert("회원 탈퇴 되었습니다. 안녕히가세요!");
 	
 	window.location.href="/login/logout";
 		

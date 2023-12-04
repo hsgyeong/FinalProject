@@ -61,7 +61,7 @@ public class KakaoMemberController {
 		 System.out.println("별명:"+info_nickname);
 		 System.out.println("kakaoid == "+info_id);
 		 session.setAttribute("info_nickname", info_nickname);
-		 session.setAttribute("info_id", info_id);
+		 session.setAttribute("info_id", "kakao_"+info_id);
 		 session.setAttribute("access_token", access_token);
 		 session.setAttribute("loginok", "kakao");	 
 		 
@@ -77,7 +77,7 @@ public class KakaoMemberController {
 			memberDto.setInfo_nickname("kakao_"+info_nickname);
 		kakaoMemberService.insertKakaoMember(memberDto);
 		
-		 session.setAttribute("info_id", info_id);
+		 session.setAttribute("info_id", "kakao_"+info_id);
 		 session.setAttribute("info_nickname", info_nickname);
 		 session.setAttribute("access_token", access_token);
 		 session.setAttribute("loginok", "kakao");
