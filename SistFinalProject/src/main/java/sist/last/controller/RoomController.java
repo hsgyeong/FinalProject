@@ -120,6 +120,7 @@ public class RoomController {
     	model.addObject("checkout", checkout);
     	model.addObject("mdto", mdto);
     	model.addObject("reserveCount", countList);
+    	
 
     	//회원 로그인 세션이 null이 아니면 reviewcount 조회
     	if(info!=null) {
