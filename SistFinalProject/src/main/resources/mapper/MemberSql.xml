@@ -60,4 +60,8 @@
  select * from info where info_id = #{kakao_id}
  </select>
  
+ <select id="getPasswordById" resultType="String" parameterType="String">
+ select info_pass from info where info_id = #{info_id}
+ </select>
+ 
  </mapper>
