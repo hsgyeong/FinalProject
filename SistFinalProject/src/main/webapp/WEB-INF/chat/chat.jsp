@@ -5,20 +5,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://kit.fontawesome.com/16085d762f.js"
-            crossorigin="anonymous"></script>
     <link href="/messagejscss/emoji_jk.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <script type="text/javascript" src="/messagejscss/emoji_jk.js"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Jua&family=Stylish&family=Sunflower&display=swap"
-            rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <meta charset="UTF-8">
     <title>Chating</title>
     <style>
@@ -79,6 +71,41 @@
         .img {
             float: right;
         }
+        .messagefilepreview {
+            position: inherit;
+            background: white;
+            box-shadow: 0px 0px 10px lightgray;
+            border-bottom: 1px solid lightgray;
+            width: 100%;
+            height: 100px;
+            display: inline-flex;
+            align-items: center;
+            bottom: 0;
+            margin-bottom: 55px;
+            z-index: 5;
+            /* display: none; */
+        }
+
+        .messagefilepreview div {
+            height: 75px;
+            margin: 0 auto;
+            margin-left: 15px;
+            display: inline-flex;
+            align-items: flex-end;
+        }
+
+        .messagefilepreview img {
+            height: 75px;
+        }
+
+        .messagefilepreview span {
+            cursor: pointer;
+        }
+        #sendBtn{
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+
     </style>
 </head>
 
@@ -90,12 +117,12 @@
         $(".messagefilepreview").hide();
 
         // 사진 업로드
-        $(".chatupload").click(function (){
+        $(".chatuploadicon").click(function (){
            $(".chatupload input").trigger("click");
         });
 
         // 사진 선택 시작
-        $("#msgfileupload").change(function (){
+        $("#msgfileupload").change(function (event){
            var input=event.target;
 
            // 미리보기 띄우기
@@ -118,9 +145,7 @@
         $(document).on("clikc",".fileselcancel",function (){
             $(".messagefilepreview").hide();
             $("#msgfileupload").val(null);
-
         });
-
     });
 
     // 상대방과 하던 채팅 가져오기
@@ -134,7 +159,7 @@
             url:"/chat/chatting",
             data:{"room_num":room_num},
             success:function (res){
-                alert("res확인"+res);
+                // alert("res확인"+res);
                 var chatContent="";
                 $.each(res,function (i,ele){
                    if (ele.sender_id=="${sessionScope.info_id}"||ele.sender_id=="${sessionScope.business_id}"){
@@ -194,7 +219,7 @@
     function send(){
         var room_num=$("#room_num").val();
         var msg=$("#chatting").val();
-        var mynum="${sessionScope.myid}";
+        <%--var mynum="${sessionScope.myid}";--%>
 
         var info_id="${sessionScope.info_id}";
         var business_id="${sessionScope.business_id}";
@@ -214,7 +239,7 @@
         if (!$("#msgfileupload").val()){
             // 글만 작성 했을 때
             if (msg!=""){
-                alert(msg);
+                // alert(msg);
                 ws.send(JSON.stringify({ // handler로 보내는 ajax. ws 라는게 websocket 서버로 보내는 역할
                     // handleTextMessage method로 보내는 것.
                     "room_num" : room_num,
@@ -241,7 +266,7 @@
                     ws.send(JSON.stringify({
                         "room_num" : room_num,
                         "msg" : res.upload,
-                        "mynum" : mynum,
+                        "myid" : myid,
                         "type" : "img"
                     }));
 
@@ -255,7 +280,7 @@
                 ws.send(JSON.stringify({
                     "room_num" : room_num,
                     "msg" : msg,
-                    "mynum" : mynum,
+                    "myid" : myid,
                     "type" : "chat"
                 }));
             }
@@ -264,13 +289,12 @@
         $("#chatting").val("");
         getChatting(room_num);
 
-
     }
 
-
 </script>
-<body><h1>킹갓연주</h1>
+<body>
 
+<h1>킹갓연주</h1>
 
 <div>
     <h1>${roomName} 문의</h1>
