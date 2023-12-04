@@ -103,4 +103,16 @@ public class AdminMapperService implements AdminMapperServiceInter {
 		// TODO Auto-generated method stub
 		return mapper.getMemberTotalCount();
 	}
+
+	@Override
+	public void adminApprovalOfBussiness(String business_id) {
+		// TODO Auto-generated method stub
+		mapper.adminApprovalOfBussiness(business_id);
+	}
+
+	@Override
+	public BusinessDto getBusinessId(int idx) {
+		// TODO Auto-generated method stub
+		return mapper.getBusinessId(idx);
+	}
 }

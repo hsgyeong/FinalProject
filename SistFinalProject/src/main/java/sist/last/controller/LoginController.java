@@ -144,7 +144,8 @@ public class LoginController {
 			 	}  */
 
             return "redirect:/";
-        } else {
+        }
+        else {
 
             return "/login/loginFail";
         }

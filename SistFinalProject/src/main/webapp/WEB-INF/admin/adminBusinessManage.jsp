@@ -12,6 +12,24 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <title>Insert title here</title>
 </head>
+<style>
+.btn-approval{
+
+	width: 8vh;
+	height: 5vh;
+	border: 1px solid silver;
+	color: black;
+	font-weight: bold;
+	background-color: white;
+	border-radius: 1vh;
+	font-size: 0.8em;
+}
+
+.btn-approval:hover{
+
+	background-color: rgb(228, 231, 235);
+}
+</style>
 <body>
 	<div align="center">
 		<h3><b>사업자관리</b></h3>
@@ -22,6 +40,7 @@
 				<th width="150">사업자번호</th>
 				<th width="100">사업자상호</th>
 				<th width="150">사업자이메일</th>
+				<th width="150">사업자승인</th>
 			</tr>
 			<c:if test="${totalCount==0 }">
 				<tr>
@@ -38,6 +57,10 @@
 						<td>${list.business_hp }</td>
 						<td>${list.business_company }</td>
 						<td>${list.business_email }</td>
+						<td>
+							<button type="button" class="btn-approval" onclick="location.href='admin-business-approval?idx=${list.idx}'">승인</button>
+							<button type="button" class="btn-approval" onclick="location.href='admin-business-deny?idx=${list.idx}'">거부</button>
+						</td>
 					</tr>
 				</c:forEach>
 			</c:if>

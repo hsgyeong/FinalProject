@@ -20,4 +20,6 @@ public interface AdminMapperServiceInter {
 	public int getBusinessTotalCount();
 	public List<MemberDto> getMemberPagingList(int start, int perpage);
 	public int getMemberTotalCount();
+	public void adminApprovalOfBussiness(String business_id);
+	public BusinessDto getBusinessId(int idx);
 }
