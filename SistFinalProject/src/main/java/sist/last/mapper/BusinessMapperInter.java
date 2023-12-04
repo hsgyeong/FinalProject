@@ -16,4 +16,5 @@ public interface BusinessMapperInter {
 	public int getSearchBusinessId(String business_id);
 	public void updateBusiness(BusinessDto dto);
 	public void deleteBusiness(String business_id);
+	public int getApprovalByBusinessId(String business_id);
 }

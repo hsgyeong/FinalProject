@@ -120,8 +120,10 @@ public class LoginController {
         HashMap<String, String> map = new HashMap<>();
 
         int Bcheck = businessService.BloginPassCheck(business_id, business_pass);
+        
+        int approval = businessService.getApprovalByBusinessId(business_id);
 
-        if (Bcheck == 1) {
+        if (Bcheck == 1 && approval == 1) {
 
             session.setMaxInactiveInterval(60 * 60 * 8);
 
@@ -144,7 +146,10 @@ public class LoginController {
 			 	}  */
 
             return "redirect:/";
-        } else {
+        } else if(approval == 0){
+        	
+        	return "/business/approval-fail";
+        }else{
 
             return "/login/loginFail";
         }

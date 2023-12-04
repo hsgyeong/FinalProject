@@ -31,4 +31,8 @@
  <delete id="deleteBusiness" parameterType="String">
  delete from businessman where business_id=#{business_id}
  </delete>
+ 
+ <select id="getApprovalByBusinessId" resultType="int" parameterType="String">
+ select business_approval from businessman where business_id=#{business_id}
+ </select>
  </mapper>
