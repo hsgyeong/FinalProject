@@ -224,6 +224,7 @@
 			<input type="hidden" id="accom_name" value="${accom_name }">
 			<input type="hidden" id="room_name" value="${room_name }">
 			<input type="hidden" id="accom_num" value="${accom_num }">
+
 			<div>
 				<b>예약자 정보</b>
 			</div>
