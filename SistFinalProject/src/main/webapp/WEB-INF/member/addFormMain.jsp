@@ -61,12 +61,12 @@ $(function(){
 	$("#memberJoin").click(function(){
 		
 		$.ajax({
-			
+
 			type:"get",
 			url:"member-join",
 			dataType:"html",
 			success:function(res){
-				
+
 				$("body").html(res);
 			}
 

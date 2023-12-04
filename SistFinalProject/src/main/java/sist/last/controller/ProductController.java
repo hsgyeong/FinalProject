@@ -129,6 +129,7 @@ public class ProductController {
         if (selDate1 != null) {
             selectDate1 = selDate1;
             selectDate2 = selDate2;
+            System.out.println(selectDate2);
         }
         if (selCate == "") {
             selCate = null;
@@ -136,7 +137,7 @@ public class ProductController {
 
     	
         List<ProductDto> allProducts = pService.getAllProduct();
-        isSelDateNull(null);
+        isSelDateNull(selectDate1);
         processDateSelection(selectDate1, selectDate2, model);
         allProducts = compareLimitDate(allProducts, selectDate1, selectDate2);
         sortDistanceOfProduct(allProducts);
@@ -243,18 +244,19 @@ public class ProductController {
         return result;
     }
 
-    private void processDateSelection(String selDate1, String selDate2,
+    private void processDateSelection(String selectDate1, String selectDate2,
                                       Model model) {
         int[] splitDate1 = new int[3];
         int[] splitDate2 = new int[3];
         int sleep = 1;
-        if (selDate1 != null) {
-            splitDate1 = splitIntegerDay(selDate1);
-            splitDate2 = splitIntegerDay(selDate2);
+        if (selectDate1 != null) {
+            splitDate1 = splitIntegerDay(selectDate1);
+            splitDate2 = splitIntegerDay(selectDate2);
             sleep = calculateSleep(splitDate1, splitDate2);
         }
-        model.addAttribute("selDate1", selDate1);
-        model.addAttribute("selDate2", selDate2);
+        System.out.println(selectDate2);
+        model.addAttribute("selDate1", selectDate1);
+        model.addAttribute("selDate2", selectDate2);
         model.addAttribute("firstYear", splitDate1[0]);
         model.addAttribute("firstMonth", splitDate1[1]);
         model.addAttribute("firstDay", splitDate1[2]);

@@ -255,7 +255,7 @@ body {
  					outline: none;">TRIVIEW</a>
 			</h3>
 			<br>
-		
+
 			<caption align="top" class="cap">
 				<h6><b>회원가입</b></h6><br>
 			</caption>
