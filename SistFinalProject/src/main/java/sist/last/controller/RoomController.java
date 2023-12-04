@@ -119,18 +119,6 @@ public class RoomController {
     	model.addObject("mdto", mdto);
     	model.addObject("reserveCount", countList);
     	
-    	//reserve 하나의 데이터 조회
-    	
-//    	ReserveDto reservedto=rmapper.getOneInfoData(info);
-//    	String reserve_id=reservedto.getInfo_id();
-//    	String reserve_room=reservedto.getRoom_name();
-//    	
-//    	model.addObject("reserve_id", reserve_id);
-//    	model.addObject("reserve_room", reserve_room);
-    	
-//    	int reviewcount=reviewmapper.InfoIdTotalCount(info);
-//    	model.addObject("reviewcount", reviewcount);
-    	
     	//회원 로그인 세션이 null이 아니면 reviewcount 조회
     	if(info!=null) {
     		
