@@ -219,7 +219,6 @@
 
     .accom-image {
         margin-right: 10px;
-        border: 1px solid black;
     }
 
     .info-container {
@@ -242,8 +241,10 @@
     }
 
     .accom-image img {
-        width: 80px;
-        height: 200px;
+        width: 50vh;
+        height: 30vh;
+        object-fit: cover;
+        border:1px solid black;
     }
 
     .detail_accom_name {
@@ -886,7 +887,7 @@
             <c:forEach items="${productList}" var="list" varStatus="i">
                 <div class="accom-list" idx="${list.accom_num}">
                     <div class="accom-image" style="width: 60%;">
-                        <img src="../accomsave/${list.accom_photo}" style="width: 100%;">
+                        <img src="../accomsave/${list.accom_photo}">
                     </div>
                     <div class="info-container">
                         <div class="accom-info">
