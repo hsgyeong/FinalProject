@@ -72,6 +72,8 @@ public class BusinessController {
 		
 		BusinessDto businessDto = businessService.getDataByBusinessId(business_id);
 		
+		session.setAttribute("business_company", businessDto.getBusiness_company());
+		
 		model.addAttribute("businessDto", businessDto);
 		
 		return "/company/businessMyTriview";

@@ -209,6 +209,7 @@
 
 <script>
 	//alert('${sessionScope.business_id}');
+	//alert('${businessDto.business_company}');
     $(document).ready(function () {
 
         $("#logoutBtn").click(function () {
@@ -401,10 +402,10 @@
                         <div class="title-name">
                             <c:choose>
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
-                                    <li><a class="nick">${memberDto.info_nickname }</a></li>
+                                    <li><a class="nick">${sessionScope.info_nickname }</a></li>
                                 </c:when>
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
-                                    <li><a class="com">${businessDto.business_company }</a></li>
+                                    <li><a class="com">${sessionScope.business_company }</a></li>
                                 </c:when>
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'kakao'}">
                                     <li><a class="com">${sessionScope.info_nickname }</a></li>

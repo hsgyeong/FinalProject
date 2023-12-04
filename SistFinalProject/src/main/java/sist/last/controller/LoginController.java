@@ -95,6 +95,7 @@ public class LoginController {
 
             MemberDto memberDto = service.getDataById(info_id);  //session으로 못넘김 model로 넘겨야함
 
+            session.setAttribute("info_nickname", memberDto.getInfo_nickname());
             //String info_id = (String) session.getAttribute("info_id");
 
 		/*	if (myid != null) {
@@ -120,31 +121,26 @@ public class LoginController {
         HashMap<String, String> map = new HashMap<>();
 
         int Bcheck = businessService.BloginPassCheck(business_id, business_pass);
-       // System.out.println(business_id);
-        int approval = businessService.getApprovalByBusinessId(business_id);
-
-        if (Bcheck == 1 && approval == 1) {
-
-            session.setMaxInactiveInterval(60 * 60 * 8);
-
-            Cookie cookie = new Cookie("businessId", business_id);
-            cookie.setMaxAge(60 * 60 * 24 * 30);
-            response.addCookie(cookie);
-
-            session.setAttribute("business_id", business_id);
-            session.setAttribute("loginok", "business");
-            session.setAttribute("saveok", cbsave);
-
-            BusinessDto businessDto = businessService.getDataByBusinessId(business_id);
-			
-			
-		/*	 String myid = (String) session.getAttribute("myid");
-			  
-			 if (myid != null) { System.out.println("세션에 myid가 저장되어 있습니다. 값: " + myid); }
-			 else { 
-			 		System.out.println("세션에 myid가 저장되어 있지 않습니다."); 
-			 	}  */
+  
+        if (Bcheck == 1) {
+        	int approval = businessService.getApprovalByBusinessId(business_id);
+      	
             if(approval == 1) {
+            	
+                session.setMaxInactiveInterval(60 * 60 * 8);
+
+                Cookie cookie = new Cookie("businessId", business_id);
+                cookie.setMaxAge(60 * 60 * 24 * 30);
+                response.addCookie(cookie);
+
+                session.setAttribute("business_id", business_id);
+                session.setAttribute("loginok", "business");
+                session.setAttribute("saveok", cbsave);
+
+                BusinessDto businessDto = businessService.getDataByBusinessId(business_id);
+        		
+        		session.setAttribute("business_company", businessDto.getBusiness_company());
+    			
             	return "redirect:/";
             }
             else {
