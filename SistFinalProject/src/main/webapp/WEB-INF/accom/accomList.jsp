@@ -129,6 +129,7 @@ a:hover {
            	
 	        <c:if test="${totalCount>0 }">
 	        <c:forEach var="dto" items="${list}" varStatus="i">
+	        <c:if test="${dto.business_id eq sessionScope.business_id}">
                 <tr>
                     <td align="center" valign="middle" style="width: 10%; height: 15vh;">${i.count }</td>
                     <td align="center" valign="middle" style="width: 20%; height: 15vh;">
@@ -147,6 +148,7 @@ a:hover {
                     onclick="location.href='delete?accom_num=${dto.accom_num}'">삭제</button>
                     </td>
                 </tr>
+                </c:if>
             </c:forEach>
             </c:if>
             </table>

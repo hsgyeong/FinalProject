@@ -33,9 +33,14 @@ public class MemberService implements MemberServiceInter {
 		Map<String, String> map = new HashMap<>();
 		
 		map.put("info_id", info_id);
+		
+		String pass = mapperInter.getPasswordById(info_id);
+		boolean passMatch = info_pass.equals(pass);
+			
 		map.put("info_pass", info_pass);
 		
-		return mapperInter.loginPassCheck(map);
+	//	return mapperInter.loginPassCheck(map);
+		return passMatch ? 1:0;
 	}
 
 	@Override
@@ -99,6 +104,12 @@ public class MemberService implements MemberServiceInter {
 		}
 		
 		return validatorResult;
+	}
+
+	@Override
+	public String getPasswordById(String info_id) {
+		// TODO Auto-generated method stub
+		return mapperInter.getPasswordById(info_id);
 	}
 
 }

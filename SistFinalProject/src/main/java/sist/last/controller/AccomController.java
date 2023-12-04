@@ -38,7 +38,7 @@ public class AccomController {
 		String business = (String) session.getAttribute("business_id");
 		String info=(String)session.getAttribute("info_id");
 		
-		int totalCount = mapper.getTotalCount();
+		int totalCount = mapper.getTotalCount(business);
 		List<AccomDto> list = mapper.getAllData();
 		
 	    AccomDto dto = new AccomDto();
