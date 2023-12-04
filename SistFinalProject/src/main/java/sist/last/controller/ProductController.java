@@ -197,7 +197,7 @@ public class ProductController {
             Collections.sort(products, Comparator.comparing(ProductDto::getRoom_price));
         }
         if (sort.equals("score")) {
-            Collections.sort(products, Comparator.comparing(ProductDto::getAccom_score));
+            Collections.sort(products, Comparator.comparing(ProductDto::getAccom_score).reversed());
         }
     }
 
