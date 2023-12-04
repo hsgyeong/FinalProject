@@ -32,7 +32,7 @@
 	<div align="center">
 		<!-- i 태그를 클릭하면 음악이 재생되도록 수정 -->
 		<i class="bi bi-check2" style="font-size: 200px; cursor: pointer; color: #E34647;"></i><br>
-		${reserveDto.info_id }님, 예약번호(<a href="#" style="text-decoration: none;">${reserveDto.reserve_id }</a>)를 결제해주셔서 감사합니다.<br>
+		${reserveDto.info_id }님, 예약번호(<a href="/member/myreservation" style="text-decoration: none;">${reserveDto.reserve_id }</a>)를 결제해주셔서 감사합니다.<br>
 	</div>
 </body>
 </html>
