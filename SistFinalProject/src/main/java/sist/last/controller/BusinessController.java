@@ -136,11 +136,5 @@ public class BusinessController {
 		businessService.deleteBusiness(business_id);
 		return "/";
 	}
-	
-	@GetMapping("/business/approval-fail")
-	public String approvalfail(){
-		
-		return "/company/approvalFail";
-	}
 
 }

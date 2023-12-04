@@ -17,6 +17,7 @@ public class ReserveDto {
 	private String reserve_name;
 	private String reserve_hp;
 	private int room_num;
+	private int accom_num;
 	private int reserve_amount;
 	private String reserve_checkin;
 	private String reserve_checkout;
