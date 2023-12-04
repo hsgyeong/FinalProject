@@ -137,5 +137,10 @@ public class BusinessController {
 		return "/";
 	}
 	
+	@GetMapping("/business/approval-fail")
+	public String approvalfail(){
+		
+		return "/company/approvalFail";
+	}
 
 }

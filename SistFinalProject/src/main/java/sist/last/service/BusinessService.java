@@ -57,6 +57,12 @@ public class BusinessService implements BusinessServiceInter {
 		businessMapperInter.deleteBusiness(business_id);
 	}
 
+	@Override
+	public int getApprovalByBusinessId(String business_id) {
+		// TODO Auto-generated method stub
+		return businessMapperInter.getApprovalByBusinessId(business_id);
+	}
+
 
 
 }
