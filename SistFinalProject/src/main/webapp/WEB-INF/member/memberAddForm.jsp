@@ -18,7 +18,6 @@
 <script type="text/javascript">
 	$(function() {
 		
-		
 		function ValidId(id){
 			var idRegex = /^[a-z0-9]{4,12}$/;
 			return idRegex.test(id);
@@ -59,13 +58,25 @@
 
 						alert("사용중인 아이디입니다. 다시 입력해주세요.");
 						$("span.idok").text("사용중인 아이디입니다.").css("color","red");
-						$("#id").val("");
 					}
 
 				}
 			})
 
 		});
+		
+		$("#joinForm").submit(function(e){
+			
+			var idval = $("span.idok").text();
+			
+			if(idval == "사용중인 아이디입니다.")
+				{
+				alert("사용중인 아이디입니다. 다시 입력해주세요.");
+				e.preventDefault();
+				return;
+				}
+		})
+		
 
 		$("#hp2").keyup(function() {
 
@@ -165,6 +176,18 @@
 				}
 			})
 
+		})
+		
+		$("#joinForm").submit(function(e){
+			
+			var nicknameval = $("span.nickok").text();
+			
+			if(nicknameval == "사용중인 닉네임입니다.")
+				{
+				alert("사용중인 닉네임입니다. 다시 입력해주세요");
+				e.preventDefault();
+				return;
+				}
 		})
 	
 	});

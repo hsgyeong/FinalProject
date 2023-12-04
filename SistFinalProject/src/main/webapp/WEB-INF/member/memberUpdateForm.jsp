@@ -62,9 +62,9 @@
 
 			//alert(pass1+","+pass2)
 			if (pass1 == pass2) {
-				$("span.passok").text("비밀번호가 일치합니다.");
+				$("span.passok").text("비밀번호가 일치합니다.").css("color","green");
 			} else {
-				$("span.passok").text("비밀번호가 일치하지 않습니다.");
+				$("span.passok").text("비밀번호가 일치하지 않습니다.").css("color","red");
 				$("#pass2").focus();
 
 			}
@@ -108,14 +108,28 @@
 
 					if (res.count == 0) {
 
-						$("span.nickok").text("사용 가능한 닉네임입니다.");
+						$("span.nickok").text("사용 가능한 닉네임입니다.").css("color","green");
 					} else {
 
-						$("span.nickok").text("사용중인 닉네임입니다.");
+						$("span.nickok").text("사용중인 닉네임입니다.").css("color","red");
+						
 					}
 				}
 			});
 
+		})
+		
+		
+		$("#updateForm").submit(function(e){
+			
+			var nicknameval = $("span.nickok").text();
+			
+			if(nicknameval == "사용중인 닉네임입니다.")
+				{
+				alert("사용중인 닉네임입니다. 다시 입력해주세요");
+				e.preventDefault();
+				return;
+				}
 		})
 
 	});
