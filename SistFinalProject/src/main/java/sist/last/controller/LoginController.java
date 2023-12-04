@@ -120,7 +120,7 @@ public class LoginController {
         HashMap<String, String> map = new HashMap<>();
 
         int Bcheck = businessService.BloginPassCheck(business_id, business_pass);
-        
+       // System.out.println(business_id);
         int approval = businessService.getApprovalByBusinessId(business_id);
 
         if (Bcheck == 1 && approval == 1) {
@@ -144,17 +144,18 @@ public class LoginController {
 			 else { 
 			 		System.out.println("세션에 myid가 저장되어 있지 않습니다."); 
 			 	}  */
-
-            return "redirect:/";
-        } else if(approval == 0){
-        	
-        	return "/company/approvalFail";
-        }else{
+            if(approval == 1) {
+            	return "redirect:/";
+            }
+            else {
+            	return "/company/approvalFail";
+            }
+        } 
 
             return "/login/loginFail";
         }
 
-    }
+    
 
     @GetMapping("/login/login-fail")
     public String loginFail() {
