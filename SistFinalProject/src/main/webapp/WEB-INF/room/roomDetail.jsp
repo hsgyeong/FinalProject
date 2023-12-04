@@ -754,12 +754,15 @@
 		<div style="margin: 5vh 0px;">
 		<h3 style="border-bottom: 2px solid silver; padding-bottom: 3vh; margin-bottom: 10vh;">총 ${count }개의 리얼 리뷰</h3>
 		</div>
-		<c:if test="${totalCount>0 }">
+		
+		
 		<div class="pagingbox">
 
 		<c:forEach items="${pplist}" var="list">
 		
+		<c:if test="${list.accom_num == dto.accom_num }">
 		<div class="detail_review_result">
+		
 		<table class="table table-bordered" style="width: 80%; margin-left: 10%;">
 		<tr>
 				<td align="center" valign="middle" style="width: 25%;">${list.info_id }</td>
@@ -786,6 +789,8 @@
 		</tr>
 		</table>
 		</div>
+		</c:if>
+		
 		</c:forEach>
 					<ul class="pagination justify-content-center">
 					
@@ -810,7 +815,7 @@
 		    </c:if>
 		</ul>
 		</div>
-		</c:if>
+		
 		
 		<c:if test="${info_id != null and reviewcount==0 and '예약완료'.equals(reservecheck)}">
 		<div class="detail_review_input" style="margin-bottom: -3vh;">

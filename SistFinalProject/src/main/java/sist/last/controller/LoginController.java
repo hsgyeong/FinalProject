@@ -33,17 +33,14 @@ public class LoginController {
     public String loginform(HttpSession session,
                             Model model) {
 
-        //String myid = (String)session.getAttribute("myid");
         String loginok = (String) session.getAttribute("loginok");
 
         if (loginok == null) {
             return "/login/loginForm";
         } else {
-            String info_id = (String) session.getAttribute("info_id");
-            String business_id = (String) session.getAttribute("business_id");
-            //String info_nickname = service.getNickname(info_id);
-            //model.addAttribute("myid", myid);
-            //model.addAttribute("info_nickname", info_nickname);
+            String info_id = (String)session.getAttribute("info_id");
+            String business_id = (String)session.getAttribute("business_id");
+         
             if (info_id != null) {
                 String info_nickname = service.getNickname(info_id);
 
@@ -85,24 +82,14 @@ public class LoginController {
 
             session.setMaxInactiveInterval(60 * 60 * 8);
 
-            Cookie cookie = new Cookie("infoId", info_id);
-            cookie.setMaxAge(60 * 60 * 24 * 30);
-            response.addCookie(cookie);
-
             session.setAttribute("info_id", info_id);
             session.setAttribute("loginok", "member");
             session.setAttribute("saveok", cbsave);
 
             MemberDto memberDto = service.getDataById(info_id);  //session으로 못넘김 model로 넘겨야함
 
-            //String info_id = (String) session.getAttribute("info_id");
+            session.setAttribute("info_nickname", memberDto.getInfo_nickname());
 
-		/*	if (myid != null) {
-			    System.out.println("세션에 myid가 저장되어 있습니다. 값: " + myid+memberDto);
-			} else {
-			    System.out.println("세션에 myid가 저장되어 있지 않습니다.");
-			}
-		*/
             return "redirect:/";
         } else {
 
@@ -120,41 +107,33 @@ public class LoginController {
         HashMap<String, String> map = new HashMap<>();
 
         int Bcheck = businessService.BloginPassCheck(business_id, business_pass);
-        
-        int approval = businessService.getApprovalByBusinessId(business_id);
+  
+        if (Bcheck == 1) {
+        	int approval = businessService.getApprovalByBusinessId(business_id);
+      	
+            if(approval == 1) {
+            	
+                session.setMaxInactiveInterval(60 * 60 * 8);
 
-        if (Bcheck == 1 && approval == 1) {
+                session.setAttribute("business_id", business_id);
+                session.setAttribute("loginok", "business");
+                session.setAttribute("saveok", cbsave);
 
-            session.setMaxInactiveInterval(60 * 60 * 8);
-
-            Cookie cookie = new Cookie("businessId", business_id);
-            cookie.setMaxAge(60 * 60 * 24 * 30);
-            response.addCookie(cookie);
-
-            session.setAttribute("business_id", business_id);
-            session.setAttribute("loginok", "business");
-            session.setAttribute("saveok", cbsave);
-
-            BusinessDto businessDto = businessService.getDataByBusinessId(business_id);
-			
-			
-		/*	 String myid = (String) session.getAttribute("myid");
-			  
-			 if (myid != null) { System.out.println("세션에 myid가 저장되어 있습니다. 값: " + myid); }
-			 else { 
-			 		System.out.println("세션에 myid가 저장되어 있지 않습니다."); 
-			 	}  */
-
-            return "redirect:/";
-        } else if(approval == 0){
-        	
-        	return "/company/approvalFail";
-        }else{
+                BusinessDto businessDto = businessService.getDataByBusinessId(business_id);
+        		
+        		session.setAttribute("business_company", businessDto.getBusiness_company());
+    			
+            	return "redirect:/";
+            }
+            else {
+            	return "/company/approvalFail";
+            }
+        } 
 
             return "/login/loginFail";
         }
 
-    }
+    
 
     @GetMapping("/login/login-fail")
     public String loginFail() {
@@ -164,26 +143,16 @@ public class LoginController {
 
     @GetMapping("/login/logout")
     public String logout(HttpSession session, HttpServletResponse response) {
-        String loginok = (String) session.getAttribute("loginok");
+        String loginok = (String)session.getAttribute("loginok");
         //System.out.println("hello");
 
         if (loginok != null) {
 
-            if (session.getAttribute("info_id") != null) {
-                session.removeAttribute("info_id");
-            } else if (session.getAttribute("business_id") != null) {
-                session.removeAttribute("business_id");
-            } else if (session.getAttribute("admin_id") != null) {
-                session.removeAttribute("admin_id");
-            }
-
-        }
-
         session.removeAttribute("loginok");
-        session.removeAttribute("userId");
-        session.removeAttribute("kakao_nickname");
-        //session.removeAttribute("myid");
 
+        session.removeAttribute("kakao_nickname");
+    
+        }
         return "redirect:/";
     }
 

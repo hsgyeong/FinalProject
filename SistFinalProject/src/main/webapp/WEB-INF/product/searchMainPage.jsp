@@ -896,21 +896,21 @@
                             <div class="detail_accom_category">${list.accom_category}</div>
                             <div class="detail_asr">
                                 <div class="detail_accom_score">${list.accom_score }</div>
-                                <div class="detail_score_result"></div>
+                                <div class="detail_score_result result${i.count}"></div>
 
                                 <script>
                                     $(document).ready(function () {
-                                        var accomScore =
-                                        ${list.accom_score }
+                                        //alert(size);
+                                        var accomScore =${list.accom_score };
 
                                         if (accomScore > 9) {
-                                            $(".detail_score_result").text("최고예요");
+                                            $(".result${i.count}").text("최고예요");
                                         } else if (accomScore >= 8 && accomScore <= 9) {
-                                            $(".detail_score_result").text("좋아요");
+                                            $(".result${i.count}").text("좋아요");
                                         } else if (accomScore >= 7 && accomScore <= 8) {
-                                            $(".detail_score_result").text("괜찮아요");
+                                            $(".result${i.count}").text("괜찮아요");
                                         } else {
-                                            $(".detail_score_result").text("아쉬워요");
+                                            $(".result${i.count}").text("아쉬워요");
                                         }
                                     });
                                 </script>
