@@ -5,108 +5,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <link href="/messagejscss/emoji_jk.css" type="text/css" rel="stylesheet">
+    <link href="/messagejscss/chat.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <script type="text/javascript" src="/messagejscss/emoji_jk.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <meta charset="UTF-8">
     <title>Chating</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            width: 500px;
-            margin: 0 auto;
-            padding: 25px
-        }
-
-        .container h1 {
-            text-align: left;
-            padding: 5px 5px 5px 15px;
-            color: #FFBB00;
-            border-left: 3px solid #FFBB00;
-            margin-bottom: 20px;
-        }
-
-        .chating {
-            background-color: #000;
-            width: 500px;
-            height: 500px;
-            overflow: auto;
-        }
-
-        .chating .me {
-            color: #F6F6F6;
-            text-align: right;
-        }
-
-        .chating .others {
-            color: #FFE400;
-            text-align: left;
-        }
-
-        input {
-            width: 330px;
-            height: 25px;
-        }
-
-        #yourMsg {
-            display: none;
-        }
-
-        .msgImg {
-            width: 200px;
-            height: 125px;
-        }
-
-        .clearBoth {
-            clear: both;
-        }
-
-        .img {
-            float: right;
-        }
-        .messagefilepreview {
-            position: inherit;
-            background: white;
-            box-shadow: 0px 0px 10px lightgray;
-            border-bottom: 1px solid lightgray;
-            width: 100%;
-            height: 100px;
-            display: inline-flex;
-            align-items: center;
-            bottom: 0;
-            margin-bottom: 55px;
-            z-index: 5;
-            /* display: none; */
-        }
-
-        .messagefilepreview div {
-            height: 75px;
-            margin: 0 auto;
-            margin-left: 15px;
-            display: inline-flex;
-            align-items: flex-end;
-        }
-
-        .messagefilepreview img {
-            height: 75px;
-        }
-
-        .messagefilepreview span {
-            cursor: pointer;
-        }
-        #sendBtn{
-            cursor: pointer;
-            font-size: 1.5em;
-        }
-
-    </style>
 </head>
 
 <script type="text/javascript">
@@ -294,12 +200,12 @@
 </script>
 <body>
 
-<h1>킹갓연주</h1>
-
 <div>
-    <h1>${roomName} 문의</h1>
-    <input type="hidden" id="room_num" value="${room_num}">
+    <div class="room-name-box">
+        <h1 class="room-name">${roomName} 문의</h1>
+    </div>
 
+    <input type="hidden" id="room_num" value="${room_num}">
     <%--    채팅이 보이는 구간    --%>
     <div class="chatlist">
         <div id="chatShow" class="chating w-75"></div>
