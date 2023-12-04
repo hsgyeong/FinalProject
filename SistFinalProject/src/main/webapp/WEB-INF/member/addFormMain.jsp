@@ -27,11 +27,15 @@
  .h{
  	text-align: center;
  }
-
+.tb{
+	border: none;
+	width: 100%;
+}
 </style>
 </head>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 <body>
+	<table class="tb">
 			<tr>
 				<td>
 				<div class="joinTitle">
@@ -53,40 +57,20 @@
 				</div>	
 				</td>
 			</tr>		
-				
+	</table>			
 </body>
 <script type="text/javascript">
 $(function(){
 	
 	$("#memberJoin").click(function(){
 		
-		$.ajax({
-			
-			type:"get",
-			url:"member-join",
-			dataType:"html",
-			success:function(res){
-				
-				$("body").html(res);
-			}
-
-		})
+	location.href ="/member/member-join"
 		
 	})
 	
 	$("#businessJoin").click(function(){
 		
-		$.ajax({
-			
-			type:"get",
-			url:"business-join",
-			dataType:"html",
-			success:function(res){
-				
-				$("body").html(res);
-			}
-
-		})
+	location.href = "/member/business-join"
 		
 	})
 	

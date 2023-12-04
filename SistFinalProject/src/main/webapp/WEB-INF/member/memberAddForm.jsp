@@ -115,7 +115,7 @@
 			return passwords.test(password);
 		}
 		
-	/*	$("#pass2").keyup(function() {
+	$("#pass2").keyup(function() {
 			var pass1 = $("#pass1").val();
 			var pass2 = $("#pass2").val();
 			
@@ -133,9 +133,9 @@
 
 			}
 
-		}); */
+		}); 
 		
-		$("#pass2").keyup(function() {
+	/*	$("#pass2").keyup(function() {
 			var pass1 = $("#pass1").val();
 			var pass2 = $("#pass2").val();
 			
@@ -158,7 +158,7 @@
 				}
 			}
 		}); 
-		
+		*/
 		
 		$("#joinForm").submit(function(e){
 			
@@ -276,15 +276,15 @@ body {
 </style>
 </head>
 <body>
-	<form action="join-member" method="post" id="joinForm">
-		<table class="tb">
-			<h3>
-				<a href="/"	class="t" id="t" style="font-family: 'Jalnan'; text-align: center;
+	<h3>
+			<a href="/"	class="t" id="t" style="font-family: 'Jalnan'; text-align: center;
 					margin-top: 20px; color: #f7323f; cursor:pointer; text-decoration: none;
  					outline: none;">TRIVIEW</a>
 			</h3>
 			<br>
 		
+	<form action="join-member" method="post" id="joinForm">
+		<table class="tb">
 			<caption align="top" class="cap">
 				<h6><b>회원가입</b></h6><br>
 			</caption>
@@ -347,7 +347,7 @@ body {
 							<option value="hanmail.net">hanmail.net</option>
 							<option value="nate.com">nate.com</option>
 						</select> <br><br> 
-						<label for="birth">생년월일</label>&nbsp;&nbsp;<span style="font-size: 12px; color: gray;">(선택사항)<br> 
+						<label for="birth">생년월일</label>&nbsp;&nbsp;<span style="font-size: 12px; color: gray;">(선택사항)<br> </span>
 						<input type="date" name="info_birth" id="birth">
 					</div>
 					</div>
