@@ -82,9 +82,9 @@ public class LoginController {
 
             session.setMaxInactiveInterval(60 * 60 * 8);
 
-            session.setAttribute("info_id", info_id);
+            session.setAttribute("infoId", info_id);
             session.setAttribute("loginok", "member");
-            session.setAttribute("saveok", cbsave);
+        //  session.setAttribute("saveok", cbsave);
 
             MemberDto memberDto = service.getDataById(info_id);  
 
@@ -115,9 +115,9 @@ public class LoginController {
             	
                 session.setMaxInactiveInterval(60 * 60 * 8);
 
-                session.setAttribute("business_id", business_id);
+                session.setAttribute("businessId", business_id);
                 session.setAttribute("loginok", "business");
-                session.setAttribute("saveok", cbsave);
+           //    session.setAttribute("saveok", cbsave);
 
                 BusinessDto businessDto = businessService.getDataByBusinessId(business_id);
         		
@@ -149,7 +149,9 @@ public class LoginController {
         if (loginok != null) {
 
         session.removeAttribute("loginok");
-
+        
+   //    session.removeAttribute("infoId");
+   //    session.removeAttribute("businessId");
         session.removeAttribute("kakao_nickname");
     
         }
