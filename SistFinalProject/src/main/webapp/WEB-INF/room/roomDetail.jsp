@@ -485,6 +485,7 @@
 						alert("개인 회원만 사용 가능한 메뉴입니다.")
 					} else if (res!=null){
 						res=parseInt(res);
+
 						// location.href="/chat/goSellerRooms?room_num="+res;
 						location.href="/chat/goSellerRooms?room_num="+res+"&accom_num="+accom_num+"&accom_name="+accom_name;
 					}
