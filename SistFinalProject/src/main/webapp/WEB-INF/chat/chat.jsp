@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/messagejscss/emoji_jk.css" type="text/css" rel="stylesheet">
     <link href="/messagejscss/chat.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -69,10 +70,15 @@
                 var chatContent="";
                 $.each(res,function (i,ele){
                    if (ele.sender_id=="${sessionScope.info_id}"){
-                       chatContent+="<div class='me-box'><p class='me d-inline-flex'><div class='date-box'>("+ele.mess_time+")</div>&nbsp;&nbsp;"+ele.mess_content+"</p></div>";
-                   } else if (ele.sender_id=="${sessionScope.business_id}"){
-                       chatContent+="<div class='others-box'><p class='others'>"+ele.mess_content+"<div class='date-box'>("+ele.mess_time+")&nbsp;&nbsp;</div></p><div>";
+                       chatContent+="<p class='me' style='text-align: right;'>("+ele.mess_time+")&nbsp;&nbsp;"+ele.mess_content+"</p>";
+                   } else {
+                       chatContent+="<p class='other' style='text-align: left;'>"+ele.mess_content+"("+ele.mess_time+")&nbsp;&nbsp;</p>";
                    }
+                    <%--if (ele.sender_id=="${sessionScope.info_id}"){--%>
+                    <%--    chatContent+="<div class='speech'><p class='me d-inline-flex'><p>("+ele.mess_time+")&nbsp;&nbsp;"+ele.mess_content+"</p></div>";--%>
+                    <%--} else if (ele.sender_id=="${sessionScope.business_id}"){--%>
+                    <%--    chatContent+="<div class='others-box'><p class='others'>"+ele.mess_content+"<div class='date-box'>("+ele.mess_time+")&nbsp;&nbsp;</div></p><div>";--%>
+                    <%--}--%>
                 });
 
                 $("#chatShow").html(chatContent);
