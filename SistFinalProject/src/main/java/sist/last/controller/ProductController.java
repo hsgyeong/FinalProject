@@ -206,6 +206,10 @@ public class ProductController {
         if (!categoryList.isEmpty()) {
             return categoryList;
         }
+        List<ProductDto> nameList = pService.getProductDataOfName(keyword);
+        if (!nameList.isEmpty()) {
+            return nameList;
+        }
         List<ProductDto> hashtagList = pService.getProductDataOfHashTag(keyword);
         if (!hashtagList.isEmpty()) {
             return hashtagList;
@@ -213,10 +217,6 @@ public class ProductController {
         List<ProductDto> locationList = pService.getProductDataOfLocation(keyword);
         if (!locationList.isEmpty()) {
             return locationList;
-        }
-        List<ProductDto> nameList = pService.getProductDataOfName(keyword);
-        if (!nameList.isEmpty()) {
-            return nameList;
         }
         return null;
     }
@@ -467,6 +467,10 @@ public class ProductController {
         if (!categoryList.isEmpty()) {
             return categoryList;
         }
+        List<ProductDto> nameList = pService.getProductOfNameByLowPrice(keyword);
+        if (!nameList.isEmpty()) {
+            return nameList;
+        }
         List<ProductDto> hashtagList = pService.getProductOfHashTagByLowPrice(keyword);
         if (!hashtagList.isEmpty()) {
             return hashtagList;
@@ -474,10 +478,6 @@ public class ProductController {
         List<ProductDto> locationList = pService.getProductOfLocationByLowPrice(keyword);
         if (!locationList.isEmpty()) {
             return locationList;
-        }
-        List<ProductDto> nameList = pService.getProductOfNameByLowPrice(keyword);
-        if (!nameList.isEmpty()) {
-            return nameList;
         }
         return null;
     }
