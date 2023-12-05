@@ -28,6 +28,12 @@ div.chatlist{
     color: #f7323f;
     margin: 10px 10px 10px 10px;
 }
+.ggbox{
+    text-align: right;
+}
+.zzbox{
+    text-align: left;
+}
 
 .chating {
     width: 100%;
@@ -36,48 +42,55 @@ div.chatlist{
     padding: 10px 10px 10px 10px;
     word-wrap: break-word;
 }
-.chating .me-box{
-    /*vertical-align: center;*/
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    text-align: right;
-    max-width: 100%;
-    border-radius: 5px;
-    background-color: #FFE400;
-    padding: 0 10px 0 10px;
-    margin: 5px 2px 5px 2px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    /*width: auto;*/
-}
+/*.chating .me-box{*/
+/*    !*vertical-align: center;*!*/
+/*    display: flex;*/
+/*    flex-direction: row-reverse;*/
+/*    align-items: center;*/
+/*    text-align: right;*/
+/*    max-width: 100%;*/
+/*    border-radius: 5px;*/
+/*    background-color: #FFE400;*/
+/*    padding: 0 10px 0 10px;*/
+/*    margin: 5px 2px 5px 2px;*/
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*    white-space: nowrap;*/
+/*    !*width: auto;*!*/
+/*}*/
 
-.chating .others-box{
-    vertical-align: center;
-    text-align: left;
-    max-width: 100%;
-    border-radius: 5px;
-    background-color: #f7323f;
-    padding: 0 10px 0 10px;
-    margin: 5px 2px 5px 2px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.date-box{
-    color: gray;
-    font-size: 0.9em;
-}
+/*.chating .others-box{*/
+/*    vertical-align: center;*/
+/*    text-align: left;*/
+/*    max-width: 100%;*/
+/*    border-radius: 5px;*/
+/*    background-color: #f7323f;*/
+/*    padding: 0 10px 0 10px;*/
+/*    margin: 5px 2px 5px 2px;*/
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*    white-space: nowrap;*/
+/*}*/
+/*.chating.date-box{*/
+/*    text-align: right;*/
+/*    color: gray;*/
+/*    font-size: 0.9em;*/
+/*}*/
+/*.chating .date-box2{*/
+/*    text-align: left;*/
+/*    color: gray;*/
+/*    font-size: 0.9em;*/
+/*}*/
 
 .chating .me {
+    text-align: right;
     color: #000;
     font-size: 1.1em;
 
 }
 
-.chating .others {
-    color: #FFE400;
+.chating .other {
+    color: #f7323f;
     font-size: 1.1em;
 }
 
@@ -175,3 +188,55 @@ textarea{
     font-size: 2em;
 }
 
+/*!**!*/
+/*.speech {*/
+/*    position: relative;*/
+/*    background: #b7dcfe;*/
+/*    color: #317787;*/
+/*    display: inline-block;*/
+/*    border-radius: 0;*/
+/*    padding: 12px 20px;*/
+/*}*/
+/*.speech:before {*/
+/*    content: "";*/
+/*    display: block;*/
+/*    position: absolute;*/
+/*    width: 0;*/
+/*    height: 0;*/
+/*    left: 0;*/
+/*    top: 0;*/
+/*    border-top: 7px solid transparent;*/
+/*    border-bottom: 7px solid transparent;*/
+/*    border-right: 7px solid #b7dcfe;*/
+/*    margin: 15px 0 0 -6px;*/
+/*}*/
+/*.speech-right>.speech:before {*/
+/*    left: auto;*/
+/*    right: 0;*/
+/*    border-top: 7px solid transparent;*/
+/*    border-bottom: 7px solid transparent;*/
+/*    border-left: 7px solid #ffdc91;*/
+/*    border-right: 0;*/
+/*    margin: 15px -6px 0 0;*/
+/*}*/
+/*.speech .media-heading {*/
+/*    font-size: 1.2em;*/
+/*    color: #317787;*/
+/*    display: block;*/
+/*    border-bottom: 1px solid rgba(0,0,0,0.1);*/
+/*    margin-bottom: 10px;*/
+/*    padding-bottom: 5px;*/
+/*    font-weight: 300;*/
+/*}*/
+/*.speech-time {*/
+/*    margin-top: 20px;*/
+/*    margin-bottom: 0;*/
+/*    font-size: .8em;*/
+/*    font-weight: 300;*/
+/*}*/
+/*.media-block .media-right {*/
+/*    float: right;*/
+/*}*/
+/*.speech-right {*/
+/*    text-align: right;*/
+/*}*/
