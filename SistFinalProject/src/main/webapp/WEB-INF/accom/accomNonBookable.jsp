@@ -59,8 +59,9 @@
 <script type="text/javascript">
     let today = new Date();
     let getYear = today.getFullYear();
-    let getMonth = today.getMonth() + 1;
-    let getDay = today.getDate();
+    let getMonth = ("0" + (today.getMonth() + 1)).slice(-2);
+    let getDay = ("0" + today.getDate()).slice(-2);
+
     let date = getYear + "-" + getMonth + "-" + getDay;
     $("#non_checkin1").attr("min", date);
     $("#non_checkout1").attr("min", date);
