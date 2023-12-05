@@ -100,12 +100,14 @@
                 <tr>
                     <th class="num" width="150">순서</th>
                     <th class="room" width="250">방 이름</th>
+                    <th class="num" width="250">id</th>
                     <th class="go"width="100"></th>
                 </tr>
                 <c:forEach var="chatRoom" items="${chatRoomList}" varStatus="idx">
                     <tr>
                         <td class="num">${idx.count}</td>
                         <td class="room"><b>${chatRoom.accom_name}_${chatRoom.room_num}</b></td>
+                        <td class="num">${chatRoom.sender_id}</td>
                         <td class="go"><button type="button" id="goRoomBtn" onclick="goChatting(${chatRoom.room_num})" accom_num="${chatRoom.accom_num}" >참여</button> </td>
                     </tr>
                 </c:forEach>

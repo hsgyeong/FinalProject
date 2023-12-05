@@ -14,11 +14,12 @@
 }
 
 #emoji_popup{
+  margin-top: 50px;
   display: none;
   position: absolute;
   border: 1px #CECEF6 solid;
   width: 285px;
-  height: 200px;
+  height: 150px;
   overflow: auto;
 }
 
