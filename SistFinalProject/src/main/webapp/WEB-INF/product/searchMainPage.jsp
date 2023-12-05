@@ -930,7 +930,7 @@
                             </c:if>
                         </div>
                         <div class="room-amount">
-                            <b><fmt:formatNumber value="${list.room_price}" pattern="###,###"/>원</b>
+                            <b><fmt:formatNumber value="${list.room_price*sleep}" pattern="###,###"/>원</b>
                         </div>
                     </div>
                 </div>
