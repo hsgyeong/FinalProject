@@ -42,6 +42,8 @@ public class ChatController {
                           HttpSession session){
         String sender_id=(String) session.getAttribute("info_id");
         String business_id=(String)session.getAttribute("business_id");
+        System.out.println(sender_id);
+        System.out.println(business_id);
 //        int loginCheckNum=0;
 //        if (info_id!=null){
 //            sender_id=info_id;
