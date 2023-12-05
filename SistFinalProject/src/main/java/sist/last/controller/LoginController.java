@@ -86,7 +86,7 @@ public class LoginController {
             session.setAttribute("loginok", "member");
             session.setAttribute("saveok", cbsave);
 
-            MemberDto memberDto = service.getDataById(info_id);  //session으로 못넘김 model로 넘겨야함
+            MemberDto memberDto = service.getDataById(info_id);  
 
             session.setAttribute("info_nickname", memberDto.getInfo_nickname());
 
