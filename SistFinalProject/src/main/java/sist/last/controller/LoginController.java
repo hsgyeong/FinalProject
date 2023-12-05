@@ -149,7 +149,6 @@ public class LoginController {
         if (loginok != null) {
 
         session.removeAttribute("loginok");
-
         session.removeAttribute("kakao_nickname");
     
         }

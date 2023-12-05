@@ -226,6 +226,8 @@
         display: flex;
         flex-direction: column; /* 아래로 정렬 */
         flex-grow: 1;
+        width: 43%;
+        margin-top: -2vh;
     }
 
     .accom-info {
