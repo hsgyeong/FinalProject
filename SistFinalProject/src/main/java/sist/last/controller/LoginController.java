@@ -151,12 +151,8 @@ public class LoginController {
         if (loginok != null) {
 
         session.removeAttribute("loginok");
-<<<<<<< HEAD
-        
         session.removeAttribute("info_id");
         session.removeAttribute("business_id");
-=======
->>>>>>> pyung
         session.removeAttribute("kakao_nickname");
     
         }
