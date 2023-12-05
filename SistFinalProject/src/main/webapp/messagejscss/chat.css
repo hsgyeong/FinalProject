@@ -4,15 +4,14 @@
 }
 
 .chatting-box{
-    border: 2px solid #f7323f;
+    border: 1px solid #f7323f;
     border-radius: 10px;
-    padding: 10px 10px 10px 10px;
     margin-bottom: 100px;
 }
 
 .container h1 {
     text-align: left;
-    padding: 5px 5px 5px 15px;
+    padding: 5px 5px 5px 5px;
     color: #FFBB00;
     border-left: 3px solid #FFBB00;
     margin-bottom: 20px;
@@ -25,31 +24,49 @@ div.chatlist{
 .room-name-box{
     width: 100%;
     color: #f7323f;
+    margin: 10px 10px 10px 10px;
 }
 
 .chating {
-    /*background-color: #000;*/
     width: 100%;
     height: 500px;
     overflow: auto;
+    padding: 10px 10px 10px 10px;
+    word-wrap: break-word;
+}
+.chating .me-box{
+    vertical-align: center;
+    text-align: right;
+    max-width: 100%;
+    border-radius: 5px;
+    background-color: #FFE400;
+    padding: 0 10px 0 10px;
+    margin: 5px 2px 5px 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chating .others-box{
+    vertical-align: center;
+    text-align: left;
+    max-width: 100%;
+    border-radius: 5px;
+    background-color: #f7323f;
+    padding: 0 10px 0 10px;
+    margin: 5px 2px 5px 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .chating .me {
-    color: #F6F6F6;
-    text-align: right;
+    color: #000;
+
 }
 
 .chating .others {
     color: #FFE400;
-    text-align: left;
-}
-div.chatinputbox{
-    width: 100%;
-}
-
-input{
-    width: 95%;
-    height: 25px;
 }
 
 #yourMsg {
@@ -67,6 +84,13 @@ input{
 
 .img {
     float: right;
+}
+div.footer-outline-box{
+    background-color: #F6F6F6;
+    border-radius: 0 0 10px 10px;
+}
+div.messagefooter{
+    margin-top: 10px;
 }
 .messagefilepreview {
     position: inherit;
@@ -102,8 +126,22 @@ input{
 div.chatemoji{
     vertical-align: center;
 }
+
+div.chatupload{
+    cursor: pointer;
+}
+
 .emoji_i{
     font-size: 2em;
+}
+
+div.chatinputbox{
+    width: 100%;
+}
+
+input{
+    width: 90%;
+    word-wrap: break-word;
 }
 
 #sendBtn{

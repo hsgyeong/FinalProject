@@ -208,7 +208,8 @@
 </style>
 
 <script>
-
+	//alert('${sessionScope.business_id}');
+	//alert('${businessDto.business_company}');
     $(document).ready(function () {
 
         $("#logoutBtn").click(function () {
@@ -360,7 +361,14 @@
         <div class="select-box">
             <ul class="select-ul d-inline-flex">
                 <li class="select-li"><a onclick="settingLocation()" id="my-surroundings">내주변</a></li>
-                <li class="select-li"><a href="#">예약내역</a></li>
+                  <c:choose>
+                   <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
+                   <li class="select-li"><a href="/member/myreservation">예약내역</a></li>
+                    </c:when>
+                     <c:when test="${sessionScope.loginok == null || sessionScope.loginok != 'member'}">
+                       <li class="select-li"><a href="#">예약내역</a></li>
+                      </c:when>
+                	</c:choose>
                 <li class="select-li"><a href="#" id="see_more">더보기</a></li>
                 <c:if test="${sessionScope.loginok==null}">
                     <li class="select-li"><a href="/login/loginmain">로그인</a></li>
@@ -394,10 +402,10 @@
                         <div class="title-name">
                             <c:choose>
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
-                                    <li><a class="nick">${memberDto.info_nickname }</a></li>
+                                    <li><a class="nick">${sessionScope.info_nickname }</a></li>
                                 </c:when>
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
-                                    <li><a class="com">${businessDto.business_company }</a></li>
+                                    <li><a class="com">${sessionScope.business_company }</a></li>
                                 </c:when>
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'kakao'}">
                                     <li><a class="com">${sessionScope.info_nickname }</a></li>
@@ -410,6 +418,7 @@
                             </c:when>
                             <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
                                 <li><a href="/accom/non-book">예약불가날짜</a></li>
+                                <li><a href="/chat/chatlist">채팅목록</a></li>
                                 <li><a href="/business/business-mytriview">내정보</a></li>
                             </c:when>
                         </c:choose>

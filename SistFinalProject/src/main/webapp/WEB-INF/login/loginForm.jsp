@@ -129,7 +129,7 @@
 <% 
 String info_id = (String)session.getAttribute("info_id");
 String business_id = (String)session.getAttribute("business_id");
-String saveok = (String) session.getAttribute("saveok");
+String saveok = (String)session.getAttribute("saveok");
 
 boolean save = true;
 
@@ -143,26 +143,6 @@ else{
 	save=true;	
 }
 
-Cookie[] cookies = request.getCookies();
-if(cookies != null) {
-	for(Cookie cookie : cookies) {
-		if(cookie.getName().equals("infoId")){
-			String infoId = cookie.getValue();
-			
-			request.setAttribute("infoId", infoId);
-			
-		}
-		else if(cookie.getName().equals("businessId")){
-			String businessId = cookie.getValue();
-			
-			request.setAttribute("businessId", businessId);
-			break;
-		}
-	}
-	
-}
-
-/*String naverLoginLink*/
 %>
 <body>
 <div align="center">
@@ -195,7 +175,7 @@ if(cookies != null) {
 						<form action="/login/member-login" method="post">
 							<span class="id">아이디 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 							<input type="text" name="info_id" style="width: 200px;" class="form-control"
-								required="required" value="${sessionScope.saveok==null?'':requestScope.infoId }">
+								required="required" value="${sessionScope.saveok==null?'':sessionScope.info_id }">
 							</span>
 							 <br><br>
 							<span class="member input-group">	
@@ -221,7 +201,7 @@ if(cookies != null) {
 						<form action="/login/business-login" method="post" >
 							<span class="businessId">사업자번호 &nbsp;&nbsp; 
 							<input type="text" name="business_id" id="bNum" required="required"
-								style="width: 190px;" class="form-control" value="${sessionScope.saveok==null?'':requestScope.businessId }">
+								style="width: 190px;" class="form-control" value="${sessionScope.saveok==null?'':sessionScope.business_id }">
 							</span>	
 							 <br> 
 							<span class="business input-group">

@@ -78,6 +78,9 @@
     <select id="getAccomName" parameterType="int" resultType="AccomDto">
         select * from accom where accom_num=#{accom_num}
     </select>
+    <select id="getAccomDataById" parameterType="String" resultType="AccomDto">
+        select * from accom where business_id=#{business_id}
+    </select>
 
 
 </mapper>

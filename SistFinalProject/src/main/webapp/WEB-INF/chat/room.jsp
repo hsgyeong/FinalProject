@@ -77,16 +77,22 @@
         }
     </style>
 </head>
+<%
+    String sender_id=(String) session.getAttribute("info_id");
+%>
 
 <script type="text/javascript">
-    function goChatting(room_num){
+
+    function goChatting(room_num,accom_num,roomName){
+
         location.href="goChattingRoom?room_num="+room_num;
     }
 
 
+
+
 </script>
 <body>
-<h1>울고 싶지 않아~</h1>
     <div class="container">
         <h1>채팅방</h1>
         <div id="roomContainer" class="roomContainer">
@@ -99,11 +105,10 @@
                 <c:forEach var="chatRoom" items="${chatRoomList}" varStatus="idx">
                     <tr>
                         <td class="num">${idx.count}</td>
-                        <td class="room"><b>${roomName}_${chatRoom.room_num}</b></td>
+                        <td class="room"><b>${chatRoom.accom_name}_${chatRoom.room_num}</b></td>
                         <td class="go"><button type="button" id="goRoomBtn" onclick="goChatting(${chatRoom.room_num})" accom_num="${chatRoom.accom_num}" >참여</button> </td>
                     </tr>
                 </c:forEach>
-
             </table>
         </div>
     </div>

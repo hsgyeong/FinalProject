@@ -99,6 +99,8 @@ public class MemberController {
 		
 		MemberDto memberDto = service.getDataById(info_id);
 		
+		session.setAttribute("info_id", memberDto.getInfo_id());
+		
 		model.addAttribute("memberDto", memberDto);
 		
 		return "/member/memberMyTriview";

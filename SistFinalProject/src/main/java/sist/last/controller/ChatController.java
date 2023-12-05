@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import sist.last.chat.Room;
+import sist.last.dto.AccomDto;
 import sist.last.dto.ChatDto;
 import sist.last.dto.ChatRoomDto;
 import sist.last.mapper.AccomMapperInter;
@@ -36,64 +37,105 @@ public class ChatController {
 
     @PostMapping("/createRoom")
     @ResponseBody
-    public int createRoom(@RequestParam int accom_num,
+    public String createRoom(@RequestParam int accom_num,
+                          @RequestParam String accom_name,
                           HttpSession session){
-        String info_id=(String) session.getAttribute("info_id");
+        String sender_id=(String) session.getAttribute("info_id");
         String business_id=(String)session.getAttribute("business_id");
-
-        String sender_id = null;
-
-        if (info_id!=null){
-            sender_id=info_id;
-        } else if (business_id!=null) {
-            sender_id=business_id;
-        }
+//        int loginCheckNum=0;
+//        if (info_id!=null){
+//            sender_id=info_id;
+//        } else if (business_id!=null) {
+//            sender_id=business_id;
+//        }
 
         // 판매자의 user_num을 찾을 수 있도록 수정해야 됨
 //        String business_id="test2";
         String receiver_id=accomMapperInter.getOneData(accom_num).getBusiness_id();
 
         // 현재 채팅을 보내려는 사용자가 판매자이면 방을 생성할 수 없음
-        if(sender_id.equals(receiver_id)){
-            return 0;
+        if(sender_id==null&&business_id==null){
+            return "logingogo";
+        } else if (sender_id==null&&business_id!=null) {
+            return "infogogo";
         } else {
             // 기존에 존재하는 채팅방이라면 그곳으로 이동
             Map<String,Object>map=new HashMap<>();
             map.put("sender_id",sender_id);
             map.put("accom_num",accom_num);
-            String room=roomMapperInter.checkChatRoom(map);
+            map.put("accom_name",accom_name);
+            String cheackRoomNum=roomMapperInter.checkChatRoom(map);
 
-            if (room!=null){
-                return Integer.parseInt(room);
+            if (cheackRoomNum!=null){
+                return cheackRoomNum;
             } else { // 없다면 새로 방 생성후 생성된 방으로 이동
                 ChatRoomDto chatRoomDto=new ChatRoomDto();
                 chatRoomDto.setAccom_num(accom_num);
+                chatRoomDto.setAccom_name(accom_name);
                 chatRoomDto.setSender_id(sender_id);
                 chatRoomDto.setReceiver_id(receiver_id);
                 roomMapperInter.insertRoom(chatRoomDto);
-                return roomMapperInter.getMaxNum();
-
+                return String.valueOf(roomMapperInter.getMaxNum());
             }
-
         }
     }
 
     @GetMapping("/goSellerRooms")
     public ModelAndView goSellerRooms(@RequestParam int accom_num,
                                 @RequestParam int room_num,
-                                Model model){
+                                @RequestParam String accom_name,
+                                Model model,
+                                      HttpSession session){
         ModelAndView mv=new ModelAndView();
 
+        String info_id=(String)session.getAttribute("info_id");
+        String business_id=(String)session.getAttribute("business_id");
+        String myid=(String) session.getAttribute("myid");
+        String sender_id=null;
+
+        if (info_id!=null){
+            sender_id=info_id;
+        } else if (business_id!=null) {
+            sender_id=business_id;
+        } else if (myid!=null) {
+            sender_id=myid;
+        }
+
+        // list에 담아서 보내고.. 그걸 반복문으로 돌려서 찾는다.
+
         List<ChatRoomDto> chatRoomList=roomMapperInter.getChatRoomByAccom(accom_num);
+        Map<String,Object>map=new HashMap<>();
+        map.put("accom_num",accom_num);
+        map.put("sender_id",sender_id);
+        map.put("accom_name",accom_name);
+        System.out.println(accom_num);
+        System.out.println(room_num);
+        System.out.println(accom_name);
+//        room_num=roomMapperInter.getChatRoomByAccomAndSender(map).getRoom_num();
+        room_num=roomMapperInter.getChatRoomByAccomAndSender(map);
 
-        String roomName=accomMapperInter.getOneData(accom_num).getAccom_name();
 
-        mv.addObject("chatRoomList",chatRoomList);
-        mv.addObject("roomName",roomName);
-        mv.addObject("accom_num",accom_num);
-        mv.addObject("room_num",room_num);
+        // goSellerRoom : 비지니스 아이디 막아버리고.
+        // 비지니스 아이디 아닐때 뜨게 하고
+        // 비지니스 아이디의 경우 list 뜨게 하기.
 
-        mv.setViewName("/chat/room");
+//        String roomName=accomMapperInter.getOneData(accom_num).getAccom_name();
+
+        String roomName=accomMapperInter.getOneData(roomMapperInter.getChatRoom(room_num).getAccom_num()).getAccom_name();
+
+//        mv.addObject("chatRoomList",chatRoomList);
+//        mv.addObject("roomName",roomName);
+//        mv.addObject("accom_num",accom_num);
+//        mv.addObject("room_num",room_num);
+//        mv.addObject("sender_id",sender_id);
+//        room_num=chatRoomDto.getRoom_num();
+//        System.out.println("이게 맞나?"+room_num);
+
+
+        model.addAttribute("room_num",room_num);
+        model.addAttribute("roomName",roomName);
+
+        mv.setViewName("/chat/chat");
 
         return mv;
     }
@@ -107,8 +149,8 @@ public class ChatController {
         model.addAttribute("room_num",room_num);
         model.addAttribute("roomName",roomName);
 
-        System.out.println(room_num);
-        System.out.println(roomName);
+//        System.out.println(room_num);
+//        System.out.println(roomName);
 
         return "/chat/chat";
     }
@@ -168,15 +210,15 @@ public class ChatController {
                 // 하루 이상이 지났으면 일수만 표시
                 preTime=""+day+"일 전";
             } else {
-                if (hour!=0){
-                    // 1분 이상 지났으면 분만 표시
-                    preTime=""+minute+"분 전";
+                if(hour!=0) {
+                    //1시간 이상이 지났으면 시(hour)만 표시
+                    preTime=""+hour+"시간 전";
                 } else {
-                    if (minute!=0){
+                    if(minute!=0) {
                         //1분 이상이 지났으면 분만 표시
                         preTime=""+minute+"분 전";
-                    } else {
-                        // 1분 미만 방금전 표시
+                    }else {
+                        //1분 미만 초만 표시
                         preTime="방금 전";
                     }
                 }
@@ -210,6 +252,25 @@ public class ChatController {
         map.put("upload",uploadName);
 
         return map;
+    }
+
+    @GetMapping("/chatlist")
+    public ModelAndView chatList(HttpSession session){
+        ModelAndView mv=new ModelAndView();
+        String receiver_id=(String) session.getAttribute("business_id");
+
+        List<ChatRoomDto> chatRoomList=roomMapperInter.getChatRoomListByReceiverId(receiver_id);
+
+//        List<AccomDto> ChatRoomName=accomMapperInter.getAccomDataById(receiver_id);
+//        System.out.println(chatRoomList);
+
+
+        mv.addObject("chatRoomList",chatRoomList);
+//        mv.addObject("ChatRoomName",ChatRoomName);
+
+        mv.setViewName("/chat/room");
+
+        return mv;
     }
 
 //    @PostMapping("/loginCheckForChat")

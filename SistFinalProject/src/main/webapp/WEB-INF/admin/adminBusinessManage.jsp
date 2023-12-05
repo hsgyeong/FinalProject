@@ -44,7 +44,7 @@
 			</tr>
 			<c:if test="${totalCount==0 }">
 				<tr>
-					<td colspan="5" align="center">
+					<td colspan="6" align="center">
 						<h3>결제 내역이 없습니다</h3>
 					</td>
 				</tr>

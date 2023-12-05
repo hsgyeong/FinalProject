@@ -18,5 +18,8 @@ public interface ChatRoomMapperInter {
     public void insertRoom(ChatRoomDto chatRoomDto); // sender_id는 현재 로그인한 사용자(sender)이고, receiver_id는 상품의 판매자가 됨
     public List<ChatRoomDto> getChatRoomByUser(String sender_id); // user 아이디에 대한 채팅방의 리스트
     public List<ChatRoomDto> getChatRoomByAccom(int accom_num);
+    public int getChatRoomByAccomAndSender(Map<String,Object>map);
+    public List<ChatRoomDto> getChatRoomListByReceiverId(String receiver_id);
+    public String getChatRoomNameByAccomAndSender(Map<String,Object>map);
 
 }
