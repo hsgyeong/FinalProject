@@ -21,9 +21,11 @@ spring:
 #mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://finalproject-sist0615.crsfihj2wlpy.ap-northeast-2.rds.amazonaws.com/finalproject
-    username: Sist0615_1st
-    password: Tkddyd1109!#
+    url: jdbc:mysql://localhost:3306/finalproject?serverTimezone=Asia/Seoul
+    username: sgyeong
+    password: 1234
+   #username: Sist0615_1st
+   #password: Tkddyd1109!#
 
     
 #mybatis setting
