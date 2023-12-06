@@ -245,7 +245,7 @@ else{
 					<img alt="" src="../loginsave/kakao.png" style="cursor: pointer; width:145px;height:40px;">
 					</a>
 					&nbsp;&nbsp;&nbsp;
-					<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=HGSZO2Y2v6oIfhPXDCxu&state=test&redirect_uri=http://localhost:9000/login/naver-member">
+					<a href="/login/naverLogin">
 					<img alt="" src="../loginsave/naver.png" style="cursor: pointer; width:145px;height:40px;">
 					</a>
 					</div>
@@ -285,7 +285,7 @@ $(document).ready(function(){
 		} 
 	});
 
-	$(".businessShowPass").click(function(){
+	$(".businessShowPass").click(function(){ 
 		
 		var businessPass = $("#business_pass");
 		
