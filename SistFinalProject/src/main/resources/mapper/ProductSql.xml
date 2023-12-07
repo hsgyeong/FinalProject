@@ -15,7 +15,7 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by A.accom_score desc, B.room_price asc
+        order by MIN(A.accom_score) desc, MIN(B.room_price) asc
     </select>
     <select id="getProductDataOfHashTag" resultType="productDto" parameterType="String">
         select A.accom_num, A.accom_name, A.accom_category, A.accom_location, A.accom_hashtag,
@@ -26,7 +26,7 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by A.accom_score desc, B.room_price asc
+        order by MIN(A.accom_score) desc, MIN(B.room_price) asc
     </select>
     <select id="getProductDataOfLocation" resultType="productDto" parameterType="String">
         select A.accom_num, A.accom_name, A.accom_category, A.accom_location, A.accom_hashtag,
@@ -37,7 +37,7 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by A.accom_score desc, B.room_price asc
+        order by MIN(A.accom_score) desc, MIN(B.room_price) asc
     </select>
     <select id="getProductDataOfName" resultType="productDto" parameterType="String">
         select A.accom_num, A.accom_name, A.accom_category, A.accom_location, A.accom_hashtag,
@@ -48,7 +48,7 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by A.accom_score desc, B.room_price asc
+        order by MIN(A.accom_score) desc, MIN(B.room_price) asc
     </select>
     <select id="getProductOfCategoryByLowPrice" resultType="productDto" parameterType="String">
         select A.accom_num, A.accom_name, A.accom_category, A.accom_location, A.accom_hashtag,
@@ -59,7 +59,7 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by B.room_price asc, A.accom_score desc
+        order by MIN(B.room_price) asc, MIN(A.accom_score) desc
     </select>
     <select id="getProductOfHashTagByLowPrice" resultType="productDto" parameterType="String">
         select A.accom_num, A.accom_name, A.accom_category, A.accom_location, A.accom_hashtag,
@@ -70,7 +70,7 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by B.room_price asc, A.accom_score desc
+        order by MIN(B.room_price) asc, MIN(A.accom_score) desc
     </select>
     <select id="getProductOfLocationByLowPrice" resultType="productDto" parameterType="String">
         select A.accom_num, A.accom_name, A.accom_category, A.accom_location, A.accom_hashtag,
@@ -81,7 +81,7 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by B.room_price asc, A.accom_score desc
+        order by MIN(B.room_price) asc, MIN(A.accom_score) desc
     </select>
     <select id="getProductOfNameByLowPrice" resultType="productDto" parameterType="String">
         select A.accom_num, A.accom_name, A.accom_category, A.accom_location, A.accom_hashtag,
@@ -92,7 +92,7 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by B.room_price asc, A.accom_score desc
+        order by MIN(B.room_price) asc, MIN(A.accom_score) desc
     </select>
     <select id="getProductClickOrderByLowPriceOfCategory" resultType="productDto" parameterType="Map">
         select A.accom_num, A.accom_name, A.accom_category, A.accom_location, A.accom_hashtag,
@@ -104,7 +104,7 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by B.room_price asc, A.accom_score desc
+        order by MIN(B.room_price) asc, MIN(A.accom_score) desc
     </select>
     <select id="getProductClickOrderByLowPriceOfHashTag" resultType="productDto" parameterType="Map">
         select A.accom_num, A.accom_name, A.accom_category, A.accom_location, A.accom_hashtag,
@@ -116,7 +116,7 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by B.room_price asc, A.accom_score desc
+        order by MIN(B.room_price) asc, MIN(A.accom_score) desc
     </select>
     <select id="getProductClickOrderByLowPriceOfLocation" resultType="productDto" parameterType="Map">
         select A.accom_num, A.accom_name, A.accom_category, A.accom_location, A.accom_hashtag,
@@ -128,7 +128,7 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by B.room_price asc, A.accom_score desc
+        order by MIN(B.room_price) asc, MIN(A.accom_score) desc
     </select>
     <select id="getPriceOfAccomNumber" resultType="int" parameterType="int">
         select B.room_price from accom A JOIN room B ON A.accom_num = B.accom_num
@@ -153,7 +153,7 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by B.room_price asc, A.accom_score desc
+        order by MIN(B.room_price) asc, MIN(A.accom_score) desc
     </select>
     <select id="getAllProduct" resultType="productDto">
         select A.accom_num, A.accom_name, A.accom_category, A.accom_location, A.accom_hashtag,
@@ -163,6 +163,6 @@
         GROUP BY A.accom_num, A.accom_name, A.accom_category,
         A.accom_location, A.accom_hashtag, A.accom_latitude,
         A.accom_longitude, A.accom_photo, A.accom_count
-        order by B.room_price asc, A.accom_score desc
+        order by MIN(B.room_price) asc, MIN(A.accom_score) desc
     </select>
 </mapper>
