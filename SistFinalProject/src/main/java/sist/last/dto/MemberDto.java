@@ -30,6 +30,7 @@ public class MemberDto {
 	//naver
 	public String naver_id;
 	public String naver_nickname;
+	public String naver_name;
 	public String naver_email;
 	public String naver_hp;
 	

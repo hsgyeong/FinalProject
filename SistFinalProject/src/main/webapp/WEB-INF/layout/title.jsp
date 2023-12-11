@@ -224,7 +224,17 @@
                         window.location.href = "/";
                     }
                 });
-            } else {
+            } else if(${sessionScope.loginok=='naver'}){
+            	
+            	$.ajax({
+            		
+            		url: "/logout/naverlogout",
+            		type:"get",
+            		success:function(){
+            			window.location.href="/";
+            		}
+            	});
+            }else {
                 window.location.href = "/login/logout";
             }
         })
@@ -404,6 +414,9 @@
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member'}">
                                     <li><a class="nick">${sessionScope.info_nickname }</a></li>
                                 </c:when>
+                                <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'naver'}">
+                                    <li><a class="id">${sessionScope.info_id }</a></li>
+                                </c:when>
                                 <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">
                                     <li><a class="com">${sessionScope.business_company }</a></li>
                                 </c:when>
@@ -413,7 +426,7 @@
                             </c:choose>
                         </div>
                         <c:choose>
-                            <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member' || sessionScope.loginok == 'kakao'}">
+                            <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'member' || sessionScope.loginok == 'kakao'|| sessionScope.loginok == 'naver'}">
                                 <li><a href="/member/member-mytriview">내정보</a></li>
                             </c:when>
                             <c:when test="${sessionScope.loginok != null && sessionScope.loginok == 'business'}">

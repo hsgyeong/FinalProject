@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.Errors;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import sist.last.dto.MemberDto;
 import sist.last.dto.ReserveDto;
 
@@ -38,4 +40,13 @@ public interface MemberMapperInter {
 	public void insertKakaoMember(MemberDto memberDto);
 	public int getSearchKakaoId(String kakao_id);
 	public MemberDto getDataByKakaoId(String loggedKakaoId);
+	
+	//naver
+	public String getAccessToken(String authorization_code, String state);
+	public JsonNode getNaverUserInfo(String authorization_code, String state);
+	public int getSearchNaverId(String naver_id);
+	public MemberDto getDataByNaverId(String loggedNaverId);
+	public void insertNaverMember(MemberDto memberDto);
+	public void naverLogout(String authorization_code);
+	
 }

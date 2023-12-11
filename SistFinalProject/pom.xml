@@ -102,8 +102,6 @@
     	<version>3.1.2</version>
 	</dependency>
 
-
-
 		<!-- jstl -->
 		<dependency>
 			<groupId>jstl</groupId>
@@ -141,12 +139,13 @@
 			<artifactId>cos</artifactId>
 			<version>05Nov2002</version>
 		</dependency>
-
-
-
-
-
-
+	
+		<dependency> <!-- oauth 라이브러리 -->
+			<groupId>com.github.scribejava</groupId>
+			<artifactId>scribejava-core</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+			
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
