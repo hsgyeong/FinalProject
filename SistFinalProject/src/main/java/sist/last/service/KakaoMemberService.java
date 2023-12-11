@@ -146,10 +146,10 @@ public class KakaoMemberService implements KakaoMemberServiceInter {
 			Map<String, Object> jsonMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {
 			});
 			
-			System.out.println(jsonMap.get("properties"));
-			
 			Map<String, Object> properties = (Map<String, Object>)
 			jsonMap.get("properties");
+			System.out.println(jsonMap.get("properties"));
+			
 			Map<String, Object> kakao_account = (Map<String, Object>)
 			jsonMap.get("kakao_account");
 			

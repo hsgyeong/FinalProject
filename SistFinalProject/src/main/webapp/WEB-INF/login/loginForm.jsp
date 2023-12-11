@@ -1,3 +1,5 @@
+<%@page import="java.security.SecureRandom"%>
+<%@page import="java.math.BigInteger"%>
 <%@page import="javax.swing.text.Document"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
@@ -245,6 +247,10 @@ else{
 					<img alt="" src="../loginsave/kakao.png" style="cursor: pointer; width:145px;height:40px;">
 					</a>
 					&nbsp;&nbsp;&nbsp;
+					<% 
+					SecureRandom random = new SecureRandom();
+					String state = new BigInteger(130, random).toString();
+					%>
 					<a href="/login/naverLogin">
 					<img alt="" src="../loginsave/naver.png" style="cursor: pointer; width:145px;height:40px;">
 					</a>

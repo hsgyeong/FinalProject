@@ -64,4 +64,16 @@
  select info_pass from info where info_id = #{info_id}
  </select>
  
+  <select id="getSearchNaverId" resultType="int" parameterType="String">
+ select count(*) from info where info_id = #{naver_id}
+ </select>
+ 
+ <select id="getDataByNaverId" resultType="member" parameterType="String">
+ select * from info where info_id = #{naver_nickname}
+ </select>
+ 
+  <insert id="insertNaverMember" parameterType="member">
+ insert into info values (#{naver_id},#{naver_name},#{naver_nickname},"",#{naver_hp},#{naver_email},"",0,0,now())
+ </insert>
+ 
  </mapper>
