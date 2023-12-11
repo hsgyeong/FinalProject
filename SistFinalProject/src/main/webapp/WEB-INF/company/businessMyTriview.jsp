@@ -151,13 +151,13 @@
 		<span style="color:gray; float: right;">365일 오전 9시~익일 오전 2시</span><br><br>
 		</div>
 		<div style="display: flex;">
-		<a class="announce"><i class="bi bi-megaphone" style="font-size:70px; margin-right: 150px;"></i><br>공지사항</a>	
+		<a class="announce"><i class="bi bi-megaphone" style="font-size:70px; margin-right: 92px;"></i><br>공지사항</a>	
 	
-		<a class="qna"><i class="bi bi-question-circle" style="font-size:70px; margin-right: 150px;"></i><br>자주 묻는 질문</a>
+		<a class="qna"><i class="bi bi-question-circle" style="font-size:70px; margin-right: 92px;"></i><br>자주 묻는 질문</a>
 	
-		<a class="chatbot"><i class="bi bi-robot" style="font-size:70px; margin-right: 150px;"></i><br>&nbsp;챗봇상담</a>
+		<a class="chatbot"><i class="bi bi-robot" style="font-size:70px; margin-right: 92px;"></i><br>&nbsp;챗봇상담</a>
 	
-		<a class="ask"><i class="bi bi-headset" style="font-size:70px; margin-right: 28px;"></i><br>고객상담센터</a><br><br>
+		<a class="ask"><i class="bi bi-headset" style="font-size:70px; "></i><br>고객상담센터</a><br><br>
 		</div>	
 		<br><br><br>
 		</td>

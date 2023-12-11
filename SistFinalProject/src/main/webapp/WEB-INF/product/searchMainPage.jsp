@@ -226,6 +226,8 @@
         display: flex;
         flex-direction: column; /* 아래로 정렬 */
         flex-grow: 1;
+        width: 43%;
+        margin-top: -2vh;
     }
 
     .accom-info {
@@ -928,7 +930,7 @@
                             </c:if>
                         </div>
                         <div class="room-amount">
-                            <b><fmt:formatNumber value="${list.room_price}" pattern="###,###"/>원</b>
+                            <b><fmt:formatNumber value="${list.room_price*sleep}" pattern="###,###"/>원</b>
                         </div>
                     </div>
                 </div>

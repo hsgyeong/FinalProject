@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/messagejscss/emoji_jk.css" type="text/css" rel="stylesheet">
     <link href="/messagejscss/chat.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -68,11 +69,16 @@
                 // alert("res확인"+res);
                 var chatContent="";
                 $.each(res,function (i,ele){
-                   if (ele.sender_id=="${sessionScope.info_id}"||ele.sender_id=="${sessionScope.business_id}"){
-                       chatContent+="<div class='me-box'><p class='me' style='text-align: right;'>("+ele.mess_time+")&nbsp;&nbsp;나:"+ele.mess_content+"</p></div>";
+                   if (ele.sender_id=="${sessionScope.info_id}"){
+                       chatContent+="<p class='me' style='text-align: right;'>("+ele.mess_time+")&nbsp;&nbsp;"+ele.mess_content+"</p>";
                    } else {
-                       chatContent+="<div class='others-box'><p class='others' style='text-align: left;'>상대:"+ele.mess_content+"("+ele.mess_time+")&nbsp;&nbsp;</p></div>";
+                       chatContent+="<p class='other' style='text-align: left;'>"+ele.mess_content+"("+ele.mess_time+")&nbsp;&nbsp;</p>";
                    }
+                    <%--if (ele.sender_id=="${sessionScope.info_id}"){--%>
+                    <%--    chatContent+="<div class='speech'><p class='me d-inline-flex'><p>("+ele.mess_time+")&nbsp;&nbsp;"+ele.mess_content+"</p></div>";--%>
+                    <%--} else if (ele.sender_id=="${sessionScope.business_id}"){--%>
+                    <%--    chatContent+="<div class='others-box'><p class='others'>"+ele.mess_content+"<div class='date-box'>("+ele.mess_time+")&nbsp;&nbsp;</div></p><div>";--%>
+                    <%--}--%>
                 });
 
                 $("#chatShow").html(chatContent);
@@ -206,77 +212,81 @@
     </div>
 
     <input type="hidden" id="room_num" value="${room_num}">
+
     <%--    채팅이 보이는 구간    --%>
-    <div class="chatlist">
-        <div id="chatShow" class="chating"></div>
-    </div>
-    <div class="messagefilepreview"></div>
-    <div class="footer-outline-box">
-    <div class="messagefooter">
-        <div class="chatinputbox d-inline-flex">
-            <input type="text" id="chatting" placeholder="채팅 입력">&nbsp;&nbsp;
-            <i class="bi bi-send" onclick="send()" id="sendBtn"></i>
+    <div class="chat-box">
+        <div class="chatlist">
+            <div id="chatShow" class="chating"></div>
         </div>
-        <%--     이모지 시작       --%>
-        <div class="chatemoji d-inline-flex">
-            <%-- 이모지 버튼 --%>
-            <i class="bi bi-emoji-smile emoji_pickup emoji_i" id="emoji_pickup_before"></i>
-            <i class="bi bi-emoji-smile-fill emoji_pickup emoji_i" id="emoji_pickup_after"></i>&nbsp;&nbsp;
-<%--            <img class="emoji_pickup" id="emoji_pickup_before" src="/messagejscss/img/emoji/1f642.png">--%>
-<%--            <img class="emoji_pickup" id="emoji_pickup_after" src="/messagejscss/img/emoji/1f600.png">--%>
-            <%-- 첨부파일 버튼 --%>
-            <div class="chatupload">
-            <input type="file" accept="image/jpeg,.png,.gif,.jpg" id="msgfileupload" style="display: none;">
-            <i class="bi bi-image chatuploadicon" style="font-size: 2em;"></i>
+        <div class="messagefilepreview"></div>
+        <div class="footer-outline-box">
+        <div class="messagefooter">
+            <div class="chatinputbox d-inline-flex">
+<%--                <input type="text" id="chatting" placeholder="채팅 입력">&nbsp;&nbsp;--%>
+                <textarea id="chatting" placeholder="채팅 입력"></textarea>&nbsp;
+                <i class="bi bi-send" onclick="send()" id="sendBtn"></i>
             </div>
-            <div id="emoji_popup">
-<%--                emoji popup div start --%>
-                <div id="people">
-                    <h5>People</h5>
+            <%--     이모지 시작       --%>
+            <div class="chatemoji d-inline-flex">
+                <%-- 이모지 버튼 --%>
+                <i class="bi bi-emoji-smile emoji_pickup emoji_i" id="emoji_pickup_before"></i>
+                <i class="bi bi-emoji-smile-fill emoji_pickup emoji_i" id="emoji_pickup_after"></i>&nbsp;&nbsp;
+    <%--            <img class="emoji_pickup" id="emoji_pickup_before" src="/messagejscss/img/emoji/1f642.png">--%>
+    <%--            <img class="emoji_pickup" id="emoji_pickup_after" src="/messagejscss/img/emoji/1f600.png">--%>
+                <%-- 첨부파일 버튼 --%>
+                <div class="chatupload">
+                <input type="file" accept="image/jpeg,.png,.gif,.jpg" id="msgfileupload" style="display: none;">
+                <i class="bi bi-image chatuploadicon" style="font-size: 2em;"></i>
                 </div>
-                <span class="emoji_list" id="&#x1F601;">&#x1F601;</span>
-                <span class="emoji_list" id="&#x1F602;">&#x1F602;</span>
-                <span class="emoji_list" id="&#x1F603;">&#x1F603;</span>
-                <span class="emoji_list" id="&#x1F604;">&#x1F604;</span>
-                <span class="emoji_list" id="&#x1F605;">&#x1F605;</span>
-                <span class="emoji_list" id="&#x1F606;">&#x1F606;</span>
-                <span class="emoji_list" id="&#x1F609;">&#x1F609;</span>
-                <span class="emoji_list" id="&#x1F60A;">&#x1F60A;</span>
-                <span class="emoji_list" id="&#x1F60B;">&#x1F60B;</span>
-                <span class="emoji_list" id="&#x1F60C;">&#x1F60C;</span>
-                <span class="emoji_list" id="&#x1F60D;">&#x1F60D;</span>
-                <span class="emoji_list" id="&#x1F60F;">&#x1F60F;</span>
-                <span class="emoji_list" id="&#x1F612;">&#x1F612;</span>
-                <span class="emoji_list" id="&#x1F613;">&#x1F613;</span>
-                <span class="emoji_list" id="&#x1F614;">&#x1F614;</span>
-                <span class="emoji_list" id="&#x1F616;">&#x1F616;</span>
-                <span class="emoji_list" id="&#x1F618;">&#x1F618;</span>
-                <span class="emoji_list" id="&#x1F61A;">&#x1F61A;</span>
-                <span class="emoji_list" id="&#x1F61C;">&#x1F61C;</span>
-                <span class="emoji_list" id="&#x1F61D;">&#x1F61D;</span>
-                <span class="emoji_list" id="&#x1F61E;">&#x1F61E;</span>
-                <span class="emoji_list" id="&#x1F620;">&#x1F620;</span>
-                <span class="emoji_list" id="&#x1F621;">&#x1F621;</span>
-                <span class="emoji_list" id="&#x1F622;">&#x1F622;</span>
-                <span class="emoji_list" id="&#x1F623;">&#x1F623;</span>
-                <span class="emoji_list" id="&#x1F624;">&#x1F624;</span>
-                <span class="emoji_list" id="&#x1F625;">&#x1F625;</span>
-                <span class="emoji_list" id="&#x1F628;">&#x1F628;</span>
-                <span class="emoji_list" id="&#x1F629;">&#x1F629;</span>
-                <span class="emoji_list" id="&#x1F62A;">&#x1F62A;</span>
-                <span class="emoji_list" id="&#x1F62B;">&#x1F62B;</span>
-                <span class="emoji_list" id="&#x1F62D;">&#x1F62D;</span>
-                <span class="emoji_list" id="&#x1F630;">&#x1F630;</span>
-                <span class="emoji_list" id="&#x1F631;">&#x1F631;</span>
-                <span class="emoji_list" id="&#x1F632;">&#x1F632;</span>
-                <span class="emoji_list" id="&#x1F633;">&#x1F633;</span>
-                <span class="emoji_list" id="&#x1F635;">&#x1F635;</span>
-                <span class="emoji_list" id="&#x1F637;">&#x1F637;</span>
-<%--                emoji popup div end --%>
+                <div id="emoji_popup">
+    <%--                emoji popup div start --%>
+                    <div id="people">
+                        <h5>People</h5>
+                    </div>
+                    <span class="emoji_list" id="&#x1F601;">&#x1F601;</span>
+                    <span class="emoji_list" id="&#x1F602;">&#x1F602;</span>
+                    <span class="emoji_list" id="&#x1F603;">&#x1F603;</span>
+                    <span class="emoji_list" id="&#x1F604;">&#x1F604;</span>
+                    <span class="emoji_list" id="&#x1F605;">&#x1F605;</span>
+                    <span class="emoji_list" id="&#x1F606;">&#x1F606;</span>
+                    <span class="emoji_list" id="&#x1F609;">&#x1F609;</span>
+                    <span class="emoji_list" id="&#x1F60A;">&#x1F60A;</span>
+                    <span class="emoji_list" id="&#x1F60B;">&#x1F60B;</span>
+                    <span class="emoji_list" id="&#x1F60C;">&#x1F60C;</span>
+                    <span class="emoji_list" id="&#x1F60D;">&#x1F60D;</span>
+                    <span class="emoji_list" id="&#x1F60F;">&#x1F60F;</span>
+                    <span class="emoji_list" id="&#x1F612;">&#x1F612;</span>
+                    <span class="emoji_list" id="&#x1F613;">&#x1F613;</span>
+                    <span class="emoji_list" id="&#x1F614;">&#x1F614;</span>
+                    <span class="emoji_list" id="&#x1F616;">&#x1F616;</span>
+                    <span class="emoji_list" id="&#x1F618;">&#x1F618;</span>
+                    <span class="emoji_list" id="&#x1F61A;">&#x1F61A;</span>
+                    <span class="emoji_list" id="&#x1F61C;">&#x1F61C;</span>
+                    <span class="emoji_list" id="&#x1F61D;">&#x1F61D;</span>
+                    <span class="emoji_list" id="&#x1F61E;">&#x1F61E;</span>
+                    <span class="emoji_list" id="&#x1F620;">&#x1F620;</span>
+                    <span class="emoji_list" id="&#x1F621;">&#x1F621;</span>
+                    <span class="emoji_list" id="&#x1F622;">&#x1F622;</span>
+                    <span class="emoji_list" id="&#x1F623;">&#x1F623;</span>
+                    <span class="emoji_list" id="&#x1F624;">&#x1F624;</span>
+                    <span class="emoji_list" id="&#x1F625;">&#x1F625;</span>
+                    <span class="emoji_list" id="&#x1F628;">&#x1F628;</span>
+                    <span class="emoji_list" id="&#x1F629;">&#x1F629;</span>
+                    <span class="emoji_list" id="&#x1F62A;">&#x1F62A;</span>
+                    <span class="emoji_list" id="&#x1F62B;">&#x1F62B;</span>
+                    <span class="emoji_list" id="&#x1F62D;">&#x1F62D;</span>
+                    <span class="emoji_list" id="&#x1F630;">&#x1F630;</span>
+                    <span class="emoji_list" id="&#x1F631;">&#x1F631;</span>
+                    <span class="emoji_list" id="&#x1F632;">&#x1F632;</span>
+                    <span class="emoji_list" id="&#x1F633;">&#x1F633;</span>
+                    <span class="emoji_list" id="&#x1F635;">&#x1F635;</span>
+                    <span class="emoji_list" id="&#x1F637;">&#x1F637;</span>
+    <%--                emoji popup div end --%>
+                </div>
             </div>
+    <%--        이모지 끝 --%>
         </div>
-<%--        이모지 끝 --%>
-    </div>
+        </div>
     </div>
 </div>
 

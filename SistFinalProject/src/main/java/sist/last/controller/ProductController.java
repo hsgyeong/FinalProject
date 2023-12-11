@@ -204,19 +204,23 @@ public class ProductController {
     private List<ProductDto> searchCompareKeyword(String keyword) {
         List<ProductDto> categoryList = pService.getProductDataOfCategory(keyword);
         if (!categoryList.isEmpty()) {
+            System.out.println("카테고리");
             return categoryList;
-        }
-        List<ProductDto> hashtagList = pService.getProductDataOfHashTag(keyword);
-        if (!hashtagList.isEmpty()) {
-            return hashtagList;
         }
         List<ProductDto> locationList = pService.getProductDataOfLocation(keyword);
         if (!locationList.isEmpty()) {
+            System.out.println("지역");
             return locationList;
         }
         List<ProductDto> nameList = pService.getProductDataOfName(keyword);
         if (!nameList.isEmpty()) {
+            System.out.println("이름");
             return nameList;
+        }
+        List<ProductDto> hashtagList = pService.getProductDataOfHashTag(keyword);
+        if (!hashtagList.isEmpty()) {
+            System.out.println("해시태그");
+            return hashtagList;
         }
         return null;
     }
@@ -467,10 +471,6 @@ public class ProductController {
         if (!categoryList.isEmpty()) {
             return categoryList;
         }
-        List<ProductDto> hashtagList = pService.getProductOfHashTagByLowPrice(keyword);
-        if (!hashtagList.isEmpty()) {
-            return hashtagList;
-        }
         List<ProductDto> locationList = pService.getProductOfLocationByLowPrice(keyword);
         if (!locationList.isEmpty()) {
             return locationList;
@@ -478,6 +478,10 @@ public class ProductController {
         List<ProductDto> nameList = pService.getProductOfNameByLowPrice(keyword);
         if (!nameList.isEmpty()) {
             return nameList;
+        }
+        List<ProductDto> hashtagList = pService.getProductOfHashTagByLowPrice(keyword);
+        if (!hashtagList.isEmpty()) {
+            return hashtagList;
         }
         return null;
     }

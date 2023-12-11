@@ -24,7 +24,8 @@ spring:
     url: jdbc:mysql://localhost:3306/finalproject?serverTimezone=Asia/Seoul
     username: devil
     password: a1234
-
+   #username: Sist0615_1st
+   #password: Tkddyd1109!#
     
 #mybatis setting
 mybatis:

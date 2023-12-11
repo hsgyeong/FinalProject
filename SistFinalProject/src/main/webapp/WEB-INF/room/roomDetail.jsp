@@ -220,9 +220,9 @@
 .detail_room_reserve {
 
 	width: 40%;
-	height: 30vh;
+	height: 35vh;
 	margin: 2vh 2vh 2vh 0px;
-	padding: 0px 2vh;
+	padding: 1vh 2vh;
 }
 
 .detail_room_select_name {
@@ -260,8 +260,7 @@
 	border-radius: 3px;
 	width: 100%;
 	height: 7vh;
-	margin-top: -2vh;
-	box-shadow: 2px 2px 2px silver;
+	box-shadow: 2px 2px 2px silver;	
 }
 
 .detail_suk_info{
@@ -485,6 +484,7 @@
 						alert("개인 회원만 사용 가능한 메뉴입니다.")
 					} else if (res!=null){
 						res=parseInt(res);
+
 						// location.href="/chat/goSellerRooms?room_num="+res;
 						location.href="/chat/goSellerRooms?room_num="+res+"&accom_num="+accom_num+"&accom_name="+accom_name;
 					}
@@ -595,7 +595,7 @@
 
 		<div class="detail_select">
 			<ul>
-				<li class="detail_select_1">객실안내/예약</li>
+				<li class="detail_select_1">객실안내/예약 ${session.Scope.info_id}</li>
 				<li class="detail_select_2">숙소위치</li>
 				<li class="detail_select_3">리뷰</li>
 			</ul>
@@ -634,9 +634,14 @@
 					
 
 					
-						<c:if test="${roomExist > 0 }">
+						<c:if test="${roomExist > 0 and loginok != null}">
 						<button type="button" class="room_detail_reserve_btn"
 							onclick="location.href='/reserve/reserve-form?room_num=${rdto.room_num}&checkin=${checkin }&checkout=${checkout }&sleep=${sleep }&accom_name=${accom_name}&room_name=${rdto.room_name }&accom_num=${rdto.accom_num }'">예약</button>
+						</c:if>
+						
+						<c:if test="${roomExist > 0 and loginok == null}">
+						<button type="button" class="room_detail_reserve_btn" id="btnalert"
+							onclick="location.href='/login/loginmain'">예약</button>
 						</c:if>
 						
 						<c:if test="${roomExist == 0 }">
@@ -649,10 +654,16 @@
 	</c:forEach>
 	
 	<script>
-	$("#detail_alert").click(function() {
-		
-		alert("객실이 품절되었습니다 숙소에 문의해주세요");
-	})
+	$(document).ready(function() {
+        $("#btnalert").click(function() {
+            alert("로그인 후 이용해주세요");
+        });
+        
+        $("#detail_alert").click(function() {
+    		
+    		alert("객실이 품절되었습니다 숙소에 문의해주세요");
+    	})
+    });
 	</script>
 
 	<div class="detail_suk_info">
@@ -752,7 +763,7 @@
 	<div class="detail_review">
 	
 		<div style="margin: 5vh 0px;">
-		<h3 style="border-bottom: 2px solid silver; padding-bottom: 3vh; margin-bottom: 10vh;">총 ${count }개의 리얼 리뷰</h3>
+		<h3 style="border-bottom: 2px solid silver; padding-bottom: 3vh; margin-bottom: 10vh;">총 ${count }개의 리얼 리뷰!</h3>
 		</div>
 		
 		

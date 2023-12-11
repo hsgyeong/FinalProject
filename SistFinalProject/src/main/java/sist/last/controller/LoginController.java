@@ -83,10 +83,11 @@ public class LoginController {
             session.setMaxInactiveInterval(60 * 60 * 8);
 
             session.setAttribute("info_id", info_id);
+            session.setAttribute("infoSave", info_id);
             session.setAttribute("loginok", "member");
             session.setAttribute("saveok", cbsave);
 
-            MemberDto memberDto = service.getDataById(info_id);  //session으로 못넘김 model로 넘겨야함
+            MemberDto memberDto = service.getDataById(info_id);  
 
             session.setAttribute("info_nickname", memberDto.getInfo_nickname());
 
@@ -116,6 +117,7 @@ public class LoginController {
                 session.setMaxInactiveInterval(60 * 60 * 8);
 
                 session.setAttribute("business_id", business_id);
+                session.setAttribute("businessSave", business_id);
                 session.setAttribute("loginok", "business");
                 session.setAttribute("saveok", cbsave);
 
@@ -149,7 +151,8 @@ public class LoginController {
         if (loginok != null) {
 
         session.removeAttribute("loginok");
-
+        session.removeAttribute("info_id");
+        session.removeAttribute("business_id");
         session.removeAttribute("kakao_nickname");
     
         }

@@ -42,13 +42,15 @@ public class ChatController {
                           HttpSession session){
         String sender_id=(String) session.getAttribute("info_id");
         String business_id=(String)session.getAttribute("business_id");
+        System.out.println(sender_id);
+        System.out.println(business_id);
 //        int loginCheckNum=0;
 //        if (info_id!=null){
 //            sender_id=info_id;
 //        } else if (business_id!=null) {
 //            sender_id=business_id;
 //        }
-
+        System.out.println("info_id: "+sender_id);
         // 판매자의 user_num을 찾을 수 있도록 수정해야 됨
 //        String business_id="test2";
         String receiver_id=accomMapperInter.getOneData(accom_num).getBusiness_id();
