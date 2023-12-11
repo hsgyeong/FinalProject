@@ -220,7 +220,7 @@
             </tr>
 
             <tr>
-                <td align="center" valign="middle"><b>위치</b></td>
+                <td align="center" valign="middle"><b>숙소위치</b></td>
                 <td valign="middle">
 
                     <!-- 도로명주소 출력 -->
@@ -471,7 +471,7 @@
             </tr>
             
             <tr>
-                <td align="center" valign="middle"><b>방정보소개</b></td>
+                <td align="center" valign="middle"><b>숙소정보소개</b></td>
                 <td valign="middle">
                     <textarea class="form-control" name="accom_info" required="required">${dto.accom_info }</textarea>
                 </td>

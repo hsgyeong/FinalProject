@@ -260,7 +260,8 @@
 	border-radius: 3px;
 	width: 100%;
 	height: 7vh;
-	box-shadow: 2px 2px 2px silver;	
+	margin-top: -2vh;
+	box-shadow: 2px 2px 2px silver;
 }
 
 .detail_suk_info{

@@ -85,7 +85,7 @@
 		<td align="center" valign="middle" colspan="2" style="font-size: 1.5em;"><b>방정보수정</b></td>
 	</tr>
 	<tr>
-		<td align="center" valign="middle"><b>이름</b></td>
+		<td align="center" valign="middle"><b>방이름</b></td>
 		<td valign="middle">
 			<input type="text" class="form-control" name="room_name" required="required"
 			placeholder="ex)디럭스, 스탠다드" style="width: 30vh; height: 5vh;" value="${dto.room_name }">
@@ -93,7 +93,7 @@
 	</tr>
 	
 	<tr>
-		<td align="center" valign="middle"><b>가격</b></td>
+		<td align="center" valign="middle"><b>방가격</b></td>
 		<td valign="middle">
 			<input type="text" class="form-control" name="room_price" required="required"
 			style="width: 25vh; height: 5vh;" value="${dto.room_price }">
@@ -146,7 +146,7 @@
 	</tr>
 	
 	<tr>
-		<td align="center" valign="middle"><b>사진</b></td>
+		<td align="center" valign="middle"><b>방사진</b></td>
 		<td valign="middle">
 			<input type="file" class="form-control" name="photos" required="required" multiple="multiple"
 			style="width: 40vh; height: 5vh;">
@@ -154,7 +154,7 @@
 	</tr>
 
     <tr>
-                <td align="center" valign="middle"><b>위치</b></td>
+                <td align="center" valign="middle"><b>방위치</b></td>
                 <td valign="middle">
                     <input type="text" class="form-control" name="room_location" required="required" value=${dto.room_location }
                            placeholder="ex)202호, 304호" style="width: 50vh; height: 5vh;">
