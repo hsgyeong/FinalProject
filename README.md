@@ -85,6 +85,17 @@
 
 <div align="center">
   
+## 🎥 구현 영상
+<br>
+
+<img src="" width=""> 자기 영상 넣어주시고 width 값 조정해주세요
+
+</div>
+
+<br>
+
+<div align="center">
+  
 ## 함께한 팀원들
 <br>
 
@@ -95,16 +106,3 @@
 #### 성현 : https://github.com/dawn-sh
 
 </div>
-
-<br>
-
-<div align="center">
-  
-## 구현 영상
-<br>
-
-<img src="" width=""> 자기 영상 넣어주시고 width 값 조정해주세요
-
-</div>
-
-<br>
