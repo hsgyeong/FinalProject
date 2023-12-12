@@ -1,5 +1,5 @@
 <div align="center">
-<img src="SistFinalProject/src/main/resources/static/TRIVIEW.png" width="400">
+<img src="SistFinalProject/src/main/resources/static/TRIVIEW2.png" width="400">
 </div>
 
 ### 📍 프로젝트 소개
