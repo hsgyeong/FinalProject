@@ -88,7 +88,42 @@
 ## 🎥 구현 영상
 <br>
 
-<img src="" width=""> 자기 영상 넣어주시고 width 값 조정해주세요
+
+회원가입
+
+<br>
+
+![회원가입](https://github.com/hsgyeong/FinalProject/assets/115066507/9057c647-4ab9-4841-8a8d-49695d011d29)
+
+<br>
+<br>
+
+로그인/로그아웃
+
+<br>
+
+![로그인,로그아웃](https://github.com/hsgyeong/FinalProject/assets/115066507/e31c96b3-013c-4baf-9721-105f3238a9fb)
+
+<br>
+<br>
+
+마이페이지/정보수정/회원탈퇴
+
+<br>
+
+![마이페이지,정보수정,회원탈퇴](https://github.com/hsgyeong/FinalProject/assets/115066507/90044444-51c5-4862-8ff8-c719bbc5c20e)
+
+<br>
+<br>
+
+예약내역 리스트
+
+<br>
+
+![예약내역 리스트](https://github.com/hsgyeong/FinalProject/assets/115066507/20e89c2d-0818-4edf-b06e-e43262ca6fd4)
+
+
+
 
 </div>
 
